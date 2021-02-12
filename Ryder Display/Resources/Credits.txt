@@ -1,0 +1,15 @@
+CPU
+https://www.flaticon.com/free-icon/cpu_543234?related_id=543234&origin=tag
+GPU
+https://www.flaticon.com/free-icon/graphics-card_2000631?term=gpu&page=1&position=19&page=1&position=19&related_id=2000631&origin=search
+RAM
+https://www.flaticon.com/free-icon/ram_543279?term=ram&page=1&position=6&page=1&position=6&related_id=543279&origin=search
+Settings
+https://www.flaticon.com/free-icon/setting_4021566?term=settings&page=1&position=67&page=1&position=67&related_id=4021566&origin=search
+Headset
+https://www.flaticon.com/free-icon/headset_1017468?term=headset&page=1&position=11&page=1&position=11&related_id=1017468&origin=search
+Speaker
+https://www.flaticon.com/free-icon/speaker_4091611?term=speaker&page=1&position=69&page=1&position=69&related_id=4091611&origin=search
+
+
+
