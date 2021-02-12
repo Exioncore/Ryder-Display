@@ -81,7 +81,6 @@ class QtRoundProgressBar(QWidget):
         self._pen_foreground.setWidth(val - 1)
 
     def redraw(self):
-        self._buffer.fill(Qt.transparent)
         self._redraw = True
 
     def setGeometry(self, x, y, w, h):
@@ -102,6 +101,7 @@ class QtRoundProgressBar(QWidget):
         paint.setRenderHint(QPainter.Antialiasing)
 
         if self._redraw:
+            self._buffer.fill(Qt.transparent)
             paint.setPen(self._pen_background) 
             paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._max_angle * 16.0)
             paint.setPen(self._pen_foreground)
