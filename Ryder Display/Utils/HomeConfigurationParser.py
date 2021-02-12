@@ -57,7 +57,7 @@ class HomeConfigurationParser(object):
             if entry['type'] == 'ForegroundProcessIcon':
                 elem = ForegroundProcess(
                     window, client, server,
-                    new_pos.copy(), entry['size']
+                    new_pos.copy(), entry['size'], path[0:path.rfind('/')]
                 )
             elif entry['type'] == 'Graph':
                 unit = entry['unit']

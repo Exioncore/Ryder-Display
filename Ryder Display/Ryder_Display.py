@@ -1,3 +1,4 @@
+import os
 import sys
 import keyboard
 import threading
@@ -33,7 +34,7 @@ class Window(QMainWindow):
 
     def initialize(self, server):
         self.page = Home(self, server)
-        self.page.create_ui()
+        self.page.create_ui(os.path.dirname(os.path.abspath(__file__)))
 
 if __name__ == "__main__":
     # monkey.patch_all()

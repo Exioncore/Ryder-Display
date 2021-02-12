@@ -17,10 +17,10 @@ class ForegroundProcess(object):
     _currentProgram : str
     _iconsPath : str
 
-    def __init__(self, window, client : Client, server : Server, pos=[0, 0], size=25):
+    def __init__(self, window, client : Client, server : Server, pos=[0, 0], size=25, path=""):
         self._mutex = Lock()
         # Create cache folder if it doesn't exist
-        self._iconsPath = os.getcwd() + '/cache/icons/'
+        self._iconsPath = path + '/cache/icons/'
         if not os.path.exists(self._iconsPath):
             os.makedirs(self._iconsPath)
         # Store variables

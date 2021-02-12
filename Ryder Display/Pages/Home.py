@@ -27,9 +27,9 @@ class Home(object):
         server.add_endpoint('/status', 'status', self.newStatus)
 
     # UI Elements
-    def create_ui(self):
+    def create_ui(self, path):
         # Initialize
-        path = os.getcwd() + '\\config.json'
+        path =  path + '/config.json'
         self._fps, self._ui = HomeConfigurationParser.parse(self._window, self._client, self._server, path)
 
         # Refresher
