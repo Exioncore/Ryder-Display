@@ -115,10 +115,10 @@
       "type": "DynamicText",
       "pos": [ 29, 38 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
-      "max_text_length": "99캜",
+      "max_text_length": "99째C",
       "alignment": "center",
       "metric": [ "cpu", "temperature" ],
-      "unit": "_캜"
+      "unit": "_째C"
     },
     {
       "title": "CPU Max Thread Load",
@@ -243,10 +243,10 @@
       "type": "DynamicText",
       "pos": [ 771, 38 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
-      "max_text_length": "99캜",
+      "max_text_length": "99째C",
       "alignment": "center",
       "metric": [ "gpu", "temperature" ],
-      "unit": "_캜"
+      "unit": "_째C"
     },
     {
       "title": "GPU No Load flag",
