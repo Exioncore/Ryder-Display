@@ -543,8 +543,8 @@
     {
       "title": "Network Download",
       "type": "Graph",
-      "pos": [ 560, 280 ],
-      "size": [ 230, 40 ],
+      "pos": [ 520, 280 ],
+      "size": [ 270, 48 ],
       "thickness": 2,
       "color": "#24e49f",
       "stylesheet": [
@@ -559,8 +559,8 @@
     {
       "title": "Network Upload",
       "type": "Graph",
-      "pos": [ "d+0", "d+50" ],
-      "size": [ 230, 40 ],
+      "pos": [ "d+0", "d+53" ],
+      "size": [ 270, 48 ],
       "thickness": 2,
       "color": "#247ae4",
       "stylesheet": [
