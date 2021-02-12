@@ -32,26 +32,19 @@ class HomeConfigurationParser(object):
             is_dynamic = True
             elem = None
             update_pos = [True, True]
-            # Pos X
-            if isinstance(entry['pos'][0], str):
-                if entry['pos'][0][0] != "d":
-                    new_pos[0] = pos[0] + int(entry['pos'][0])
+            # Pos
+            for i in range(2):
+                if isinstance(entry['pos'][i], str):
+                    if entry['pos'][i][0] != "d":
+                        new_pos[i] = pos[i] + int(entry['pos'][i])
+                    else:
+                        update_pos[i] = False
+                        if len(entry['pos'][i]) > 1:
+                            new_pos[i] = pos[i] + int(entry['pos'][i][1:])
+                        else:
+                            new_pos[i] = pos[i]
                 else:
-                    update_pos[0] = False
-                    if len(entry['pos'][0]) > 1:
-                        new_pos[0] = pos[0] + int(entry['pos'][0][1:])
-            else:
-                new_pos[0] = entry['pos'][0]
-            # Pos Y
-            if isinstance(entry['pos'][1], str):
-                if entry['pos'][1][0] != "d":
-                    new_pos[1] = pos[1] + int(entry['pos'][1])
-                else:
-                    update_pos[1] = False
-                    if len(entry['pos'][1]) > 1:
-                        new_pos[1] = pos[1] + int(entry['pos'][1][1:])
-            else:
-                new_pos[1] = entry['pos'][1]
+                    new_pos[i] = entry['pos'][i]
             # Parse Element
             print(entry['title'] + ", " + str(new_pos[0]) + ", " + str(new_pos[1]))
             if entry['type'] == 'ForegroundProcessIcon':
