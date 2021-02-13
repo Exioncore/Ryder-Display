@@ -1,4 +1,3 @@
-import math
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
 from PyQt5.QtCore import Qt, QRect
@@ -22,7 +21,7 @@ class QtRoundProgressBar(QWidget):
 
         # Cache commonly reused variables
         thickness = 10
-        ofst_b = math.ceil(thickness / 2.0)
+        ofst_b = thickness / 2.0
 
         self._pen_background = QPen(QColor(40, 40, 40), thickness, Qt.SolidLine)
         self._pen_foreground = QPen(QColor('red'), thickness - 1, Qt.SolidLine)
@@ -74,7 +73,7 @@ class QtRoundProgressBar(QWidget):
         self._target_angle = (self._max_angle / self._bounds_range * (self._current_value - self._bounds[0]))
 
     def setThickness(self, val):
-        ofst_b = math.ceil(val / 2.0)
+        ofst_b = val / 2.0
         self._rect_arc = QRect(ofst_b, ofst_b, self.width() - ofst_b * 2.0, self.height() - ofst_b * 2.0)
         self._pen_background.setWidth(val)
         self._pen_foreground.setWidth(val - 1)
@@ -86,7 +85,7 @@ class QtRoundProgressBar(QWidget):
         """ Override setGeometry method """
         super().setGeometry(x, y, w, h)
 
-        ofst_b = math.ceil(self._pen_background.width() / 2.0)
+        ofst_b = self._pen_background.width() / 2.0
         self._rect = QRect(0, 0, self.width(), self.height())
         self._rect_arc= QRect(ofst_b, ofst_b, self.width() - ofst_b * 2.0, self.height() - ofst_b * 2.0)
 

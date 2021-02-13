@@ -31,7 +31,7 @@ class Graph(object):
         self._elem.setForegroundColor(QColor(color))
         self._elem.setThickness(thickness)
         self._elem.setGeometry(
-            pos[0] + self._elem_max_label._label.width() +1, pos[1],
+            pos[0] + self._elem_max_label._label.width() + 1, pos[1],
             size[0] - self._elem_max_label._label.width() - self._elem_label._label.width() - 2, size[1]
         )
         self._elem.setNumberOfValues(n_values)
