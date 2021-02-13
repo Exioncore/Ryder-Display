@@ -46,7 +46,7 @@ class QtRoundProgressBar(QWidget):
     def setAngleBounds(self, start, end):
         self._angle_bounds = [start, end]
         self._max_angle = self._angle_bounds[1] - self._angle_bounds[0]
-        self._current_angle = self._max_angle / self._bounds_range * self._current_value
+        self._target_angle = self._current_angle = self._max_angle / self._bounds_range * self._current_value
 
     def setForegroundColor(self, color):
         self._pen_foreground.setColor(color)

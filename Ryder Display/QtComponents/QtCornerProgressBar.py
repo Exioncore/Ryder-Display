@@ -31,8 +31,8 @@ class QtCornerProgressBar(QWidget):
         c = [0, 0]
         c_a = [0, 0]
         c_d = 1
-        w = self.width() - self._radius - 1
-        h = self.height() - self._radius - 1
+        w = self.width() - self._radius - 2
+        h = self.height() - self._radius - 2
 
         if self._fill_direction[2] == QtStraightProgressBar.Direction.UP:
             ### Sizing
