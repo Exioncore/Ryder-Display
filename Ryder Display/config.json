@@ -161,6 +161,16 @@
       }
     },
     {
+      "title": "CPU Power Text",
+      "type": "DynamicText",
+      "pos": [ 150, 215 ],
+      "stylesheet": "color:#ad2a1a;font-weight:bold;font:10pt;",
+      "max_text_length": "999w",
+      "alignment": "center",
+      "metric": [ "cpu", "power" ],
+      "unit": "_w"
+    },
+    {
       "title": "CPU Clock",
       "type": "DynamicText",
       "pos": [ 155, 175 ],
@@ -309,6 +319,16 @@
         "name": [ "gpu", "power" ],
         "bounds": [ 0, 370 ]
       }
+    },
+    {
+      "title": "GPU Power Text",
+      "type": "DynamicText",
+      "pos": [ 650, 215 ],
+      "stylesheet": "color:#ad2a1a;font-weight:bold;font:10pt;",
+      "max_text_length": "999w",
+      "alignment": "center",
+      "metric": [ "gpu", "power" ],
+      "unit": "_w"
     },
     {
       "title": "Storage",
