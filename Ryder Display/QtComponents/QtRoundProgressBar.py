@@ -70,7 +70,6 @@ class QtRoundProgressBar(QWidget):
     def setValue(self, val):
         self._current_value = max(self._bounds[0], min(val, self._bounds[1]))
         self._target_angle = (self._max_angle / self._bounds_range * (self._current_value - self._bounds[0]))
-        self._redraw = True
 
     def setThickness(self, val):
         ofst_b = val / 2.0
@@ -104,11 +103,11 @@ class QtRoundProgressBar(QWidget):
             paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._max_angle * 16.0)
             paint.setPen(self._pen_foreground)
             if self._fill_direction > 0:
-                paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._current_angle * 16.0)
+                paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._target_angle * 16.0)
             else:
                 paint.drawArc(
                     self._rect_arc,
-                    (self._angle_bounds[1] - self._current_angle) * 16.0, self._current_angle * 16.0
+                    (self._angle_bounds[1] - self._target_angle) * 16.0, self._target_angle * 16.0
                 )
 
             self._redraw = False
