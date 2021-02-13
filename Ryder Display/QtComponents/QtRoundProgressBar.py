@@ -14,8 +14,7 @@ class QtRoundProgressBar(QWidget):
 
         self._angle_bounds = [-45, 225]
         self._max_angle = self._angle_bounds[1] - self._angle_bounds[0]
-        self._current_angle = 0
-        self._target_angle = 0
+        self._current_angle = self._target_angle = 0
         self._overdraw = 1.0
         self._fill_direction = -1
 
@@ -41,7 +40,7 @@ class QtRoundProgressBar(QWidget):
         self._bounds = [start, end]
         self._bounds_range = self._bounds[1] - self._bounds[0]
         self._current_value = self._bounds_range * mul + self._bounds[0]
-        self._current_angle = (self._max_angle / self._bounds_range * (self._current_value - self._bounds[0]))
+        self._target_angle = self._current_angle = (self._max_angle / self._bounds_range * (self._current_value - self._bounds[0]))
 
     def setAngleBounds(self, start, end):
         self._angle_bounds = [start, end]

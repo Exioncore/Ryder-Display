@@ -31,8 +31,9 @@ class QtCornerProgressBar(QWidget):
         c = [0, 0]
         c_a = [0, 0]
         c_d = 1
-        w = self.width() - self._radius - 2
-        h = self.height() - self._radius - 2
+        gap = 2
+        w = self.width() - self._radius - gap
+        h = self.height() - self._radius - gap
 
         if self._fill_direction[2] == QtStraightProgressBar.Direction.UP:
             ### Sizing
@@ -47,7 +48,7 @@ class QtCornerProgressBar(QWidget):
             p1[1] = 0
             c[1] = self.height() - self._radius * 2
             if self._fill_direction[0] == QtStraightProgressBar.Direction.LEFT:
-                p0[0] = self._radius
+                p0[0] = self._radius + gap
                 p1[0] = 0
                 c[0] = 0
                 c_a = [180, 270]
@@ -71,7 +72,7 @@ class QtCornerProgressBar(QWidget):
             p1[1] = self._radius + 1
             c[1] = 0
             if self._fill_direction[0] == QtStraightProgressBar.Direction.LEFT:
-                p0[0] = self._radius
+                p0[0] = self._radius + gap
                 p1[0] = 0
                 c[0] = 0
                 c_a = [90, 180]
@@ -91,12 +92,12 @@ class QtCornerProgressBar(QWidget):
             s1[0] = w
             s1[1] = self._thickness
             ### Position
-            p1[0] = self._radius
+            p1[0] = self._radius + gap
             p0[0] = 0
             c[0] = 0
             if self._fill_direction[0] == QtStraightProgressBar.Direction.UP:
                 p1[1] = 0
-                p0[1] = self._radius
+                p0[1] = self._radius + gap
                 c[1] = 0
                 c_a = [90, 180]
                 c_d = -1
@@ -120,7 +121,7 @@ class QtCornerProgressBar(QWidget):
             c[0] = self.width() - self._radius * 2
             if self._fill_direction[0] == QtStraightProgressBar.Direction.UP:
                 p1[1] = 0
-                p0[1] = self._radius
+                p0[1] = self._radius + gap
                 c[1] = 0
                 c_a = [0, 90]
                 c_d = 1
