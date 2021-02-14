@@ -7,6 +7,7 @@ class ProgressBar(object):
         self._transition_frames = transition_frames
         self._metric = metric
         self._elem_t = Transitioner(bounds[0])
+        self._elem_t.setMinMax(bounds[0], bounds[1])
         # UI
         self._elem = QProgressBar(window)
         self._elem.setGeometry(pos[0], pos[1], size[0], size[1])

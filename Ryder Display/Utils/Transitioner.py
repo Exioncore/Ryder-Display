@@ -10,6 +10,12 @@ class Transitioner(object):
         self.end = curr
         self.step_size = 0
         self.min_step_size = min_step_size
+        self.hasMinMax = False
+
+    def setMinMax(self, min, max):
+        self.hasMinMax = True
+        self.max = max
+        self.min = min
 
     def transitionFromStart(self, delta, steps):
         self.current = self.start
@@ -20,6 +26,11 @@ class Transitioner(object):
         self.end = end
         delta = self.end - self.current
         self.step_size = math.copysign(max(1, abs(delta) / max(1, steps)), delta)
+        if self.hasMinMax:
+            if self.step_size > 0:
+                self.end = min(self.end, self.max)
+            else:
+                self.end = max(self.end, self.min)
 
     def revert(self, steps):
         self.end = self.start
