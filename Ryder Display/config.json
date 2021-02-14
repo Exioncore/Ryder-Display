@@ -16,7 +16,7 @@
       "thickness": 4,
       "metric": {
         "name": [ "framerate" ],
-        "bounds": [ 30, 100 ]
+        "bounds": [ 30, 120 ]
       }
     },
     {
@@ -29,7 +29,7 @@
       "thickness": 4,
       "metric": {
         "name": [ "framerate" ],
-        "bounds": [ 30, 100 ]
+        "bounds": [ 30, 120 ]
       }
     },
     {
