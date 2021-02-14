@@ -1,8 +1,9 @@
+from gevent import monkey; monkey.patch_all();
 import os
 import sys
 import keyboard
 import threading
-#from gevent import monkey; monkey.patch_all();
+import gevent
 # PyQt5
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtCore import Qt

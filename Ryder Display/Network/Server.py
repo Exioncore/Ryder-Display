@@ -1,6 +1,7 @@
 import socket
 from flask import Flask, Response, request
 from gevent.pywsgi import WSGIServer
+from gevent.pool import Pool
 
 class EndpointAction(object):
     def __init__(self, action):
@@ -16,9 +17,8 @@ class Server(object):
         self.app = Flask(name)
 
     def run(self, port=9520):
-        http_server = WSGIServer(('0.0.0.0', port), self.app)
         print("Starting server")
-        http_server.serve_forever()
+        WSGIServer(('0.0.0.0', port), self.app).serve_forever()
 
     def add_endpoint(self, endpoint=None, endpoint_name=None, handler=None):
         print("Endpoint \"" + endpoint_name + "\" added")
