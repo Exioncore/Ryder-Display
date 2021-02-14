@@ -17,7 +17,9 @@ class Server(object):
 
     def run(self, port=9520):
         http_server = WSGIServer(('0.0.0.0', port), self.app)
+        print("Starting server")
         http_server.serve_forever()
 
     def add_endpoint(self, endpoint=None, endpoint_name=None, handler=None):
+        print("Endpoint \"" + endpoint_name + "\" added")
         self.app.add_url_rule(endpoint, endpoint_name, EndpointAction(handler), methods=['POST'])

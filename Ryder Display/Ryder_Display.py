@@ -2,7 +2,7 @@ import os
 import sys
 import keyboard
 import threading
-from gevent import monkey
+#from gevent import monkey; monkey.patch_all();
 # PyQt5
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtCore import Qt
@@ -10,7 +10,7 @@ from PyQt5.QtCore import Qt
 from Pages.Home import Home
 from Network.Server import Server
 
-class Window(QMainWindow): 
+class RyderDisplay(QMainWindow): 
     def __init__(self):
         super().__init__()
 
@@ -37,7 +37,6 @@ class Window(QMainWindow):
         self.page.create_ui(os.path.dirname(os.path.abspath(__file__)))
 
 if __name__ == "__main__":
-    # monkey.patch_all()
     # Create PyQt5 app
     app = QApplication(sys.argv)
 
@@ -46,11 +45,13 @@ if __name__ == "__main__":
 
     # Flask server
     server = Server('Ryder Engine')
-    threading.Thread(target=server.run, daemon=True).start()
 
     # Create the instance of our Window
-    window = Window()
+    window = RyderDisplay()
     window.initialize(server)
+
+    # Run Server
+    threading.Thread(target=server.run, daemon=True).start()
 
     # Hotkey for closing application
     if sys.platform != 'win32':

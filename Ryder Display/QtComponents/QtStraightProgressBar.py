@@ -118,7 +118,6 @@ class QtStraightProgressBar(QWidget):
         """ Override Paint Function """
         paint = QPainter()
         paint.begin(self._buffer)
-        paint.setRenderHint(QPainter.Antialiasing)
 
         if self._redraw:
             self._drawSection(paint, self._bounds[0], self._bounds[1], self._pen_background)

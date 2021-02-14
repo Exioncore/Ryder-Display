@@ -95,7 +95,6 @@ class QtRoundProgressBar(QWidget):
         """ Override Paint Function """
         paint = QPainter()
         paint.begin(self._buffer)
-        paint.setRenderHint(QPainter.Antialiasing)
 
         if self._redraw:
             self._buffer.fill(Qt.transparent)
