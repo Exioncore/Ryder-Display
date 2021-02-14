@@ -23,7 +23,7 @@ class QtRoundProgressBar(QWidget):
         ofst_b = thickness / 2.0
 
         self._pen_background = QPen(QColor(40, 40, 40), thickness, Qt.SolidLine)
-        self._pen_foreground = QPen(QColor('red'), thickness - 1, Qt.SolidLine)
+        self._pen_foreground = QPen(QColor('red'), thickness - 2, Qt.SolidLine)
         self._rect = QRect(0, 0, self.width(), self.height())
         self._rect_arc = QRect(
             ofst_b, ofst_b,
@@ -75,7 +75,7 @@ class QtRoundProgressBar(QWidget):
         ofst_b = val / 2.0
         self._rect_arc = QRect(ofst_b, ofst_b, self.width() - ofst_b * 2.0, self.height() - ofst_b * 2.0)
         self._pen_background.setWidth(val)
-        self._pen_foreground.setWidth(val - 1)
+        self._pen_foreground.setWidth(val - 2)
 
     def redraw(self):
         self._redraw = True
@@ -94,6 +94,7 @@ class QtRoundProgressBar(QWidget):
     def paintEvent(self, e):
         """ Override Paint Function """
         paint = QPainter()
+        paint.setRenderHint(QPainter.Antialiasing)
         paint.begin(self._buffer)
 
         if self._redraw:
@@ -142,7 +143,6 @@ class QtRoundProgressBar(QWidget):
         paint.end()
 
         paint.begin(self)
-        paint.setRenderHint(QPainter.Antialiasing)
         paint.drawPixmap(self._rect, self._buffer)
         paint.end()
 

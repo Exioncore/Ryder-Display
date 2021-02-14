@@ -20,7 +20,7 @@ class QtStraightProgressBar(QWidget):
         self._old_value = self._current_value = 0
 
         self._pen_background = QPen(QColor(40, 40, 40), self.width(), Qt.SolidLine)
-        self._pen_foreground = QPen(QColor('red'), self.width() - 1, Qt.SolidLine)
+        self._pen_foreground = QPen(QColor('red'), self.width() - 2, Qt.SolidLine)
         self.setFillDirection(QtStraightProgressBar.Direction.RIGHT)
 
         # Cache commonly reused variables
@@ -55,10 +55,10 @@ class QtStraightProgressBar(QWidget):
     def setFillDirection(self, val):
         self._fill_direction = val
         if val == QtStraightProgressBar.Direction.RIGHT or val == QtStraightProgressBar.Direction.LEFT:
-            foreground_thickness = self.height() - 1
+            foreground_thickness = self.height() - 2
             background_thickness = self.height()
         else:
-            foreground_thickness = self.width() - 1
+            foreground_thickness = self.width() - 2
             background_thickness = self.width()
         if  val == QtStraightProgressBar.Direction.RIGHT:
             self._p1 = [0, self.height() / 2]
@@ -117,6 +117,7 @@ class QtStraightProgressBar(QWidget):
     def paintEvent(self, e):
         """ Override Paint Function """
         paint = QPainter()
+        paint.setRenderHint(QPainter.Antialiasing)
         paint.begin(self._buffer)
 
         if self._redraw:
@@ -131,7 +132,6 @@ class QtStraightProgressBar(QWidget):
         paint.end()
 
         paint.begin(self)
-        paint.setRenderHint(QPainter.Antialiasing)
         paint.drawPixmap(self._rect, self._buffer)
         paint.end()
 
