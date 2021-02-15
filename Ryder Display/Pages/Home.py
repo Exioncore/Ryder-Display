@@ -24,7 +24,7 @@ class Home(object):
         self._server = server
 
         self._client.subscribeToRyderEngine()
-        server.add_endpoint('/status', 'status', self.newStatus)
+        server.add_endpoint('/status', 'status', self._newStatus)
 
     # UI Elements
     def create_ui(self, path):
@@ -37,7 +37,7 @@ class Home(object):
         self._timer.timeout.connect(self.update)
         self._timer.start(1000 / self._fps)
 
-    def newStatus(self, request):
+    def _newStatus(self, request):
         self._status = request
 
     def update(self):

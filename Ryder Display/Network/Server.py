@@ -1,4 +1,5 @@
 import socket
+from PyQt5 import QtCore
 from flask import Flask, Response, request
 from gevent.pywsgi import WSGIServer
 from gevent.pool import Pool
