@@ -20,7 +20,6 @@ class Home(object):
     # Class constructor
     def __init__(self, window, server : Server):
         self._window = window
-        self._timer = QTimer()
         self._client = Client()
         self._server = server
 
@@ -34,7 +33,7 @@ class Home(object):
         self._fps, self._ui = HomeConfigurationParser.parse(self._window, self._client, self._server, path)
 
         # Refresher
-        
+        self._timer = QTimer()
         self._timer.timeout.connect(self.update)
         self._timer.start(1000 / self._fps)
 
