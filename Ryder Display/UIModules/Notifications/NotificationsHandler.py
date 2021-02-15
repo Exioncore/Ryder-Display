@@ -1,5 +1,5 @@
 from UIModules.Notifications.Notification import Notification
-from Network.SteamNotifier import SteamNotifier
+#from Network.SteamNotifier import SteamNotifier
 from Utils.Transitioner import Transitioner
 from Network.Server import Server
 from Network.Client import Client
@@ -31,7 +31,7 @@ class NotificationsHandler(object):
         )
 
         # Steam
-        self._steam = SteamNotifier(client, server, self.newNotification, path)
+        #self._steam = SteamNotifier(client, server, self.newNotification, path)
 
         # Bind Server
         server.add_endpoint('/notification', 'notification', self._newNotification)
