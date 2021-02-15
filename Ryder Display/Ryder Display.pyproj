@@ -58,6 +58,12 @@
     <Compile Include="UIModules\Graph.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UIModules\Notifications\Notification.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UIModules\Notifications\NotificationsHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="UIModules\ProgressBar.py">
       <SubType>Code</SubType>
     </Compile>
@@ -72,6 +78,7 @@
   <ItemGroup>
     <Folder Include="Network\" />
     <Folder Include="UIModules\" />
+    <Folder Include="UIModules\Notifications\" />
     <Folder Include="Utils\" />
     <Folder Include="Resources\" />
     <Folder Include="Pages\" />

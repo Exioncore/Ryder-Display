@@ -591,6 +591,20 @@
       "max_text_length": "99.9MB/s",
       "metric": [ "network", "uploadSpeed" ],
       "unit": "*network"
+    },
+    {
+      "title": "Notifications",
+      "type": "NotificationsHandler",
+      "location": "bottom",
+      "height": 60,
+      "img_margin": 10,
+      "stylesheet": [
+        "border-top-right-radius:15px;border-top-left-radius:15px;",
+        "color:rgb(225,225,225);font-weight:bold;font:13pt;",
+        "color:rgb(225,225,225);font-weight:bold;font:10pt;"
+      ],
+      "transition_frames": 12,
+      "timeout_frames": 120
     }
   ],
   "unit_converters": {

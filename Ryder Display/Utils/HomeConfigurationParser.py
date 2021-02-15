@@ -6,6 +6,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtSvg import QSvgWidget
 from PyQt5.QtWidgets import QLabel
 
+from UIModules.Notifications.NotificationsHandler import NotificationsHandler
 from UIModules.ForegroundProcess import ForegroundProcess
 from UIModules.CornerProgressBar import CornerProgressBar
 from UIModules.RoundProgressBar import RoundProgressBar
@@ -33,18 +34,19 @@ class HomeConfigurationParser(object):
             elem = None
             update_pos = [True, True]
             # Pos
-            for i in range(2):
-                if isinstance(entry['pos'][i], str):
-                    if entry['pos'][i][0] != "d":
-                        new_pos[i] = pos[i] + int(entry['pos'][i])
-                    else:
-                        update_pos[i] = False
-                        if len(entry['pos'][i]) > 1:
-                            new_pos[i] = pos[i] + int(entry['pos'][i][1:])
+            if 'pos' in entry:
+                for i in range(2):
+                    if isinstance(entry['pos'][i], str):
+                        if entry['pos'][i][0] != "d":
+                            new_pos[i] = pos[i] + int(entry['pos'][i])
                         else:
-                            new_pos[i] = pos[i]
-                else:
-                    new_pos[i] = entry['pos'][i]
+                            update_pos[i] = False
+                            if len(entry['pos'][i]) > 1:
+                                new_pos[i] = pos[i] + int(entry['pos'][i][1:])
+                            else:
+                                new_pos[i] = pos[i]
+                    else:
+                        new_pos[i] = entry['pos'][i]
             # Parse Element
             print(entry['title'] + ", " + str(new_pos[0]) + ", " + str(new_pos[1]))
             if entry['type'] == 'ForegroundProcessIcon':
@@ -107,11 +109,15 @@ class HomeConfigurationParser(object):
                     window, entry['path'], new_pos.copy(), entry['size']
                 )
                 is_dynamic = False
+            elif entry['type'] == 'NotificationsHandler':
+                elem = NotificationsHandler(window, server, entry['timeout_frames'], entry['transition_frames'], 
+                 entry['stylesheet'], entry['img_margin'], entry['location'], entry['height'], path[0:path.rfind('/')])
 
-            if update_pos[0]:
-                pos[0] = new_pos[0]
-            if update_pos[1]:
-                pos[1] = new_pos[1]
+            if 'pos' in entry:
+                if update_pos[0]:
+                    pos[0] = new_pos[0]
+                if update_pos[1]:
+                    pos[1] = new_pos[1]
 
             if is_dynamic:
                 ui_dynamic.append(elem)
