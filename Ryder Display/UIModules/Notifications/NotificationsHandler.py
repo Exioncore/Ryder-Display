@@ -1,6 +1,8 @@
 from UIModules.Notifications.Notification import Notification
+from Network.SteamNotifier import SteamNotifier
 from Utils.Transitioner import Transitioner
 from Network.Server import Server
+from Network.Client import Client
 
 class NotificationsHandler(object):
     _queue = []
@@ -8,7 +10,7 @@ class NotificationsHandler(object):
     _onGoing = False
     
     def __init__(self,
-                 window, server:Server, timeout_frames, transition_frames, 
+                 window, client:Client, server:Server, timeout_frames, transition_frames, 
                  stylesheet=["","",""], img_margin = 5, pos='bottom', height=20, path=''
         ):
         self._transition_frames = transition_frames
@@ -27,6 +29,9 @@ class NotificationsHandler(object):
         self._notification = Notification(
             window, stylesheet, img_margin, pos, size, path
         )
+
+        # Steam
+        self._steam = SteamNotifier(client, server, self.newNotification, path)
 
         # Bind Server
         server.add_endpoint('/notification', 'notification', self._newNotification)
@@ -55,7 +60,7 @@ class NotificationsHandler(object):
 
     def newNotification(self, app, title, message):
         self._queue.append([app, title, message])
-        if not self._ongoing:
+        if not self._onGoing:
             self.update()
 
     def _newNotification(self, request):

@@ -110,7 +110,7 @@ class HomeConfigurationParser(object):
                 )
                 is_dynamic = False
             elif entry['type'] == 'NotificationsHandler':
-                elem = NotificationsHandler(window, server, entry['timeout_frames'], entry['transition_frames'], 
+                elem = NotificationsHandler(window, client, server, entry['timeout_frames'], entry['transition_frames'], 
                  entry['stylesheet'], entry['img_margin'], entry['location'], entry['height'], path[0:path.rfind('/')])
 
             if 'pos' in entry:
