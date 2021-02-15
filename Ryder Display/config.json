@@ -603,7 +603,7 @@
         "color:rgb(225,225,225);font-weight:bold;font:13pt;",
         "color:rgb(225,225,225);font-weight:bold;font:10pt;"
       ],
-      "transition_frames": 12,
+      "transition_frames": 6,
       "timeout_frames": 120
     }
   ],
