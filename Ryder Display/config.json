@@ -596,12 +596,12 @@
       "title": "Notifications",
       "type": "NotificationsHandler",
       "location": "bottom",
-      "height": 60,
+      "height": 80,
       "img_margin": 10,
       "stylesheet": [
         "border-top-right-radius:15px;border-top-left-radius:15px;",
-        "color:rgb(225,225,225);font-weight:bold;font:13pt;",
-        "color:rgb(225,225,225);font-weight:bold;font:10pt;"
+        "color:rgb(225,225,225);font-weight:bold;font:18pt;",
+        "color:rgb(225,225,225);font-weight:bold;font:14pt;"
       ],
       "transition_frames": 6,
       "timeout_frames": 120
