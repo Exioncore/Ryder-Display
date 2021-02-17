@@ -1,6 +1,6 @@
 import os
 os.environ["GEVENT_SUPPORT"] = 'True'
-from gevent import monkey; monkey.patch_all();
+#from gevent import monkey; monkey.patch_all();
 import gevent
 
 import sys
