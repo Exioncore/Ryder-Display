@@ -1,9 +1,7 @@
 import os
-os.environ["GEVENT_SUPPORT"] = 'True'
-#from gevent import monkey; monkey.patch_all();
-import gevent
-
+import gc
 import sys
+import gevent
 import keyboard
 import threading
 # PyQt5
@@ -60,7 +58,10 @@ if __name__ == "__main__":
 
     # Hotkey for closing application
     if sys.platform != 'win32':
-        keyboard.on_press_key("q", lambda _:app.exit())
+        keyboard.on_press_key(
+            "q", 
+            lambda _:gevent.killall([obj for obj in gc.get_objects() if isinstance(obj, gevent.Greenlet)])
+        )
 
     # Run Server
     gevent.joinall([gevent.spawn(server.run), gevent.spawn(pyqtLoop, app)])

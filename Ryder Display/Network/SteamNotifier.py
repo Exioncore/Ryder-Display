@@ -30,10 +30,17 @@ class SteamNotifier(threading.Thread):
         self._steamClient.on(SteamClient.EVENT_ERROR, self.login_error)
         self._steamClient.on(SteamClient.EVENT_CONNECTED, self.connected)
         self._steamClient.on(SteamClient.EVENT_DISCONNECTED, self.disconnected)
+        self._steamClient.on(SteamClient.EVENT_NEW_LOGIN_KEY, self.new_login_key)
         # Start Login Sequence
-        self._steamClient.set_credential_location(self._cache)
-        self._client.querySteamLogin()
-        self._steam_notification('Steam', 'Login', 'Requesting Login Data')
+        if os.path.exists(self._cache + 'steam.txt'):
+            f = open(self._cache + 'steam.txt', 'r')
+            data = f.readlines()
+            data[0] = data[0].replace('\n','')
+            self._steamClient.login(username=data[0].replace('\n',''), login_key=data[1])
+        else:
+            self._steamClient.set_credential_location(self._cache)
+            self._client.querySteamLogin()
+            self._steam_notification('Steam', 'Login', 'Requesting Login Data')
         while True:
             gevent.sleep(0.1)
 
@@ -49,9 +56,14 @@ class SteamNotifier(threading.Thread):
     # Handle SteamClient events
     def connected(self):
         print("Connected")
+        if self._steamClient.relogin_available:
+            self._steamClient.relogin()
 
     def disconnected(self):
         print("Disconnected")
+        if self._steamClient.relogin_available:
+            self._steam_notification('Steam', self._steamClient.username, 'Connection lost! Re-trying...')
+            self._steamClient.reconnect(maxdelay=30)
 
     def login_secured(self):
         print("Login secured")
@@ -76,3 +88,9 @@ class SteamNotifier(threading.Thread):
     def login_success(self):
         print("Login successfull")
         self._steam_notification('Steam', self._steamClient.username, 'Logged in!')
+
+    def new_login_key(self):
+        print("New login key")
+        f = open(self._cache + 'steam.txt', 'w')
+        f.write(self._steamClient.username + '\n' + self._steamClient.login_key)
+        f.close()
