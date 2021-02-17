@@ -30,7 +30,6 @@ class NotificationsHandler(object):
 
         # Steam
         self._steam = SteamNotifier(client, server, self.newNotification, path)
-        self._steam.start()
 
         # Bind Server
         server.add_endpoint('/notification', 'notification', self._newNotification)

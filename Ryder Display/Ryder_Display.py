@@ -44,7 +44,7 @@ def pyqtLoop(app):
         app.processEvents()
         while app.hasPendingEvents():
             app.processEvents()
-            gevent.sleep(0.016)
+            gevent.sleep(0.001)
         gevent.sleep()
 
 if __name__ == "__main__":
@@ -67,4 +67,3 @@ if __name__ == "__main__":
 
     # Run Server
     gevent.joinall([gevent.spawn(server.run), gevent.spawn(pyqtLoop, app)])
-    #threading.Thread(target=server.run, daemon=True, name='Server Thread').start()

@@ -21,7 +21,7 @@ class Server(object):
 
     def run(self, port=9520):
         print("Server started")
-        server = WSGIServer(('0.0.0.0', port), self.app).serve_forever()
+        WSGIServer(('0.0.0.0', port), self.app).serve_forever()
 
     def add_endpoint(self, endpoint=None, endpoint_name=None, handler=None):
         print("Endpoint \"" + endpoint_name + "\" added")
