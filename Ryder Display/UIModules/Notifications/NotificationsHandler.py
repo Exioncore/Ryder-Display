@@ -1,3 +1,4 @@
+import gevent
 from UIModules.Notifications.Notification import Notification
 from Network.SteamNotifier import SteamNotifier
 from Utils.Transitioner import Transitioner
@@ -30,6 +31,7 @@ class NotificationsHandler(object):
 
         # Steam
         self._steam = SteamNotifier(client, server, self.newNotification, path)
+        gevent.spawn_later(2, self._steam.run)
 
         # Bind Server
         server.add_endpoint('/notification', 'notification', self._newNotification)
