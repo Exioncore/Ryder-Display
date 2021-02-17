@@ -31,7 +31,7 @@ class NotificationsHandler(object):
 
         # Steam
         self._steam = SteamNotifier(client, server, self.newNotification, path)
-        gevent.spawn_later(2, self._steam.run)
+        gevent.spawn_later(2, self._steam.exercuteLogin)
 
         # Bind Server
         server.add_endpoint('/notification', 'notification', self._newNotification)

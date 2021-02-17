@@ -1,15 +1,11 @@
 import os
-import threading
-import gevent
 from steam.client import SteamClient
 from steam.enums import EChatEntryType
 from Network.Server import Server
 from Network.Client import Client
 
-class SteamNotifier(threading.Thread):
+class SteamNotifier(object):
     def __init__(self, client:Client, server:Server, steam_notification, path):
-        super(SteamNotifier, self).__init__(name='Steam Notifier Thread')
-
         self._cache = path + '/cache/'
         if not os.path.exists(self._cache):
             os.makedirs(self._cache)
@@ -18,9 +14,9 @@ class SteamNotifier(threading.Thread):
         self._steam_notification = steam_notification
         # Bind Server
         server.add_endpoint('/steamLogin', 'steamLogin', self._steamLoginData)
-        server.add_endpoint('/steam2fa', 'steam2fa',self._steam2faData)   
+        server.add_endpoint('/steam2fa', 'steam2fa',self._steam2faData)
 
-    def run(self):
+        # Steam API
         self._steamClient = SteamClient()
         # Hook Steam Client Events
         self._steamClient.on(SteamClient.EVENT_AUTH_CODE_REQUIRED, self.auth_code_prompt)
@@ -30,12 +26,12 @@ class SteamNotifier(threading.Thread):
         self._steamClient.on(SteamClient.EVENT_ERROR, self.login_error)
         self._steamClient.on(SteamClient.EVENT_CONNECTED, self.connected)
         self._steamClient.on(SteamClient.EVENT_DISCONNECTED, self.disconnected)
+
+    def exercuteLogin(self):
         # Start Login Sequence
         self._steamClient.set_credential_location(self._cache)
         self._client.querySteamLogin()
         self._steam_notification('Steam', 'Login', 'Requesting Login Data')
-        while True:
-            gevent.sleep(0.1)
 
     def _steamLoginData(self, request):
         self._login_data = [request[0], request[1]]

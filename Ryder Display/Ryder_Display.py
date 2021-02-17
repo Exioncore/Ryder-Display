@@ -42,10 +42,7 @@ class RyderDisplay(QMainWindow):
 def pyqtLoop(app):
     while True:
         app.processEvents()
-        while app.hasPendingEvents():
-            app.processEvents()
-            gevent.sleep(0.001)
-        gevent.sleep()
+        gevent.sleep(0.005)
 
 if __name__ == "__main__":
     # Create PyQt5 app
