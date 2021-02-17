@@ -1,6 +1,8 @@
+import time
 import socket
 from PyQt5 import QtCore
 from flask import Flask, Response, request
+import gevent
 from gevent.pywsgi import WSGIServer
 from gevent.pool import Pool
 
@@ -18,8 +20,8 @@ class Server(object):
         self.app = Flask(name)
 
     def run(self, port=9520):
-        print("Starting server")
-        WSGIServer(('0.0.0.0', port), self.app).serve_forever()
+        print("Server started")
+        server = WSGIServer(('0.0.0.0', port), self.app).serve_forever()
 
     def add_endpoint(self, endpoint=None, endpoint_name=None, handler=None):
         print("Endpoint \"" + endpoint_name + "\" added")

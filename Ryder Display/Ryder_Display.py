@@ -1,9 +1,11 @@
-#from gevent import monkey; monkey.patch_all();
 import os
+os.environ["GEVENT_SUPPORT"] = 'True'
+from gevent import monkey; monkey.patch_all();
+import gevent
+
 import sys
 import keyboard
 import threading
-#import gevent
 # PyQt5
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtCore import Qt, QThread
@@ -37,6 +39,14 @@ class RyderDisplay(QMainWindow):
         self.page = Home(self, server)
         self.page.create_ui(os.path.dirname(os.path.abspath(__file__)))
 
+def pyqtLoop(app):
+    while True:
+        app.processEvents()
+        while app.hasPendingEvents():
+            app.processEvents()
+            gevent.sleep(0.016)
+        gevent.sleep()
+
 if __name__ == "__main__":
     # Create PyQt5 app
     app = QApplication(sys.argv)
@@ -51,12 +61,10 @@ if __name__ == "__main__":
     window = RyderDisplay()
     window.initialize(server)
 
-    # Run Server
-    threading.Thread(target=server.run, daemon=True).start()
-
     # Hotkey for closing application
     if sys.platform != 'win32':
         keyboard.on_press_key("q", lambda _:app.exit())
 
-    # Start the app
-    sys.exit(app.exec())
+    # Run Server
+    gevent.joinall([gevent.spawn(server.run), gevent.spawn(pyqtLoop, app)])
+    #threading.Thread(target=server.run, daemon=True, name='Server Thread').start()
