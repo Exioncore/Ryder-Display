@@ -31,13 +31,13 @@ class SteamNotifier(threading.Thread):
         self._steamClient.on(SteamClient.EVENT_DISCONNECTED, self.disconnected)
         self._steamClient.on(SteamClient.EVENT_NEW_LOGIN_KEY, self.new_login_key)
         # Start Login Sequence
+        self._steamClient.set_credential_location(self._cache)
         if os.path.exists(self._cache + 'steam.txt'):
             f = open(self._cache + 'steam.txt', 'r')
             data = f.readlines()
             f.close()
             self._steamClient.login(username=data[0].replace('\n',''), login_key=data[1])
         else:
-            self._steamClient.set_credential_location(self._cache)
             Client().querySteamLogin()
             self._steam_notification('Steam', 'Login', 'Requesting Login Data')
         while True:
@@ -72,6 +72,8 @@ class SteamNotifier(threading.Thread):
     def login_error(self, data):
         print("Login error")
         print(data)
+        Client().querySteamLogin()
+        self._steam_notification('Steam', 'Login', 'Requesting Login Data')
 
     def auth_code_prompt(self, is2fa, code_mismatch):
         print("Steam2FA Required")
