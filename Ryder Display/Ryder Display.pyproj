@@ -36,6 +36,9 @@
     <Compile Include="Pages\Home.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Pages\HyperionMenu.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="QtComponents\QtGraph.py">
       <SubType>Code</SubType>
     </Compile>
@@ -64,6 +67,9 @@
     <Compile Include="UIModules\Graph.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UIModules\HyperionButton.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="UIModules\Notifications\Notification.py">
       <SubType>Code</SubType>
     </Compile>
@@ -86,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Network\" />
+    <Folder Include="Resources\Hyperion\" />
     <Folder Include="UIModules\" />
     <Folder Include="UIModules\Notifications\" />
     <Folder Include="Utils\" />
@@ -101,6 +108,13 @@
     <Content Include="Resources\Discord-Wordmark.svg" />
     <Content Include="Resources\GPU-Logo.svg" />
     <Content Include="Resources\headset.svg" />
+    <Content Include="Resources\Hyperion\Bell-crossed.png" />
+    <Content Include="Resources\Hyperion\Bell.png" />
+    <Content Include="Resources\Hyperion\Lamp.png" />
+    <Content Include="Resources\Hyperion\Logo.png" />
+    <Content Include="Resources\Hyperion\Monitor.png" />
+    <Content Include="Resources\Off.png" />
+    <Content Include="Resources\On.png" />
     <Content Include="Resources\RAM-Logo.svg" />
     <Content Include="Resources\settings.svg" />
     <Content Include="Resources\speaker.svg" />

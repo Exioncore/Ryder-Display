@@ -605,6 +605,12 @@
       ],
       "transition_frames": 6,
       "timeout_frames": 120
+    },
+    {
+      "title": "Hyperion",
+      "type": "HyperionMenu",
+      "pos": [375, 205],
+      "size": [50, 50]
     }
   ],
   "unit_converters": {
@@ -639,7 +645,7 @@
   },
   "hyperion": {
     "ip": "192.168.1.131",
-    "port": "8090"
+    "port": 8090
   },
-    "fps": 24
-  }
+  "fps": 24
+}

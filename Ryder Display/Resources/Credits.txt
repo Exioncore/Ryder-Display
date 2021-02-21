@@ -1,3 +1,4 @@
+- General
 CPU
 https://www.flaticon.com/free-icon/cpu_543234?related_id=543234&origin=tag
 GPU
@@ -10,6 +11,20 @@ Headset
 https://www.flaticon.com/free-icon/headset_1017468?term=headset&page=1&position=11&page=1&position=11&related_id=1017468&origin=search
 Speaker
 https://www.flaticon.com/free-icon/speaker_4091611?term=speaker&page=1&position=69&page=1&position=69&related_id=4091611&origin=search
+Power on
+https://www.flaticon.com/free-icon/switch-on_889754?term=on&page=1&position=3&page=1&position=3&related_id=889754&origin=search
+Power off
+https://www.flaticon.com/free-icon/switch-off_889758?related_id=889758&origin=pack
 
-
-
+- Hyperion
+Logo
+https://avatars.githubusercontent.com/u/17778452?s=400&v=4
+Monitor
+https://www.flaticon.com/free-icon/monitor_3474362?related_id=3474362&origin=search
+Lamp
+https://www.flaticon.com/free-icon/table-lamp_3100531?term=lamp&page=1&position=9&page=1&position=9&related_id=3100531&origin=search
+Bell
+https://www.flaticon.com/free-icon/notification_1827301?term=notification&page=1&position=17&page=1&position=17&related_id=1827301&origin=search
+Bell-crossed
+https://www.flaticon.com/free-icon/notification_1827301?term=notification&page=1&position=17&page=1&position=17&related_id=1827301&origin=search
+https://www.flaticon.com/free-icon/crossed_3388682?term=cross&page=1&position=37&page=1&position=37&related_id=3388682&origin=search

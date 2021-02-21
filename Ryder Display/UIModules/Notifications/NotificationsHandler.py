@@ -50,7 +50,7 @@ class NotificationsHandler(object):
                 self._notification.move(0, self._notification_t.start)
                 self._notification_t.transitionFromStart(self._ofst, self._transition_frames)
                 self._notification.show()
-                if Hyperion().ledState:
+                if Hyperion().ledState and Hyperion().notifications:
                     if entry[0] == 'Discord':
                         Hyperion().setEffect('Notify Discord', 1, 0)
                     elif entry[0] == 'Steam':

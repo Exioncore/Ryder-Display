@@ -11,6 +11,7 @@ from UIModules.ForegroundProcess import ForegroundProcess
 from UIModules.CornerProgressBar import CornerProgressBar
 from UIModules.RoundProgressBar import RoundProgressBar
 from UIModules.DynamicTextBool import DynamicTextBool
+from UIModules.HyperionButton import HyperionButton
 from UIModules.DynamicText import DynamicText
 from UIModules.ProgressBar import ProgressBar
 from UIModules.Graph import Graph
@@ -111,8 +112,13 @@ class HomeConfigurationParser(object):
                 )
                 is_dynamic = False
             elif entry['type'] == 'NotificationsHandler':
-                elem = NotificationsHandler(window, server, entry['timeout_frames'], entry['transition_frames'], 
-                 entry['stylesheet'], entry['img_margin'], entry['location'], entry['height'], path[0:path.rfind('/')])
+                elem = NotificationsHandler(
+                    window, server, entry['timeout_frames'], entry['transition_frames'], 
+                    entry['stylesheet'], entry['img_margin'], entry['location'], entry['height'], path[0:path.rfind('/')]
+                )
+            elif entry['type'] == 'HyperionMenu':
+                elem = HyperionButton(window, entry['pos'], entry['size'], path[0:path.rfind('/')])
+                is_dynamic = False
 
             if 'pos' in entry:
                 if update_pos[0]:

@@ -8,6 +8,8 @@ class Hyperion(object, metaclass=Singleton):
     def __init__(self):
         self._url = ''
         self._timeout = 2.5
+        self.notifications = True
+        self.moodLamp = False
         self.usbState = False
         self.ledState = False
         self.effects = []
@@ -40,6 +42,7 @@ class Hyperion(object, metaclass=Singleton):
         )
 
     def setLedState(self, enable: bool):
+        self.ledState = enable
         return Client.sendQuery(
             self._url,
             {
@@ -50,6 +53,7 @@ class Hyperion(object, metaclass=Singleton):
         )
 
     def setUsbCaptureState(self, enable: bool):
+        self.usbState = enable
         return Client.sendQuery(
             self._url,
             {
@@ -59,12 +63,12 @@ class Hyperion(object, metaclass=Singleton):
             self._timeout
         )
 
-    def clear(self):
+    def clear(self, priority):
         return Client.sendQuery(
             self._url,
             {
                 'command':'clear',
-                'priority':-1
+                'priority': priority
             },
             self._timeout
         )

@@ -2,7 +2,7 @@ import os
 import threading
 import gevent
 from steam.client import SteamClient
-from steam.enums import EChatEntryType
+from steam.enums import EChatEntryType, EResult
 from Network.Server import Server
 from Network.Client import Client
 
@@ -72,8 +72,9 @@ class SteamNotifier(threading.Thread):
     def login_error(self, data):
         print("Login error")
         print(data)
-        Client().querySteamLogin()
-        self._steam_notification('Steam', 'Login', 'Requesting Login Data')
+        if data == EResult.InvalidPassword:
+            Client().querySteamLogin()
+            self._steam_notification('Steam', 'Login', 'Requesting Login Data')
 
     def auth_code_prompt(self, is2fa, code_mismatch):
         print("Steam2FA Required")

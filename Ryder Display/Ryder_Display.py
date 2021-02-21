@@ -21,9 +21,6 @@ class RyderDisplay(QMainWindow):
         # Set Geometry
         self.setGeometry(0, 0, 800, 480)
 
-        # Set background color
-        self.setStyleSheet("background-color:black;")
-
         if sys.platform != 'win32':
             # Hide title bar
             self.setWindowFlag(Qt.FramelessWindowHint)
@@ -47,7 +44,11 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     # Set app global stylesheet
-    app.setStyleSheet('QLabel{color: rgb(225, 225, 225);}')
+    app.setStyleSheet(
+        'QLabel{color: rgb(225, 225, 225);}'
+        'QMainWindow{background-color:black;}'
+        'QPushButton{background-color:black;}'
+    )
 
     # Flask server
     server = Server('Ryder Display Server')
