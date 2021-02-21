@@ -5,6 +5,7 @@ from Network.SteamNotifier import SteamNotifier
 from Utils.Transitioner import Transitioner
 from Network.Server import Server
 from Network.Client import Client
+from Network.Hyperion import Hyperion
 
 class NotificationsHandler(object):
     _mutex : Lock
@@ -13,7 +14,7 @@ class NotificationsHandler(object):
     _onGoing = False
     
     def __init__(self,
-                 window, client:Client, server:Server, timeout_frames, transition_frames, 
+                 window, server:Server, timeout_frames, transition_frames, 
                  stylesheet=["","",""], img_margin = 5, pos='bottom', height=20, path=''
         ):
         self._mutex = Lock()
@@ -33,7 +34,7 @@ class NotificationsHandler(object):
         self._notification = Notification(window, stylesheet, img_margin, pos, size, path)
 
         # Steam
-        self._steam = SteamNotifier(client, server, self.newNotification, path)
+        self._steam = SteamNotifier(server, self.newNotification, path)
         gevent.spawn_later(2, self._steam.run)
 
         # Bind Server
@@ -49,6 +50,11 @@ class NotificationsHandler(object):
                 self._notification.move(0, self._notification_t.start)
                 self._notification_t.transitionFromStart(self._ofst, self._transition_frames)
                 self._notification.show()
+                if Hyperion().ledState:
+                    if entry[0] == 'Discord':
+                        Hyperion().setEffect('Notify Discord', 1, 0)
+                    elif entry[0] == 'Steam':
+                        Hyperion().setEffect('Notify Steam', 1, 0)
                 self._onGoing = True
 
         if self._onGoing:

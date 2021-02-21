@@ -2,40 +2,37 @@ import json
 import base64
 import requests
 import socket
+from Utils.Singleton import Singleton
 
-class Client(object):
+class Client(object, metaclass=Singleton):
     def __init__(self):
-        self.url = 'http://192.168.1.114:9519'
-        self.timeout = 2.5
-        self.info = None
-        self.status = None
+        self._url = ''
+        self._timeout = 2.5
+
+    def setUrl(self, ip, port):
+        self._url = 'http://' + ip + ':' + str(port)
 
     def subscribeToRyderEngine(self):
-        return self._sendQuery({ "request":"subscribe" })
+        return Client.sendQuery(self._url, { "request":"subscribe" }, self._timeout)
 
     def querySteamLogin(self):
-        return self._sendQuery({ "request":"steamLoginUP" })
+        return Client.sendQuery(self._url, { "request":"steamLoginUP" }, self._timeout)
 
     def querySteam2FA(self):
-        return self._sendQuery({ "request":"steamLogin2FA" })
+        return Client.sendQuery(self._url, { "request":"steamLogin2FA" }, self._timeout)
 
-    def update_system_info(self):
-        self.info = self._sendQuery({ "request":"info" })
-        return self.info
-
-    def update_system_status(self):
-        self.status = self._sendQuery({ "request":"status" })
-        return self.status
+    def request_system_status(self):
+        return Client.sendQuery(self._url, { "request":"status" }, self._timeout)
 
     def requestForegroundProcessName(self):
-        return self._sendQuery({ "request":"foregroundProcess" })
+        return Client.sendQuery(self._url, { "request":"foregroundProcess" }, self._timeout)
 
     def requestForegroundProcessIcon(self):
-        return self._sendQuery({ "request":"foregroundProcessIcon" })
+        return Client.sendQuery(self._url, { "request":"foregroundProcessIcon" }, self._timeout)
 
-    def _sendQuery(self, data):
+    def sendQuery(url, data, timeout):
         try:
-            return requests.post(self.url, data=json.dumps(data), timeout=self.timeout).json()
+            return requests.post(url, data=json.dumps(data), timeout=timeout).json()
         except (requests.exceptions.ConnectionError, requests.exceptions.ReadTimeout) as e:
             return None
 

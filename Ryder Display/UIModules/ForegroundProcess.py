@@ -13,18 +13,16 @@ from Network.Server import Server
 class ForegroundProcess(object):
     _mutex : Lock
     _label : QLabel
-    _client : Client
     _currentProgram : str
     _iconsPath : str
 
-    def __init__(self, window, client : Client, server : Server, pos=[0, 0], size=25, path=""):
+    def __init__(self, window, server : Server, pos=[0, 0], size=25, path=""):
         self._mutex = Lock()
         # Create cache folder if it doesn't exist
         self._iconsPath = path + '/cache/icons/'
         if not os.path.exists(self._iconsPath):
             os.makedirs(self._iconsPath)
         # Store variables
-        self._client = client
         self._currentProgram = ""
         # UI
         self._label = QLabel(window)
@@ -48,7 +46,7 @@ class ForegroundProcess(object):
             else:
                 if not os.path.exists(self._iconsPath + request + '.png'):
                     # Request icon if not in cache
-                    self._client.requestForegroundProcessIcon()
+                    Client().requestForegroundProcessIcon()
                 else:
                     self._currentProgram = request
                     # Load from cache

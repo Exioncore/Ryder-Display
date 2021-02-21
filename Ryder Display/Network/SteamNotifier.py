@@ -7,14 +7,13 @@ from Network.Server import Server
 from Network.Client import Client
 
 class SteamNotifier(threading.Thread):
-    def __init__(self, client:Client, server:Server, steam_notification, path):
+    def __init__(self, server:Server, steam_notification, path):
         super(SteamNotifier, self).__init__(name='Steam Notifier Thread')
 
         self._cache = path + '/cache/'
         if not os.path.exists(self._cache):
             os.makedirs(self._cache)
        
-        self._client = client
         self._steam_notification = steam_notification
         # Bind Server
         server.add_endpoint('/steamLogin', 'steamLogin', self._steamLoginData)
@@ -35,11 +34,11 @@ class SteamNotifier(threading.Thread):
         if os.path.exists(self._cache + 'steam.txt'):
             f = open(self._cache + 'steam.txt', 'r')
             data = f.readlines()
-            data[0] = data[0].replace('\n','')
+            f.close()
             self._steamClient.login(username=data[0].replace('\n',''), login_key=data[1])
         else:
             self._steamClient.set_credential_location(self._cache)
-            self._client.querySteamLogin()
+            Client().querySteamLogin()
             self._steam_notification('Steam', 'Login', 'Requesting Login Data')
         while True:
             gevent.sleep(0.1)
@@ -77,7 +76,7 @@ class SteamNotifier(threading.Thread):
     def auth_code_prompt(self, is2fa, code_mismatch):
         print("Steam2FA Required")
         self._steam_notification('Steam', 'Login', 'Requesting 2 Factor Authentication')
-        self._client.querySteam2FA()
+        Client().querySteam2FA()
 
     def handle_message(self, msg):
         if msg.body.chat_entry_type == EChatEntryType.ChatMsg and not msg.body.local_echo:

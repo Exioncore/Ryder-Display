@@ -17,9 +17,10 @@ from UIModules.Graph import Graph
 
 from Network.Client import Client
 from Network.Server import Server
+from Network.Hyperion import Hyperion
 
 class HomeConfigurationParser(object):
-    def parse(window, client : Client, server : Server, path: str):
+    def parse(window, server : Server, path: str):
         ui_dynamic = []
         ui_static = []
         file = open(path, 'r')
@@ -51,7 +52,7 @@ class HomeConfigurationParser(object):
             print(entry['title'] + ", " + str(new_pos[0]) + ", " + str(new_pos[1]))
             if entry['type'] == 'ForegroundProcessIcon':
                 elem = ForegroundProcess(
-                    window, client, server,
+                    window, server,
                     new_pos.copy(), entry['size'], path[0:path.rfind('/')]
                 )
             elif entry['type'] == 'Graph':
@@ -110,7 +111,7 @@ class HomeConfigurationParser(object):
                 )
                 is_dynamic = False
             elif entry['type'] == 'NotificationsHandler':
-                elem = NotificationsHandler(window, client, server, entry['timeout_frames'], entry['transition_frames'], 
+                elem = NotificationsHandler(window, server, entry['timeout_frames'], entry['transition_frames'], 
                  entry['stylesheet'], entry['img_margin'], entry['location'], entry['height'], path[0:path.rfind('/')])
 
             if 'pos' in entry:
@@ -123,6 +124,11 @@ class HomeConfigurationParser(object):
                 ui_dynamic.append(elem)
             else:
                 ui_static.append(elem)
+
+        Client().setUrl(config['data_provider']['ip'], config['data_provider']['port'])
+        if config['hyperion'] is not None:
+            Hyperion().setUrl(config['hyperion']['ip'], config['hyperion']['port'])
+            Hyperion().getState()
 
         return config['fps'], ui_dynamic
 

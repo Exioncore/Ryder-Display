@@ -53,22 +53,30 @@ class DynamicText(object):
                 self._label.setText(self._unit+str(value))
 
     def _refineValue(self, value):
-        i = 0
-        decimalPoints = 0
-        # Determine unit
-        while value > self._unit[1][-1][0]:
-            value /= self._unit[0][0]
-            i += 1
-        # Determine number of decimal points
-        for form in self._unit[1]:
-            if value < form[0]:
-                decimalPoints = form[1]
-                break
-        # Compute the end result string
-        result = '{:.{prec}f}'.format(value, prec=decimalPoints)
-        if self._unit[0][1][i][-1] == "_":
-            result = self._unit[0][1][i][0:-1] + result
+        if len(self._unit) == 2:
+            i = 0
+            decimalPoints = 0
+            # Determine unit
+            while value > self._unit[1][-1][0]:
+                value /= self._unit[0][0]
+                i += 1
+            # Determine number of decimal points
+            for form in self._unit[1]:
+                if value < form[0]:
+                    decimalPoints = form[1]
+                    break
+            # Compute the end result string
+            result = '{:.{prec}f}'.format(value, prec=decimalPoints)
+            if self._unit[0][1][i][-1] == "_":
+                result = self._unit[0][1][i][0:-1] + result
+            else:
+                result += self._unit[0][1][i].replace('_','')
         else:
-            result += self._unit[0][1][i].replace('_','')
+            value /= self._unit[0]
+            result = '{:.{prec}f}'.format(value, prec=self._unit[1])
+            if self._unit[2][-1] == "_":
+                result = self._unit[2][0:-1] + result
+            else:
+                result += self._unit[2].replace('_','')
         return result
         

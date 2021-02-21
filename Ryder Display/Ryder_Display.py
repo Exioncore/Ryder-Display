@@ -16,7 +16,7 @@ class RyderDisplay(QMainWindow):
         super().__init__()
 
         # Setting title
-        self.setWindowTitle("Ryder Engine")
+        self.setWindowTitle("Ryder Display")
 
         # Set Geometry
         self.setGeometry(0, 0, 800, 480)
@@ -50,7 +50,7 @@ if __name__ == "__main__":
     app.setStyleSheet('QLabel{color: rgb(225, 225, 225);}')
 
     # Flask server
-    server = Server('Ryder Engine')
+    server = Server('Ryder Display Server')
 
     # Create the instance of our Window
     window = RyderDisplay()

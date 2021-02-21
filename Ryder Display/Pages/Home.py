@@ -13,7 +13,6 @@ class Home(object):
     _ui = []
     _fps = 1
     _window = None
-    _client : Client
     _server : Server
     _timer : QTimer
     _status = None
@@ -21,17 +20,16 @@ class Home(object):
     # Class constructor
     def __init__(self, window, server : Server):
         self._window = window
-        self._client = Client()
         self._server = server
-
-        self._client.subscribeToRyderEngine()
+        
         server.add_endpoint('/status', 'status', self._newStatus)
 
     # UI Elements
     def create_ui(self, path):
         # Initialize
         path =  path + '/config.json'
-        self._fps, self._ui = HomeConfigurationParser.parse(self._window, self._client, self._server, path)
+        self._fps, self._ui = HomeConfigurationParser.parse(self._window, self._server, path)
+        Client().subscribeToRyderEngine()
 
         # Refresher
         self._timer = QTimer()
