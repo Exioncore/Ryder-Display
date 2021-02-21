@@ -523,7 +523,7 @@
     {
       "title": "RAM Load",
       "type": "RoundProgressBar",
-      "pos": [ 360, 275 ],
+      "pos": [ 360, 280 ],
       "size": [ 80, 80 ],
       "angle": [ 225, -45 ],
       "colors": [ "#9e24e4", "#141414" ],
