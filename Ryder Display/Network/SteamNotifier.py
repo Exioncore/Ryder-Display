@@ -6,16 +6,15 @@ from steam.enums import EChatEntryType, EResult
 from Network.Server import Server
 from Network.Client import Client
 
-class SteamNotifier(threading.Thread):
-    def __init__(self, server:Server, steam_notification, path):
-        super(SteamNotifier, self).__init__(name='Steam Notifier Thread')
-
+class SteamNotifier(object):
+    def __init__(self, server:Server, notification, path):
         self._cache = path + '/cache/'
         if not os.path.exists(self._cache):
             os.makedirs(self._cache)
        
-        self._steam_notification = steam_notification
+        self._notification = notification
         # Bind Server
+        server._steam = self
         server.add_endpoint('/steamLogin', 'steamLogin', self._steamLoginData)
         server.add_endpoint('/steam2fa', 'steam2fa',self._steam2faData)   
 
@@ -39,9 +38,7 @@ class SteamNotifier(threading.Thread):
             self._steamClient.login(username=data[0].replace('\n',''), login_key=data[1])
         else:
             Client().querySteamLogin()
-            self._steam_notification('Steam', 'Login', 'Requesting Login Data')
-        while True:
-            gevent.sleep(0.1)
+            self._notification('Steam', 'Login', 'Requesting Login Data')
 
     def _steamLoginData(self, request):
         self._login_data = [request[0], request[1]]
@@ -55,41 +52,37 @@ class SteamNotifier(threading.Thread):
     # Handle SteamClient events
     def connected(self):
         print("Connected")
-        if self._steamClient.relogin_available:
-            self._steamClient.relogin()
 
     def disconnected(self):
         print("Disconnected")
         if self._steamClient.relogin_available:
-            self._steam_notification('Steam', self._steamClient.username, 'Connection lost! Re-trying...')
+            self._notification('Steam', self._steamClient.username, 'Connection lost! Re-trying...')
             self._steamClient.reconnect(maxdelay=30)
 
     def login_secured(self):
         print("Login secured")
-        if self._steamClient.relogin_available:
-            self._steamClient.relogin()
 
     def login_error(self, data):
         print("Login error")
         print(data)
         if data == EResult.InvalidPassword:
             Client().querySteamLogin()
-            self._steam_notification('Steam', 'Login', 'Requesting Login Data')
+            self._notification('Steam', 'Login', 'Requesting Login Data')
 
     def auth_code_prompt(self, is2fa, code_mismatch):
         print("Steam2FA Required")
-        self._steam_notification('Steam', 'Login', 'Requesting 2 Factor Authentication')
+        self._notification('Steam', 'Login', 'Requesting 2 Factor Authentication')
         Client().querySteam2FA()
 
     def handle_message(self, msg):
         if msg.body.chat_entry_type == EChatEntryType.ChatMsg and not msg.body.local_echo:
             user = self._steamClient.get_user(msg.body.steamid_friend)
             text = msg.body.message
-            self._steam_notification('Steam', user.name, text)
+            self._notification('Steam', user.name, text)
 
     def login_success(self):
         print("Login successfull")
-        self._steam_notification('Steam', self._steamClient.username, 'Logged in!')
+        self._notification('Steam', self._steamClient.username, 'Logged in!')
 
     def new_login_key(self):
         print("New login key")

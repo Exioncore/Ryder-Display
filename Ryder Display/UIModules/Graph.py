@@ -7,7 +7,6 @@ from UIModules.DynamicText import DynamicText
 
 class Graph(object):
     def __init__(self, window, pos=[0,0], size=[50,50], color="#2ecc71", thickness=4, longest_text="", stylesheet=["",""], unit="", n_values = 30, metric=[]):
-        # (self, window, stylesheet="", longest_text="", unit ="", alignment="center",  pos=[0,0], metric=[])
         self._metric = metric
         self._height = size[1]
         # UI

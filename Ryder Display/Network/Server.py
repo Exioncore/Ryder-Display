@@ -1,10 +1,10 @@
 import time
 import socket
-from PyQt5 import QtCore
-from flask import Flask, Response, request
 import gevent
-from gevent.pywsgi import WSGIServer
 from gevent.pool import Pool
+from gevent.pywsgi import WSGIServer
+from flask import Flask, Response, request
+#from Network.SteamNotifier import SteamNotifier
 
 class EndpointAction(object):
     def __init__(self, action):
@@ -18,9 +18,12 @@ class EndpointAction(object):
 class Server(object):
     def __init__(self, name):
         self.app = Flask(name)
+        self._steam = None
 
     def run(self, port=9520):
         print("Server started")
+        if self._steam is not None:
+            self._steam.run()
         WSGIServer(('0.0.0.0', port), self.app).serve_forever()
 
     def add_endpoint(self, endpoint=None, endpoint_name=None, handler=None):
