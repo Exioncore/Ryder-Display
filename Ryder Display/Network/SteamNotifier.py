@@ -61,6 +61,8 @@ class SteamNotifier(object):
 
     def login_secured(self):
         print("Login secured")
+        if self._steamClient.relogin_available:
+                self._steamClient.relogin()
 
     def login_error(self, data):
         print("Login error")
