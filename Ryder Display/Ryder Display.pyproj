@@ -67,7 +67,7 @@
     <Compile Include="UIModules\Graph.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UIModules\HyperionButton.py">
+    <Compile Include="UIModules\MenuButton.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UIModules\Notifications\Notification.py">
@@ -93,6 +93,8 @@
   <ItemGroup>
     <Folder Include="Network\" />
     <Folder Include="Resources\Hyperion\" />
+    <Folder Include="Resources\Audio\" />
+    <Folder Include="Resources\Power\" />
     <Folder Include="UIModules\" />
     <Folder Include="UIModules\Notifications\" />
     <Folder Include="Utils\" />
@@ -102,6 +104,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="config.json" />
+    <Content Include="Resources\Audio\Audio.png" />
+    <Content Include="Resources\Audio\1.png" />
+    <Content Include="Resources\Audio\0.png" />
+    <Content Include="Resources\Audio\2.png" />
     <Content Include="Resources\CPU-Logo.svg" />
     <Content Include="Resources\Credits.txt" />
     <Content Include="Resources\Discord-Logo.svg" />
@@ -115,6 +121,7 @@
     <Content Include="Resources\Hyperion\Monitor.png" />
     <Content Include="Resources\Off.png" />
     <Content Include="Resources\On.png" />
+    <Content Include="Resources\Power\Power.png" />
     <Content Include="Resources\RAM-Logo.svg" />
     <Content Include="Resources\settings.svg" />
     <Content Include="Resources\speaker.svg" />

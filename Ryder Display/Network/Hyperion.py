@@ -22,6 +22,9 @@ class Hyperion(object, metaclass=Singleton):
         if state is not None:
             self.usbState = state['info']['components'][6]['enabled']
             self.ledState = state['info']['components'][7]['enabled']
+            for effect in state['info']['activeEffects']:
+                if effect['name'] == 'Mood Lamp' and effect['priority'] == 50:
+                    self.moodLamp = True
             self.effects = []
             for effect in state['info']['effects']:
                 self.effects.append(effect['name'])

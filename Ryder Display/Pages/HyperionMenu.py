@@ -15,8 +15,7 @@ class HyperionMenu(QMainWindow):
             'border: 1px solid rgba(237,174,28,100%);'
         )
 
-    def createUI(self, instance, path, pos=[0,0]):
-        self._instance = instance
+    def createUI(self, path, pos=[0,0]):
         gap = 25
         size = [100, 100]
         w_size = [size[0] * 3 + gap * 4, size[1] + int(size[1] * (278 / 512)) + gap * 3]
@@ -35,10 +34,6 @@ class HyperionMenu(QMainWindow):
         self._monitor.clicked.connect(lambda:self.onClickMonitor())
 
         self._notifications = QPushButton('', self)
-        if Hyperion().notifications:
-            self._notifications.setIcon(QIcon(path + '/Resources/Hyperion/Bell.png'))
-        else:
-            self._notifications.setIcon(QIcon(path + '/Resources/Hyperion/Bell-crossed.png'))
         self._notifications.setIconSize(QSize(size[0], size[1]))
         self._notifications.setGeometry(size[0] + gap * 2, gap, size[0], size[1])
         self._notifications.setStyleSheet('border: none;')
@@ -52,10 +47,6 @@ class HyperionMenu(QMainWindow):
         self._lamp.clicked.connect(lambda:self.onClickLamp())
 
         self._power = QPushButton('', self)
-        if Hyperion().ledState:
-            self._power.setIcon(QIcon(path + '/Resources/On.png'))
-        else:
-            self._power.setIcon(QIcon(path + '/Resources/Off.png'))
         self._power.setIconSize(QSize(size[0], int(size[1] * (278 / 512))))
         self._power.setGeometry(size[0] + gap * 2, size[1] + gap * 2, size[0], int(size[1] * (278 / 512)))
         self._power.setStyleSheet('border: none;')
@@ -65,6 +56,17 @@ class HyperionMenu(QMainWindow):
         self._notifications.show()
         self._lamp.show()
         self._power.show()
+
+    def show(self):
+        if Hyperion().notifications:
+            self._notifications.setIcon(QIcon(self._path + '/Resources/Hyperion/Bell.png'))
+        else:
+            self._notifications.setIcon(QIcon(self._path + '/Resources/Hyperion/Bell-crossed.png'))
+        if Hyperion().ledState:
+            self._power.setIcon(QIcon(self._path + '/Resources/On.png'))
+        else:
+            self._power.setIcon(QIcon(self._path + '/Resources/Off.png'))
+        super().show()
 
     @pyqtSlot()
     def onClickMonitor(self):

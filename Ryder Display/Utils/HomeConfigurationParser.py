@@ -11,14 +11,16 @@ from UIModules.ForegroundProcess import ForegroundProcess
 from UIModules.CornerProgressBar import CornerProgressBar
 from UIModules.RoundProgressBar import RoundProgressBar
 from UIModules.DynamicTextBool import DynamicTextBool
-from UIModules.HyperionButton import HyperionButton
 from UIModules.DynamicText import DynamicText
 from UIModules.ProgressBar import ProgressBar
+from UIModules.MenuButton import MenuButton
 from UIModules.Graph import Graph
 
 from Network.Client import Client
 from Network.Server import Server
 from Network.Hyperion import Hyperion
+
+from Pages.HyperionMenu import HyperionMenu
 
 class HomeConfigurationParser(object):
     def parse(window, server : Server, path: str):
@@ -116,8 +118,20 @@ class HomeConfigurationParser(object):
                     window, server, entry['timeout_frames'], entry['transition_frames'], 
                     entry['stylesheet'], entry['img_margin'], entry['location'], entry['height'], path[0:path.rfind('/')]
                 )
+            elif entry['type'] == 'PowerMenu':
+                popup = None #PowerMenu()
+                #popup.createUI(path[0:path.rfind('/')], [window.frameGeometry().width() / 2, window.frameGeometry().height() / 2])
+                elem = MenuButton(window, new_pos.copy(), entry['size'], path[0:path.rfind('/')], '/Resources/Power/Power.png', popup)
+                is_dynamic = False
             elif entry['type'] == 'HyperionMenu':
-                elem = HyperionButton(window, entry['pos'], entry['size'], path[0:path.rfind('/')])
+                popup = HyperionMenu()
+                popup.createUI(path[0:path.rfind('/')], [window.frameGeometry().width() / 2, window.frameGeometry().height() / 2])
+                elem = MenuButton(window, new_pos.copy(), entry['size'], path[0:path.rfind('/')], '/Resources/Hyperion/Logo.png', popup)
+                is_dynamic = False
+            elif entry['type'] == 'AudioMenu':
+                popup = None #AudioMenu()
+                #popup.createUI(path[0:path.rfind('/')], [window.frameGeometry().width() / 2, window.frameGeometry().height() / 2])
+                elem = MenuButton(window, new_pos.copy(), entry['size'], path[0:path.rfind('/')], '/Resources/Audio/Audio.png', popup)
                 is_dynamic = False
 
             if 'pos' in entry:

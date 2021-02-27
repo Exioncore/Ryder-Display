@@ -523,7 +523,7 @@
     {
       "title": "RAM Load",
       "type": "RoundProgressBar",
-      "pos": [ 360, 290 ],
+      "pos": [ 360, 270 ],
       "size": [ 80, 80 ],
       "angle": [ 225, -45 ],
       "colors": [ "#9e24e4", "#141414" ],
@@ -595,22 +595,34 @@
     {
       "title": "Notifications",
       "type": "NotificationsHandler",
-      "location": "bottom",
+      "location": "top",
       "height": 80,
       "img_margin": 10,
       "stylesheet": [
-        "border-top-right-radius:15px;border-top-left-radius:15px;",
+        "border-bottom-right-radius:15px;border-bottom-left-radius:15px;",
         "color:rgb(225,225,225);font-weight:bold;font:18pt;",
         "color:rgb(225,225,225);font-weight:bold;font:14pt;"
       ],
-      "transition_frames": 6,
+      "transition_frames": 5,
       "timeout_frames": 120
     },
     {
       "title": "Hyperion",
       "type": "HyperionMenu",
-      "pos": [375, 205],
-      "size": [50, 50]
+      "pos": [ 375, 410 ],
+      "size": [ 50, 50 ]
+    },
+    {
+      "title": "Power",
+      "type": "PowerMenu",
+      "pos": [ "d-70", "d+5" ],
+      "size": [ 40, 40 ]
+    },
+    {
+      "title": "Audio",
+      "type": "AudioMenu",
+      "pos": [ "d+80", "d+5" ],
+      "size": [ 40, 40 ]
     }
   ],
   "unit_converters": {
@@ -647,5 +659,17 @@
     "ip": "192.168.1.131",
     "port": 8090
   },
+  "audio": [
+    {
+      "playbackDevice": "Speakers",
+      "playbackDeviceCommunication": "Speakers",
+      "recordingDevice": "Camera Microphone"
+    },
+    {
+      "playbackDevice": "Headphones",
+      "playbackDeviceCommunication": "Headset Earphone",
+      "recordingDevice": "Headset Microphone"
+    }
+  ],
   "fps": 24
 }

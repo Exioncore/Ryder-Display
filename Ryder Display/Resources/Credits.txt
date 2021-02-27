@@ -28,3 +28,17 @@ https://www.flaticon.com/free-icon/notification_1827301?term=notification&page=1
 Bell-crossed
 https://www.flaticon.com/free-icon/notification_1827301?term=notification&page=1&position=17&page=1&position=17&related_id=1827301&origin=search
 https://www.flaticon.com/free-icon/crossed_3388682?term=cross&page=1&position=37&page=1&position=37&related_id=3388682&origin=search
+
+- Audio
+Audio
+https://www.flaticon.com/free-icon/volume_945174?term=audio&page=1&position=1&page=1&position=1&related_id=945174&origin=search
+VR
+https://www.flaticon.com/free-icon/vr-glasses_2036271?term=vr&page=1&position=6&page=1&position=6&related_id=2036271&origin=search
+Headset
+https://www.flaticon.com/free-icon/headset_1017468?term=headset&page=1&position=3&page=1&position=3&related_id=1017468&origin=search
+Speakers
+https://www.flaticon.com/free-icon/speaker_3100505?term=speaker&page=1&position=16&page=1&position=16&related_id=3100505&origin=search
+
+- Power
+Power
+https://www.flaticon.com/free-icon/power_3165499?term=energy&page=1&position=60&page=1&position=60&related_id=3165499&origin=search
