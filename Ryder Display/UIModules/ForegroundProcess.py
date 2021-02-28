@@ -64,14 +64,15 @@ class ForegroundProcess(object):
                 self._currentProgram = "null"
             else:
                 self._currentProgram = request[0]
-                path = self._iconsPath + self._currentProgram + '.png'
-                if not os.path.exists(path):
-                    # Store new icon in cache
-                    pixmap.loadFromData(base64.b64decode(request[1]))
-                    pixmap.save(path)
-                else:
-                    # Load from cache
-                    pixmap.load(path)
+                if request[1] is not None:
+                    path = self._iconsPath + self._currentProgram + '.png'
+                    if not os.path.exists(path):
+                        # Store new icon in cache
+                        pixmap.loadFromData(base64.b64decode(request[1]))
+                        pixmap.save(path)
+                    else:
+                        # Load from cache
+                        pixmap.load(path)
             self._label.setPixmap(pixmap)
             self._label.update()
         self._mutex.release()
