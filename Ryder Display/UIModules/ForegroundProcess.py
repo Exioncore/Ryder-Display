@@ -11,13 +11,11 @@ from Network.Client import Client
 from Network.Server import Server
 
 class ForegroundProcess(object):
-    _mutex : Lock
     _label : QLabel
     _currentProgram : str
     _iconsPath : str
 
     def __init__(self, window, server : Server, pos=[0, 0], size=25, path=""):
-        self._mutex = Lock()
         # Create cache folder if it doesn't exist
         self._iconsPath = path + '/cache/icons/'
         if not os.path.exists(self._iconsPath):
@@ -37,9 +35,8 @@ class ForegroundProcess(object):
         pass
     
     def _newProcessName(self, request):
-        self._mutex.acquire()
         if request != self._currentProgram:
-            if request == "null":
+            if request is None:
                 self._currentProgram = "null"
                 self._label.setPixmap(QPixmap())
                 self._label.update()
@@ -54,13 +51,11 @@ class ForegroundProcess(object):
                     pixmap.load(self._iconsPath + self._currentProgram + '.png')
                     self._label.setPixmap(pixmap)
                     self._label.update()
-        self._mutex.release()
 
     def _newProcessIcon(self, request):
-        self._mutex.acquire()
         if self._currentProgram != request[0]:
             pixmap = QPixmap()
-            if request[0] == "null":
+            if request[0] is None:
                 self._currentProgram = "null"
             else:
                 self._currentProgram = request[0]
@@ -75,4 +70,3 @@ class ForegroundProcess(object):
                         pixmap.load(path)
             self._label.setPixmap(pixmap)
             self._label.update()
-        self._mutex.release()
