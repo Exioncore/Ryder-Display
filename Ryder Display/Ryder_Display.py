@@ -39,8 +39,10 @@ def pyqtLoop(app):
         app.processEvents()
         gevent.sleep(0.005)
 
-def killApp(server):
+def killApp(app, server):
     server._steam._steamClient.disconnect()
+    app.quit()
+    # Ensure everything is killed
     gevent.killall([obj for obj in gc.get_objects() if isinstance(obj, gevent.Greenlet)])
 
 if __name__ == "__main__":
@@ -63,7 +65,7 @@ if __name__ == "__main__":
 
     # Hotkey for closing application
     if sys.platform != 'win32':
-        keyboard.on_press_key("q",  lambda _:killApp(server))
+        keyboard.on_press_key("q",  lambda _:killApp(app, server))
 
     # Run Server
     gevent.joinall([gevent.spawn(server.run), gevent.spawn(pyqtLoop, app)])
