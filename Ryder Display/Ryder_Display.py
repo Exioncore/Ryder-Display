@@ -40,7 +40,7 @@ def pyqtLoop(app):
         gevent.sleep(0.005)
 
 def killApp(app, server):
-    server._steam._steamClient.disconnect()
+    server._steam._steamClient.logout()
     app.quit()
     # Ensure everything is killed
     gevent.killall([obj for obj in gc.get_objects() if isinstance(obj, gevent.Greenlet)])
