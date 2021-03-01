@@ -37,7 +37,7 @@ class ForegroundProcess(object):
     def _newProcessName(self, request):
         if request != self._currentProgram:
             if request is None:
-                self._currentProgram = "null"
+                self._currentProgram = None
                 self._label.setPixmap(QPixmap())
                 self._label.update()
             else:
@@ -56,7 +56,7 @@ class ForegroundProcess(object):
         if self._currentProgram != request[0]:
             pixmap = QPixmap()
             if request[0] is None:
-                self._currentProgram = "null"
+                self._currentProgram = None
             else:
                 self._currentProgram = request[0]
                 if request[1] is not None:
