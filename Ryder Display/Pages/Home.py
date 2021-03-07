@@ -1,4 +1,5 @@
 import os
+import time
 import gevent
 
 from PyQt5.QtCore import QTimer
@@ -16,6 +17,7 @@ class Home(object):
     _server : Server
     _timer : QTimer
     _status = None
+    _last_update = 0
 
     # Class constructor
     def __init__(self, window, server : Server):
@@ -29,7 +31,6 @@ class Home(object):
         # Initialize
         path =  path + '/config.json'
         self._fps, self._ui = HomeConfigurationParser.parse(self._window, self._server, path)
-        Client().subscribeToRyderEngine()
 
         # Refresher
         self._timer = QTimer()
@@ -45,4 +46,9 @@ class Home(object):
             elem.update(self._status)
         # Reset
         if self._status is not None:
+            self._last_update = time.time()
             self._status = None
+        # Attempt subscription if more than 10 seconds have passed since last update / attempt
+        if time.time() - self._last_update > 10:
+            self._last_update = time.time()
+            Client().subscribeToRyderEngine()

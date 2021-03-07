@@ -652,7 +652,7 @@
   },
   "data_provider": {
     "type": "Ryder Engine",
-    "ip": "192.168.1.125",
+    "ip": "192.168.1.218",
     "port": 9519
   },
   "hyperion": {
