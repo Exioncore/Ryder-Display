@@ -39,6 +39,9 @@
     <Compile Include="Pages\HyperionMenu.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Pages\PowerPlanMenu.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="QtComponents\QtGraph.py">
       <SubType>Code</SubType>
     </Compile>

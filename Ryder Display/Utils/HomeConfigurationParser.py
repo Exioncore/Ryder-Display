@@ -21,6 +21,7 @@ from Network.Server import Server
 from Network.Hyperion import Hyperion
 
 from Pages.HyperionMenu import HyperionMenu
+from Pages.PowerPlanMenu import PowerPlanMenu
 
 class HomeConfigurationParser(object):
     def parse(window, server : Server, path: str):
@@ -119,8 +120,8 @@ class HomeConfigurationParser(object):
                     entry['stylesheet'], entry['img_margin'], entry['location'], entry['height'], path[0:path.rfind('/')]
                 )
             elif entry['type'] == 'PowerMenu':
-                popup = None #PowerMenu()
-                #popup.createUI(path[0:path.rfind('/')], [window.frameGeometry().width() / 2, window.frameGeometry().height() / 2])
+                popup = PowerPlanMenu()
+                popup.createUI(path[0:path.rfind('/')], config['power'], [window.frameGeometry().width() / 2, window.frameGeometry().height() / 2])
                 elem = MenuButton(window, new_pos.copy(), entry['size'], path[0:path.rfind('/')], '/Resources/Power/Power.png', popup)
                 is_dynamic = False
             elif entry['type'] == 'HyperionMenu':
