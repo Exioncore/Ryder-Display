@@ -84,7 +84,7 @@ class SteamNotifier(object):
 
     def login_success(self):
         print("Login successfull")
-        self._steamClient.change_status({'persona_state': EPersonaState.Invisible})
+        self._steamClient.change_status(persona_state = EPersonaState.Invisible)
         self._notification('Steam', self._steamClient.username, 'Logged in!')
 
     def new_login_key(self):
