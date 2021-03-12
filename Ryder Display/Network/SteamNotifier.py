@@ -2,7 +2,7 @@ import os
 import threading
 import gevent
 from steam.client import SteamClient
-from steam.enums import EChatEntryType, EResult
+from steam.enums import EChatEntryType, EResult, EPersonaState
 from Network.Server import Server
 from Network.Client import Client
 
@@ -84,6 +84,7 @@ class SteamNotifier(object):
 
     def login_success(self):
         print("Login successfull")
+        self._steamClient.change_status({'persona_state': EPersonaState.Invisible})
         self._notification('Steam', self._steamClient.username, 'Logged in!')
 
     def new_login_key(self):
