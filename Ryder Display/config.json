@@ -82,7 +82,7 @@
       "title": "CPU name",
       "type": "StaticText",
       "text": {
-        "msg": "AMD Ryzen 2700x",
+        "msg": "AMD Ryzen 5900x",
         "alignment": "left"
       },
       "pos": [ 25, 0 ],
@@ -661,7 +661,7 @@
   },
   "power": [
     "Power saver",
-    "AMD RyzenT Balanced",
+    "Balanced",
     "High performance"
   ],
   "audio": [
