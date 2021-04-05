@@ -3,13 +3,13 @@
     {
       "title": "Foreground process icon",
       "type": "ForegroundProcessIcon",
-      "pos": [ 352, 77 ],
+      "pos": [ 352, 57 ],
       "size": 96
     },
     {
       "title": "Framerate",
       "type": "RoundProgressBar",
-      "pos": [ 347, 72 ],
+      "pos": [ 347, 52 ],
       "size": [ 108, 108 ],
       "angle": [ 180, 90 ],
       "colors": [ "#2ecc71", "#141414" ],
@@ -22,7 +22,7 @@
     {
       "title": "Framerate",
       "type": "RoundProgressBar",
-      "pos": [ 347, 72 ],
+      "pos": [ 347, 52 ],
       "size": [ 108, 108 ],
       "angle": [ 180, 270 ],
       "colors": [ "#2ecc71", "#141414" ],
@@ -35,7 +35,7 @@
     {
       "title": "Framerate Text",
       "type": "DynamicText",
-      "pos": [ 345, 115 ],
+      "pos": [ 345, 95 ],
       "stylesheet": "color:#2ecc71;font-weight:bold;font:11pt;",
       "max_text_length": "fps999",
       "alignment": "right",
@@ -45,7 +45,7 @@
     {
       "title": "Total system power",
       "type": "RoundProgressBar",
-      "pos": [ 347, 72 ],
+      "pos": [ 347, 52 ],
       "size": [ 108, 108 ],
       "angle": [ 0, 90 ],
       "colors": [ "#e1ea0e", "#141414" ],
@@ -58,7 +58,7 @@
     {
       "title": "Total system power",
       "type": "RoundProgressBar",
-      "pos": [ 347, 72 ],
+      "pos": [ 347, 52 ],
       "size": [ 108, 108 ],
       "angle": [ 0, -90 ],
       "colors": [ "#e1ea0e", "#141414" ],
@@ -71,12 +71,82 @@
     {
       "title": "Total system power Text",
       "type": "DynamicText",
-      "pos": [ 457, 115 ],
+      "pos": [ 457, 95 ],
       "stylesheet": "color:#e1ea0e;font-weight:bold;font:11pt;",
       "max_text_length": "999w",
       "alignment": "left",
       "metric": [ "total_power" ],
       "unit": "_w"
+    },
+    {
+      "title": "Ambient Label",
+      "type": "StaticText",
+      "text": {
+        "msg": "Ambient",
+        "alignment": "center"
+      },
+      "pos": [ 350, 200 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;"
+    },
+    {
+      "title": "Liquid Label",
+      "type": "StaticText",
+      "text": {
+        "msg": "Liquid",
+        "alignment": "center"
+      },
+      "pos": [ 450, 200 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;"
+    },
+    {
+      "title": "Ambient Temperature Bar",
+      "type": "ProgressBar",
+      "pos": [ 320, "+23" ],
+      "size": [ 80, 12 ],
+      "direction": "left",
+      "stylesheet": [
+        "background-color:#141414;border:0px;",
+        "background-color:#247ae4;border:0px;"
+      ],
+      "metric": {
+        "name": [ "fanController", "ambient" ],
+        "bounds": [ 10, 60 ]
+      }
+    },
+    {
+      "title": "Liquid Temperature Bar",
+      "type": "ProgressBar",
+      "pos": [ 400, "+0" ],
+      "size": [ 80, 12 ],
+      "direction": "right",
+      "stylesheet": [
+        "background-color:#141414;border:0px;",
+        "background-color:#247ae4;border:0px;"
+      ],
+      "metric": {
+        "name": [ "fanController", "liquid" ],
+        "bounds": [ 10, 60 ]
+      }
+    },
+    {
+      "title": "Ambient Temperature Text",
+      "type": "DynamicText",
+      "pos": [ 350, "+20" ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "max_text_length": "99.9°C",
+      "alignment": "center",
+      "metric": [ "fanController", "ambient" ],
+      "unit": [ 1, 1, "_°C" ]
+    },
+    {
+      "title": "Liquid Temperature Text",
+      "type": "DynamicText",
+      "pos": [ "d+100", "+0" ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "max_text_length": "99.9°C",
+      "alignment": "center",
+      "metric": [ "fanController", "liquid" ],
+      "unit": [ 1, 1, "_°C" ]
     },
     {
       "title": "CPU name",
@@ -523,7 +593,7 @@
     {
       "title": "RAM Load",
       "type": "RoundProgressBar",
-      "pos": [ 360, 270 ],
+      "pos": [ 360, 300 ],
       "size": [ 80, 80 ],
       "angle": [ 225, -45 ],
       "colors": [ "#9e24e4", "#141414" ],

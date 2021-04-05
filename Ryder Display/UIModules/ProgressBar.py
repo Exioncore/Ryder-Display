@@ -13,12 +13,12 @@ class ProgressBar(object):
         self._elem.setGeometry(pos[0], pos[1], size[0], size[1])
         if direction == "left":
             self._elem.setOrientation(Qt.Horizontal)
-            self._elem.setInvertedAppearance(true)
+            self._elem.setInvertedAppearance(True)
         elif direction == "right":
             self._elem.setOrientation(Qt.Horizontal)
         elif direction == "bottom":
             self._elem.setOrientation(Qt.Vertical)
-            self._elem.setInvertedAppearance(true)
+            self._elem.setInvertedAppearance(True)
         elif direction == "top":
             self._elem.setOrientation(Qt.Vertical)
         self._elem.setMinimum(bounds[0])
