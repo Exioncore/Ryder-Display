@@ -22,6 +22,7 @@ from Network.Hyperion import Hyperion
 
 from Pages.HyperionMenu import HyperionMenu
 from Pages.PowerPlanMenu import PowerPlanMenu
+from Pages.AudioMenu import AudioMenu
 
 class HomeConfigurationParser(object):
     def parse(window, server : Server, path: str):
@@ -130,8 +131,8 @@ class HomeConfigurationParser(object):
                 elem = MenuButton(window, new_pos.copy(), entry['size'], path[0:path.rfind('/')], '/Resources/Hyperion/Logo.png', popup)
                 is_dynamic = False
             elif entry['type'] == 'AudioMenu':
-                popup = None #AudioMenu()
-                #popup.createUI(path[0:path.rfind('/')], [window.frameGeometry().width() / 2, window.frameGeometry().height() / 2])
+                popup = AudioMenu()
+                popup.createUI(path[0:path.rfind('/')], config['audio'], [window.frameGeometry().width() / 2, window.frameGeometry().height() / 2])
                 elem = MenuButton(window, new_pos.copy(), entry['size'], path[0:path.rfind('/')], '/Resources/Audio/Audio.png', popup)
                 is_dynamic = False
 

@@ -33,6 +33,9 @@
     <Compile Include="Network\SteamNotifier.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Pages\AudioMenu.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Pages\Home.py">
       <SubType>Code</SubType>
     </Compile>

@@ -73,6 +73,7 @@ class HyperionMenu(QMainWindow):
         Hyperion().clear(50)
         Hyperion().setUsbCaptureState(True)
         Hyperion().moodLamp = False
+        self.close()
 
     @pyqtSlot()
     def onClickNotifications(self):
@@ -90,6 +91,7 @@ class HyperionMenu(QMainWindow):
         else:
             Hyperion().clear(50)
         Hyperion().moodLamp = not Hyperion().moodLamp
+        self.close()
 
     @pyqtSlot()
     def onClickPower(self):

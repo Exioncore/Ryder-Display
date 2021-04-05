@@ -18,7 +18,7 @@ class Hyperion(object, metaclass=Singleton):
         self._url = 'http://' + ip + ':' + str(port) + '/json-rpc'
 
     def getState(self):
-        state = Client.sendQuery(self._url,{'command':'serverinfo'}, self._timeout)
+        state = Client.sendQuerySync(self._url,{'command':'serverinfo'}, self._timeout)
         if state is not None:
             self.usbState = state['info']['components'][6]['enabled']
             self.ledState = state['info']['components'][7]['enabled']
@@ -32,7 +32,7 @@ class Hyperion(object, metaclass=Singleton):
         return False
 
     def setEffect(self, name, priority, duration):
-        return Client.sendQuery(
+        return Client.sendQuerySync(
             self._url,
             {
                 'command':'effect',
@@ -46,7 +46,7 @@ class Hyperion(object, metaclass=Singleton):
 
     def setLedState(self, enable: bool):
         self.ledState = enable
-        return Client.sendQuery(
+        return Client.sendQuerySync(
             self._url,
             {
                 'command':'componentstate',
@@ -57,7 +57,7 @@ class Hyperion(object, metaclass=Singleton):
 
     def setUsbCaptureState(self, enable: bool):
         self.usbState = enable
-        return Client.sendQuery(
+        return Client.sendQuerySync(
             self._url,
             {
                 'command':'componentstate',
@@ -67,7 +67,7 @@ class Hyperion(object, metaclass=Singleton):
         )
 
     def clear(self, priority):
-        return Client.sendQuery(
+        return Client.sendQuerySync(
             self._url,
             {
                 'command':'clear',

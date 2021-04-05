@@ -6,23 +6,23 @@ from PyQt5.QtGui import QIcon
 
 from Network.Client import Client
 
-class PowerPlanMenu(QMainWindow):
+class AudioMenu(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Power Plan")
+        self.setWindowTitle("Audio")
         self.setWindowFlag(Qt.Popup)
         self.setStyleSheet(
             'border: 1px solid rgba(237,174,28,100%);'
         )
 
-    def createUI(self, path, plans, pos=[0,0]):
+    def createUI(self, path, profiles, pos=[0,0]):
         self._path = path
-        self._plans = plans
+        self._profiles = profiles
 
         gap = 25
         size = [100, 100]
-        w_size = [size[0] * len(plans) + gap * (len(plans) + 1), size[1] + gap * 2]
+        w_size = [size[0] * len(profiles) + gap * (len(profiles) + 1), size[1] + gap * 2]
 
         self.setGeometry(
             pos[0] - w_size[0] / 2, pos[1] - w_size[1] / 2,
@@ -31,10 +31,10 @@ class PowerPlanMenu(QMainWindow):
 
         self._buttons = []
         ofst = 0;
-        for i in range(len(plans)):
+        for i in range(len(profiles)):
             ofst += gap
             btn = QPushButton('', self)
-            btn.setIcon(QIcon(path + '/Resources/Power/'+str(i)+'.png'))
+            btn.setIcon(QIcon(path + '/Resources/Audio/'+str(i)+'.png'))
             btn.setIconSize(QSize(size[0], size[1]))
             btn.setGeometry(ofst, gap, size[0], size[1])
             btn.setStyleSheet('border: none;')
@@ -49,5 +49,5 @@ class PowerPlanMenu(QMainWindow):
     @pyqtSlot()
     def onClick(self, i: int):
         print(str(i))
-        Client.sendQuery(Client()._url, { "request": "powerPlan", "name": self._plans[i] } ,Client()._timeout)
+        Client.sendQuery(Client()._url, { "request": "audioProfile", "devices": self._profiles[i] } ,Client()._timeout)
         self.close()
