@@ -29,11 +29,18 @@ class DynamicTextBool(object):
     def update(self, status):
          if status is not None:
             value = status
+            # Navigate status json to desired metric
             for i in range(0, len(self._metric['name'])):
-                value = value[self._metric['name'][i]]
-            is_true = value == self._metric['true_value']
+                if self._metric['name'][i] in value:
+                    value = value[self._metric['name'][i]]
+                else:
+                    # Interrupt update if desired metric is not found
+                    return
+            is_true = (value == self._metric['target_value'] if self._metric['operator'] == '=' else 
+                       (value > self._metric['target_value'] if self._metric['operator'] == '>' else 
+                        (value < self._metric['target_value'] if self._metric['operator'] == '<' else False)))
             if is_true != self._is_true:
-                if value == self._metric['true_value']:
+                if is_true:
                     self._label.setText(self._text[1])
                     self._label.setStyleSheet('QLabel{'+self._stylesheet[1]+'}')
                 else:

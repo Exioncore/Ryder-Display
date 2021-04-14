@@ -194,7 +194,8 @@
       "pos": [ "d-5", "d+115" ],
       "metric": {
         "name": [ "msi", "No load limit" ],
-        "true_value": 1
+        "target_value": 1,
+        "operator": "="
       }
     },
     {
@@ -209,7 +210,8 @@
       "pos": [ "d+55", "d+115" ],
       "metric": {
         "name": [ "msi", "Voltage limit" ],
-        "true_value": 1
+        "target_value": 1,
+        "operator": "="
       }
     },
     {
@@ -224,7 +226,8 @@
       "pos": [ "d+25", "d+85" ],
       "metric": {
         "name": [ "msi", "Temp limit" ],
-        "true_value": 1
+        "target_value": 1,
+        "operator": "="
       }
     },
     {
@@ -239,7 +242,8 @@
       "pos": [ "d+25", "d+145" ],
       "metric": {
         "name": [ "msi", "Power limit" ],
-        "true_value": 1
+        "target_value": 1,
+        "operator": "="
       }
     },
     {
