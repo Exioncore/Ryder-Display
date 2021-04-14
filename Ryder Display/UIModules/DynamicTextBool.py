@@ -1,5 +1,7 @@
-from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel
+from PyQt5.QtCore import Qt
+
+from Utils.InternalMetrics import InternalMetrics
 
 class DynamicTextBool(object):
     def __init__(self, window, stylesheet=["",""], txt=["",""], alignment="center",  pos=[0,0], metric=[]):
@@ -27,15 +29,19 @@ class DynamicTextBool(object):
         self._label.show()
 
     def update(self, status):
-         if status is not None:
-            value = status
-            # Navigate status json to desired metric
-            for i in range(0, len(self._metric['name'])):
-                if self._metric['name'][i] in value:
-                    value = value[self._metric['name'][i]]
-                else:
-                    # Interrupt update if desired metric is not found
-                    return
+        if status is not None:
+            if self._metric['name'][0][0] != "*":
+                value = status
+                # Navigate status json to desired metric
+                for i in range(0, len(self._metric['name'])):
+                    if self._metric['name'][i] in value:
+                        value = value[self._metric['name'][i]]
+                    else:
+                        # Interrupt update if desired metric is not found
+                        return
+            else:
+                # Get computed metric
+                value = InternalMetrics().metrics[self._metric['name'][0]]
             is_true = (value == self._metric['target_value'] if self._metric['operator'] == '=' else 
                        (value > self._metric['target_value'] if self._metric['operator'] == '>' else 
                         (value < self._metric['target_value'] if self._metric['operator'] == '<' else False)))
