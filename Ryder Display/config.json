@@ -1,174 +1,26 @@
 {
   "ui": [
     {
-      "title": "Foreground process icon",
-      "type": "ForegroundProcessIcon",
-      "pos": [ 352, 57 ],
-      "size": 96
-    },
-    {
-      "title": "Framerate",
-      "type": "RoundProgressBar",
-      "pos": [ 347, 52 ],
-      "size": [ 108, 108 ],
-      "angle": [ 180, 90 ],
-      "colors": [ "#2ecc71", "#141414" ],
-      "thickness": 4,
-      "metric": {
-        "name": [ "framerate" ],
-        "bounds": [ 30, 120 ]
-      }
-    },
-    {
-      "title": "Framerate",
-      "type": "RoundProgressBar",
-      "pos": [ 347, 52 ],
-      "size": [ 108, 108 ],
-      "angle": [ 180, 270 ],
-      "colors": [ "#2ecc71", "#141414" ],
-      "thickness": 4,
-      "metric": {
-        "name": [ "framerate" ],
-        "bounds": [ 30, 120 ]
-      }
-    },
-    {
-      "title": "Framerate Text",
-      "type": "DynamicText",
-      "pos": [ 345, 95 ],
-      "stylesheet": "color:#2ecc71;font-weight:bold;font:11pt;",
-      "max_text_length": "fps999",
-      "alignment": "right",
-      "metric": [ "framerate" ],
-      "unit": "fps_"
-    },
-    {
-      "title": "Total system power",
-      "type": "RoundProgressBar",
-      "pos": [ 347, 52 ],
-      "size": [ 108, 108 ],
-      "angle": [ 0, 90 ],
-      "colors": [ "#e1ea0e", "#141414" ],
-      "thickness": 4,
-      "metric": {
-        "name": [ "total_power" ],
-        "bounds": [ 0, 570 ]
-      }
-    },
-    {
-      "title": "Total system power",
-      "type": "RoundProgressBar",
-      "pos": [ 347, 52 ],
-      "size": [ 108, 108 ],
-      "angle": [ 0, -90 ],
-      "colors": [ "#e1ea0e", "#141414" ],
-      "thickness": 4,
-      "metric": {
-        "name": [ "total_power" ],
-        "bounds": [ 0, 570 ]
-      }
-    },
-    {
-      "title": "Total system power Text",
-      "type": "DynamicText",
-      "pos": [ 457, 95 ],
-      "stylesheet": "color:#e1ea0e;font-weight:bold;font:11pt;",
-      "max_text_length": "999w",
-      "alignment": "left",
-      "metric": [ "total_power" ],
-      "unit": "_w"
-    },
-    {
-      "title": "Ambient Label",
+      "title": "CPU Name",
       "type": "StaticText",
+      "pos": [ 150, 0 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:18pt;",
       "text": {
-        "msg": "Ambient",
+        "msg": "AMD Ryzen 9 5900x",
         "alignment": "center"
-      },
-      "pos": [ 350, 200 ],
-      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;"
-    },
-    {
-      "title": "Liquid Label",
-      "type": "StaticText",
-      "text": {
-        "msg": "Liquid",
-        "alignment": "center"
-      },
-      "pos": [ 450, 200 ],
-      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;"
-    },
-    {
-      "title": "Ambient Temperature Bar",
-      "type": "ProgressBar",
-      "pos": [ 320, "+23" ],
-      "size": [ 80, 12 ],
-      "direction": "left",
-      "stylesheet": [
-        "background-color:#141414;border:0px;",
-        "background-color:#247ae4;border:0px;"
-      ],
-      "metric": {
-        "name": [ "fanController", "ambient" ],
-        "bounds": [ 10, 60 ]
       }
     },
     {
-      "title": "Liquid Temperature Bar",
-      "type": "ProgressBar",
-      "pos": [ 400, "+0" ],
-      "size": [ 80, 12 ],
-      "direction": "right",
-      "stylesheet": [
-        "background-color:#141414;border:0px;",
-        "background-color:#247ae4;border:0px;"
-      ],
-      "metric": {
-        "name": [ "fanController", "liquid" ],
-        "bounds": [ 10, 60 ]
-      }
-    },
-    {
-      "title": "Ambient Temperature Text",
-      "type": "DynamicText",
-      "pos": [ 350, "+20" ],
-      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
-      "max_text_length": "99.9°C",
-      "alignment": "center",
-      "metric": [ "fanController", "ambient" ],
-      "unit": [ 1, 1, "_°C" ]
-    },
-    {
-      "title": "Liquid Temperature Text",
-      "type": "DynamicText",
-      "pos": [ "d+100", "+0" ],
-      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
-      "max_text_length": "99.9°C",
-      "alignment": "center",
-      "metric": [ "fanController", "liquid" ],
-      "unit": [ 1, 1, "_°C" ]
-    },
-    {
-      "title": "CPU name",
-      "type": "StaticText",
-      "text": {
-        "msg": "AMD Ryzen 5900x",
-        "alignment": "left"
-      },
-      "pos": [ 25, 0 ],
-      "stylesheet": "color:#e1e1e1;font-weight:bold;font:18pt;"
-    },
-    {
-      "title": "CPU image",
+      "title": "CPU Image",
       "type": "Image",
-      "pos": [ 130, 94 ],
+      "pos": [ "-20", "d+94" ],
       "size": [ 50, 50 ],
       "path": "CPU-Logo.svg"
     },
     {
       "title": "CPU Temperature",
       "type": "ProgressBar",
-      "pos": [ 20, 60 ],
+      "pos": [ "d-110", "d+60" ],
       "size": [ 18, 130 ],
       "direction": "top",
       "stylesheet": [
@@ -176,137 +28,110 @@
         "background:#1f6acc;border-bottom-right-radius:8px;border-bottom-left-radius:8px;"
       ],
       "metric": {
-        "name": [ "cpu", "temperature" ],
-        "bounds": [ 0, 100 ]
+        "name": [ "msi", "CPU temperature" ],
+        "bounds": [ 0, 105 ]
       }
     },
     {
       "title": "CPU Temperature Text",
       "type": "DynamicText",
-      "pos": [ 29, 38 ],
+      "pos": [ "d-101", "d+38" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
       "max_text_length": "99°C",
       "alignment": "center",
-      "metric": [ "cpu", "temperature" ],
+      "metric": {
+        "name": [ "msi", "CPU temperature" ],
+        "bounds": [ 0, 105 ]
+      },
       "unit": "_°C"
     },
     {
       "title": "CPU Max Thread Load",
       "type": "RoundProgressBar",
-      "pos": [ 70, 40 ],
+      "pos": [ "d-60", "d+40" ],
       "size": [ 170, 170 ],
       "angle": [ 225, -45 ],
       "colors": [ "#2ecc71", "#141414" ],
       "thickness": 4,
       "metric": {
-        "name": [ "cpu", "maxThreadLoad" ],
+        "name": [ "*highest_thread_usage" ],
         "bounds": [ 0, 100 ]
       }
     },
     {
       "title": "CPU Load",
       "type": "RoundProgressBar",
-      "pos": [ 80, 50 ],
+      "pos": [ "d-50", "d+50" ],
       "size": [ 150, 150 ],
       "angle": [ 225, -45 ],
       "colors": [ "#cd3413", "#141414" ],
       "thickness": 10,
       "metric": {
-        "name": [ "cpu", "load" ],
+        "name": [ "msi", "CPU usage" ],
         "bounds": [ 0, 100 ]
       }
     },
     {
+      "title": "CPU Clock",
+      "type": "DynamicText",
+      "pos": [ "d+25", "d+175" ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "max_text_length": "9999MHz",
+      "alignment": "center",
+      "metric": {
+        "name": [ "msi", "CPU clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "_MHz"
+    },
+    {
       "title": "CPU Power",
       "type": "CornerProgressBar",
-      "pos": [ 10, 40 ],
+      "pos": [ "d-120", "d+40" ],
       "size": [ 280, 190 ],
       "colors": [ "#e1ea0e", "#141414" ],
       "direction": [ "right", "up" ],
       "thickness": 14,
       "cornerRadius": 50,
       "metric": {
-        "name": [ "cpu", "power" ],
+        "name": [ "msi", "CPU power" ],
         "bounds": [ 0, 200 ]
       }
     },
     {
       "title": "CPU Power Text",
       "type": "DynamicText",
-      "pos": [ 150, 215 ],
+      "pos": [ "d+20", "d+215" ],
       "stylesheet": "color:#ad2a1a;font-weight:bold;font:10pt;",
       "max_text_length": "999w",
       "alignment": "center",
-      "metric": [ "cpu", "power" ],
+      "metric": {
+        "name": [ "msi", "CPU power" ],
+        "bounds": [ 0, 999 ]
+      },
       "unit": "_w"
     },
     {
-      "title": "CPU Clock",
-      "type": "DynamicText",
-      "pos": [ 155, 175 ],
-      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
-      "max_text_length": "9999MHz",
-      "alignment": "center",
-      "metric": [ "cpu", "clock" ],
-      "unit": "_MHz"
-    },
-    {
-      "title": "GPU name",
+      "title": "GPU Name",
       "type": "StaticText",
       "text": {
-        "msg": "NVIDIA RTX3080",
-        "alignment": "right"
+        "msg": "NVIDIA GeForce RTX 3080",
+        "alignment": "center"
       },
-      "pos": [ 750, 0 ],
+      "pos": [ 650, 0 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:18pt;"
     },
     {
-      "title": "GPU image",
+      "title": "GPU Image",
       "type": "Image",
-      "pos": [ 620, 105 ],
+      "pos": [ "-30", "d+103" ],
       "size": [ 50, 35 ],
       "path": "GPU-Logo.svg"
     },
     {
-      "title": "GPU VRAM Usage",
-      "type": "RoundProgressBar",
-      "pos": [ 560, 40 ],
-      "size": [ 170, 170 ],
-      "angle": [ -45, 225 ],
-      "colors": [ "#2ecc71", "#141414" ],
-      "thickness": 4,
-      "metric": {
-        "name": [ "gpu", "memUsage" ],
-        "bounds": [ 0, 10240 ]
-      }
-    },
-    {
-      "title": "GPU Load",
-      "type": "RoundProgressBar",
-      "pos": [ 570, 50 ],
-      "size": [ 150, 150 ],
-      "angle": [ -45, 225 ],
-      "colors": [ "#cd3413", "#141414" ],
-      "thickness": 10,
-      "metric": {
-        "name": [ "gpu", "coreLoad" ],
-        "bounds": [ 0, 100 ]
-      }
-    },
-    {
-      "title": "GPU Clock",
-      "type": "DynamicText",
-      "pos": [ 645, 175 ],
-      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
-      "max_text_length": "9999MHz",
-      "alignment": "center",
-      "metric": [ "gpu", "coreClock" ],
-      "unit": "_MHz"
-    },
-    {
       "title": "GPU Temperature",
       "type": "ProgressBar",
-      "pos": [ 762, 60 ],
+      "pos": [ "d+142", "d+60" ],
       "size": [ 18, 130 ],
       "direction": "top",
       "stylesheet": [
@@ -314,22 +139,51 @@
         "background:#1f6acc;border-bottom-right-radius:8px;border-bottom-left-radius:8px;"
       ],
       "metric": {
-        "name": [ "gpu", "temperature" ],
-        "bounds": [ 0, 100 ]
+        "name": [ "msi", "GPU temperature" ],
+        "bounds": [ 0, 105 ]
       }
     },
     {
       "title": "GPU Temperature Text",
       "type": "DynamicText",
-      "pos": [ 771, 38 ],
+      "pos": [ "d+153", "d+38" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
       "max_text_length": "99°C",
       "alignment": "center",
-      "metric": [ "gpu", "temperature" ],
+      "metric": {
+        "name": [ "msi", "GPU temperature" ],
+        "bounds": [ 0, 105 ]
+      },
       "unit": "_°C"
     },
     {
-      "title": "GPU No Load flag",
+      "title": "GPU VRAM Usage",
+      "type": "RoundProgressBar",
+      "pos": [ "d-60", "d+40" ],
+      "size": [ 170, 170 ],
+      "angle": [ -45, 225 ],
+      "colors": [ "#2ecc71", "#141414" ],
+      "thickness": 4,
+      "metric": {
+        "name": [ "msi", "Memory usage" ],
+        "bounds": [ 0, 10240 ]
+      }
+    },
+    {
+      "title": "GPU Load",
+      "type": "RoundProgressBar",
+      "pos": [ "d-50", "d+50" ],
+      "size": [ 150, 150 ],
+      "angle": [ -45, 225 ],
+      "colors": [ "#cd3413", "#141414" ],
+      "thickness": 10,
+      "metric": {
+        "name": [ "msi", "GPU usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "GPU No Load Flag",
       "type": "DynamicTextBool",
       "stylesheet": [
         "font-weight:bold;color:#282828;",
@@ -337,11 +191,14 @@
       ],
       "text": [ "NL", "NL" ],
       "alignment": "right",
-      "pos": [ 615, 117 ],
-      "metric": [ "gpu", "noLoadLimit" ]
+      "pos": [ "d-5", "d+115" ],
+      "metric": {
+        "name": [ "msi", "No load limit" ],
+        "true_value": 1
+      }
     },
     {
-      "title": "GPU Voltage limit flag",
+      "title": "GPU Voltage Limit flag",
       "type": "DynamicTextBool",
       "stylesheet": [
         "font-weight:bold;color:#282828;",
@@ -349,11 +206,14 @@
       ],
       "text": [ "VL", "VL" ],
       "alignment": "left",
-      "pos": [ 675, 117 ],
-      "metric": [ "gpu", "voltageLimit" ]
+      "pos": [ "d+55", "d+115" ],
+      "metric": {
+        "name": [ "msi", "Voltage limit" ],
+        "true_value": 1
+      }
     },
     {
-      "title": "GPU Temperature limit flag",
+      "title": "GPU Temperature Limit Flag",
       "type": "DynamicTextBool",
       "stylesheet": [
         "font-weight:bold;color:#282828;",
@@ -361,11 +221,14 @@
       ],
       "text": [ "TMP", "TMP" ],
       "alignment": "center",
-      "pos": [ 645, 87 ],
-      "metric": [ "gpu", "tempLimit" ]
+      "pos": [ "d+25", "d+85" ],
+      "metric": {
+        "name": [ "msi", "Temp limit" ],
+        "true_value": 1
+      }
     },
     {
-      "title": "GPU Power limit flag",
+      "title": "GPU Power Limit Flag",
       "type": "DynamicTextBool",
       "stylesheet": [
         "font-weight:bold;color:#282828;",
@@ -373,33 +236,137 @@
       ],
       "text": [ "PWR", "PWR" ],
       "alignment": "center",
-      "pos": [ 645, 147 ],
-      "metric": [ "gpu", "powerLimit" ]
+      "pos": [ "d+25", "d+145" ],
+      "metric": {
+        "name": [ "msi", "Power limit" ],
+        "true_value": 1
+      }
+    },
+    {
+      "title": "GPU Clock",
+      "type": "DynamicText",
+      "pos": [ "d+25", "d+175" ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "max_text_length": "9999MHz",
+      "alignment": "center",
+      "metric": {
+        "name": [ "msi", "Core clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "_MHz"
     },
     {
       "title": "GPU Power",
       "type": "CornerProgressBar",
-      "pos": [ 510, 40 ],
+      "pos": [ "d-110", "d+40" ],
       "size": [ 280, 190 ],
       "colors": [ "#e1ea0e", "#141414" ],
       "direction": [ "left", "up" ],
       "thickness": 14,
       "cornerRadius": 50,
       "metric": {
-        "name": [ "gpu", "power" ],
+        "name": [ "msi", "Power" ],
         "bounds": [ 0, 370 ]
       }
     },
     {
       "title": "GPU Power Text",
       "type": "DynamicText",
-      "pos": [ 650, 215 ],
+      "pos": [ "d+25", "d+215" ],
       "stylesheet": "color:#ad2a1a;font-weight:bold;font:10pt;",
       "max_text_length": "999w",
       "alignment": "center",
-      "metric": [ "gpu", "power" ],
+      "metric": {
+        "name": [ "msi", "Power" ],
+        "bounds": [ 0, 999 ]
+      },
       "unit": "_w"
     },
+    {
+      "title": "Foreground Process Icon",
+      "type": "ForegroundProcessIcon",
+      "pos": [ 352, 57 ],
+      "size": 96
+    },
+    {
+      "title": "Framerate",
+      "type": "RoundProgressBar",
+      "pos": [ "d-5", "d-5" ],
+      "size": [ 108, 108 ],
+      "angle": [ 180, 90 ],
+      "colors": [ "#2ecc71", "#141414" ],
+      "thickness": 4,
+      "metric": {
+        "name": [ "msi", "Framerate" ],
+        "bounds": [ 30, 120 ]
+      }
+    },
+    {
+      "title": "Framerate",
+      "type": "RoundProgressBar",
+      "pos": [ "d-5", "d-5" ],
+      "size": [ 108, 108 ],
+      "angle": [ 180, 270 ],
+      "colors": [ "#2ecc71", "#141414" ],
+      "thickness": 4,
+      "metric": {
+        "name": [ "msi", "Framerate" ],
+        "bounds": [ 30, 120 ]
+      }
+    },
+    {
+      "title": "Total System Power",
+      "type": "RoundProgressBar",
+      "pos": [ "d-5", "d-5" ],
+      "size": [ 108, 108 ],
+      "angle": [ 0, 90 ],
+      "colors": [ "#e1ea0e", "#141414" ],
+      "thickness": 4,
+      "metric": {
+        "name": [ "*total_power" ],
+        "bounds": [ 0, 570 ]
+      }
+    },
+    {
+      "title": "Total System Power",
+      "type": "RoundProgressBar",
+      "pos": [ "d-5", "d-5" ],
+      "size": [ 108, 108 ],
+      "angle": [ 0, -90 ],
+      "colors": [ "#e1ea0e", "#141414" ],
+      "thickness": 4,
+      "metric": {
+        "name": [ "*total_power" ],
+        "bounds": [ 0, 570 ]
+      }
+    },
+    {
+      "title": "Framerate Text",
+      "type": "DynamicText",
+      "pos": [ "d-7", "d+38" ],
+      "stylesheet": "color:#2ecc71;font-weight:bold;font:11pt;",
+      "max_text_length": "fps999",
+      "alignment": "right",
+      "metric": {
+        "name": [ "msi", "Framerate" ],
+        "bounds": [ 0, 999 ]
+      },
+      "unit": "fps_"
+    },
+    {
+      "title": "Total System Power Text",
+      "type": "DynamicText",
+      "pos": [ "d+105", "d+38" ],
+      "stylesheet": "color:#e1ea0e;font-weight:bold;font:11pt;",
+      "max_text_length": "999w",
+      "alignment": "left",
+      "metric": {
+        "name": [ "*total_power" ],
+        "bounds": [ 0, 999 ]
+      },
+      "unit": "_w"
+    },
+
     {
       "title": "Storage",
       "type": "StaticText",
@@ -417,7 +384,7 @@
         "msg": "C:",
         "alignment": "left"
       },
-      "pos": [ 10, 278 ],
+      "pos": [ "-125", "+38" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
     },
     {
@@ -431,7 +398,7 @@
         "background-color:#247ae4;border:0px;"
       ],
       "metric": {
-        "name": [ "storage", 0, "readSpeed" ],
+        "name": [ "storage", "C", "readSpeed" ],
         "bounds": [ 0, 100 ]
       }
     },
@@ -442,7 +409,9 @@
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
       "alignment": "left",
-      "metric": [ "storage", 0, "readSpeed" ],
+      "metric": {
+        "name": [ "storage", "C", "readSpeed" ]
+      },
       "unit": "*storage"
     },
     {
@@ -456,7 +425,7 @@
         "background-color:#24e49f;border:0px;"
       ],
       "metric": {
-        "name": [ "storage", 0, "writeSpeed" ],
+        "name": [ "storage", "C", "writeSpeed" ],
         "bounds": [ 0, 100 ]
       }
     },
@@ -467,7 +436,9 @@
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
       "alignment": "left",
-      "metric": [ "storage", 0, "writeSpeed" ],
+      "metric": {
+        "name": [ "storage", "C", "writeSpeed" ]
+      },
       "unit": "*storage"
     },
     {
@@ -491,7 +462,7 @@
         "background-color:#247ae4;border:0px;"
       ],
       "metric": {
-        "name": [ "storage", 1, "readSpeed" ],
+        "name": [ "storage", "D", "readSpeed" ],
         "bounds": [ 0, 100 ]
       }
     },
@@ -502,7 +473,9 @@
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
       "alignment": "left",
-      "metric": [ "storage", 1, "readSpeed" ],
+      "metric": {
+        "name": [ "storage", "D", "readSpeed" ]
+      },
       "unit": "*storage"
     },
     {
@@ -516,7 +489,7 @@
         "background-color:#24e49f;border:0px;"
       ],
       "metric": {
-        "name": [ "storage", 1, "writeSpeed" ],
+        "name": [ "storage", "D", "writeSpeed" ],
         "bounds": [ 0, 100 ]
       }
     },
@@ -527,7 +500,9 @@
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
       "alignment": "left",
-      "metric": [ "storage", 1, "writeSpeed" ],
+      "metric": {
+        "name": [ "storage", "D", "writeSpeed" ]
+      },
       "unit": "*storage"
     },
     {
@@ -551,7 +526,7 @@
         "background-color:#247ae4;border:0px;"
       ],
       "metric": {
-        "name": [ "storage", 2, "readSpeed" ],
+        "name": [ "storage", "E", "readSpeed" ],
         "bounds": [ 0, 100 ]
       }
     },
@@ -562,7 +537,9 @@
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
       "alignment": "left",
-      "metric": [ "storage", 2, "readSpeed" ],
+      "metric": {
+        "name": [ "storage", "E", "readSpeed" ]
+      },
       "unit": "*storage"
     },
     {
@@ -576,7 +553,7 @@
         "background-color:#24e49f;border:0px;"
       ],
       "metric": {
-        "name": [ "storage", 2, "writeSpeed" ],
+        "name": [ "storage", "E", "writeSpeed" ],
         "bounds": [ 0, 100 ]
       }
     },
@@ -587,37 +564,41 @@
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
       "alignment": "left",
-      "metric": [ "storage", 2, "writeSpeed" ],
+      "metric": {
+        "name": [ "storage", "E", "writeSpeed" ]
+      },
       "unit": "*storage"
+    },
+    {
+      "title": "RAM image",
+      "type": "Image",
+      "pos": [ 380, 320 ],
+      "size": [ 40, 40 ],
+      "path": "RAM-Logo.svg"
     },
     {
       "title": "RAM Load",
       "type": "RoundProgressBar",
-      "pos": [ 360, 300 ],
+      "pos": [ "d-20", "d-20" ],
       "size": [ 80, 80 ],
       "angle": [ 225, -45 ],
       "colors": [ "#9e24e4", "#141414" ],
       "thickness": 10,
       "metric": {
-        "name": [ "ram", "usage" ],
+        "name": [ "msi", "RAM usage" ],
         "bounds": [ 0, 32714 ]
       }
     },
     {
-      "title": "RAM image",
-      "type": "Image",
-      "pos": [ "d+20", "d+20" ],
-      "size": [ 40, 40 ],
-      "path": "RAM-Logo.svg"
-    },
-    {
       "title": "RAM load text",
       "type": "DynamicText",
-      "pos": [ "d+40", "d+65" ],
+      "pos": [ "d+20", "d+45" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
       "max_text_length": "100%",
       "alignment": "center",
-      "metric": [ "ram", "usage" ],
+      "metric": {
+        "name": [ "msi", "RAM usage" ]
+      },
       "unit": "*ram"
     },
     {
@@ -633,7 +614,7 @@
     {
       "title": "Network Download",
       "type": "Graph",
-      "pos": [ 520, 280 ],
+      "pos": [ "d-145", "d+40" ],
       "size": [ 270, 48 ],
       "thickness": 2,
       "color": "#24e49f",
@@ -649,7 +630,7 @@
     {
       "title": "Network Upload",
       "type": "Graph",
-      "pos": [ "d+0", "d+53" ],
+      "pos": [ "d-145", "d+93" ],
       "size": [ 270, 48 ],
       "thickness": 2,
       "color": "#247ae4",
@@ -695,6 +676,11 @@
       "size": [ 40, 40 ]
     }
   ],
+  "data_provider": {
+    "type": "Ryder Engine",
+    "ip": "192.168.1.218",
+    "port": 9519
+  },
   "unit_converters": {
     "storage": [
       [
@@ -720,11 +706,46 @@
     ],
     "ram": [ 327.14, 0, "_%" ]
   },
-  "data_provider": {
-    "type": "Ryder Engine",
-    "ip": "192.168.1.218",
-    "port": 9519
-  },
+  "computed_metrics": [
+    {
+      "name": "*total_power",
+      "metrics": [
+        [ "msi", "CPU power" ],
+        [ "msi", "Power" ]
+      ],
+      "operator": "+"
+    },
+    {
+      "name": "*highest_thread_usage",
+      "metrics": [
+        [ "msi", "CPU1 usage" ],
+        [ "msi", "CPU2 usage" ],
+        [ "msi", "CPU3 usage" ],
+        [ "msi", "CPU4 usage" ],
+        [ "msi", "CPU5 usage" ],
+        [ "msi", "CPU6 usage" ],
+        [ "msi", "CPU7 usage" ],
+        [ "msi", "CPU8 usage" ],
+        [ "msi", "CPU9 usage" ],
+        [ "msi", "CPU10 usage" ],
+        [ "msi", "CPU11 usage" ],
+        [ "msi", "CPU12 usage" ],
+        [ "msi", "CPU13 usage" ],
+        [ "msi", "CPU14 usage" ],
+        [ "msi", "CPU15 usage" ],
+        [ "msi", "CPU16 usage" ],
+        [ "msi", "CPU17 usage" ],
+        [ "msi", "CPU18 usage" ],
+        [ "msi", "CPU19 usage" ],
+        [ "msi", "CPU20 usage" ],
+        [ "msi", "CPU21 usage" ],
+        [ "msi", "CPU22 usage" ],
+        [ "msi", "CPU23 usage" ],
+        [ "msi", "CPU24 usage" ]
+      ],
+      "operator": "M"
+    }
+  ],
   "hyperion": {
     "ip": "192.168.1.131",
     "port": 8090

@@ -2,9 +2,10 @@ import os
 import sys
 import math
 import json
+
+from PyQt5.QtWidgets import QLabel
 from PyQt5.QtCore import Qt
 from PyQt5.QtSvg import QSvgWidget
-from PyQt5.QtWidgets import QLabel
 
 from UIModules.Notifications.NotificationsHandler import NotificationsHandler
 from UIModules.ForegroundProcess import ForegroundProcess
@@ -16,13 +17,15 @@ from UIModules.ProgressBar import ProgressBar
 from UIModules.MenuButton import MenuButton
 from UIModules.Graph import Graph
 
+from Network.Hyperion import Hyperion
 from Network.Client import Client
 from Network.Server import Server
-from Network.Hyperion import Hyperion
 
-from Pages.HyperionMenu import HyperionMenu
 from Pages.PowerPlanMenu import PowerPlanMenu
+from Pages.HyperionMenu import HyperionMenu
 from Pages.AudioMenu import AudioMenu
+
+from Utils.InternalMetrics import InternalMetrics
 
 class HomeConfigurationParser(object):
     def parse(window, server : Server, path: str):
@@ -34,7 +37,8 @@ class HomeConfigurationParser(object):
 
         ts = math.ceil(config['fps'] / 2)
         pos = config['ui'][0]['pos'].copy()
-        new_pos = config['ui'][0]['pos'].copy()
+        new_pos = pos.copy()
+        InternalMetrics().setSettings(config['computed_metrics'])
         for entry in config['ui']:
             is_dynamic = True
             elem = None
@@ -73,19 +77,19 @@ class HomeConfigurationParser(object):
                 elem = RoundProgressBar(
                     window, ts,
                     new_pos.copy(), entry['size'], entry['angle'], entry['colors'], entry['thickness'],
-                    entry['metric']['name'], entry['metric']['bounds']
+                    entry['metric']
                 )
             elif entry['type'] == 'CornerProgressBar':
                 elem = CornerProgressBar(
                     window, ts,
                     new_pos.copy(), entry['size'], entry['direction'], entry['colors'], entry['thickness'],
-                    entry['cornerRadius'], entry['metric']['name'], entry['metric']['bounds']
+                    entry['cornerRadius'], entry['metric']
                 )
             elif entry['type'] == 'ProgressBar':
                 elem = ProgressBar(
                     window, ts,
                     new_pos.copy(), entry['size'], entry['direction'], entry['stylesheet'],
-                    entry['metric']['name'], entry['metric']['bounds']
+                    entry['metric']
                 )
             elif entry['type'] == 'StaticText':
                 elem = HomeConfigurationParser._createLabel(
@@ -148,7 +152,7 @@ class HomeConfigurationParser(object):
                 ui_static.append(elem)
 
         Client().setUrl(config['data_provider']['ip'], config['data_provider']['port'])
-        if config['hyperion'] is not None:
+        if 'hyperion' in config:
             Hyperion().setUrl(config['hyperion']['ip'], config['hyperion']['port'])
             Hyperion().getState()
 

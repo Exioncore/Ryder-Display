@@ -5,6 +5,7 @@ import gevent
 from PyQt5.QtCore import QTimer
 from Utils.HomeConfigurationParser import HomeConfigurationParser
 from Utils.Transitioner import Transitioner
+from Utils.InternalMetrics import InternalMetrics
 from Network.Client import Client
 from Network.Server import Server
 
@@ -39,6 +40,7 @@ class Home(object):
 
     def _newStatus(self, request):
         self._status = request
+        InternalMetrics().update(self._status)
 
     def update(self):
         # Update UI

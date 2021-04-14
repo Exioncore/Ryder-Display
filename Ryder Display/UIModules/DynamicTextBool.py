@@ -28,11 +28,12 @@ class DynamicTextBool(object):
 
     def update(self, status):
          if status is not None:
-            value = status[self._metric[0]]
-            for i in range(1, len(self._metric)):
-                value = value[self._metric[i]]
-            if value != self._is_true:
-                if value:
+            value = status
+            for i in range(0, len(self._metric['name'])):
+                value = value[self._metric['name'][i]]
+            is_true = value == self._metric['true_value']
+            if is_true != self._is_true:
+                if value == self._metric['true_value']:
                     self._label.setText(self._text[1])
                     self._label.setStyleSheet('QLabel{'+self._stylesheet[1]+'}')
                 else:
@@ -40,7 +41,7 @@ class DynamicTextBool(object):
                     self._label.setStyleSheet('QLabel{'+self._stylesheet[0]+'}')
                 self._label.adjustSize()
                 self._alignTxt()
-                self._is_true = value
+                self._is_true = is_true
 
     def _alignTxt(self):
         if self._alignment == "left":

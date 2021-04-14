@@ -70,9 +70,12 @@ class HyperionMenu(QMainWindow):
 
     @pyqtSlot()
     def onClickMonitor(self):
-        Hyperion().clear(50)
-        Hyperion().setUsbCaptureState(True)
-        Hyperion().moodLamp = False
+        if not Hyperion().usbState:
+            Hyperion().clear(50)
+            Hyperion().setUsbCaptureState(True)
+            Hyperion().moodLamp = False
+        else:
+            Hyperion().setUsbCaptureState(False)
         self.close()
 
     @pyqtSlot()

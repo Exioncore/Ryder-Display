@@ -91,6 +91,9 @@
     <Compile Include="Utils\HomeConfigurationParser.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Utils\InternalMetrics.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utils\Singleton.py">
       <SubType>Code</SubType>
     </Compile>

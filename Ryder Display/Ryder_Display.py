@@ -4,12 +4,13 @@ import sys
 import gevent
 import keyboard
 import threading
+import _locale
 # PyQt5
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtCore import Qt, QThread
 # Ryder Display Files
-from Pages.Home import Home
 from Network.Server import Server
+from Pages.Home import Home
 
 class RyderDisplay(QMainWindow): 
     def __init__(self):
@@ -46,6 +47,9 @@ def killApp(app, server):
     gevent.killall([obj for obj in gc.get_objects() if isinstance(obj, gevent.Greenlet)])
 
 if __name__ == "__main__":
+    # Set locale
+    _locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
+
     # Create PyQt5 app
     app = QApplication(sys.argv)
 
