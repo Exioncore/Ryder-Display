@@ -366,7 +366,80 @@
       },
       "unit": "_w"
     },
-
+    {
+      "title": "Ambient Temperature Bar",
+      "type": "ProgressBar",
+      "pos": [ 320, 223 ],
+      "size": [ 80, 12 ],
+      "direction": "left",
+      "stylesheet": [
+        "background-color:#141414;border:0px;",
+        "background-color:#247ae4;border:0px;"
+      ],
+      "metric": {
+        "name": [ "fanController", "ambient" ],
+        "bounds": [ 10, 60 ]
+      }
+    },
+    {
+      "title": "Liquid Temperature Bar",
+      "type": "ProgressBar",
+      "pos": [ "d+80", "d+0" ],
+      "size": [ 80, 12 ],
+      "direction": "right",
+      "stylesheet": [
+        "background-color:#141414;border:0px;",
+        "background-color:#247ae4;border:0px;"
+      ],
+      "metric": {
+        "name": [ "fanController", "liquid" ],
+        "bounds": [ 10, 60 ]
+      }
+    },
+    {
+      "title": "Ambient Label",
+      "type": "StaticText",
+      "text": {
+        "msg": "Ambient",
+        "alignment": "center"
+      },
+      "pos": [ "d+30", "d-23" ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;"
+    },
+    {
+      "title": "Liquid Label",
+      "type": "StaticText",
+      "text": {
+        "msg": "Liquid",
+        "alignment": "center"
+      },
+      "pos": [ "d+130", "d-23" ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;"
+    },
+    {
+      "title": "Ambient Temperature Text",
+      "type": "DynamicText",
+      "pos": [ "d+30", "d+20" ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "max_text_length": "99.9°C",
+      "alignment": "center",
+      "metric": {
+        "name": [ "fanController", "ambient" ]
+      },
+      "unit": [ 1, 1, "_°C" ]
+    },
+    {
+      "title": "Liquid Temperature Text",
+      "type": "DynamicText",
+      "pos": [ "d+130", "d+20" ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "max_text_length": "99.9°C",
+      "alignment": "center",
+      "metric": {
+        "name": [ "fanController", "liquid" ]
+      },
+      "unit": [ 1, 1, "_°C" ]
+    },
     {
       "title": "Storage",
       "type": "StaticText",
