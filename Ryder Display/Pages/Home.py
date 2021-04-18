@@ -3,7 +3,7 @@ import time
 import gevent
 
 from PyQt5.QtCore import QTimer
-from Utils.HomeConfigurationParser import HomeConfigurationParser
+from Utils.ConfigurationParser import ConfigurationParser
 from Utils.Transitioner import Transitioner
 from Utils.InternalMetrics import InternalMetrics
 from Network.Client import Client
@@ -30,8 +30,8 @@ class Home(object):
     # UI Elements
     def create_ui(self, path):
         # Initialize
-        path =  path + '/config.json'
-        self._fps, self._ui = HomeConfigurationParser.parse(self._window, self._server, path)
+        ui, settings = ConfigurationParser.prepare(path)
+        self._fps, self._ui = ConfigurationParser.createUI(self._window, self._server, path, ui, settings)
 
         # Refresher
         self._timer = QTimer()

@@ -6,7 +6,7 @@
       "pos": [ 150, 0 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;",
       "text": {
-        "msg": "AMD Ryzen 9 5900x",
+        "msg": "*cpu_name",
         "alignment": "center"
       }
     },
@@ -29,7 +29,7 @@
       ],
       "metric": {
         "name": [ "msi", "CPU temperature" ],
-        "bounds": [ 0, 105 ]
+        "bounds": [ 0, "*cpu_max_temp" ]
       }
     },
     {
@@ -41,7 +41,7 @@
       "alignment": "center",
       "metric": {
         "name": [ "msi", "CPU temperature" ],
-        "bounds": [ 0, 105 ]
+        "bounds": [ 0, "*cpu_max_temp" ]
       },
       "unit": "_°C"
     },
@@ -95,7 +95,7 @@
       "cornerRadius": 50,
       "metric": {
         "name": [ "msi", "CPU power" ],
-        "bounds": [ 0, 200 ]
+        "bounds": [ 0, "*cpu_max_power" ]
       }
     },
     {
@@ -115,7 +115,7 @@
       "title": "GPU Name",
       "type": "StaticText",
       "text": {
-        "msg": "NVIDIA GeForce RTX 3080",
+        "msg": "*gpu_name",
         "alignment": "center"
       },
       "pos": [ 650, 0 ],
@@ -140,7 +140,7 @@
       ],
       "metric": {
         "name": [ "msi", "GPU temperature" ],
-        "bounds": [ 0, 105 ]
+        "bounds": [ 0, "*gpu_max_temp" ]
       }
     },
     {
@@ -152,7 +152,7 @@
       "alignment": "center",
       "metric": {
         "name": [ "msi", "GPU temperature" ],
-        "bounds": [ 0, 105 ]
+        "bounds": [ 0, "*gpu_max_temp" ]
       },
       "unit": "_°C"
     },
@@ -166,7 +166,7 @@
       "thickness": 4,
       "metric": {
         "name": [ "msi", "Memory usage" ],
-        "bounds": [ 0, 10240 ]
+        "bounds": [ 0, "*gpu_vram_size_mb" ]
       }
     },
     {
@@ -270,7 +270,7 @@
       "cornerRadius": 50,
       "metric": {
         "name": [ "msi", "Power" ],
-        "bounds": [ 0, 370 ]
+        "bounds": [ 0, "*gpu_max_power" ]
       }
     },
     {
@@ -315,7 +315,7 @@
       "thickness": 4,
       "metric": {
         "name": [ "msi", "Framerate" ],
-        "bounds": [ 30, 120 ]
+        "bounds": [ 30, "*fps_target + 20" ]
       }
     },
     {
@@ -328,7 +328,7 @@
       "thickness": 4,
       "metric": {
         "name": [ "*total_power" ],
-        "bounds": [ 0, 570 ]
+        "bounds": [ 0, "*cpu_max_power + *gpu_max_power" ]
       }
     },
     {
@@ -341,7 +341,7 @@
       "thickness": 4,
       "metric": {
         "name": [ "*total_power" ],
-        "bounds": [ 0, 570 ]
+        "bounds": [ 0, "*cpu_max_power + *gpu_max_power" ]
       }
     },
     {
@@ -663,7 +663,7 @@
       "thickness": 10,
       "metric": {
         "name": [ "msi", "RAM usage" ],
-        "bounds": [ 0, 32714 ]
+        "bounds": [ 0, "*ram_size_mb" ]
       }
     },
     {
@@ -721,20 +721,6 @@
       "unit": "*network"
     },
     {
-      "title": "Notifications",
-      "type": "NotificationsHandler",
-      "location": "top",
-      "height": 80,
-      "img_margin": 10,
-      "stylesheet": [
-        "border-bottom-right-radius:15px;border-bottom-left-radius:15px;",
-        "color:rgb(225,225,225);font-weight:bold;font:18pt;",
-        "color:rgb(225,225,225);font-weight:bold;font:14pt;"
-      ],
-      "transition_frames": 5,
-      "timeout_frames": 120
-    },
-    {
       "title": "Hyperion",
       "type": "HyperionMenu",
       "pos": [ 375, 410 ],
@@ -751,13 +737,22 @@
       "type": "AudioMenu",
       "pos": [ "d+80", "d+5" ],
       "size": [ 40, 40 ]
+    },
+    {
+      "title": "Notifications Handler",
+      "type": "NotificationsHandler",
+      "location": "top",
+      "height": 80,
+      "img_margin": 10,
+      "stylesheet": [
+        "border-bottom-right-radius:15px;border-bottom-left-radius:15px;",
+        "color:rgb(225,225,225);font-weight:bold;font:18pt;",
+        "color:rgb(225,225,225);font-weight:bold;font:14pt;"
+      ],
+      "transition_frames": 5,
+      "timeout_frames": 120
     }
   ],
-  "data_provider": {
-    "type": "Ryder Engine",
-    "ip": "192.168.1.218",
-    "port": 9519
-  },
   "unit_converters": {
     "storage": [
       [
@@ -781,7 +776,7 @@
         [ 1000, 0 ]
       ]
     ],
-    "ram": [ 327.14, 0, "_%" ]
+    "ram": [ "*ram_size_mb / 100", 0, "_%" ]
   },
   "computed_metrics": [
     {
@@ -818,31 +813,17 @@
         [ "msi", "CPU21 usage" ],
         [ "msi", "CPU22 usage" ],
         [ "msi", "CPU23 usage" ],
-        [ "msi", "CPU24 usage" ]
+        [ "msi", "CPU24 usage" ],
+        [ "msi", "CPU25 usage" ],
+        [ "msi", "CPU26 usage" ],
+        [ "msi", "CPU27 usage" ],
+        [ "msi", "CPU28 usage" ],
+        [ "msi", "CPU29 usage" ],
+        [ "msi", "CPU30 usage" ],
+        [ "msi", "CPU31 usage" ],
+        [ "msi", "CPU32 usage" ]
       ],
       "operator": "M"
     }
-  ],
-  "hyperion": {
-    "ip": "192.168.1.131",
-    "port": 8090
-  },
-  "power": [
-    "Power saver",
-    "Balanced",
-    "High performance"
-  ],
-  "audio": [
-    {
-      "playbackDevice": "Speakers",
-      "playbackDeviceCommunication": "Speakers",
-      "recordingDevice": "Camera Microphone"
-    },
-    {
-      "playbackDevice": "Headset",
-      "playbackDeviceCommunication": "Headset Earphone",
-      "recordingDevice": "Headset Microphone"
-    }
-  ],
-  "fps": 24
+  ]
 }

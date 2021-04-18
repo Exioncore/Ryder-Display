@@ -88,7 +88,7 @@
     <Compile Include="UIModules\RoundProgressBar.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utils\HomeConfigurationParser.py">
+    <Compile Include="Utils\ConfigurationParser.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Utils\InternalMetrics.py">

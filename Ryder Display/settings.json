@@ -1,0 +1,62 @@
+{
+  "ui": {
+    "monitor": 1,
+    "width": 800,
+    "height": 480,
+    "hide_title_bar": true,
+    "fps": 24,
+    "variables": {
+      "*fps_target": 100,
+      "*cpu_name": "AMD Ryzen 9 5900x",
+      "*cpu_max_temp": 105,
+      "*cpu_max_power": 200,
+      "*gpu_name": "NVIDIA GeForce RTX 3080",
+      "*gpu_max_temp": 105,
+      "*gpu_max_power": 370,
+      "*gpu_vram_size_mb": 10240,
+      "*ram_size_mb": 32768
+    }
+  },
+  "services": {
+    "data_provider": {
+      "type": "Ryder Engine",
+      "ip": "192.168.1.218",
+      "port": 9519
+    },
+    "hyperion": {
+      "ip": "192.168.1.131",
+      "port": 8090
+    },
+    "notifications_handler": {
+      "steam": {
+        "INFO": "Logs in with the desired account as invisible and solely receives messages",
+        "enabled": true,
+        "ui_notify": true,
+        "hyperion_effect": "Notify Steam"
+      },
+      "discord": {
+        "INFO": "NOT YET IMPLEMENTED (Needs work Ryder Engine side to request Discord Authorization etc)",
+        "enabled": false,
+        "ui_notify": true,
+        "hyperion_effect": "Notify Discord"
+      }
+    },
+    "power_plans": [
+      "Power saver",
+      "Balanced",
+      "High performance"
+    ],
+    "audio_presets": [
+      {
+        "playbackDevice": "Speakers",
+        "playbackDeviceCommunication": "Speakers",
+        "recordingDevice": "Camera Microphone"
+      },
+      {
+        "playbackDevice": "Headset",
+        "playbackDeviceCommunication": "Headset Earphone",
+        "recordingDevice": "Headset Microphone"
+      }
+    ]
+  }
+}
