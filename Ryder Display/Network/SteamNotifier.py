@@ -1,10 +1,10 @@
 import os
-import threading
 import gevent
-from steam.client import SteamClient
-from steam.enums import EChatEntryType, EResult, EPersonaState
+import threading
 from Network.Server import Server
 from Network.Client import Client
+from steam.client import SteamClient
+from steam.enums import EChatEntryType, EResult, EPersonaState
 
 class SteamNotifier(object):
     def __init__(self, server:Server, notification, path):
@@ -62,7 +62,7 @@ class SteamNotifier(object):
     def login_secured(self):
         print("Login secured")
         if self._steamClient.relogin_available:
-                self._steamClient.relogin()
+            self._steamClient.relogin()
 
     def login_error(self, data):
         print("Login error")

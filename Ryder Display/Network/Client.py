@@ -22,6 +22,9 @@ class Client(object, metaclass=Singleton):
     def querySteam2FA(self):
         Client.sendQuery(self._url, { "request":"steamLogin2FA" }, self._timeout)
 
+    def queryDiscordLogin(self):
+        Client.sendQuery(self._url, { "request":"discordLogin" }, self._timeout)
+
     def request_system_status(self):
         Client.sendQuery(self._url, { "request":"status" }, self._timeout)
 

@@ -28,6 +28,8 @@
       "port": 8090
     },
     "notifications_handler": {
+      "transition_seconds": 0.2,
+      "timeout_seconds": 5,
       "steam": {
         "INFO": "Logs in with the desired account as invisible and solely receives messages",
         "enabled": true,
@@ -35,8 +37,8 @@
         "hyperion_effect": "Notify Steam"
       },
       "discord": {
-        "INFO": "NOT YET IMPLEMENTED (Needs work Ryder Engine side to request Discord Authorization etc)",
-        "enabled": false,
+        "INFO": "Use at own risk. Discord TOS forbidden",
+        "enabled": true,
         "ui_notify": true,
         "hyperion_effect": "Notify Discord"
       }

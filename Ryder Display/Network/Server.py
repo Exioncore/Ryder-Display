@@ -1,10 +1,10 @@
 import time
 import socket
 import gevent
+import asyncio
 from gevent.pool import Pool
 from gevent.pywsgi import WSGIServer
 from flask import Flask, Response, request
-#from Network.SteamNotifier import SteamNotifier
 
 class EndpointAction(object):
     def __init__(self, action):
@@ -19,11 +19,15 @@ class Server(object):
     def __init__(self, name):
         self.app = Flask(name)
         self._steam = None
+        self._discord = None
 
     def run(self, port=9520):
         print("Server started")
         if self._steam is not None:
-            self._steam.run()
+           gevent.spawn(self._steam.run)
+        if self._discord is not None:
+           gevent.spawn(self._discord.run)
+
         WSGIServer(('0.0.0.0', port), self.app).serve_forever()
 
     def add_endpoint(self, endpoint=None, endpoint_name=None, handler=None):
