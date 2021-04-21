@@ -21,7 +21,7 @@ class RyderDisplay(QMainWindow):
         self.setWindowTitle("Ryder Display")
 
         # Parse configuration files
-        self._ui, self._settings = ConfigurationParser.prepare(os.path.dirname(os.path.abspath(__file__)))
+        self._ui, self._settings = ConfigurationParser.prepare(os.path.dirname(os.path.abspath(sys.argv[0])))
 
         # Set Geometry
         self.setGeometry(
@@ -35,7 +35,7 @@ class RyderDisplay(QMainWindow):
 
     def initialize(self, server):
         self.page = Home(self, server)
-        self.page.create_ui(os.path.dirname(os.path.abspath(__file__)), self._ui, self._settings)
+        self.page.create_ui(os.path.dirname(os.path.abspath(sys.argv[0])), self._ui, self._settings)
 
         if self._settings['ui']['full_screen'] or 'full_screen' not in self._settings['ui']:
             # Show in Full Screen

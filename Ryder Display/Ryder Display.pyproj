@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>95a25f8f-edbf-494c-bc7e-18740d241ac5</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Ryder_Display.py</StartupFile>
+    <StartupFile>Ryder_Display.pyw</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -63,7 +63,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="QtComponents\__init__.py" />
-    <Compile Include="Ryder_Display.py" />
+    <Compile Include="Ryder_Display.pyw" />
     <Compile Include="UIModules\CornerProgressBar.py">
       <SubType>Code</SubType>
     </Compile>

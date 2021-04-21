@@ -341,3 +341,5 @@ healthchecksdb
 
 # Extras
 cache
+dist
+build
