@@ -184,7 +184,7 @@ class ConfigurationParser(object):
             elif entry['type'] == 'PowerMenu':
                 if 'power_plans' in settings['services']:
                     popup = PowerPlanMenu()
-                    popup.createUI(path, settings['services']['power_plans'], [window.frameGeometry().width() / 2, window.frameGeometry().height() / 2])
+                    popup.createUI(path, settings['services']['power_plans'])
                     elem = MenuButton(window, entry['pos'], entry['size'], path, '/Resources/Power/Power.png', popup)
                     is_dynamic = False
                 else:
@@ -192,7 +192,7 @@ class ConfigurationParser(object):
             elif entry['type'] == 'HyperionMenu':
                 if 'hyperion' in settings['services']:
                     popup = HyperionMenu()
-                    popup.createUI(path, [window.frameGeometry().width() / 2, window.frameGeometry().height() / 2])
+                    popup.createUI(path)
                     elem = MenuButton(window, entry['pos'], entry['size'], path, '/Resources/Hyperion/Logo.png', popup)
                     is_dynamic = False
                 else:
@@ -200,7 +200,7 @@ class ConfigurationParser(object):
             elif entry['type'] == 'AudioMenu':
                 if 'audio_presets' in settings['services']:
                     popup = AudioMenu()
-                    popup.createUI(path, settings['services']['audio_presets'], [window.frameGeometry().width() / 2, window.frameGeometry().height() / 2])
+                    popup.createUI(path, settings['services']['audio_presets'])
                     elem = MenuButton(window, entry['pos'], entry['size'], path, '/Resources/Audio/Audio.png', popup)
                     is_dynamic = False
                 else:

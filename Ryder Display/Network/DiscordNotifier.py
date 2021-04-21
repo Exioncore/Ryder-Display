@@ -31,11 +31,14 @@ class DiscordNotifier(discord.Client):
             self._notification('Discord', 'Login', 'Requesting Login Data')
 
     async def _loop(self):
-        while True:
-            # Process UI events
-            gevent.sleep(0.25)
-            # Process Discord Events
-            await asyncio.sleep(0.001)
+        try:
+            while True:
+                # Process UI events
+                gevent.sleep(0.25)
+                # Process Discord Events
+                await asyncio.sleep(0.001)
+        except:
+            return
 
     def _discordLoginData(self, request):
         login_data = request[0]

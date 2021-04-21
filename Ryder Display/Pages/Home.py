@@ -28,9 +28,8 @@ class Home(object):
         server.add_endpoint('/status', 'status', self._newStatus)
 
     # UI Elements
-    def create_ui(self, path):
+    def create_ui(self, path, ui, settings):
         # Initialize
-        ui, settings = ConfigurationParser.prepare(path)
         self._fps, self._ui = ConfigurationParser.createUI(self._window, self._server, path, ui, settings)
 
         # Refresher

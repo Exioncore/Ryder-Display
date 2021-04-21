@@ -22,4 +22,8 @@ class MenuButton(object):
     @pyqtSlot()
     def onClick(self):
         if not self._menu.isVisible():
+            self._menu.move(
+                self._window.pos().x() + self._window.size().width() / 2 - self._menu.size().width() / 2, 
+                self._window.pos().y() + self._window.size().height() / 2 - self._menu.size().height() / 2
+            )
             self._menu.show()

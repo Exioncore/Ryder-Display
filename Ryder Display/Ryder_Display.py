@@ -9,6 +9,7 @@ import _locale
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtCore import Qt, QThread
 # Ryder Display Files
+from Utils.ConfigurationParser import ConfigurationParser
 from Network.Server import Server
 from Pages.Home import Home
 
@@ -19,32 +20,38 @@ class RyderDisplay(QMainWindow):
         # Setting title
         self.setWindowTitle("Ryder Display")
 
-        # Set Geometry
-        self.setGeometry(0, 0, 800, 480)
+        # Parse configuration files
+        self._ui, self._settings = ConfigurationParser.prepare(os.path.dirname(os.path.abspath(__file__)))
 
-        if sys.platform != 'win32':
+        # Set Geometry
+        self.setGeometry(
+            self._settings['ui']['x'], self._settings['ui']['y'],
+            self._settings['ui']['width'], self._settings['ui']['height']
+        )
+
+        if self._settings['ui']['hide_title_bar']:
             # Hide title bar
             self.setWindowFlag(Qt.FramelessWindowHint)
+
+    def initialize(self, server):
+        self.page = Home(self, server)
+        self.page.create_ui(os.path.dirname(os.path.abspath(__file__)), self._ui, self._settings)
+
+        if self._settings['ui']['full_screen'] or 'full_screen' not in self._settings['ui']:
             # Show in Full Screen
             self.showFullScreen()
         else:
             # Show windowed
             self.show()
 
-    def initialize(self, server):
-        self.page = Home(self, server)
-        self.page.create_ui(os.path.dirname(os.path.abspath(__file__)))
-
 def pyqtLoop(app):
     while True:
         app.processEvents()
         gevent.sleep(0.005)
 
-def killApp(app, server):
-    server._steam._steamClient.logout()
-    app.quit()
-    # Ensure everything is killed
-    gevent.killall([obj for obj in gc.get_objects() if isinstance(obj, gevent.Greenlet)])
+def killApp(e):
+    if e.key() == Qt.Key_Q:
+        os._exit(1)
 
 if __name__ == "__main__":
     # Set locale
@@ -68,8 +75,7 @@ if __name__ == "__main__":
     window.initialize(server)
 
     # Hotkey for closing application
-    if sys.platform != 'win32':
-        keyboard.on_press_key("q",  lambda _:killApp(app, server))
+    window.keyPressEvent = killApp
 
     # Run Server
     gevent.joinall([gevent.spawn(server.run), gevent.spawn(pyqtLoop, app)])
