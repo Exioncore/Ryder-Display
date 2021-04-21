@@ -31,7 +31,7 @@
       "transition_seconds": 0.2,
       "timeout_seconds": 5,
       "steam": {
-        "INFO": "Logs in with the desired account as invisible and solely receives messages",
+        "INFO": "Use at own risk. Logs in with the desired account as invisible and solely receives messages",
         "enabled": true,
         "ui_notify": true,
         "hyperion_effect": "Notify Steam"

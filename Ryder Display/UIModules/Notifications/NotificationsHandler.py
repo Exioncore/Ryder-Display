@@ -4,6 +4,7 @@ from UIModules.Notifications.Notification import Notification
 from Network.SteamNotifier import SteamNotifier
 from Network.DiscordNotifier import DiscordNotifier
 from Utils.Transitioner import Transitioner
+import math
 from Network.Server import Server
 from Network.Client import Client
 from Network.Hyperion import Hyperion
@@ -19,8 +20,8 @@ class NotificationsHandler(object):
                  stylesheet=["","",""], img_margin = 5, pos='bottom', height=20, path='',
         ):
         self._mutex = Lock()
-        self._transition_frames = fps * settings['transition_seconds']
-        self._timeout_frames = fps * settings['timeout_seconds']
+        self._transition_frames = math.floor(fps * settings['transition_seconds'])
+        self._timeout_frames = math.floor(fps * settings['timeout_seconds'])
 
         if pos == 'top':
             pos = [0, -height]
