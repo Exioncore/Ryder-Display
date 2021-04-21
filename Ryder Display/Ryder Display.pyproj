@@ -36,6 +36,7 @@
     <Compile Include="Network\SteamNotifier.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Network\__init__.py" />
     <Compile Include="Pages\AudioMenu.py">
       <SubType>Code</SubType>
     </Compile>
@@ -48,6 +49,7 @@
     <Compile Include="Pages\PowerPlanMenu.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Pages\__init__.py" />
     <Compile Include="QtComponents\QtGraph.py">
       <SubType>Code</SubType>
     </Compile>
@@ -60,6 +62,7 @@
     <Compile Include="QtComponents\QtStraightProgressBar.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="QtComponents\__init__.py" />
     <Compile Include="Ryder_Display.py" />
     <Compile Include="UIModules\CornerProgressBar.py">
       <SubType>Code</SubType>
@@ -85,12 +88,14 @@
     <Compile Include="UIModules\Notifications\NotificationsHandler.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UIModules\Notifications\__init__.py" />
     <Compile Include="UIModules\ProgressBar.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UIModules\RoundProgressBar.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UIModules\__init__.py" />
     <Compile Include="Utils\ConfigurationParser.py">
       <SubType>Code</SubType>
     </Compile>
@@ -101,6 +106,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Utils\Transitioner.py" />
+    <Compile Include="Utils\__init__.py" />
+    <Compile Include="__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Network\" />
