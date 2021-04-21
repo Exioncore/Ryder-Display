@@ -9,7 +9,7 @@ class Client(object, metaclass=Singleton):
     def __init__(self):
         self._url = ''
         self._timeout = 1.0
-        self._ip = socket.gethostbyname(socket.gethostname())
+        self._ip = socket.gethostbyname(socket.gethostname()+".local")
 
     def setUrl(self, ip, port):
         self._url = 'http://' + ip + ':' + str(port)
