@@ -5,8 +5,7 @@ from Network.SteamNotifier import SteamNotifier
 from Network.DiscordNotifier import DiscordNotifier
 from Utils.Transitioner import Transitioner
 import math
-from Network.Server import Server
-from Network.Client import Client
+from Network.RyderClient import RyderClient
 from Network.Hyperion import Hyperion
 
 class NotificationsHandler(object):
@@ -15,9 +14,8 @@ class NotificationsHandler(object):
     _timer = 0
     _onGoing = False
     
-    def __init__(self,
-                 window, server:Server, fps, settings,
-                 stylesheet=["","",""], img_margin = 5, pos='bottom', height=20, path='',
+    def __init__(self, window, fps, settings,
+                stylesheet=["","",""], img_margin = 5, pos='bottom', height=20, path=''
         ):
         self._mutex = Lock()
         self._transition_frames = math.floor(fps * settings['transition_seconds'])
@@ -37,7 +35,7 @@ class NotificationsHandler(object):
 
         # Steam
         if settings['steam']['enabled']:
-            self._steam = SteamNotifier(server, self.newNotification, path)
+            self._steam = SteamNotifier(self.newNotification, path)
             if 'ui_notify' in settings['steam']:
                 self._steam_ui_notify = settings['steam']['ui_notify']
             else:
@@ -46,11 +44,12 @@ class NotificationsHandler(object):
                 self._steam_hyperion_effect = settings['steam']['hyperion_effect']
             else:
                 self._steam_hyperion_effect = False
+            self._steam.run()
         else:
             self._steam_ui_notify = self._steam_hyperion_effect = False
         # Discord
         if settings['discord']['enabled']:
-            self._discord = DiscordNotifier(server, self.newNotification, path)
+            self._discord = DiscordNotifier(self.newNotification, path)
             if 'ui_notify' in settings['discord']:
                 self._discord_ui_notify = settings['discord']['ui_notify']
             else:
@@ -59,11 +58,9 @@ class NotificationsHandler(object):
                 self._discord_hyperion_effect = settings['discord']['hyperion_effect']
             else:
                 self._discord_hyperion_effect = False
+            self._discord.run()
         else:
             self._discord_ui_notify = self._discord_hyperion_effect = False
-
-        # Bind Server
-        server.add_endpoint('/notification', 'notification', self._newNotification)
 
     def update(self, status=None):
         # No notifications going thus check for new ones to display
@@ -102,13 +99,6 @@ class NotificationsHandler(object):
     def newNotification(self, app, title, message):
         self._mutex.acquire()
         self._queue.append([app, title, message])
-        self._mutex.release()
-        if not self._onGoing:
-            self.update()
-
-    def _newNotification(self, request):
-        self._mutex.acquire()
-        self._queue.append([request['app'], request['title'], request['message']])
         self._mutex.release()
         if not self._onGoing:
             self.update()

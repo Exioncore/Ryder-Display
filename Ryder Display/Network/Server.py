@@ -21,14 +21,9 @@ class Server(object):
         self._steam = None
         self._discord = None
 
-    def run(self, port=9520):
+    def run(self, ip, port):
         print("Server started")
-        if self._steam is not None:
-           gevent.spawn(self._steam.run)
-        if self._discord is not None:
-           gevent.spawn(self._discord.run)
-
-        WSGIServer(('0.0.0.0', port), self.app).serve_forever()
+        #WSGIServer(('0.0.0.0', port), self.app).serve_forever()
 
     def add_endpoint(self, endpoint=None, endpoint_name=None, handler=None):
         print("Endpoint \"" + endpoint_name + "\" added")

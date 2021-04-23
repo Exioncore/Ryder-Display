@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton
 from PyQt5.QtCore import QSize, pyqtSlot, Qt
 from PyQt5.QtGui import QIcon
 
-from Network.Client import Client
+from Network.RyderClient import RyderClient
 
 class PowerPlanMenu(QMainWindow):
     def __init__(self):
@@ -48,6 +48,6 @@ class PowerPlanMenu(QMainWindow):
 
     @pyqtSlot()
     def onClick(self, i: int):
-        print(str(i))
-        Client.sendQuery(Client()._url, { "request": "powerPlan", "name": self._plans[i] } ,Client()._timeout)
+        print("Request Power Plan: " + self._plans[i])
+        RyderClient().send("[\"powerPlan\",\""+self._plans[i]+"\"]")
         self.close()

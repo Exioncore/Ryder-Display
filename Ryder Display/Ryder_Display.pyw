@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtCore import Qt, QThread
 # Ryder Display Files
 from Utils.ConfigurationParser import ConfigurationParser
-from Network.Server import Server
+from Network.RyderClient import RyderClient
 from Pages.Home import Home
 
 class RyderDisplay(QMainWindow): 
@@ -33,8 +33,8 @@ class RyderDisplay(QMainWindow):
             # Hide title bar
             self.setWindowFlag(Qt.FramelessWindowHint)
 
-    def initialize(self, server):
-        self.page = Home(self, server)
+    def initialize(self):
+        self.page = Home(self)
         self.page.create_ui(os.path.dirname(os.path.abspath(sys.argv[0])), self._ui, self._settings)
 
         if self._settings['ui']['full_screen'] or 'full_screen' not in self._settings['ui']:
@@ -67,15 +67,12 @@ if __name__ == "__main__":
         'QPushButton{background-color:black;}'
     )
 
-    # Flask server
-    server = Server('Ryder Display Server')
-
     # Create the instance of our Window
     window = RyderDisplay()
-    window.initialize(server)
+    window.initialize()
 
     # Hotkey for closing application
     window.keyPressEvent = killApp
 
     # Run Server
-    gevent.joinall([gevent.spawn(server.run), gevent.spawn(pyqtLoop, app)])
+    gevent.joinall([gevent.spawn(RyderClient().run), gevent.spawn(pyqtLoop, app)])

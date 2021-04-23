@@ -3,12 +3,11 @@ import discord
 import asyncio
 import gevent
 from threading import Thread
-from Network.Server import Server
-from Network.Client import Client
+from Network.RyderClient import RyderClient
 
 class DiscordNotifier(discord.Client):
     """description of class"""
-    def __init__(self, server:Server, notification, path):
+    def __init__(self, notification, path):
         discord.Client.__init__(self)
         self._cache = path + '/cache/'
         if not os.path.exists(self._cache):
@@ -16,8 +15,7 @@ class DiscordNotifier(discord.Client):
        
         self._notification = notification
         # Bind Server
-        server._discord = self
-        server.add_endpoint('/discordLogin', 'discordLogin', self._discordLoginData)
+        RyderClient().addEndPoint('discordLogin', self._discordLoginData)
 
     def run(self):
         self.loop.create_task(self._loop())
@@ -27,8 +25,8 @@ class DiscordNotifier(discord.Client):
             f.close()
             gevent.spawn(discord.Client.run, self, data[0], bot = False)
         else:
-            Client().queryDiscordLogin()
             self._notification('Discord', 'Login', 'Requesting Login Data')
+            RyderClient().send("[\"discordLogin\"]")
 
     async def _loop(self):
         try:
@@ -40,12 +38,12 @@ class DiscordNotifier(discord.Client):
         except:
             return
 
-    def _discordLoginData(self, request):
-        login_data = request[0]
+    def _discordLoginData(self, data):
+        print('Discord login data received')
         f = open(self._cache + 'discord.txt', 'w')
-        f.write(self._login_data)
+        f.write(data[1])
         f.close()
-        gevent.spawn(discord.Client.run, self, login_data, bot = False)
+        gevent.spawn(discord.Client.run, self, data[1], bot = False)
 
     async def on_ready(self):
         self._notification('Discord', self.user.name, "Logged in")

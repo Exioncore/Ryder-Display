@@ -6,8 +6,7 @@ from PyQt5.QtCore import QTimer
 from Utils.ConfigurationParser import ConfigurationParser
 from Utils.Transitioner import Transitioner
 from Utils.InternalMetrics import InternalMetrics
-from Network.Client import Client
-from Network.Server import Server
+from Network.RyderClient import RyderClient
 
 from UIModules.ForegroundProcess import ForegroundProcess
 
@@ -15,30 +14,27 @@ class Home(object):
     _ui = []
     _fps = 1
     _window = None
-    _server : Server
     _timer : QTimer
     _status = None
     _last_update = 0
 
     # Class constructor
-    def __init__(self, window, server : Server):
+    def __init__(self, window):
         self._window = window
-        self._server = server
-        
-        server.add_endpoint('/status', 'status', self._newStatus)
+        RyderClient().addEndPoint('status', self._newStatus)
 
     # UI Elements
     def create_ui(self, path, ui, settings):
         # Initialize
-        self._fps, self._ui = ConfigurationParser.createUI(self._window, self._server, path, ui, settings)
+        self._fps, self._ui = ConfigurationParser.createUI(self._window, path, ui, settings)
 
         # Refresher
         self._timer = QTimer()
         self._timer.timeout.connect(self.update)
         self._timer.start(1000 / self._fps)
 
-    def _newStatus(self, request):
-        self._status = request
+    def _newStatus(self, data):
+        self._status = data[1]
         InternalMetrics().update(self._status)
 
     def update(self):
@@ -49,7 +45,3 @@ class Home(object):
         if self._status is not None:
             self._last_update = time.time()
             self._status = None
-        # Attempt subscription if more than 10 seconds have passed since last update / attempt
-        if time.time() - self._last_update > 10:
-            self._last_update = time.time()
-            Client().subscribeToRyderEngine()

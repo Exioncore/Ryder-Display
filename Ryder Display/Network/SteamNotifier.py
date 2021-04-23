@@ -1,22 +1,20 @@
 import os
 import gevent
 import threading
-from Network.Server import Server
-from Network.Client import Client
 from steam.client import SteamClient
+from Network.RyderClient import RyderClient
 from steam.enums import EChatEntryType, EResult, EPersonaState
 
 class SteamNotifier(object):
-    def __init__(self, server:Server, notification, path):
+    def __init__(self, notification, path):
         self._cache = path + '/cache/'
         if not os.path.exists(self._cache):
             os.makedirs(self._cache)
        
         self._notification = notification
-        # Bind Server
-        server._steam = self
-        server.add_endpoint('/steamLogin', 'steamLogin', self._steamLoginData)
-        server.add_endpoint('/steam2fa', 'steam2fa',self._steam2faData)   
+        # Bind EndPoints
+        RyderClient().addEndPoint('steamLogin', self._steamLoginData)
+        RyderClient().addEndPoint('steam2fa',self._steam2faData)
 
     def run(self):
         self._steamClient = SteamClient()
@@ -37,17 +35,17 @@ class SteamNotifier(object):
             f.close()
             self._steamClient.login(username=data[0].replace('\n',''), login_key=data[1])
         else:
-            Client().querySteamLogin()
             self._notification('Steam', 'Login', 'Requesting Login Data')
+            RyderClient().send("[\"steamLoginUP\"]")
 
-    def _steamLoginData(self, request):
-        self._login_data = [request[0], request[1]]
+    def _steamLoginData(self, data):
+        print('Steam login data received')
+        self._login_data = [data[1], data[2]]
         self._steamClient.login(username=self._login_data[0], password=self._login_data[1])
-        print('Steam ' + request[0] + ' logging in')
 
-    def _steam2faData(self, request):
-        print("Steam 2FA: "+request)
-        self._steamClient.login(two_factor_code=request, username=self._login_data[0], password=self._login_data[1])
+    def _steam2faData(self, data):
+        print("Steam 2FA data received")
+        self._steamClient.login(two_factor_code=data[1], username=self._login_data[0], password=self._login_data[1])
 
     # Handle SteamClient events
     def connected(self):
@@ -68,13 +66,13 @@ class SteamNotifier(object):
         print("Login error")
         print(data)
         if data == EResult.InvalidPassword:
-            Client().querySteamLogin()
             self._notification('Steam', 'Login', 'Requesting Login Data')
+            RyderClient().send("[\"steamLoginUP\"]")
 
     def auth_code_prompt(self, is2fa, code_mismatch):
         print("Steam2FA Required")
         self._notification('Steam', 'Login', 'Requesting 2 Factor Authentication')
-        Client().querySteam2FA()
+        RyderClient().send("[\"steamLogin2FA\"]")
 
     def handle_message(self, msg):
         if msg.body.chat_entry_type == EChatEntryType.ChatMsg and not msg.body.local_echo:

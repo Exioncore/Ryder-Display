@@ -18,8 +18,7 @@ from UIModules.MenuButton import MenuButton
 from UIModules.Graph import Graph
 
 from Network.Hyperion import Hyperion
-from Network.Client import Client
-from Network.Server import Server
+from Network.RyderClient import RyderClient
 
 from Pages.PowerPlanMenu import PowerPlanMenu
 from Pages.HyperionMenu import HyperionMenu
@@ -94,14 +93,14 @@ class ConfigurationParser(object):
                 entry[2] = ConfigurationParser._concatTextWithVariables(entry[2], settings['ui']['variables'])
         
         # Initialization
-        Client().setUrl(settings['services']['data_provider']['ip'], settings['services']['data_provider']['port'])
+        RyderClient().setup(settings['services']['data_provider']['ip'], settings['services']['data_provider']['port'])
         if 'hyperion' in settings['services']:
             Hyperion().setUrl(settings['services']['hyperion']['ip'], settings['services']['hyperion']['port'])
             Hyperion().getState()
 
         return ui, settings
 
-    def createUI(window, server : Server, path, ui, settings):
+    def createUI(window, path, ui, settings):
         ui_dynamic = []
         ui_static = []
 
@@ -117,7 +116,7 @@ class ConfigurationParser(object):
                 print(entry['title'])
             # Parse Element
             if entry['type'] == 'ForegroundProcessIcon':
-                elem = ForegroundProcess(window, server,entry['pos'], entry['size'], path)
+                elem = ForegroundProcess(window, entry['pos'], entry['size'], path)
             elif entry['type'] == 'Graph':
                 unit = entry['unit']
                 if len(entry['unit']) > 0:
@@ -176,7 +175,7 @@ class ConfigurationParser(object):
             elif entry['type'] == 'NotificationsHandler':
                 if 'notifications_handler' in settings['services']:
                     elem = NotificationsHandler(
-                        window, server, settings['ui']['fps'], settings['services']['notifications_handler'], 
+                        window, settings['ui']['fps'], settings['services']['notifications_handler'], 
                         entry['stylesheet'], entry['img_margin'], entry['location'], entry['height'], path
                     )
                 else:

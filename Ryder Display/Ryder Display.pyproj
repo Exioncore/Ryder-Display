@@ -21,13 +21,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Network\Client.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Network\DiscordNotifier.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Network\Hyperion.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Network\RyderClient.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Network\Server.py">

@@ -1,13 +1,12 @@
 import json
 import requests
 import socket
-from Network.Client import Client
 from Utils.Singleton import Singleton
 
 class Hyperion(object, metaclass=Singleton):
     def __init__(self):
         self._url = ''
-        self._timeout = 2.5
+        self._timeout = 2.0
         self.notifications = True
         self.moodLamp = False
         self.usbState = False
@@ -18,7 +17,7 @@ class Hyperion(object, metaclass=Singleton):
         self._url = 'http://' + ip + ':' + str(port) + '/json-rpc'
 
     def getState(self):
-        state = Client.sendQuerySync(self._url,{'command':'serverinfo'}, self._timeout)
+        state = requests.post(self._url, data=json.dumps({'command':'serverinfo'}), timeout=self._timeout).json()
         if state is not None:
             self.usbState = state['info']['components'][6]['enabled']
             self.ledState = state['info']['components'][7]['enabled']
@@ -32,46 +31,46 @@ class Hyperion(object, metaclass=Singleton):
         return False
 
     def setEffect(self, name, priority, duration):
-        return Client.sendQuerySync(
+        return requests.post(
             self._url,
-            {
+            data=json.dumps({
                 'command':'effect',
                 'effect': {'name': name},
                 'priority': priority,
                 'duration': duration,
                 'origin':'Ryder Display'
-            },
-            self._timeout
-        )
+            }),
+            timeout=self._timeout
+        ).json()
 
     def setLedState(self, enable: bool):
         self.ledState = enable
-        return Client.sendQuerySync(
+        return requests.post(
             self._url,
-            {
+            data=json.dumps({
                 'command':'componentstate',
                 'componentstate': {'component':'LEDDEVICE','state': enable}
-            },
-            self._timeout
-        )
+            }),
+            timeout=self._timeout
+        ).json()
 
     def setUsbCaptureState(self, enable: bool):
         self.usbState = enable
-        return Client.sendQuerySync(
+        return requests.post(
             self._url,
-            {
+            data=json.dumps({
                 'command':'componentstate',
                 'componentstate': {'component':'V4L','state': enable}
-            },
-            self._timeout
-        )
+            }),
+            timeout=self._timeout
+        ).json()
 
     def clear(self, priority):
-        return Client.sendQuerySync(
+        return requests.post(
             self._url,
-            {
+            data=json.dumps({
                 'command':'clear',
                 'priority': priority
-            },
-            self._timeout
-        )
+            }),
+            timeout=self._timeout
+        ).json()

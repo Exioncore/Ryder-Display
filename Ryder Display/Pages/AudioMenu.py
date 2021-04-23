@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton
 from PyQt5.QtCore import QSize, pyqtSlot, Qt
 from PyQt5.QtGui import QIcon
 
-from Network.Client import Client
+from Network.RyderClient import RyderClient
 
 class AudioMenu(QMainWindow):
     def __init__(self):
@@ -48,6 +48,15 @@ class AudioMenu(QMainWindow):
 
     @pyqtSlot()
     def onClick(self, i: int):
-        print(str(i))
-        Client.sendQuery(Client()._url, { "request": "audioProfile", "devices": self._profiles[i] } ,Client()._timeout)
+        audio = self._profiles[i]
+        print(
+            "Request Audio Profile: "+audio['playbackDevice']+", "+
+            audio['playbackDeviceCommunication']+", "+audio['recordingDevice']
+        )
+        RyderClient().send(
+            "[\"audioProfile\",\""+
+            audio['playbackDevice']+"\",\""+
+            audio['playbackDeviceCommunication']+"\",\""+
+            audio['recordingDevice']+"\"]"
+        )
         self.close()
