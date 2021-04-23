@@ -33,10 +33,6 @@ class Home(object):
         self._timer.timeout.connect(self.update)
         self._timer.start(1000 / self._fps)
 
-    def _newStatus(self, data):
-        self._status = data[1]
-        InternalMetrics().update(self._status)
-
     def update(self):
         # Update UI
         for elem in self._ui:
@@ -45,3 +41,10 @@ class Home(object):
         if self._status is not None:
             self._last_update = time.time()
             self._status = None
+
+    def dispose(self):
+        self._timer.stop()
+
+    def _newStatus(self, data):
+        self._status = data[1]
+        InternalMetrics().update(self._status)

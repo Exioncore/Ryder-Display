@@ -16,7 +16,7 @@ class RyderClient(object, metaclass=Singleton):
         self._port = port
 
     def clearEndPoints(self):
-        _endpoints = {}
+        self._endpoints = {}
 
     def addEndPoint(self, cmd: str, func):
         if cmd in self._endpoints:

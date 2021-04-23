@@ -48,14 +48,20 @@ class RyderDisplay(QMainWindow):
         # This ensure the window is empty and no endpoints by the ui exist
         # Necessary to enable window reloading the UI
         RyderClient().clearEndPoints()
-        for i in reversed(range(self.layout().count())): 
-            self.layout().itemAt(i).widget().setParent(None)
+        self.page.dispose()
+        for i in reversed(range(len(self.children()))):
+            if i > 0:
+                self.children()[i].deleteLater()
         # Reparse ui configuration file
         self._ui, self._settings = ConfigurationParser.prepare(
             os.path.dirname(os.path.abspath(sys.argv[0])),
             self._settings
         )
         self.initialize()
+        # Call on_connect endpoint to initialize widgets properly when required
+        if 'on_connect' in RyderClient()._endpoints:
+            for endpoint in RyderClient()._endpoints['on_connect']:
+                endpoint()
 
     def keyboardEvent(self, e):
         if e.key() == Qt.Key_Q:
