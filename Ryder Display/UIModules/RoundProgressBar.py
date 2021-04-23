@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import QWidget
 
 from Utils.Transitioner import Transitioner
 from Utils.InternalMetrics import InternalMetrics
-
 from QtComponents.QtRoundProgressBar import QtRoundProgressBar
 
 class RoundProgressBar(object):

@@ -4,11 +4,8 @@ class InternalMetrics(object, metaclass=Singleton):
     metrics = {}
     _settings = []
 
-    def __init__(self):
-        # Unused
-        return
-
     def setSettings(self, settings):
+        self.metrics = {}
         self._settings = settings
         for i in range(0, len(settings)):
             self.metrics[self._settings[i]['name']] = 0

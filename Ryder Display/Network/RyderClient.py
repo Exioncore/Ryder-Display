@@ -3,6 +3,7 @@ import json
 import socket
 import gevent
 import threading
+
 from Utils.Singleton import Singleton
 
 class RyderClient(object, metaclass=Singleton):
@@ -13,6 +14,9 @@ class RyderClient(object, metaclass=Singleton):
         # Save data
         self._ip = ip
         self._port = port
+
+    def clearEndPoints(self):
+        _endpoints = {}
 
     def addEndPoint(self, cmd: str, func):
         if cmd in self._endpoints:

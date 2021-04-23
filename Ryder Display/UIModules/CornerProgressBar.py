@@ -1,10 +1,10 @@
+from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
-from PyQt5.QtCore import Qt, QRect
 
-from QtComponents.QtStraightProgressBar import QtStraightProgressBar
-from QtComponents.QtCornerProgressBar import QtCornerProgressBar
 from Utils.Transitioner import Transitioner
+from QtComponents.QtCornerProgressBar import QtCornerProgressBar
+from QtComponents.QtStraightProgressBar import QtStraightProgressBar
 
 class CornerProgressBar(object):
     def __init__(self, window, transition_frames, pos=[0,0], size=[50,50], direction=["left","up"], colors=["#2ecc71", "#141414"], thickness=4, radius=20, metric=[]):

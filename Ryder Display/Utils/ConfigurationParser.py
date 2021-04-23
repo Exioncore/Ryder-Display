@@ -2,39 +2,38 @@ import os
 import sys
 import math
 import json
-
-from PyQt5.QtWidgets import QLabel
 from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QLabel
 from PyQt5.QtSvg import QSvgWidget
 
-from UIModules.Notifications.NotificationsHandler import NotificationsHandler
-from UIModules.ForegroundProcess import ForegroundProcess
-from UIModules.CornerProgressBar import CornerProgressBar
-from UIModules.RoundProgressBar import RoundProgressBar
-from UIModules.DynamicTextBool import DynamicTextBool
-from UIModules.DynamicText import DynamicText
-from UIModules.ProgressBar import ProgressBar
-from UIModules.MenuButton import MenuButton
 from UIModules.Graph import Graph
-
-from Network.Hyperion import Hyperion
-from Network.RyderClient import RyderClient
-
-from Pages.PowerPlanMenu import PowerPlanMenu
-from Pages.HyperionMenu import HyperionMenu
 from Pages.AudioMenu import AudioMenu
-
+from Network.Hyperion import Hyperion
+from Pages.HyperionMenu import HyperionMenu
+from Network.RyderClient import RyderClient
+from UIModules.MenuButton import MenuButton
+from Pages.PowerPlanMenu import PowerPlanMenu
+from UIModules.ProgressBar import ProgressBar
+from UIModules.DynamicText import DynamicText
 from Utils.InternalMetrics import InternalMetrics
+from UIModules.DynamicTextBool import DynamicTextBool
+from UIModules.RoundProgressBar import RoundProgressBar
+from UIModules.CornerProgressBar import CornerProgressBar
+from UIModules.ForegroundProcess import ForegroundProcess
+from UIModules.Notifications.NotificationsHandler import NotificationsHandler
 
 class ConfigurationParser(object):
-    def prepare(path: str):
+    def prepare(path: str, preloadedSettings = None):
         # Open ui and settings files
         file = open(path + '/ui.json', 'r')
         ui = json.loads(file.read())
         file.close()
-        file = open(path + '/settings.json', 'r')
-        settings = json.loads(file.read())
-        file.close()
+        if preloadedSettings == None:
+            file = open(path + '/settings.json', 'r')
+            settings = json.loads(file.read())
+            file.close()
+        else:
+            settings = preloadedSettings
         # Fill in variables in ui file
         ## UI section
         pos = ui['ui'][0]['pos'].copy()

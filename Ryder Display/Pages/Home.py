@@ -1,14 +1,14 @@
 import os
 import time
 import gevent
-
 from PyQt5.QtCore import QTimer
-from Utils.ConfigurationParser import ConfigurationParser
+
+from Network.RyderClient import RyderClient
 from Utils.Transitioner import Transitioner
 from Utils.InternalMetrics import InternalMetrics
-from Network.RyderClient import RyderClient
-
 from UIModules.ForegroundProcess import ForegroundProcess
+from Utils.ConfigurationParser import ConfigurationParser
+
 
 class Home(object):
     _ui = []

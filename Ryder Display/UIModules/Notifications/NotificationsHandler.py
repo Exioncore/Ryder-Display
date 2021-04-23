@@ -1,12 +1,13 @@
+import math
 import gevent
 from threading import Lock
-from UIModules.Notifications.Notification import Notification
+
+from Network.Hyperion import Hyperion
+from Utils.Transitioner import Transitioner
+from Network.RyderClient import RyderClient
 from Network.SteamNotifier import SteamNotifier
 from Network.DiscordNotifier import DiscordNotifier
-from Utils.Transitioner import Transitioner
-import math
-from Network.RyderClient import RyderClient
-from Network.Hyperion import Hyperion
+from UIModules.Notifications.Notification import Notification
 
 class NotificationsHandler(object):
     _mutex : Lock
@@ -18,8 +19,8 @@ class NotificationsHandler(object):
                 stylesheet=["","",""], img_margin = 5, pos='bottom', height=20, path=''
         ):
         self._mutex = Lock()
-        self._transition_frames = math.floor(fps * settings['transition_seconds'])
         self._timeout_frames = math.floor(fps * settings['timeout_seconds'])
+        self._transition_frames = math.floor(fps * settings['transition_seconds'])
 
         if pos == 'top':
             pos = [0, -height]
@@ -35,7 +36,6 @@ class NotificationsHandler(object):
 
         # Steam
         if settings['steam']['enabled']:
-            self._steam = SteamNotifier(self.newNotification, path)
             if 'ui_notify' in settings['steam']:
                 self._steam_ui_notify = settings['steam']['ui_notify']
             else:
@@ -44,12 +44,14 @@ class NotificationsHandler(object):
                 self._steam_hyperion_effect = settings['steam']['hyperion_effect']
             else:
                 self._steam_hyperion_effect = False
-            self._steam.run()
+            SteamNotifier().setupHooks(self.newNotification)
+            if not SteamNotifier().instantiated:
+                SteamNotifier().create(path)
+                SteamNotifier().run()
         else:
             self._steam_ui_notify = self._steam_hyperion_effect = False
         # Discord
         if settings['discord']['enabled']:
-            self._discord = DiscordNotifier(self.newNotification, path)
             if 'ui_notify' in settings['discord']:
                 self._discord_ui_notify = settings['discord']['ui_notify']
             else:
@@ -58,7 +60,10 @@ class NotificationsHandler(object):
                 self._discord_hyperion_effect = settings['discord']['hyperion_effect']
             else:
                 self._discord_hyperion_effect = False
-            self._discord.run()
+            DiscordNotifier().setupHooks(self.newNotification)
+            if not DiscordNotifier().instantiated:
+                DiscordNotifier().create(path)
+                DiscordNotifier().run()
         else:
             self._discord_ui_notify = self._discord_hyperion_effect = False
 

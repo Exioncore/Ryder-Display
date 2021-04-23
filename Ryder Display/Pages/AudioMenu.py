@@ -1,8 +1,8 @@
 import sys
 import copy
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton
-from PyQt5.QtCore import QSize, pyqtSlot, Qt
 from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import QSize, pyqtSlot, Qt
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton
 
 from Network.RyderClient import RyderClient
 

@@ -1,6 +1,3 @@
-"""
-Smoothly transition value to target
-"""
 import math
 
 class Transitioner(object):

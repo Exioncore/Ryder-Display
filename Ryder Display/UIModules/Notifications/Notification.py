@@ -1,9 +1,9 @@
 import os
 import sys
+from PyQt5.QtSvg import QSvgWidget
+from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtWidgets import QWidget, QLabel
 from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap, QPainterPath, QBrush, QFont, QPalette
-from PyQt5.QtCore import Qt, QRect
-from PyQt5.QtSvg import QSvgWidget
 
 class Notification(object):
     def __init__(self, window, stylesheet=["","",""], img_margin = 5, pos=[0,0], size=[100,20], path=''):

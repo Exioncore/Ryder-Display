@@ -1,10 +1,10 @@
 import math
-from math import ceil
-from QtComponents.QtRoundProgressBar import QtRoundProgressBar
-from QtComponents.QtStraightProgressBar import QtStraightProgressBar
+from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
-from PyQt5.QtCore import Qt, QRect
+
+from QtComponents.QtRoundProgressBar import QtRoundProgressBar
+from QtComponents.QtStraightProgressBar import QtStraightProgressBar
 
 class QtCornerProgressBar(QWidget):
     def __init__(self, *args, **kwargs):

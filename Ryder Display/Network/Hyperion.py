@@ -1,6 +1,7 @@
 import json
 import requests
 import socket
+
 from Utils.Singleton import Singleton
 
 class Hyperion(object, metaclass=Singleton):

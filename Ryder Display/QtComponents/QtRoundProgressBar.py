@@ -1,6 +1,6 @@
+from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
-from PyQt5.QtCore import Qt, QRect
 
 class QtRoundProgressBar(QWidget):
     def __init__(self, *args, **kwargs):

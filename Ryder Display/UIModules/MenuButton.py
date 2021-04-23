@@ -1,8 +1,7 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow
-from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import QSize, pyqtSlot
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow
 
 class MenuButton(object):
     _menu : QMainWindow

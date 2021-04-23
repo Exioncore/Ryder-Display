@@ -1,7 +1,7 @@
 from collections import deque
+from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtWidgets import QWidget, QLabel
 from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap, QPainterPath, QFont
-from PyQt5.QtCore import Qt, QRect
 
 class QtGraph(QWidget):
     def __init__(self, *args, **kwargs):

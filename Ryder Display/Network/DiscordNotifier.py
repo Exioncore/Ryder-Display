@@ -1,20 +1,26 @@
 import os
-import discord
-import asyncio
 import gevent
-from threading import Thread
+import asyncio
+import discord
+
+from Utils.Singleton import Singleton
 from Network.RyderClient import RyderClient
 
-class DiscordNotifier(discord.Client):
-    """description of class"""
-    def __init__(self, notification, path):
-        discord.Client.__init__(self)
+class DiscordNotifier(discord.Client, metaclass=Singleton):
+    instantiated = False
+
+    def create(self, path):
         self._cache = path + '/cache/'
         if not os.path.exists(self._cache):
             os.makedirs(self._cache)
+        # Discord Client
+        discord.Client.__init__(self)
+        # Done
+        self.instantiated = True
        
+    def setupHooks(self, notification):
         self._notification = notification
-        # Bind Server
+        # Bind EndPoints
         RyderClient().addEndPoint('discordLogin', self._discordLoginData)
 
     def run(self):

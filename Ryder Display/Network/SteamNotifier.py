@@ -2,21 +2,19 @@ import os
 import gevent
 import threading
 from steam.client import SteamClient
-from Network.RyderClient import RyderClient
 from steam.enums import EChatEntryType, EResult, EPersonaState
 
-class SteamNotifier(object):
-    def __init__(self, notification, path):
+from Utils.Singleton import Singleton
+from Network.RyderClient import RyderClient
+
+class SteamNotifier(object, metaclass=Singleton):
+    instantiated = False
+
+    def create(self, path):
         self._cache = path + '/cache/'
         if not os.path.exists(self._cache):
             os.makedirs(self._cache)
-       
-        self._notification = notification
-        # Bind EndPoints
-        RyderClient().addEndPoint('steamLogin', self._steamLoginData)
-        RyderClient().addEndPoint('steam2fa',self._steam2faData)
-
-    def run(self):
+        # Steam Client
         self._steamClient = SteamClient()
         # Hook Steam Client Events
         self._steamClient.on(SteamClient.EVENT_AUTH_CODE_REQUIRED, self.auth_code_prompt)
@@ -27,6 +25,16 @@ class SteamNotifier(object):
         self._steamClient.on(SteamClient.EVENT_CONNECTED, self.connected)
         self._steamClient.on(SteamClient.EVENT_DISCONNECTED, self.disconnected)
         self._steamClient.on(SteamClient.EVENT_NEW_LOGIN_KEY, self.new_login_key)
+        # Done
+        self.instantiated = True
+
+    def setupHooks(self, notification):
+        self._notification = notification
+        # Bind EndPoints
+        RyderClient().addEndPoint('steamLogin', self._steamLoginData)
+        RyderClient().addEndPoint('steam2fa',self._steam2faData)
+
+    def run(self):
         # Start Login Sequence
         self._steamClient.set_credential_location(self._cache)
         if os.path.exists(self._cache + 'steam.txt'):

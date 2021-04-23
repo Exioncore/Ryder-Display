@@ -6,12 +6,12 @@ import keyboard
 import threading
 import _locale
 # PyQt5
-from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtCore import Qt, QThread
+from PyQt5.QtWidgets import QMainWindow, QApplication
 # Ryder Display Files
-from Utils.ConfigurationParser import ConfigurationParser
-from Network.RyderClient import RyderClient
 from Pages.Home import Home
+from Network.RyderClient import RyderClient
+from Utils.ConfigurationParser import ConfigurationParser
 
 class RyderDisplay(QMainWindow): 
     def __init__(self):
@@ -44,14 +44,29 @@ class RyderDisplay(QMainWindow):
             # Show windowed
             self.show()
 
+    def reloadUI(self):
+        # This ensure the window is empty and no endpoints by the ui exist
+        # Necessary to enable window reloading the UI
+        RyderClient().clearEndPoints()
+        for i in reversed(range(self.layout().count())): 
+            self.layout().itemAt(i).widget().setParent(None)
+        # Reparse ui configuration file
+        self._ui, self._settings = ConfigurationParser.prepare(
+            os.path.dirname(os.path.abspath(sys.argv[0])),
+            self._settings
+        )
+        self.initialize()
+
+    def keyboardEvent(self, e):
+        if e.key() == Qt.Key_Q:
+            os._exit(1)
+        elif e.key() == Qt.Key_R:
+            self.reloadUI()
+
 def pyqtLoop(app):
     while True:
         app.processEvents()
         gevent.sleep(0.005)
-
-def killApp(e):
-    if e.key() == Qt.Key_Q:
-        os._exit(1)
 
 if __name__ == "__main__":
     # Set locale
@@ -70,9 +85,7 @@ if __name__ == "__main__":
     # Create the instance of our Window
     window = RyderDisplay()
     window.initialize()
-
-    # Hotkey for closing application
-    window.keyPressEvent = killApp
+    window.keyPressEvent = window.keyboardEvent
 
     # Run Server
     gevent.joinall([gevent.spawn(RyderClient().run), gevent.spawn(pyqtLoop, app)])
