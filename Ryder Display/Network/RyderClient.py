@@ -47,7 +47,7 @@ class RyderClient(object, metaclass=Singleton):
                 self._s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 self._s.settimeout(2.5)
                 self._s.connect((self._ip, self._port))
-                self._s.settimeout(0.001)
+                self._s.settimeout(0)
                 # Call functions that are meant to run when connection is established
                 if 'on_connect' in self._endpoints:
                     print("Endpoint: on_connect")
@@ -64,7 +64,7 @@ class RyderClient(object, metaclass=Singleton):
             # Loop to receive messages
             while not self._stop and connected:
                 try:
-                    data += self._s.recv(2056).decode("utf-8") 
+                    data += self._s.recv(128).decode("utf-8") 
                     # Check for inactivity timeout
                     if len(data) == 0:
                         connected = False
