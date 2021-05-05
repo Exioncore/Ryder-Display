@@ -14,7 +14,8 @@ class DiscordNotifier(discord.Client, metaclass=Singleton):
         if not os.path.exists(self._cache):
             os.makedirs(self._cache)
         # Discord Client
-        discord.Client.__init__(self)
+        intents = discord.Intents.none()
+        discord.Client.__init__(self, intents=intents)
         # Done
         self.instantiated = True
        
@@ -55,7 +56,7 @@ class DiscordNotifier(discord.Client, metaclass=Singleton):
         self._notification('Discord', self.user.name, "Logged in")
 
     async def on_message(self, message):
-        print("Message")
         if message.author == self.user:
             return
+        print("Discord Message (From: "+message.author.name+", Text: "+message.content+")")
         self._notification('Discord', message.author.name, message.content)

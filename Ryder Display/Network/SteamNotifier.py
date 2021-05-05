@@ -44,7 +44,7 @@ class SteamNotifier(object, metaclass=Singleton):
             self._steamClient.login(username=data[0].replace('\n',''), login_key=data[1])
         else:
             self._notification('Steam', 'Login', 'Requesting Login Data')
-            RyderClient().send("[\"steamLoginUP\"]")
+            RyderClient().send("[\"steamLogin\"]")
 
     def _steamLoginData(self, data):
         print('Steam login data received')
@@ -75,12 +75,12 @@ class SteamNotifier(object, metaclass=Singleton):
         print(data)
         if data == EResult.InvalidPassword:
             self._notification('Steam', 'Login', 'Requesting Login Data')
-            RyderClient().send("[\"steamLoginUP\"]")
+            RyderClient().send("[\"steamLogin\"]")
 
     def auth_code_prompt(self, is2fa, code_mismatch):
         print("Steam2FA Required")
         self._notification('Steam', 'Login', 'Requesting 2 Factor Authentication')
-        RyderClient().send("[\"steamLogin2FA\"]")
+        RyderClient().send("[\"steam2fa\"]")
 
     def handle_message(self, msg):
         if msg.body.chat_entry_type == EChatEntryType.ChatMsg and not msg.body.local_echo:
