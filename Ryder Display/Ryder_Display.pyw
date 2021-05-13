@@ -93,5 +93,5 @@ if __name__ == "__main__":
     window.initialize()
     window.keyPressEvent = window.keyboardEvent
 
-    # Run Server
-    gevent.joinall([gevent.spawn(RyderClient().run), gevent.spawn(pyqtLoop, app)])
+    # Run PyQt Loop
+    gevent.joinall([gevent.spawn(pyqtLoop, app)])

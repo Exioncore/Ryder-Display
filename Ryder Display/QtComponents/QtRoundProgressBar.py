@@ -100,7 +100,7 @@ class QtRoundProgressBar(QWidget):
         if self._redraw:
             self._buffer.fill(Qt.transparent)
             paint.setPen(self._pen_background) 
-            paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._max_angle * 16.0)
+            paint.drawArc(self._rect_arc, (self._angle_bounds[0]) * 16.0, self._max_angle * 16.0)
             paint.setPen(self._pen_foreground)
             if self._fill_direction > 0:
                 paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._target_angle * 16.0)
@@ -133,10 +133,10 @@ class QtRoundProgressBar(QWidget):
                 else:
                     delta -= self._overdraw
                 if self._fill_direction < 0:
-                    if start + delta < self._angle_bounds[0]:
+                    if start + delta < self._angle_bounds[0] - 1.0:
                         delta = self._angle_bounds[0] - start
                 else:
-                    if start + delta > self._angle_bounds[1]:
+                    if start + delta > self._angle_bounds[1] + 1.0:
                         delta = self._angle_bounds[1] - start
 
             paint.drawArc(self._rect_arc, start * 16.0, delta * 16.0)

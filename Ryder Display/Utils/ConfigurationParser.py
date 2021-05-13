@@ -2,6 +2,7 @@ import os
 import sys
 import math
 import json
+import gevent
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtSvg import QSvgWidget
@@ -92,10 +93,12 @@ class ConfigurationParser(object):
                 entry[2] = ConfigurationParser._concatTextWithVariables(entry[2], settings['ui']['variables'])
         
         # Initialization
-        RyderClient().setup(settings['services']['data_provider']['ip'], settings['services']['data_provider']['port'])
-        if 'hyperion' in settings['services']:
-            Hyperion().setUrl(settings['services']['hyperion']['ip'], settings['services']['hyperion']['port'])
-            Hyperion().getState()
+        if preloadedSettings == None:
+            RyderClient().setup(settings['services']['data_provider']['ip'], settings['services']['data_provider']['port'])
+            gevent.spawn(RyderClient().run)
+            if 'hyperion' in settings['services']:
+                Hyperion().setUrl(settings['services']['hyperion']['ip'], settings['services']['hyperion']['port'])
+                Hyperion().getState()
 
         return ui, settings
 

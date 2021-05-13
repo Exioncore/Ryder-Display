@@ -6,11 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Ryder Display", "Ryder Display\Ryder Display.pyproj", "{95A25F8F-EDBF-494C-BC7E-18740D241AC5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{020718B3-E026-4685-AD62-761D4EF33DAA}"
-	ProjectSection(SolutionItems) = preProject
-		MANIFEST.in = MANIFEST.in
-		requirements.txt = requirements.txt
-		setup.py = setup.py
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

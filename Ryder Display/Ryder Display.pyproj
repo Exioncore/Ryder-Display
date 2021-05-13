@@ -124,6 +124,7 @@
     <Folder Include="QtComponents\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="requirements.txt" />
     <Content Include="Resources\Audio\Audio.png" />
     <Content Include="Resources\Audio\1.png" />
     <Content Include="Resources\Audio\0.png" />

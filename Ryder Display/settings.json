@@ -40,7 +40,7 @@
       },
       "discord": {
         "INFO": "Use at own risk. Discord TOS forbidden",
-        "enabled": true,
+        "enabled": false,
         "ui_notify": true,
         "hyperion_effect": "Notify Discord"
       }
