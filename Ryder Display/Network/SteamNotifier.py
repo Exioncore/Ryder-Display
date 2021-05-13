@@ -8,43 +8,47 @@ from Utils.Singleton import Singleton
 from Network.RyderClient import RyderClient
 
 class SteamNotifier(object, metaclass=Singleton):
-    instantiated = False
+    _instantiated = False
+    _running = False
 
     def create(self, path):
-        self._cache = path + '/cache/'
-        if not os.path.exists(self._cache):
-            os.makedirs(self._cache)
-        # Steam Client
-        self._steamClient = SteamClient()
-        # Hook Steam Client Events
-        self._steamClient.on(SteamClient.EVENT_AUTH_CODE_REQUIRED, self.auth_code_prompt)
-        self._steamClient.on("FriendMessagesClient.IncomingMessage#1", self.handle_message)
-        self._steamClient.on(SteamClient.EVENT_LOGGED_ON, self.login_success)
-        self._steamClient.on(SteamClient.EVENT_CHANNEL_SECURED, self.login_secured)
-        self._steamClient.on(SteamClient.EVENT_ERROR, self.login_error)
-        self._steamClient.on(SteamClient.EVENT_CONNECTED, self.connected)
-        self._steamClient.on(SteamClient.EVENT_DISCONNECTED, self.disconnected)
-        self._steamClient.on(SteamClient.EVENT_NEW_LOGIN_KEY, self.new_login_key)
-        # Done
-        self.instantiated = True
+        if not self._instantiated:
+            self._instantiated = True
+            self._cache = path + '/cache/'
+            if not os.path.exists(self._cache):
+                os.makedirs(self._cache)
+            # Steam Client
+            self._steamClient = SteamClient()
+            # Hook Steam Client Events
+            self._steamClient.on(SteamClient.EVENT_AUTH_CODE_REQUIRED, self.auth_code_prompt)
+            self._steamClient.on("FriendMessagesClient.IncomingMessage#1", self.handle_message)
+            self._steamClient.on(SteamClient.EVENT_LOGGED_ON, self.login_success)
+            self._steamClient.on(SteamClient.EVENT_CHANNEL_SECURED, self.login_secured)
+            self._steamClient.on(SteamClient.EVENT_ERROR, self.login_error)
+            self._steamClient.on(SteamClient.EVENT_CONNECTED, self.connected)
+            self._steamClient.on(SteamClient.EVENT_DISCONNECTED, self.disconnected)
+            self._steamClient.on(SteamClient.EVENT_NEW_LOGIN_KEY, self.new_login_key)
 
     def setupHooks(self, notification):
         self._notification = notification
         # Bind EndPoints
+        RyderClient().addEndPoint('on_connect', self._run)
         RyderClient().addEndPoint('steamLogin', self._steamLoginData)
         RyderClient().addEndPoint('steam2fa',self._steam2faData)
 
-    def run(self):
+    def _run(self):
         # Start Login Sequence
-        self._steamClient.set_credential_location(self._cache)
-        if os.path.exists(self._cache + 'steam.txt'):
-            f = open(self._cache + 'steam.txt', 'r')
-            data = f.readlines()
-            f.close()
-            self._steamClient.login(username=data[0].replace('\n',''), login_key=data[1])
-        else:
-            self._notification('Steam', 'Login', 'Requesting Login Data')
-            RyderClient().send("[\"steamLogin\"]")
+        if not self._running:
+            self._running = True
+            self._steamClient.set_credential_location(self._cache)
+            if os.path.exists(self._cache + 'steam.txt'):
+                f = open(self._cache + 'steam.txt', 'r')
+                data = f.readlines()
+                f.close()
+                self._steamClient.login(username=data[0].replace('\n',''), login_key=data[1])
+            else:
+                self._notification('Steam', 'Login', 'Requesting Login Data')
+                RyderClient().send("[\"steamLogin\"]")
 
     def _steamLoginData(self, data):
         print('Steam login data received')

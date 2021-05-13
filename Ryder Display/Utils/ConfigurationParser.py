@@ -95,7 +95,6 @@ class ConfigurationParser(object):
         # Initialization
         if preloadedSettings == None:
             RyderClient().setup(settings['services']['data_provider']['ip'], settings['services']['data_provider']['port'])
-            gevent.spawn(RyderClient().run)
             if 'hyperion' in settings['services']:
                 Hyperion().setUrl(settings['services']['hyperion']['ip'], settings['services']['hyperion']['port'])
                 Hyperion().getState()

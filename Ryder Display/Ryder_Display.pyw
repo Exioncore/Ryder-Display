@@ -16,6 +16,7 @@ from Utils.ConfigurationParser import ConfigurationParser
 class RyderDisplay(QMainWindow): 
     def __init__(self):
         super().__init__()
+        self._firstInit = True
 
         # Setting title
         self.setWindowTitle("Ryder Display")
@@ -37,12 +38,16 @@ class RyderDisplay(QMainWindow):
         self.page = Home(self)
         self.page.create_ui(os.path.dirname(os.path.abspath(sys.argv[0])), self._ui, self._settings)
 
-        if self._settings['ui']['full_screen'] or 'full_screen' not in self._settings['ui']:
-            # Show in Full Screen
-            self.showFullScreen()
-        else:
-            # Show windowed
-            self.show()
+        if self._firstInit:
+            self._firstInit = False
+            if self._settings['ui']['full_screen'] or 'full_screen' not in self._settings['ui']:
+                # Show in Full Screen
+                self.showFullScreen()
+            else:
+                # Show windowed
+                self.show()
+            # Run Client
+            gevent.spawn(RyderClient().run)
 
     def reloadUI(self):
         # This ensure the window is empty and no endpoints by the ui exist

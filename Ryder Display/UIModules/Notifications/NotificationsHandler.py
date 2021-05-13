@@ -44,10 +44,8 @@ class NotificationsHandler(object):
                 self._steam_hyperion_effect = settings['steam']['hyperion_effect']
             else:
                 self._steam_hyperion_effect = False
+            SteamNotifier().create(path)
             SteamNotifier().setupHooks(self.newNotification)
-            if not SteamNotifier().instantiated:
-                SteamNotifier().create(path)
-                SteamNotifier().run()
         else:
             self._steam_ui_notify = self._steam_hyperion_effect = False
         # Discord
