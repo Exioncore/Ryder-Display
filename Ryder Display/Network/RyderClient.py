@@ -9,15 +9,21 @@ from Utils.Singleton import Singleton
 class RyderClient(object, metaclass=Singleton):
     _s : socket.socket = None
     _endpoints = {}
+    # Flag representing connection status
+    connected = False
+    # Flag to stop running client
+    stop = False
 
+    # Setup connection ip and port
     def setup(self, ip, port):
-        # Save data
         self._ip = ip
         self._port = port
 
+    # Clear all stored endpoints
     def clearEndPoints(self):
         self._endpoints = {}
 
+    # Add endpoint trigger and function to call
     def addEndPoint(self, cmd: str, func):
         if cmd in self._endpoints:
             self._endpoints[cmd].append(func)
@@ -25,6 +31,8 @@ class RyderClient(object, metaclass=Singleton):
             self._endpoints[cmd] = []
             self._endpoints[cmd].append(func)
 
+    # Send data to host (May fail if connection is not set)
+    # Return True if transmission was succesfull, False otherwise
     def send(self, data:str):
         try:
             self._s.sendall((data+"\n").encode('utf-8'))
@@ -33,13 +41,16 @@ class RyderClient(object, metaclass=Singleton):
             print("Could not send: " + data)
             return False
 
+    # Handle connection to host as well as automatic re-connection
+    # Handle receival of data from host
+    # Function is blocking and must run in its own thread or asynchronously from the main thread
     def run(self):
         data = ''
         last_update = -9999
         buff_size = 9
         step = 1
-        connected = False
-        self._stop = False
+        self.connected = False
+        self.stop = False
         
         while not self._stop:
             # Attempt connection to Ryder Engine
@@ -55,7 +66,7 @@ class RyderClient(object, metaclass=Singleton):
                 last_update = time.time()
                 buff_size = 9
                 step = 1
-                connected = True
+                self.connected= True
                 # Call functions that are meant to run when connection is established
                 if 'on_connect' in self._endpoints:
                     print("Endpoint: on_connect")
@@ -65,12 +76,12 @@ class RyderClient(object, metaclass=Singleton):
                 pass
             
             # Loop to receive messages
-            while not self._stop and connected:
+            while not self._stop and self.connected:
                 try:
                     data = self._s.recv(buff_size).decode('utf-8')
                     # Check if timeout occurred 
                     if len(data) == 0:
-                        connected = False
+                        self.connected = False
                         break
                     else:
                         if step == 1:
@@ -90,6 +101,9 @@ class RyderClient(object, metaclass=Singleton):
                             step = 1
                         last_update = time.time()       
                 except:
-                    connected = False
+                    self.connected = False
                 gevent.sleep(0.025)
             gevent.sleep(0.025)
+        # Close socket
+        self._s.close()
+        self.connected = False
