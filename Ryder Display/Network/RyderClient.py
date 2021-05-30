@@ -52,7 +52,7 @@ class RyderClient(object, metaclass=Singleton):
         self.connected = False
         self.stop = False
         
-        while not self._stop:
+        while not self.stop:
             # Attempt connection to Ryder Engine
             try:
                 print("Connecting to Ryder Engine...")
@@ -76,7 +76,7 @@ class RyderClient(object, metaclass=Singleton):
                 pass
             
             # Loop to receive messages
-            while not self._stop and self.connected:
+            while not self.stop and self.connected:
                 try:
                     data = self._s.recv(buff_size).decode('utf-8')
                     # Check if timeout occurred 
