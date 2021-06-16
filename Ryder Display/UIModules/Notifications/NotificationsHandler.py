@@ -45,7 +45,7 @@ class NotificationsHandler(object):
         ### Create container (This is necessary in order to have z-order of each notification indipendent
         ### from the rest of ui elements
         container = QWidget(window)
-        container.setGeometry(self._init_pos[0], self._init_pos[1], self._size[0], self._size[1])
+        container.setGeometry(self._init_pos[0], self._init_pos[1], self._size[0], self._size[1] * max_stack)
         ### Create notifications
         for i in range(max_stack):
             self._free_notifications.append(
