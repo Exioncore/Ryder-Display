@@ -11,6 +11,7 @@
     <OutputPath>.</OutputPath>
     <Name>Ryder Display</Name>
     <RootNamespace>Ryder Display</RootNamespace>
+    <InterpreterId>MSBuild|Ryder Display Environment|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -149,6 +150,17 @@
     <Content Include="Resources\Steam-Logo.svg" />
     <Content Include="settings.json" />
     <Content Include="ui.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="Ryder Display Environment\">
+      <Id>Ryder Display Environment</Id>
+      <Version>3.7</Version>
+      <Description>Ryder Display Environment (Python 3.7 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

@@ -745,7 +745,7 @@
       "height": 80,
       "img_margin": 10,
       "stylesheet": [
-        "border-bottom-right-radius:15px;border-bottom-left-radius:15px;",
+        "border-radius:15px;",
         "color:rgb(225,225,225);font-weight:bold;font:18pt;",
         "color:rgb(225,225,225);font-weight:bold;font:14pt;"
       ]
