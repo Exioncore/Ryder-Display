@@ -21,9 +21,13 @@ class NotificationsHandler(object):
     _timer = 0
     _onGoing = False
     
-    def __init__(self, window, fps, settings,
-                stylesheet=["","",""], img_margin = 5, pos='bottom', height=20, path='',
-        ):
+    def __init__(self, window, fps, settings, notificationStyle, path=''):
+        stylesheet = notificationStyle['stylesheet']
+        img_margin = notificationStyle['img_margin']
+        top_margin = notificationStyle['top_margin']
+        pos = notificationStyle['location']
+        height = notificationStyle['height']
+
         self._mutexUpdate = Lock()
         self._mutex = Lock()
         self._timeout_frames = math.floor(fps * settings['timeout_seconds'])
@@ -49,7 +53,7 @@ class NotificationsHandler(object):
         ### Create notifications
         for i in range(max_stack):
             self._free_notifications.append(
-                Notification(container, stylesheet, img_margin, self._init_pos, self._size, path)
+                Notification(container, stylesheet, img_margin, top_margin, self._init_pos, self._size, path)
         )
 
         # Steam

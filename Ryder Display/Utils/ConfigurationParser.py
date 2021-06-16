@@ -177,7 +177,7 @@ class ConfigurationParser(object):
                 if 'notifications_handler' in settings['services']:
                     elem = NotificationsHandler(
                         window, settings['ui']['fps'], settings['services']['notifications_handler'], 
-                        entry['stylesheet'], entry['img_margin'], entry['location'], entry['height'], path,
+                        entry, path,
                     )
                 else:
                     continue

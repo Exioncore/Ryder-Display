@@ -740,13 +740,14 @@
     },
     {
       "title": "Notifications Handler",
+      "top_margin": 8,
       "type": "NotificationsHandler",
       "location": "top",
-      "height": 80,
+      "height": 85,
       "img_margin": 10,
       "stylesheet": [
         "border-radius:15px;",
-        "color:rgb(225,225,225);font-weight:bold;font:18pt;",
+        "color:rgb(225,225,225);font-weight:bold;font:16pt;",
         "color:rgb(225,225,225);font-weight:bold;font:14pt;"
       ]
     }

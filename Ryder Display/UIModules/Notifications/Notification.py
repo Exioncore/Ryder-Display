@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QWidget, QLabel
 from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap, QPainterPath, QBrush, QFont, QPalette
 
 class Notification(object):
-    def __init__(self, window, stylesheet=["","",""], img_margin = 5, pos=[0,0], size=[100,20], path='', vals=None):
+    def __init__(self, window, stylesheet=["","",""], img_margin = 5, top_margin = 5, pos=[0,0], size=[100,20], path='', vals=None):
         self._path = path
         self._pos = pos
 
@@ -52,7 +52,7 @@ class Notification(object):
         self._title.setText(title)
         self._title.adjustSize()
         self._title.setGeometry(
-            img_margin + self._logo.width() + 4, img_margin,
+            img_margin + self._logo.width() + 4, top_margin,
             size[0] - img_margin - self._logo.width() - 4, self._title.height()
         )
         self._title.show()
@@ -64,8 +64,8 @@ class Notification(object):
         self._message.setText(message)
         self._message.adjustSize()
         self._message.setGeometry(
-            img_margin + self._logo.width() + 8, img_margin + self._title.height() + 2,
-            size[0] - img_margin - self._logo.width() - 8, self._message.height()
+            img_margin + self._logo.width() + 8, top_margin + self._title.height() + 2,
+            size[0] - img_margin - self._logo.width() - 8, self._message.height() * 2
         )
         self._message.show()
 
@@ -91,6 +91,7 @@ class Notification(object):
         # Update Textual Contents
         self._title.setText(title)
         self._message.setText(message)
+        self._message.setWordWrap(True)
 
     def update(self):
         self._background.update()
