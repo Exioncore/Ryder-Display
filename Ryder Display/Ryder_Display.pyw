@@ -1,5 +1,5 @@
 import gevent.monkey
-gevent.monkey.patch_all()
+gevent.monkey.patch_ssl()
 import os
 import gc
 import sys

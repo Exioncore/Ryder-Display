@@ -31,8 +31,9 @@
     },
     "notifications_handler": {
       "transition_seconds": 0.25,
-      "timeout_seconds": 5,
-      "max_n_notifications":  3,
+      "min_timeout_seconds": 2,
+      "max_timeout_seconds": 6,
+      "max_n_notifications": 3,
       "steam": {
         "INFO": "Use at own risk. Logs in with the desired account as invisible and solely receives messages",
         "enabled": true,
@@ -41,7 +42,7 @@
       },
       "discord": {
         "INFO": "Use at own risk. Discord TOS forbidden",
-        "enabled": false,
+        "enabled": true,
         "ui_notify": true,
         "hyperion_effect": "Notify Discord"
       }

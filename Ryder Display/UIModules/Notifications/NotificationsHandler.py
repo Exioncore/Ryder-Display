@@ -30,7 +30,8 @@ class NotificationsHandler(object):
 
         self._mutexUpdate = Lock()
         self._mutex = Lock()
-        self._timeout_frames = math.floor(fps * settings['timeout_seconds'])
+        self._min_timeout_frames = math.floor(fps * settings['min_timeout_seconds'])
+        self._max_timeout_frames = math.floor(fps * settings['max_timeout_seconds'])
         self._transition_frames = math.floor(fps * settings['transition_seconds'])
         if 'max_n_notifications' in settings:
             max_stack = settings['max_n_notifications']
@@ -98,6 +99,10 @@ class NotificationsHandler(object):
 
         # Process current live notifications
         i = 0
+        if len(self._queue) > 0 and len(self._free_notifications) == 0:
+            timeout_frames = self._min_timeout_frames
+        else:
+            timeout_frames = self._max_timeout_frames
         while i < len(self._live_queue):
             item = self._live_queue[i]
             if item['stackPos'] != i and item['transitioner'].isDone():
@@ -107,7 +112,7 @@ class NotificationsHandler(object):
                 item['transitioner'].transitionFromStart(-self._ofst, self._transition_frames)
                 item['stackPos'] = i
                 item['notification']._background.raise_()
-            elif self._timer - item['timeOfCreation'] >= self._timeout_frames and item['stackPos'] == 0 and item['transitioner'].isDone():
+            elif self._timer - item['timeOfCreation'] >= timeout_frames and item['stackPos'] == 0 and item['transitioner'].isDone():
                 # Delete notification
                 item['notification'].hide()
                 self._free_notifications.append(self._live_queue.pop(0)['notification'])

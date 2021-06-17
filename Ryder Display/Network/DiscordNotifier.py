@@ -30,7 +30,7 @@ class DiscordNotifier(discord.Client, metaclass=Singleton):
             f = open(self._cache + 'discord.txt', 'r')
             data = f.readlines()
             f.close()
-            gevent.spawn(discord.Client.run, self, data[0], bot = False)
+            gevent.spawn(discord.Client.run, self, data[0])
         else:
             self._notification('Discord', 'Login', 'Requesting Login Data')
             RyderClient().send("[\"discordLogin\"]")
@@ -46,11 +46,10 @@ class DiscordNotifier(discord.Client, metaclass=Singleton):
             return
 
     def _discordLoginData(self, data):
-        print('Discord login data received')
         f = open(self._cache + 'discord.txt', 'w')
         f.write(data[1])
         f.close()
-        gevent.spawn(discord.Client.run, self, data[1], bot = False)
+        gevent.spawn(discord.Client.run, self, data[1])
 
     async def on_ready(self):
         self._notification('Discord', self.user.name, "Logged in")
@@ -58,5 +57,4 @@ class DiscordNotifier(discord.Client, metaclass=Singleton):
     async def on_message(self, message):
         if message.author == self.user:
             return
-        print("Discord Message (From: "+message.author.name+", Text: "+message.content+")")
         self._notification('Discord', message.author.name, message.content)
