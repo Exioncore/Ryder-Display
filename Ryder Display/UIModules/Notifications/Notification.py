@@ -27,7 +27,7 @@ class Notification(object):
             # Default values 
             self._currApp = 'null'
             logo_path = self._path+'/Resources/Steam-Logo.svg'
-            color = '#1b1c20'
+            color = '#1E1E1E'
             title = 'Steam'
             message = 'Demo Steam Notification'
 
@@ -116,6 +116,9 @@ class Notification(object):
     def moveY(self, y):
         self._pos[1] = y
         self._background.move(self._pos[0], y)
+
+    def bringToFront(self):
+        self._background.raise_()
 
     def bringToBack(self):
         self._background.lower()

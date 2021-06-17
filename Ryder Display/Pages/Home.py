@@ -8,6 +8,7 @@ from Utils.Transitioner import Transitioner
 from Utils.InternalMetrics import InternalMetrics
 from UIModules.ForegroundProcess import ForegroundProcess
 from Utils.ConfigurationParser import ConfigurationParser
+from UIModules.Notifications.NotificationsHandler import NotificationsHandler
 
 
 class Home(object):
@@ -37,6 +38,8 @@ class Home(object):
         # Update UI
         for elem in self._ui:
             elem.update(self._status)
+        # Update Notifications Handler
+        NotificationsHandler().update()
         # Reset
         if self._status is not None:
             self._last_update = time.time()

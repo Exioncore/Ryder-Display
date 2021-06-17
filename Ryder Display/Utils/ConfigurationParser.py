@@ -175,12 +175,11 @@ class ConfigurationParser(object):
                 is_dynamic = False
             elif entry['type'] == 'NotificationsHandler':
                 if 'notifications_handler' in settings['services']:
-                    elem = NotificationsHandler(
+                    NotificationsHandler().setup(
                         window, settings['ui']['fps'], settings['services']['notifications_handler'], 
                         entry, path,
                     )
-                else:
-                    continue
+                continue
             elif entry['type'] == 'PowerMenu':
                 if 'power_plans' in settings['services']:
                     popup = PowerPlanMenu()
