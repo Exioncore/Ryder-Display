@@ -25,7 +25,6 @@ class Notification(object):
             img_margin, img_margin,
             size[1] - img_margin*2, size[1] - img_margin*2
         )
-        self._logo.setStyleSheet('background-color:'+color+';')
         self._logo.show()
         ### Notification Title
         self._title = QLabel(self._background)
