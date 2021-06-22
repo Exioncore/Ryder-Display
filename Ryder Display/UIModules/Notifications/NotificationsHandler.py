@@ -22,6 +22,7 @@ class NotificationsHandler(object, metaclass=Singleton):
     _timer = 0
     
     def setup(self, window, fps, settings, notificationStyle, path=''):
+        self._path = path
         # Reset Variables
         self._live_queue = []
         self._queue = []
@@ -104,20 +105,20 @@ class NotificationsHandler(object, metaclass=Singleton):
 
             # Process current live notifications
             i = 0
-            if len(self._queue) > 0 and len(self._free_notifications) == 0:
-                timeout_frames = self._min_timeout_frames
-            else:
-                timeout_frames = self._max_timeout_frames
+            timeout_frames = (
+                self._min_timeout_frames if (len(self._queue) > 0 and len(self._free_notifications) == 0) 
+                else self._max_timeout_frames
+            )
             while i < len(self._live_queue):
                 item = self._live_queue[i]
-                if item['stackPos'] != i and item['transitioner'].isDone():
+                if item['slot'] != i and item['transitioner'].isDone():
                     item['transitioner'] = Transitioner(
                         item['notification']._pos[1], self._transition_frames
                     )
                     item['transitioner'].transitionFromStart(-self._ofst, self._transition_frames)
-                    item['stackPos'] = i
+                    item['slot'] = i
                     item['notification']._background.raise_()
-                elif self._timer - item['timeOfCreation'] >= timeout_frames and item['stackPos'] == 0 and item['transitioner'].isDone():
+                elif self._timer - item['timeOfCreation'] >= timeout_frames and item['slot'] == 0 and item['transitioner'].isDone():
                     # Delete notification
                     item['notification'].hide()
                     self._free_notifications.append(self._live_queue.pop(0)['notification'])
@@ -154,7 +155,7 @@ class NotificationsHandler(object, metaclass=Singleton):
                 self._live_queue.append({
                     'notification': notification,
                     'transitioner': notification_t,
-                    'stackPos': slot,
+                    'slot': slot,
                     'timeOfCreation': self._timer
                 })
                 # Hyperion Notification
@@ -171,3 +172,15 @@ class NotificationsHandler(object, metaclass=Singleton):
         self._mutex.acquire()
         self._queue.append([app, title, message])
         self._mutex.release()
+
+    def getNotificationLogoAndColor(self, app):
+        if app == "Discord":
+            logoPath = self._path+'/Resources/Discord-Logo.svg'
+            backgroundColor = '#36393f'
+        elif app == "Steam":
+            logoPath = self._path+'/Resources/Steam-Logo.svg'
+            backgroundColor = '#1b1c20'
+        else:
+            logoPath = ''
+            backgroundColor = '#32a852'
+        return logoPath, backgroundColor

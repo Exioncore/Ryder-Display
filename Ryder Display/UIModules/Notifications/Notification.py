@@ -6,36 +6,19 @@ from PyQt5.QtWidgets import QWidget, QLabel
 from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap, QPainterPath, QBrush, QFont, QPalette
 
 class Notification(object):
-    def __init__(self, window, stylesheet=["","",""], img_margin = 5, top_margin = 5, pos=[0,0], size=[100,20], path='', vals=None):
-        self._path = path
+    def __init__(
+        self, window, styleFunction, stylesheet=["","",""], img_margin = 5, top_margin = 5, pos=[0,0], size=[100,20]
+        ):
+        self._styleFunction = styleFunction
+        self._currApp = ''
         self._pos = pos
-
-        # Check if initialization values are present
-        if vals != None:
-            self._currApp = vals[0]
-            if vals[0] == "Discord":
-                logo_path = self._path+'/Resources/Discord-Logo.svg'
-                color = '#36393f'
-            elif vals[0] == "Steam":
-                logo_path = self._path+'/Resources/Steam-Logo.svg'
-                color = '#1b1c20'
-            else:
-                color = '#32a852'
-            title = vals[1]
-            message = vals[2]
-        else:
-            # Default values 
-            self._currApp = 'null'
-            logo_path = self._path+'/Resources/Steam-Logo.svg'
-            color = '#1E1E1E'
-            title = 'Steam'
-            message = 'Demo Steam Notification'
 
         # Create components
         ### Notification Background
         self._background_main_stylesheet = stylesheet[0]
         self._background = QLabel(window)
         self._background.setGeometry(pos[0], pos[1], size[0], size[1])
+        self._background.hide()
         ### Notification Logo
         self._logo = QSvgWidget(logo_path, self._background)
         self._logo.setGeometry(
@@ -69,23 +52,12 @@ class Notification(object):
         )
         self._message.show()
 
-        if vals != None:
-            self._background.show()
-        else:
-            self._background.hide()
-
     def setText(self, app, title, message):
         if self._currApp != app:
-            if app == "Discord":
-                self._logo.load(self._path+'/Resources/Discord-Logo.svg')
-                color = '#36393f'
-            elif app == "Steam":
-                self._logo.load(self._path+'/Resources/Steam-Logo.svg')
-                color = '#1b1c20'
-            else:
-                color = '#32a852'
-            self._background.setStyleSheet('QLabel {background-color:'+color+';'+self._background_main_stylesheet+'}')
-            self._logo.setStyleSheet('background-color:'+color+';')
+            logoPath, backgroundColor = self._styleFunction(app)
+            self._logo.load(logoPath)
+            self._background.setStyleSheet('QLabel {background-color:'+backgroundColor+';'+self._background_main_stylesheet+'}')
+            self._logo.setStyleSheet('background-color:'+backgroundColor+';')
             self._currApp = app
 
         # Update Textual Contents

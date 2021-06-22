@@ -1,5 +1,7 @@
+# Monkey Patching SSL module (Required in order to use Steam api)
 import gevent.monkey
 gevent.monkey.patch_ssl()
+# Imports
 import os
 import gc
 import sys
