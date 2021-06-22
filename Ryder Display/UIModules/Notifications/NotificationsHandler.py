@@ -53,7 +53,7 @@ class NotificationsHandler(object, metaclass=Singleton):
         ### Create notifications
         for i in range(max_stack):
             self._free_notifications.append(
-                Notification(window, stylesheet, img_margin, top_margin, self._init_pos, self._size, path)
+                Notification(window, self.getNotificationLogoAndColor, stylesheet, img_margin, top_margin, self._init_pos, self._size)
         )
 
         # Steam
