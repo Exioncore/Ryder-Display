@@ -20,7 +20,7 @@ class Notification(object):
         self._background.setGeometry(pos[0], pos[1], size[0], size[1])
         self._background.hide()
         ### Notification Logo
-        self._logo = QSvgWidget(logo_path, self._background)
+        self._logo = QSvgWidget('', self._background)
         self._logo.setGeometry(
             img_margin, img_margin,
             size[1] - img_margin*2, size[1] - img_margin*2
