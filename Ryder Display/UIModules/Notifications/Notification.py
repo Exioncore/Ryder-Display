@@ -31,7 +31,7 @@ class Notification(object):
         self._title.setAttribute(Qt.WA_TranslucentBackground)
         self._title.setAlignment(Qt.AlignTop | Qt.AlignLeft)
         self._title.setStyleSheet('QLabel{'+stylesheet[1]+'}')
-        self._title.setText(title)
+        self._title.setText('Title')
         self._title.adjustSize()
         self._title.setGeometry(
             img_margin + self._logo.width() + 4, top_margin,
@@ -43,7 +43,7 @@ class Notification(object):
         self._message.setAttribute(Qt.WA_TranslucentBackground)
         self._message.setAlignment(Qt.AlignTop | Qt.AlignLeft)
         self._message.setStyleSheet('QLabel{'+stylesheet[2]+'}')
-        self._message.setText(message)
+        self._message.setText('Message')
         self._message.adjustSize()
         self._message.setGeometry(
             img_margin + self._logo.width() + 8, top_margin + self._title.height() + 2,
