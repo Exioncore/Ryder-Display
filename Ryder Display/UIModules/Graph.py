@@ -11,27 +11,27 @@ class Graph(object):
         self._height = size[1]
         # UI
         ## MinMax labels
-        self._elem_max_label = DynamicText(window, stylesheet[0], longest_text, unit, 'right', pos, None)
-        self._elem_min_label = DynamicText(window, stylesheet[0], longest_text, unit, 'right', pos, None)
-        self._elem_max_label._label.move(
+        self._elem_max_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'right', 'pos':pos, 'metric:':None})
+        self._elem_min_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'right', 'pos':pos, 'metric:':None})
+        self._elem_max_label.move(
             pos[0], 
-            self._elem_max_label._label.y()
+            self._elem_max_label._pos[1]
         )
-        self._elem_min_label._label.move(
+        self._elem_min_label.move(
             pos[0], 
-            pos[1] + size[1] - self._elem_min_label._label.height()
+            pos[1] + size[1] - self._elem_min_label._size[1]
         )
         ## Current value label
-        self._elem_label = DynamicText(window, stylesheet[1], longest_text, unit, 'left', pos, None)
-        self._elem_label._label.move((pos[0] + size[0]) - self._elem_label._label.width(), (pos[1] + size[1]) - self._elem_label._label.height())
-        self._half_elem_label_height = self._elem_label._label.height() / 2
+        self._elem_label = DynamicText(window, {'stylesheet': stylesheet[1], 'max_text_length':longest_text, 'unit': unit, 'alignment':'left', 'pos':pos, 'metric:':None})
+        self._elem_label.move((pos[0] + size[0]) - self._elem_label._size[0], (pos[1] + size[1]) - self._elem_label._size[1])
+        self._half_elem_label_height = self._elem_label._size[1] / 2
         ## Graph
         self._elem = QtGraph(window)
         self._elem.setForegroundColor(QColor(color))
         self._elem.setThickness(thickness)
         self._elem.setGeometry(
-            pos[0] + self._elem_max_label._label.width() + 1, pos[1],
-            size[0] - self._elem_max_label._label.width() - self._elem_label._label.width() - 2, size[1]
+            pos[0] + self._elem_max_label._size[0] + 1, pos[1],
+            size[0] - self._elem_max_label._size[0] - self._elem_label._size[0] - 2, size[1]
         )
         self._elem.setNumberOfValues(n_values)
         self._elem.show()
@@ -46,11 +46,12 @@ class Graph(object):
             self._elem.setValue(value)
             self._elem.update()
             # Update Label
-            scalar = (self._height - self._elem_label._label.height()) / (self._elem._bounds_range)
+            scalar = (self._elem_max_label._pos[1] - self._elem_min_label._pos[1]) / (self._elem._bounds_range)
+            print("scalar: " + str(scalar))
             self._elem_label.updateDirect(value)
             self._elem_label._label.move(
-                self._elem_label._label.x(),
-                (self._elem_max_label._label.y() + self._elem.height()) - self._elem_label._label.height() - value * scalar
+                self._elem_label._pos[0],
+                self._elem_min_label._pos[1] + value * scalar
             )
             # Update Max and Min Labels
             self._elem_max_label.updateDirect(self._elem._bounds[1])

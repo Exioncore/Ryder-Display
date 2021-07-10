@@ -3,10 +3,8 @@ import sys
 import math
 import json
 import gevent
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtSvg import QSvgWidget
 
+from UIModules.Utils import *
 from UIModules.Graph import Graph
 from Pages.AudioMenu import AudioMenu
 from Network.Hyperion import Hyperion
@@ -128,11 +126,7 @@ class ConfigurationParser(object):
                     entry['max_text_length'], entry['stylesheet'], unit, entry['n_values'], entry['metric']
                 )
             elif entry['type'] == 'RoundProgressBar':
-                elem = RoundProgressBar(
-                    window, ts,
-                    entry['pos'], entry['size'], entry['angle'], entry['colors'], entry['thickness'],
-                    entry['metric']
-                )
+                elem = RoundProgressBar(window, ts, entry)
             elif entry['type'] == 'CornerProgressBar':
                 elem = CornerProgressBar(
                     window, ts,
@@ -146,33 +140,20 @@ class ConfigurationParser(object):
                     entry['metric']
                 )
             elif entry['type'] == 'StaticText':
-                elem = ConfigurationParser._createLabel(
-                    window,
-                    entry['stylesheet'],
-                    entry['text']['msg'],
-                    entry['text']['alignment'],
-                    entry['pos']
-                )
+                elem = createLabel(window, entry)
                 is_dynamic = False
             elif entry['type'] == 'DynamicText':
-                unit = entry['unit']
                 if len(entry['unit']) > 0:
                     if entry['unit'][0] == '*':
-                        unit = ui['unit_converters'][entry['unit'][1:]]
-                elem = DynamicText(
-                    window,
-                    entry['stylesheet'], entry['max_text_length'], unit, entry['alignment'], entry['pos'], entry['metric']
-                )
+                        entry['unit'] = ui['unit_converters'][entry['unit'][1:]]
+                elem = DynamicText(window, entry)
             elif entry['type'] == 'DynamicTextBool':
                 elem = DynamicTextBool(
                     window,
                     entry['stylesheet'], entry['text'], entry['alignment'], entry['pos'], entry['metric']
                 )
             elif entry['type'] == 'Image':
-                elem = ConfigurationParser._createImage(
-                    window, entry['path'], entry['pos'], entry['size'], 
-                    entry['alignment'] if 'alignment' in entry else 'center'
-                )
+                elem = createImage(window, entry)
                 is_dynamic = False
             elif entry['type'] == 'NotificationsHandler':
                 if 'notifications_handler' in settings['services']:
@@ -212,37 +193,6 @@ class ConfigurationParser(object):
                 ui_static.append(elem)
 
         return settings['ui']['fps'], ui_dynamic
-
-    def _createLabel(window, stylesheet, text, alignment, pos):
-        label = QLabel(window)
-        label.setText(text)
-        label.setStyleSheet('QLabel{'+stylesheet+'}')
-        label.setAttribute(Qt.WA_TranslucentBackground)
-        label.adjustSize()
-        if alignment == "left":
-            label.setAlignment(Qt.AlignLeft)
-            label.move(pos[0],pos[1])
-        elif alignment == "center":
-            label.setAlignment(Qt.AlignHCenter)
-            label.move(pos[0] - label.width() / 2,pos[1])
-        elif alignment == "right":
-            label.setAlignment(Qt.AlignRight)
-            label.move(pos[0] - label.width(),pos[1])
-        label.show()
-        return label
-
-    def _createImage(window, image, pos, size, alignment):
-        path = os.path.dirname(sys.argv[0])+'/Resources/'+image
-        if alignment == 'center':
-            pos[0] -= size[0] / 2
-            pos[1] -= size[1] / 2
-        extension = path[(path.rfind('.')+1):]
-        elem = None
-        if extension == 'svg':
-            elem = QSvgWidget(path, window)
-            elem.setGeometry(pos[0], pos[1], size[0], size[1])
-            elem.show()
-        return elem
 
     def _concatTextWithVariables(entry, variables):
         result = ""

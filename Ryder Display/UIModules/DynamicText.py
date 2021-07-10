@@ -1,35 +1,51 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel
 
+from UIModules.Utils import *
 from Utils.InternalMetrics import InternalMetrics
 
 class DynamicText(object):
-    def __init__(self, window, stylesheet="", longest_text="", unit ="", alignment="center",  pos=[0,0], metric=[]):
-        if not isinstance(unit, list):
-            if unit == "" or unit[0] == "_":
-                self._unit_after = True
+    def __init__(self, window, settings):
+        # Retrieve settings
+        ### UI Related
+        stylesheet = settings['stylesheet'] if 'stylesheet' in settings else ""
+        alignment = settings['alignment'] if 'alignment' in settings else 'top-left'
+        pos = settings['pos'] if 'pos' in settings else [0, 0]
+        max_text_length = settings['max_text_length'] if 'max_text_length' in settings else "AAAAAAAAAAAAAAAAAAAAAAA"
+        ### Metric related
+        self._metric = settings['metric'] if 'metric' in settings else None
+        if 'unit' in settings:
+            if not isinstance(settings['unit'], list):
+                if settings['unit'] == "" or settings['unit'][0] == "_":
+                    self._unit_after = True
+                else:
+                    self._unit_after = False
+                self._unit = settings['unit'].replace('_','')
             else:
-                self._unit_after = False
-            self._unit = unit.replace('_','')
+                self._unit = settings['unit']
         else:
-            self._unit = unit
-        self._metric = metric
+            self._unit = ""
+        # Create components
         self._label = QLabel(window)
         self._label.setStyleSheet('QLabel{'+stylesheet+'}')
         self._label.setAttribute(Qt.WA_TranslucentBackground)
-        self._label.setText(longest_text)
+        self._label.setText(max_text_length)
         self._label.adjustSize()
+        self._size = [self._label.size().width(), self._label.fontMetrics().height()]
+        self._pos = getPosFromAlignment(pos, self._size, alignment)
         self._label.setText("")
-        if alignment == "left":
+        if 'left' in alignment:
             self._label.setAlignment(Qt.AlignLeft)
-            self._label.move(pos[0],pos[1])
-        elif alignment == "center":
+        elif alignment == 'top' or alignment == 'center' or alignment == 'bottom':
             self._label.setAlignment(Qt.AlignHCenter)
-            self._label.move(pos[0] - self._label.width() / 2,pos[1])
-        elif alignment == "right":
+        elif 'right' in alignment:
             self._label.setAlignment(Qt.AlignRight)
-            self._label.move(pos[0] - self._label.width(),pos[1])
+        self._label.move(self._pos[0], self._pos[1])
         self._label.show()
+
+    def move(self, x, y):
+        self._pos = [x, y]
+        self._label.move(x, y)
 
     def update(self, status):
         if status is not None:

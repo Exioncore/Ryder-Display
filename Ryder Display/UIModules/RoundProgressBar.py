@@ -2,17 +2,28 @@ from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
 from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtWidgets import QWidget
 
+from UIModules.Utils import *
 from Utils.Transitioner import Transitioner
 from Utils.InternalMetrics import InternalMetrics
 from QtComponents.QtRoundProgressBar import QtRoundProgressBar
 
 class RoundProgressBar(object):
-    def __init__(self, window, transition_frames, pos=[0,0], size=[50,50], angle=[0,360], colors=["#2ecc71", "#141414"], thickness=4, metric=[]):
+    def __init__(self, window, transition_frames, settings):
+        # Retrieve settings
+        ### UI Related
         self._transition_frames = transition_frames
-        self._metric = metric['name']
-        self._elem_t = Transitioner(metric['bounds'][0])
-        self._elem_t.setMinMax(metric['bounds'][0], metric['bounds'][1])
-        # UI
+        alignment = settings['alignment'] if 'alignment' in settings else 'top-left'
+        pos = settings['pos'] if 'pos' in settings else [0, 0]
+        size = settings['size'] if 'size' in settings else [50, 50]
+        angle = settings['angle'] if 'angle' in settings else [0, 360]
+        colors = settings['colors'] if 'colors' in settings else ["#2ecc71", "#141414"]
+        thickness = settings['thickness'] if 'thickness' in settings else 4
+        pos = getPosFromAlignment(pos, size, alignment)
+        ### Metric related
+        self._metric = settings['metric']['name']
+        self._elem_t = Transitioner(settings['metric']['bounds'][0])
+        self._elem_t.setMinMax(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
+        # Create components
         self._elem = QtRoundProgressBar(window)
         self._elem.setGeometry(pos[0], pos[1], size[0], size[1])
         dir = 1 if angle[0] < angle[1] else -1
@@ -23,7 +34,7 @@ class RoundProgressBar(object):
         self._elem.setBackgroundColor(QColor(colors[1]))
         self._elem.setThickness(thickness)
         self._elem.setFillDirection(dir)
-        self._elem.setBounds(metric['bounds'][0], metric['bounds'][1])
+        self._elem.setBounds(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
         self._elem.redraw()
         self._elem.show()
 

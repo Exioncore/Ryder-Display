@@ -7,20 +7,20 @@
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;",
       "text": {
         "msg": "*cpu_name",
-        "alignment": "center"
+        "alignment": "top"
       }
     },
     {
       "title": "CPU Image",
       "type": "Image",
-      "pos": [ "d+3", "d+120" ],
+      "pos": [ "+3", "+120" ],
       "size": [ 100, 70 ],
       "path": "CPU-Logo.svg"
     },
     {
       "title": "CPU Temperature",
       "type": "ProgressBar",
-      "pos": [ "d-130", "d+60" ],
+      "pos": [ "d-133", "d-60" ],
       "size": [ 18, 130 ],
       "direction": "top",
       "stylesheet": [
@@ -35,10 +35,10 @@
     {
       "title": "CPU Temperature Text",
       "type": "DynamicText",
-      "pos": [ "d-119", "d+38" ],
+      "pos": [ "d-122", "d-82" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
       "max_text_length": "99°C",
-      "alignment": "center",
+      "alignment": "top",
       "metric": {
         "name": [ "msi", "CPU temperature" ],
         "bounds": [ 0, "*cpu_max_temp" ]
@@ -48,8 +48,9 @@
     {
       "title": "CPU Max Thread Load",
       "type": "RoundProgressBar",
-      "pos": [ "d-80", "d+40" ],
+      "pos": [ "d+0", "d+7" ],
       "size": [ 170, 170 ],
+      "alignment": "center",
       "angle": [ 225, -45 ],
       "colors": [ "#2ecc71", "#141414" ],
       "thickness": 4,
@@ -61,8 +62,9 @@
     {
       "title": "CPU Load",
       "type": "RoundProgressBar",
-      "pos": [ "d-70", "d+50" ],
+      "pos": [ "d+0", "d+7" ],
       "size": [ 150, 150 ],
+      "alignment": "center",
       "angle": [ 225, -45 ],
       "colors": [ "#cd3413", "#141414" ],
       "thickness": 10,
@@ -74,10 +76,10 @@
     {
       "title": "CPU Clock",
       "type": "DynamicText",
-      "pos": [ "d+5", "d+175" ],
+      "pos": [ "d+2", "d+55" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
       "max_text_length": "9999MHz",
-      "alignment": "center",
+      "alignment": "top",
       "metric": {
         "name": [ "msi", "CPU clock" ],
         "bounds": [ 0, 9999 ]
@@ -87,8 +89,9 @@
     {
       "title": "CPU Power",
       "type": "CornerProgressBar",
-      "pos": [ "d-140", "d+40" ],
+      "pos": [ "d-137", "d-80" ],
       "size": [ 280, 190 ],
+      "alignment": "top",
       "colors": [ "#e1ea0e", "#141414" ],
       "direction": [ "right", "up" ],
       "thickness": 14,
@@ -101,10 +104,10 @@
     {
       "title": "CPU Power Text",
       "type": "DynamicText",
-      "pos": [ "d+0", "d+215" ],
+      "pos": [ "d+3", "d+95" ],
       "stylesheet": "color:#ad2a1a;font-weight:bold;font:10pt;",
       "max_text_length": "999w",
-      "alignment": "center",
+      "alignment": "top",
       "metric": {
         "name": [ "msi", "CPU power" ],
         "bounds": [ 0, 999 ]
@@ -116,7 +119,7 @@
       "type": "StaticText",
       "text": {
         "msg": "*gpu_name",
-        "alignment": "center"
+        "alignment": "top"
       },
       "pos": [ 650, 0 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;"
@@ -124,14 +127,14 @@
     {
       "title": "GPU Image",
       "type": "Image",
-      "pos": [ "-2", "d+120" ],
+      "pos": [ "-3", "+120" ],
       "size": [ 90, 35 ],
       "path": "GPU-Logo.svg"
     },
     {
       "title": "GPU Temperature",
       "type": "ProgressBar",
-      "pos": [ "d+114", "d+60" ],
+      "pos": [ "d+114", "d-60" ],
       "size": [ 18, 130 ],
       "direction": "top",
       "stylesheet": [
@@ -146,10 +149,10 @@
     {
       "title": "GPU Temperature Text",
       "type": "DynamicText",
-      "pos": [ "d+125", "d+38" ],
+      "pos": [ "d+125", "d-82" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
       "max_text_length": "99°C",
-      "alignment": "center",
+      "alignment": "top",
       "metric": {
         "name": [ "msi", "GPU temperature" ],
         "bounds": [ 0, "*gpu_max_temp" ]
@@ -159,8 +162,9 @@
     {
       "title": "GPU VRAM Usage",
       "type": "RoundProgressBar",
-      "pos": [ "d-88", "d+40" ],
+      "pos": [ "d+0", "d+7" ],
       "size": [ 170, 170 ],
+      "alignment": "center",
       "angle": [ -45, 225 ],
       "colors": [ "#2ecc71", "#141414" ],
       "thickness": 4,
@@ -172,8 +176,9 @@
     {
       "title": "GPU Load",
       "type": "RoundProgressBar",
-      "pos": [ "d-78", "d+50" ],
+      "pos": [ "d+0", "d+7" ],
       "size": [ 150, 150 ],
+      "alignment": "center",
       "angle": [ -45, 225 ],
       "colors": [ "#cd3413", "#141414" ],
       "thickness": 10,
@@ -191,7 +196,7 @@
       ],
       "text": [ "NL", "NL" ],
       "alignment": "right",
-      "pos": [ "d-50", "d+115" ],
+      "pos": [ "d-48", "d-5" ],
       "metric": {
         "name": [ "msi", "No load limit" ],
         "target_value": 1,
@@ -207,7 +212,7 @@
       ],
       "text": [ "VL", "VL" ],
       "alignment": "left",
-      "pos": [ "d+44", "d+115" ],
+      "pos": [ "d+48", "d-5" ],
       "metric": {
         "name": [ "msi", "Voltage limit" ],
         "target_value": 1,
@@ -223,7 +228,7 @@
       ],
       "text": [ "TMP", "TMP" ],
       "alignment": "center",
-      "pos": [ "d-3", "d+85" ],
+      "pos": [ "d-3", "d-35" ],
       "metric": {
         "name": [ "msi", "Temp limit" ],
         "target_value": 1,
@@ -239,7 +244,7 @@
       ],
       "text": [ "PWR", "PWR" ],
       "alignment": "center",
-      "pos": [ "d-3", "d+145" ],
+      "pos": [ "d-3", "d+22" ],
       "metric": {
         "name": [ "msi", "Power limit" ],
         "target_value": 1,
@@ -249,10 +254,10 @@
     {
       "title": "GPU Clock",
       "type": "DynamicText",
-      "pos": [ "d-3", "d+175" ],
+      "pos": [ "d+0", "d+55" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
       "max_text_length": "9999MHz",
-      "alignment": "center",
+      "alignment": "top",
       "metric": {
         "name": [ "msi", "Core clock" ],
         "bounds": [ 0, 9999 ]
@@ -262,7 +267,7 @@
     {
       "title": "GPU Power",
       "type": "CornerProgressBar",
-      "pos": [ "d-138", "d+40" ],
+      "pos": [ "d-138", "d-80" ],
       "size": [ 280, 190 ],
       "colors": [ "#e1ea0e", "#141414" ],
       "direction": [ "left", "up" ],
@@ -276,10 +281,10 @@
     {
       "title": "GPU Power Text",
       "type": "DynamicText",
-      "pos": [ "d-3", "d+215" ],
+      "pos": [ "d-3", "d+95" ],
       "stylesheet": "color:#ad2a1a;font-weight:bold;font:10pt;",
       "max_text_length": "999w",
-      "alignment": "center",
+      "alignment": "top",
       "metric": {
         "name": [ "msi", "Power" ],
         "bounds": [ 0, 999 ]
@@ -350,7 +355,7 @@
       "pos": [ "d-7", "d+38" ],
       "stylesheet": "color:#2ecc71;font-weight:bold;font:11pt;",
       "max_text_length": "fps999",
-      "alignment": "right",
+      "alignment": "top-right",
       "metric": {
         "name": [ "msi", "Framerate" ],
         "bounds": [ 0, 999 ]
@@ -363,7 +368,7 @@
       "pos": [ "d+105", "d+38" ],
       "stylesheet": "color:#e1ea0e;font-weight:bold;font:11pt;",
       "max_text_length": "999w",
-      "alignment": "left",
+      "alignment": "top-left",
       "metric": {
         "name": [ "*total_power" ],
         "bounds": [ 0, 999 ]
@@ -405,9 +410,9 @@
       "type": "StaticText",
       "text": {
         "msg": "Ambient",
-        "alignment": "center"
+        "alignment": "top"
       },
-      "pos": [ "d+30", "d-23" ],
+      "pos": [ "d+30", "d-20" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;"
     },
     {
@@ -415,15 +420,15 @@
       "type": "StaticText",
       "text": {
         "msg": "Liquid",
-        "alignment": "center"
+        "alignment": "top"
       },
-      "pos": [ "d+130", "d-23" ],
+      "pos": [ "d+130", "d-20" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;"
     },
     {
       "title": "Ambient Temperature Text",
       "type": "DynamicText",
-      "pos": [ "d+30", "d+20" ],
+      "pos": [ "d+30", "d+22" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
       "max_text_length": "99.9°C",
       "alignment": "center",
@@ -435,7 +440,7 @@
     {
       "title": "Liquid Temperature Text",
       "type": "DynamicText",
-      "pos": [ "d+130", "d+20" ],
+      "pos": [ "d+130", "d+22" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
       "max_text_length": "99.9°C",
       "alignment": "center",
@@ -449,7 +454,7 @@
       "type": "StaticText",
       "text": {
         "msg": "Storage",
-        "alignment": "center"
+        "alignment": "top"
       },
       "pos": [ 135, 240 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;"
@@ -459,7 +464,7 @@
       "type": "StaticText",
       "text": {
         "msg": "C:",
-        "alignment": "left"
+        "alignment": "top-left"
       },
       "pos": [ "-125", "+38" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
@@ -469,7 +474,7 @@
       "type": "ProgressBar",
       "pos": [ "d+20", "d+2" ],
       "size": [ 200, 12 ],
-      "direction": "right",
+      "direction": "top-right",
       "stylesheet": [
         "background-color:#141414;border:0px;",
         "background-color:#247ae4;border:0px;"
@@ -485,7 +490,7 @@
       "pos": [ "d+225", "d-1" ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "left",
+      "alignment": "top-left",
       "metric": {
         "name": [ "storage", "C", "readSpeed" ]
       },
@@ -496,7 +501,7 @@
       "type": "ProgressBar",
       "pos": [ "d+20", "d+17" ],
       "size": [ 200, 12 ],
-      "direction": "right",
+      "direction": "top-right",
       "stylesheet": [
         "background-color:#141414;border:0px;",
         "background-color:#24e49f;border:0px;"
@@ -512,7 +517,7 @@
       "pos": [ "d+225", "d+14" ],
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "left",
+      "alignment": "top-left",
       "metric": {
         "name": [ "storage", "C", "writeSpeed" ]
       },
@@ -523,7 +528,7 @@
       "type": "StaticText",
       "text": {
         "msg": "D:",
-        "alignment": "left"
+        "alignment": "top-left"
       },
       "pos": [ "d+0", "+37" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
@@ -533,7 +538,7 @@
       "type": "ProgressBar",
       "pos": [ "d+20", "d+2" ],
       "size": [ 200, 12 ],
-      "direction": "right",
+      "direction": "top-right",
       "stylesheet": [
         "background-color:#141414;border:0px;",
         "background-color:#247ae4;border:0px;"
@@ -549,7 +554,7 @@
       "pos": [ "d+225", "d-1" ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "left",
+      "alignment": "top-left",
       "metric": {
         "name": [ "storage", "D", "readSpeed" ]
       },
@@ -576,7 +581,7 @@
       "pos": [ "d+225", "d+14" ],
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "left",
+      "alignment": "top-left",
       "metric": {
         "name": [ "storage", "D", "writeSpeed" ]
       },
@@ -587,7 +592,7 @@
       "type": "StaticText",
       "text": {
         "msg": "E:",
-        "alignment": "left"
+        "alignment": "top-left"
       },
       "pos": [ "d+0", "+37" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
@@ -613,7 +618,7 @@
       "pos": [ "d+225", "d-1" ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "left",
+      "alignment": "top-left",
       "metric": {
         "name": [ "storage", "E", "readSpeed" ]
       },
@@ -624,7 +629,7 @@
       "type": "ProgressBar",
       "pos": [ "d+20", "d+17" ],
       "size": [ 200, 12 ],
-      "direction": "right",
+      "direction": "top-right",
       "stylesheet": [
         "background-color:#141414;border:0px;",
         "background-color:#24e49f;border:0px;"
@@ -640,7 +645,7 @@
       "pos": [ "d+225", "d+14" ],
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "left",
+      "alignment": "top-left",
       "metric": {
         "name": [ "storage", "E", "writeSpeed" ]
       },
@@ -672,7 +677,7 @@
       "pos": [ "d+0", "d+25" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
       "max_text_length": "100%",
-      "alignment": "center",
+      "alignment": "top",
       "metric": {
         "name": [ "msi", "RAM usage" ]
       },
@@ -683,7 +688,7 @@
       "type": "StaticText",
       "text": {
         "msg": "Network",
-        "alignment": "center"
+        "alignment": "top"
       },
       "pos": [ 665, 240 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;"
@@ -707,7 +712,7 @@
     {
       "title": "Network Upload",
       "type": "Graph",
-      "pos": [ "d-145", "d+93" ],
+      "pos": [ "d-145", "d+98" ],
       "size": [ 270, 48 ],
       "thickness": 2,
       "color": "#247ae4",
