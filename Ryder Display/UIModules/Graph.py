@@ -47,7 +47,6 @@ class Graph(object):
             self._elem.update()
             # Update Label
             scalar = (self._elem_max_label._pos[1] - self._elem_min_label._pos[1]) / (self._elem._bounds_range)
-            print("scalar: " + str(scalar))
             self._elem_label.updateDirect(value)
             self._elem_label._label.move(
                 self._elem_label._pos[0],
