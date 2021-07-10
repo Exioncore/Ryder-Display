@@ -128,7 +128,7 @@
       "title": "GPU Image",
       "type": "Image",
       "pos": [ "-3", "+120" ],
-      "size": [ 90, 35 ],
+      "size": [ 88, 34 ],
       "path": "GPU-Logo.svg"
     },
     {
@@ -196,7 +196,7 @@
       ],
       "text": [ "NL", "NL" ],
       "alignment": "right",
-      "pos": [ "d-48", "d-5" ],
+      "pos": [ "d-46", "d-5" ],
       "metric": {
         "name": [ "msi", "No load limit" ],
         "target_value": 1,
@@ -212,7 +212,7 @@
       ],
       "text": [ "VL", "VL" ],
       "alignment": "left",
-      "pos": [ "d+48", "d-5" ],
+      "pos": [ "d+46", "d-5" ],
       "metric": {
         "name": [ "msi", "Voltage limit" ],
         "target_value": 1,
