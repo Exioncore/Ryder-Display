@@ -170,7 +170,8 @@ class ConfigurationParser(object):
                 )
             elif entry['type'] == 'Image':
                 elem = ConfigurationParser._createImage(
-                    window, entry['path'], entry['pos'], entry['size']
+                    window, entry['path'], entry['pos'], entry['size'], 
+                    entry['alignment'] if 'alignment' in entry else 'center'
                 )
                 is_dynamic = False
             elif entry['type'] == 'NotificationsHandler':
@@ -230,8 +231,11 @@ class ConfigurationParser(object):
         label.show()
         return label
 
-    def _createImage(window, image, pos, size):
+    def _createImage(window, image, pos, size, alignment):
         path = os.path.dirname(sys.argv[0])+'/Resources/'+image
+        if alignment == 'center':
+            pos[0] -= size[0] / 2
+            pos[1] -= size[1] / 2
         extension = path[(path.rfind('.')+1):]
         elem = None
         if extension == 'svg':

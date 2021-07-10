@@ -13,14 +13,14 @@
     {
       "title": "CPU Image",
       "type": "Image",
-      "pos": [ "-20", "d+94" ],
-      "size": [ 50, 50 ],
+      "pos": [ "d+3", "d+120" ],
+      "size": [ 100, 70 ],
       "path": "CPU-Logo.svg"
     },
     {
       "title": "CPU Temperature",
       "type": "ProgressBar",
-      "pos": [ "d-110", "d+60" ],
+      "pos": [ "d-130", "d+60" ],
       "size": [ 18, 130 ],
       "direction": "top",
       "stylesheet": [
@@ -35,7 +35,7 @@
     {
       "title": "CPU Temperature Text",
       "type": "DynamicText",
-      "pos": [ "d-101", "d+38" ],
+      "pos": [ "d-119", "d+38" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
       "max_text_length": "99°C",
       "alignment": "center",
@@ -48,7 +48,7 @@
     {
       "title": "CPU Max Thread Load",
       "type": "RoundProgressBar",
-      "pos": [ "d-60", "d+40" ],
+      "pos": [ "d-80", "d+40" ],
       "size": [ 170, 170 ],
       "angle": [ 225, -45 ],
       "colors": [ "#2ecc71", "#141414" ],
@@ -61,7 +61,7 @@
     {
       "title": "CPU Load",
       "type": "RoundProgressBar",
-      "pos": [ "d-50", "d+50" ],
+      "pos": [ "d-70", "d+50" ],
       "size": [ 150, 150 ],
       "angle": [ 225, -45 ],
       "colors": [ "#cd3413", "#141414" ],
@@ -74,7 +74,7 @@
     {
       "title": "CPU Clock",
       "type": "DynamicText",
-      "pos": [ "d+25", "d+175" ],
+      "pos": [ "d+5", "d+175" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
       "max_text_length": "9999MHz",
       "alignment": "center",
@@ -87,7 +87,7 @@
     {
       "title": "CPU Power",
       "type": "CornerProgressBar",
-      "pos": [ "d-120", "d+40" ],
+      "pos": [ "d-140", "d+40" ],
       "size": [ 280, 190 ],
       "colors": [ "#e1ea0e", "#141414" ],
       "direction": [ "right", "up" ],
@@ -101,7 +101,7 @@
     {
       "title": "CPU Power Text",
       "type": "DynamicText",
-      "pos": [ "d+20", "d+215" ],
+      "pos": [ "d+0", "d+215" ],
       "stylesheet": "color:#ad2a1a;font-weight:bold;font:10pt;",
       "max_text_length": "999w",
       "alignment": "center",
@@ -124,14 +124,14 @@
     {
       "title": "GPU Image",
       "type": "Image",
-      "pos": [ "-30", "d+103" ],
-      "size": [ 50, 35 ],
+      "pos": [ "-2", "d+120" ],
+      "size": [ 90, 35 ],
       "path": "GPU-Logo.svg"
     },
     {
       "title": "GPU Temperature",
       "type": "ProgressBar",
-      "pos": [ "d+142", "d+60" ],
+      "pos": [ "d+114", "d+60" ],
       "size": [ 18, 130 ],
       "direction": "top",
       "stylesheet": [
@@ -146,7 +146,7 @@
     {
       "title": "GPU Temperature Text",
       "type": "DynamicText",
-      "pos": [ "d+153", "d+38" ],
+      "pos": [ "d+125", "d+38" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
       "max_text_length": "99°C",
       "alignment": "center",
@@ -159,7 +159,7 @@
     {
       "title": "GPU VRAM Usage",
       "type": "RoundProgressBar",
-      "pos": [ "d-60", "d+40" ],
+      "pos": [ "d-88", "d+40" ],
       "size": [ 170, 170 ],
       "angle": [ -45, 225 ],
       "colors": [ "#2ecc71", "#141414" ],
@@ -172,7 +172,7 @@
     {
       "title": "GPU Load",
       "type": "RoundProgressBar",
-      "pos": [ "d-50", "d+50" ],
+      "pos": [ "d-78", "d+50" ],
       "size": [ 150, 150 ],
       "angle": [ -45, 225 ],
       "colors": [ "#cd3413", "#141414" ],
@@ -191,7 +191,7 @@
       ],
       "text": [ "NL", "NL" ],
       "alignment": "right",
-      "pos": [ "d-5", "d+115" ],
+      "pos": [ "d-50", "d+115" ],
       "metric": {
         "name": [ "msi", "No load limit" ],
         "target_value": 1,
@@ -207,7 +207,7 @@
       ],
       "text": [ "VL", "VL" ],
       "alignment": "left",
-      "pos": [ "d+55", "d+115" ],
+      "pos": [ "d+44", "d+115" ],
       "metric": {
         "name": [ "msi", "Voltage limit" ],
         "target_value": 1,
@@ -223,7 +223,7 @@
       ],
       "text": [ "TMP", "TMP" ],
       "alignment": "center",
-      "pos": [ "d+25", "d+85" ],
+      "pos": [ "d-3", "d+85" ],
       "metric": {
         "name": [ "msi", "Temp limit" ],
         "target_value": 1,
@@ -239,7 +239,7 @@
       ],
       "text": [ "PWR", "PWR" ],
       "alignment": "center",
-      "pos": [ "d+25", "d+145" ],
+      "pos": [ "d-3", "d+145" ],
       "metric": {
         "name": [ "msi", "Power limit" ],
         "target_value": 1,
@@ -249,7 +249,7 @@
     {
       "title": "GPU Clock",
       "type": "DynamicText",
-      "pos": [ "d+25", "d+175" ],
+      "pos": [ "d-3", "d+175" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
       "max_text_length": "9999MHz",
       "alignment": "center",
@@ -262,7 +262,7 @@
     {
       "title": "GPU Power",
       "type": "CornerProgressBar",
-      "pos": [ "d-110", "d+40" ],
+      "pos": [ "d-138", "d+40" ],
       "size": [ 280, 190 ],
       "colors": [ "#e1ea0e", "#141414" ],
       "direction": [ "left", "up" ],
@@ -276,7 +276,7 @@
     {
       "title": "GPU Power Text",
       "type": "DynamicText",
-      "pos": [ "d+25", "d+215" ],
+      "pos": [ "d-3", "d+215" ],
       "stylesheet": "color:#ad2a1a;font-weight:bold;font:10pt;",
       "max_text_length": "999w",
       "alignment": "center",
@@ -649,14 +649,14 @@
     {
       "title": "RAM image",
       "type": "Image",
-      "pos": [ 380, 320 ],
+      "pos": [ 400, 340 ],
       "size": [ 40, 40 ],
       "path": "RAM-Logo.svg"
     },
     {
       "title": "RAM Load",
       "type": "RoundProgressBar",
-      "pos": [ "d-20", "d-20" ],
+      "pos": [ "d-40", "d-40" ],
       "size": [ 80, 80 ],
       "angle": [ 225, -45 ],
       "colors": [ "#9e24e4", "#141414" ],
@@ -669,7 +669,7 @@
     {
       "title": "RAM load text",
       "type": "DynamicText",
-      "pos": [ "d+20", "d+45" ],
+      "pos": [ "d+0", "d+25" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
       "max_text_length": "100%",
       "alignment": "center",
