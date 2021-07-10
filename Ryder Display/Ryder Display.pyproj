@@ -11,7 +11,7 @@
     <OutputPath>.</OutputPath>
     <Name>Ryder Display</Name>
     <RootNamespace>Ryder Display</RootNamespace>
-    <InterpreterId>MSBuild|Ryder Display Environment|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|Environment|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -152,10 +152,10 @@
     <Content Include="ui.json" />
   </ItemGroup>
   <ItemGroup>
-    <Interpreter Include="Ryder Display Environment\">
-      <Id>Ryder Display Environment</Id>
+    <Interpreter Include="..\Environment\">
+      <Id>Environment</Id>
       <Version>3.7</Version>
-      <Description>Ryder Display Environment (Python 3.7 (64-bit))</Description>
+      <Description>Environment (Python 3.7 (64-bit))</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
       <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
