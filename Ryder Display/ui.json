@@ -89,7 +89,7 @@
     {
       "title": "CPU Power",
       "type": "CornerProgressBar",
-      "pos": [ "d", "d+16" ],
+      "pos": [ "d-5", "d+16" ],
       "size": [ 280, 190 ],
       "alignment": "center",
       "colors": [ "#e1ea0e", "#141414" ],
@@ -267,7 +267,7 @@
     {
       "title": "GPU Power",
       "type": "CornerProgressBar",
-      "pos": [ "d", "d+16" ],
+      "pos": [ "d+5", "d+16" ],
       "size": [ 280, 190 ],
       "alignment": "center",
       "colors": [ "#e1ea0e", "#141414" ],
@@ -295,7 +295,7 @@
     {
       "title": "Foreground Process Icon",
       "type": "ForegroundProcessIcon",
-      "pos": [ 400, 100 ],
+      "pos": [ 400, 120 ],
       "alignment": "center",
       "size": 96
     },
@@ -303,11 +303,11 @@
       "title": "Framerate",
       "type": "RoundProgressBar",
       "pos": [ "d", "d" ],
-      "size": [ 108, 108 ],
+      "size": [ 110, 110 ],
       "alignment": "center",
-      "angle": [ 180, 90 ],
+      "angle": [ 157.6, 93 ],
       "colors": [ "#2ecc71", "#141414" ],
-      "thickness": 4,
+      "thickness": 6,
       "metric": {
         "name": [ "msi", "Framerate" ],
         "bounds": [ 30, 120 ]
@@ -317,11 +317,11 @@
       "title": "Framerate",
       "type": "RoundProgressBar",
       "pos": [ "d", "d" ],
-      "size": [ 108, 108 ],
+      "size": [ 110, 110 ],
       "alignment": "center",
-      "angle": [ 180, 270 ],
+      "angle": [ 157.4, 222 ],
       "colors": [ "#2ecc71", "#141414" ],
-      "thickness": 4,
+      "thickness": 6,
       "metric": {
         "name": [ "msi", "Framerate" ],
         "bounds": [ 30, "*fps_target + 20" ]
@@ -331,11 +331,11 @@
       "title": "Total System Power",
       "type": "RoundProgressBar",
       "pos": [ "d", "d" ],
-      "size": [ 108, 108 ],
+      "size": [ 110, 110 ],
       "alignment": "center",
-      "angle": [ 0, 90 ],
+      "angle": [ 22.4, 87 ],
       "colors": [ "#e1ea0e", "#141414" ],
-      "thickness": 4,
+      "thickness": 6,
       "metric": {
         "name": [ "*total_power" ],
         "bounds": [ 0, "*cpu_max_power + *gpu_max_power" ]
@@ -345,11 +345,11 @@
       "title": "Total System Power",
       "type": "RoundProgressBar",
       "pos": [ "d", "d" ],
-      "size": [ 108, 108 ],
+      "size": [ 110, 110 ],
       "alignment": "center",
-      "angle": [ 0, -90 ],
+      "angle": [ 22.6, -42 ],
       "colors": [ "#e1ea0e", "#141414" ],
-      "thickness": 4,
+      "thickness": 6,
       "metric": {
         "name": [ "*total_power" ],
         "bounds": [ 0, "*cpu_max_power + *gpu_max_power" ]
@@ -358,7 +358,7 @@
     {
       "title": "Framerate Text",
       "type": "DynamicText",
-      "pos": [ "d-56", "d" ],
+      "pos": [ "d-56", "d-25" ],
       "stylesheet": "color:#2ecc71;font-weight:bold;font:11pt;",
       "max_text_length": "fps999",
       "alignment": "right",
@@ -371,7 +371,7 @@
     {
       "title": "Total System Power Text",
       "type": "DynamicText",
-      "pos": [ "d+56", "d" ],
+      "pos": [ "d+56", "d-25" ],
       "stylesheet": "color:#e1ea0e;font-weight:bold;font:11pt;",
       "max_text_length": "999w",
       "alignment": "left",
@@ -383,14 +383,13 @@
     },
     {
       "title": "Delta Temperature Bar",
-      "type": "ProgressBar",
-      "pos": [ 320, 223 ],
-      "size": [ 80, 12 ],
-      "direction": "left",
-      "stylesheet": [
-        "background-color:#141414;border:0px;",
-        "background-color:#247ae4;border:0px;"
-      ],
+      "type": "RoundProgressBar",
+      "pos": [ "d", "d" ],
+      "size": [ 110, 110 ],
+      "alignment": "center",
+      "angle": [ 270, 228 ],
+      "colors": [ "#247ae4", "#141414" ],
+      "thickness": 6,
       "metric": {
         "name": [ "*delta_t" ],
         "bounds": [ 0, 10 ]
@@ -398,60 +397,27 @@
     },
     {
       "title": "Delta Temperature Bar",
-      "type": "ProgressBar",
-      "pos": [ "d+80", "d+0" ],
-      "size": [ 80, 12 ],
-      "direction": "right",
-      "stylesheet": [
-        "background-color:#141414;border:0px;",
-        "background-color:#247ae4;border:0px;"
-      ],
+      "type": "RoundProgressBar",
+      "pos": [ "d", "d" ],
+      "size": [ 110, 110 ],
+      "alignment": "center",
+      "angle": [ 270, 312 ],
+      "colors": [ "#247ae4", "#141414" ],
+      "thickness": 6,
       "metric": {
         "name": [ "*delta_t" ],
         "bounds": [ 0, 10 ]
       }
     },
     {
-      "title": "Ambient Label",
-      "type": "StaticText",
-      "text": {
-        "msg": "Ambient",
-        "alignment": "top"
-      },
-      "pos": [ "d+30", "d-20" ],
-      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;"
-    },
-    {
-      "title": "Liquid Label",
-      "type": "StaticText",
-      "text": {
-        "msg": "Liquid",
-        "alignment": "top"
-      },
-      "pos": [ "d+130", "d-20" ],
-      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;"
-    },
-    {
-      "title": "Ambient Temperature Text",
+      "title": "Delta Temperature Text",
       "type": "DynamicText",
-      "pos": [ "d+30", "d+22" ],
-      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "pos": [ "d+2", "d+56" ],
+      "stylesheet": "color:#247ae4;font-weight:bold;font:11pt;",
       "max_text_length": "99.9°C",
-      "alignment": "center",
+      "alignment": "top",
       "metric": {
-        "name": [ "fanController", "ambient" ]
-      },
-      "unit": [ 1, 1, "_°C" ]
-    },
-    {
-      "title": "Liquid Temperature Text",
-      "type": "DynamicText",
-      "pos": [ "d+130", "d+22" ],
-      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
-      "max_text_length": "99.9°C",
-      "alignment": "center",
-      "metric": {
-        "name": [ "fanController", "liquid" ]
+        "name": [ "*delta_t" ]
       },
       "unit": [ 1, 1, "_°C" ]
     },
@@ -732,7 +698,7 @@
     {
       "title": "RAM image",
       "type": "Image",
-      "pos": [ 400, 330 ],
+      "pos": [ 400, 310 ],
       "size": [ 40, 40 ],
       "path": "RAM-Logo.svg"
     },
