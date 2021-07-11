@@ -54,7 +54,7 @@ class RoundProgressBar(object):
                         return
             else:
                 # Get computed metric
-                value = InternalMetrics().metrics[self._metric[0]]
+                value = InternalMetrics().metrics[self._metric[0][1:]]
 
             self._elem_t.transition(value, self._transition_frames)
 

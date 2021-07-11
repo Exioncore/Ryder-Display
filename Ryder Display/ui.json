@@ -831,7 +831,7 @@
   },
   "computed_metrics": [
     {
-      "name": "*total_power",
+      "name": "total_power",
       "metrics": [
         [ "msi", "CPU power" ],
         [ "msi", "Power" ]
@@ -839,7 +839,7 @@
       "operator": "+"
     },
     {
-      "name": "*delta_t",
+      "name": "delta_t",
       "metrics": [
         [ "fanController", "liquid" ],
         [ "fanController", "ambient" ]
@@ -847,7 +847,7 @@
       "operator": "d"
     },
     {
-      "name": "*highest_thread_usage",
+      "name": "highest_thread_usage",
       "metrics": [
         [ "msi", "CPU1 usage" ],
         [ "msi", "CPU2 usage" ],

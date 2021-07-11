@@ -48,7 +48,7 @@ class DynamicTextBool(object):
                         return
             else:
                 # Get computed metric
-                value = InternalMetrics().metrics[self._metric['name'][0]]
+                value = InternalMetrics().metrics[self._metric['name'][0][1:]]
             is_true = (value == self._metric['target_value'] if self._metric['operator'] == '=' else 
                        (value > self._metric['target_value'] if self._metric['operator'] == '>' else 
                         (value < self._metric['target_value'] if self._metric['operator'] == '<' else False)))

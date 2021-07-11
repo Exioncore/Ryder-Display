@@ -51,9 +51,18 @@ class Graph(object):
 
     def update(self, status):
         if status is not None:
-            value = status[self._metric[0]]
-            for i in range(1, len(self._metric)):
-                value = value[self._metric[i]]
+            if self._metric[0][0] != "*":
+                value = status
+                # Navigate status json to desired metric
+                for i in range(0, len(self._metric)):
+                    if self._metric[i] in value:
+                        value = value[self._metric[i]]
+                    else:
+                        # Interrupt update if desired metric is not found
+                        return
+            else:
+                # Get computed metric
+                value = InternalMetrics().metrics[self._metric[0][1:]]
 
             # Update Graph
             self._elem.setValue(value)

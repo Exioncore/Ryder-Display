@@ -72,7 +72,7 @@ class DynamicText(object):
                         return
             else:
                 # Get computed metric
-                value = InternalMetrics().metrics[self._metric['name'][0]]
+                value = InternalMetrics().metrics[self._metric['name'][0][1:]]
             
             # Enforce value to be within bounds
             if 'bounds' in self._metric:

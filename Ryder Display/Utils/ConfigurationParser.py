@@ -67,8 +67,8 @@ class ConfigurationParser(object):
                     if isinstance(entry['text']['msg'], list):
                         entry['text']['msg'] = ConfigurationParser._concatTextWithVariables(entry['text']['msg'], settings['ui']['variables'])
                     else:
-                        if entry['text']['msg'] in settings['ui']['variables']:
-                            entry['text']['msg'] = settings['ui']['variables'][entry['text']['msg']]
+                        if entry['text']['msg'][1:] in settings['ui']['variables']:
+                            entry['text']['msg'] = settings['ui']['variables'][entry['text']['msg'][1:]]
             elif (entry['type'] == 'DynamicText' or entry['type'] == 'ProgressBar' or 
                   entry['type'] == 'RoundProgressBar' or entry['type'] == 'CornerProgressBar'):
                 # Ensure element has bounds entry (This is optional for DynamicText)
@@ -184,13 +184,13 @@ class ConfigurationParser(object):
         if isinstance(entry, list):
             for elem in entry:
                 if elem[0] == "*" and elem in variables:
-                    result += str(variables[elem])
+                    result += str(variables[elem[1:]])
                 else:
                     result += elem
             return result
         else:
             if entry[0] == "*" and entry in variables:
-                return str(variables[entry])
+                return str(variables[entry[1:]])
         return entry
 
     def _fillFieldFormula(entry, variables):
@@ -202,14 +202,15 @@ class ConfigurationParser(object):
                 if elements[i][0] == '*' or (elements[i][0] == '-' and elements[i][1] == '*'):
                     # Filter out the - if present
                     if elements[i][0] == '*':
-                        index = elements[i]
+                        index = elements[i][1:]
+                        val = 1
                     else:
-                        index = elements[1:]
+                        index = elements[i][2:]
+                        val = -1
                     # Retrieve variable value
                     if index in variables:
-                        val = variables[index]
-                        if elements[i][0] == '-':
-                            val *= -1
+                        val *= variables[index]
+                        print("Index: " + index + ", val: " + str(val))
                 else:
                     # Convert value to int unless variable requires float type
                     val = ConfigurationParser._convertStrToIntOrFloat(elements[i])

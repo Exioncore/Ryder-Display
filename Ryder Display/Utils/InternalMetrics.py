@@ -24,7 +24,7 @@ class InternalMetrics(object, metaclass=Singleton):
             # Compute value
             for m in range(0, len(self._settings[i]['metrics'])):
                 if self._settings[i]['metrics'][m][0][0] == "*":
-                    val = self.metrics[self._settings[i]['metrics'][m][0]]
+                    val = self.metrics[self._settings[i]['metrics'][m][0][1:]]
                 else:
                     val = status
                     for s in range(0, len(self._settings[i]['metrics'][m])):
