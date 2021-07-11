@@ -19,6 +19,8 @@ class InternalMetrics(object, metaclass=Singleton):
                 value = float('inf')
             elif self._settings[i]['operator'] == "+":
                 value = 0
+            elif self._settings[i]['operator'] == "d":
+                first = True
             # Compute value
             for m in range(0, len(self._settings[i]['metrics'])):
                 if self._settings[i]['metrics'][m][0][0] == "*":
@@ -35,6 +37,8 @@ class InternalMetrics(object, metaclass=Singleton):
                                 val = float('inf')
                             elif self._settings[i]['operator'] == "+":
                                 val = 0
+                            elif self._settings[i]['operator'] == "d":
+                                val = 0
                             break
                 if self._settings[i]['operator'] == "M":
                     value = max(value, val)
@@ -42,8 +46,12 @@ class InternalMetrics(object, metaclass=Singleton):
                     value = min(value, val)
                 elif self._settings[i]['operator'] == "+":
                     value += val
+                elif self._settings[i]['operator'] == "d":
+                    if first == True:
+                        value = val
+                        first = False
+                    else:
+                        value -= val
+                        break
             # Store value
             self.metrics[self._settings[i]['name']] = value
-
-    def _getValue(self):
-        return

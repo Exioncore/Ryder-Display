@@ -1,31 +1,38 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel
 
+from UIModules.Utils import *
 from Utils.InternalMetrics import InternalMetrics
 
 class DynamicTextBool(object):
-    def __init__(self, window, stylesheet=["",""], txt=["",""], alignment="center",  pos=[0,0], metric=[]):
-        self._stylesheet = stylesheet
-        self._text = txt
-        self._alignment = alignment
-        self._pos = pos
-        self._metric = metric
+    def __init__(self, window, settings):
+        # Retrieve settings
+        ### UI Related
+        self._stylesheet = settings['stylesheet'] if 'stylesheet' in settings and len(settings['stylesheet']) == 2 else ["", ""]
+        alignment = settings['alignment'] if 'alignment' in settings else 'center'
+        self._pos = settings['pos'] if 'pos' in settings else [0, 0]
+        self._text = settings['text'] if 'text' in settings and len(settings['text']) == 2 else ["", ""]
+        ### Metric related
+        self._metric = settings['metric']
         self._is_true = False
-
+        # Create components
         self._label = QLabel(window)
-        self._label.setStyleSheet('QLabel{'+stylesheet[0]+'}')
+        self._label.setStyleSheet('QLabel{'+self._stylesheet[0]+'}')
         self._label.setAttribute(Qt.WA_TranslucentBackground)
-        self._label.setText(txt[0])
+        self._label.setText(self._text[1])
         self._label.adjustSize()
-        if alignment == "left":
+        size = [self._label.size().width(), self._label.fontMetrics().height()]
+        self._label.setText(self._text[0])
+        self._label.adjustSize()
+        size[0] = size[0] if self._label.size().width() < size[0] else self._label.size().width()
+        self._pos = getPosFromAlignment(self._pos, size, alignment)
+        if 'left' in alignment:
             self._label.setAlignment(Qt.AlignLeft)
-            self._label.move(pos[0],pos[1])
-        elif alignment == "center":
+        elif alignment == 'top' or alignment == 'center' or alignment == 'bottom':
             self._label.setAlignment(Qt.AlignHCenter)
-            self._label.move(pos[0] - self._label.width() / 2,pos[1])
-        elif alignment == "right":
+        elif 'right' in alignment:
             self._label.setAlignment(Qt.AlignRight)
-            self._label.move(pos[0] - self._label.width(),pos[1])
+        self._label.move(self._pos[0], self._pos[1])
         self._label.show()
 
     def update(self, status):
@@ -53,13 +60,4 @@ class DynamicTextBool(object):
                     self._label.setText(self._text[0])
                     self._label.setStyleSheet('QLabel{'+self._stylesheet[0]+'}')
                 self._label.adjustSize()
-                self._alignTxt()
                 self._is_true = is_true
-
-    def _alignTxt(self):
-        if self._alignment == "left":
-            self._label.move(self._pos[0],self._pos[1])
-        elif self._alignment == "center":
-            self._label.move(self._pos[0] - self._label.width() / 2,self._pos[1])
-        elif self._alignment == "right":
-            self._label.move(self._pos[0] - self._label.width(),self._pos[1])

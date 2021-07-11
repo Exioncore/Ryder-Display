@@ -2,36 +2,49 @@ from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
 
+from UIModules.Utils import *
 from QtComponents.QtGraph import QtGraph
 from UIModules.DynamicText import DynamicText
 
 class Graph(object):
-    def __init__(self, window, pos=[0,0], size=[50,50], color="#2ecc71", thickness=4, longest_text="", stylesheet=["",""], unit="", n_values = 30, metric=[]):
-        self._metric = metric
-        self._height = size[1]
-        # UI
+    def __init__(self, window, settings):
+        # Retrieve settings
+        ### UI Related
+        stylesheet = settings['stylesheet'] if 'stylesheet' in settings and len(settings['stylesheet']) == 2 else ["",""]
+        color = settings['color'] if 'color' in settings else '#2ecc71'
+        thickness = settings['thickness'] if 'thickness' in settings else 4
+        longest_text = settings['max_text_length'] if 'max_text_length' in settings else ''
+        n_values = settings['n_values'] if 'n_values' in settings else 30
+        alignment = settings['alignment'] if 'alignment' in settings else 'top-left'
+        self._pos = settings['pos'] if 'pos' in settings else [0, 0]
+        self._size = settings['size'] if 'size' in settings else [50, 50]
+        self._pos = getPosFromAlignment(self._pos, self._size, alignment)
+        ### Metric related
+        self._metric = settings['metric'] if 'metric' in settings else None
+        unit = settings['unit'] if 'unit' in settings else ""
+        # Create components
         ## MinMax labels
-        self._elem_max_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'right', 'pos':pos, 'metric:':None})
-        self._elem_min_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'right', 'pos':pos, 'metric:':None})
+        self._elem_max_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'top-right', 'pos':self._pos, 'metric:':None})
+        self._elem_min_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'bottom-right', 'pos':self._pos, 'metric:':None})
         self._elem_max_label.move(
-            pos[0], 
-            self._elem_max_label._pos[1]
+            self._pos[0] + self._elem_max_label.width(), 
+            self._pos[1]
         )
         self._elem_min_label.move(
-            pos[0], 
-            pos[1] + size[1] - self._elem_min_label._size[1]
+            self._pos[0] + self._elem_min_label.width(),
+            self._pos[1] + self._size[1]
         )
         ## Current value label
-        self._elem_label = DynamicText(window, {'stylesheet': stylesheet[1], 'max_text_length':longest_text, 'unit': unit, 'alignment':'left', 'pos':pos, 'metric:':None})
-        self._elem_label.move((pos[0] + size[0]) - self._elem_label._size[0], (pos[1] + size[1]) - self._elem_label._size[1])
-        self._half_elem_label_height = self._elem_label._size[1] / 2
+        self._elem_label = DynamicText(window, {'stylesheet': stylesheet[1], 'max_text_length':longest_text, 'unit': unit, 'alignment':'left', 'pos':self._pos, 'metric:':None})
+        self._elem_label.move((self._pos[0] + self._size[0]) - self._elem_label.width(), self._pos[1] + (self._elem_label.height() / 2))
+        self._half_elem_label_height = self._elem_label.height() / 2
         ## Graph
         self._elem = QtGraph(window)
         self._elem.setForegroundColor(QColor(color))
         self._elem.setThickness(thickness)
         self._elem.setGeometry(
-            pos[0] + self._elem_max_label._size[0] + 1, pos[1],
-            size[0] - self._elem_max_label._size[0] - self._elem_label._size[0] - 2, size[1]
+            self._pos[0] + self._elem_max_label.width() + 1, self._pos[1],
+            self._size[0] - self._elem_max_label.width() - self._elem_label.width() - 2, self._size[1]
         )
         self._elem.setNumberOfValues(n_values)
         self._elem.show()
@@ -46,11 +59,11 @@ class Graph(object):
             self._elem.setValue(value)
             self._elem.update()
             # Update Label
-            scalar = (self._elem_max_label._pos[1] - self._elem_min_label._pos[1]) / (self._elem._bounds_range)
+            scalar = (self._size[1] - self._elem_label.height()) / (self._elem._bounds_range)
             self._elem_label.updateDirect(value)
-            self._elem_label._label.move(
-                self._elem_label._pos[0],
-                self._elem_min_label._pos[1] + value * scalar
+            self._elem_label.move(
+                self._elem_label.x(),
+                (self._pos[1] + self._size[1] - self._half_elem_label_height) - value * scalar
             )
             # Update Max and Min Labels
             self._elem_max_label.updateDirect(self._elem._bounds[1])

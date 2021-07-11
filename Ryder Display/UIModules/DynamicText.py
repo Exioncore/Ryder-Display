@@ -9,8 +9,8 @@ class DynamicText(object):
         # Retrieve settings
         ### UI Related
         stylesheet = settings['stylesheet'] if 'stylesheet' in settings else ""
-        alignment = settings['alignment'] if 'alignment' in settings else 'top-left'
-        pos = settings['pos'] if 'pos' in settings else [0, 0]
+        self._alignment = settings['alignment'] if 'alignment' in settings else 'top-left'
+        self._pos = settings['pos'] if 'pos' in settings else [0, 0]
         max_text_length = settings['max_text_length'] if 'max_text_length' in settings else "AAAAAAAAAAAAAAAAAAAAAAA"
         ### Metric related
         self._metric = settings['metric'] if 'metric' in settings else None
@@ -32,20 +32,32 @@ class DynamicText(object):
         self._label.setText(max_text_length)
         self._label.adjustSize()
         self._size = [self._label.size().width(), self._label.fontMetrics().height()]
-        self._pos = getPosFromAlignment(pos, self._size, alignment)
+        pos = getPosFromAlignment(self._pos, self._size, self._alignment)
         self._label.setText("")
-        if 'left' in alignment:
+        if 'left' in self._alignment:
             self._label.setAlignment(Qt.AlignLeft)
-        elif alignment == 'top' or alignment == 'center' or alignment == 'bottom':
+        elif self._alignment == 'top' or self._alignment == 'center' or self._alignment == 'bottom':
             self._label.setAlignment(Qt.AlignHCenter)
-        elif 'right' in alignment:
+        elif 'right' in self._alignment:
             self._label.setAlignment(Qt.AlignRight)
-        self._label.move(self._pos[0], self._pos[1])
+        self._label.move(pos[0], pos[1])
         self._label.show()
 
     def move(self, x, y):
-        self._pos = [x, y]
-        self._label.move(x, y)
+        self._pos = getPosFromAlignment([x, y], self._size, self._alignment)
+        self._label.move(self._pos[0], self._pos[1])
+
+    def x(self):
+        return self._pos[0]
+
+    def y(self):
+        return self._pos[1]
+
+    def width(self):
+        return self._label.size().width()
+
+    def height(self):
+        return self._label.fontMetrics().height()
 
     def update(self, status):
         if status is not None:

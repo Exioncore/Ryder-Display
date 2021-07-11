@@ -48,7 +48,7 @@
     {
       "title": "CPU Max Thread Load",
       "type": "RoundProgressBar",
-      "pos": [ "d+0", "d+7" ],
+      "pos": [ "d", "d+7" ],
       "size": [ 170, 170 ],
       "alignment": "center",
       "angle": [ 225, -45 ],
@@ -62,7 +62,7 @@
     {
       "title": "CPU Load",
       "type": "RoundProgressBar",
-      "pos": [ "d+0", "d+7" ],
+      "pos": [ "d", "d+7" ],
       "size": [ 150, 150 ],
       "alignment": "center",
       "angle": [ 225, -45 ],
@@ -89,9 +89,9 @@
     {
       "title": "CPU Power",
       "type": "CornerProgressBar",
-      "pos": [ "d-137", "d-80" ],
+      "pos": [ "d", "d+16" ],
       "size": [ 280, 190 ],
-      "alignment": "top",
+      "alignment": "center",
       "colors": [ "#e1ea0e", "#141414" ],
       "direction": [ "right", "up" ],
       "thickness": 14,
@@ -104,7 +104,7 @@
     {
       "title": "CPU Power Text",
       "type": "DynamicText",
-      "pos": [ "d+3", "d+95" ],
+      "pos": [ "d", "d+96" ],
       "stylesheet": "color:#ad2a1a;font-weight:bold;font:10pt;",
       "max_text_length": "999w",
       "alignment": "top",
@@ -128,7 +128,7 @@
       "title": "GPU Image",
       "type": "Image",
       "pos": [ "-3", "+120" ],
-      "size": [ 88, 34 ],
+      "size": [ 80, 55 ],
       "path": "GPU-Logo.svg"
     },
     {
@@ -162,7 +162,7 @@
     {
       "title": "GPU VRAM Usage",
       "type": "RoundProgressBar",
-      "pos": [ "d+0", "d+7" ],
+      "pos": [ "d", "d+7" ],
       "size": [ 170, 170 ],
       "alignment": "center",
       "angle": [ -45, 225 ],
@@ -176,7 +176,7 @@
     {
       "title": "GPU Load",
       "type": "RoundProgressBar",
-      "pos": [ "d+0", "d+7" ],
+      "pos": [ "d", "d+7" ],
       "size": [ 150, 150 ],
       "alignment": "center",
       "angle": [ -45, 225 ],
@@ -196,7 +196,7 @@
       ],
       "text": [ "NL", "NL" ],
       "alignment": "right",
-      "pos": [ "d-46", "d-5" ],
+      "pos": [ "d-45", "d" ],
       "metric": {
         "name": [ "msi", "No load limit" ],
         "target_value": 1,
@@ -212,7 +212,7 @@
       ],
       "text": [ "VL", "VL" ],
       "alignment": "left",
-      "pos": [ "d+46", "d-5" ],
+      "pos": [ "d+45", "d" ],
       "metric": {
         "name": [ "msi", "Voltage limit" ],
         "target_value": 1,
@@ -228,7 +228,7 @@
       ],
       "text": [ "TMP", "TMP" ],
       "alignment": "center",
-      "pos": [ "d-3", "d-35" ],
+      "pos": [ "d", "d-45" ],
       "metric": {
         "name": [ "msi", "Temp limit" ],
         "target_value": 1,
@@ -244,7 +244,7 @@
       ],
       "text": [ "PWR", "PWR" ],
       "alignment": "center",
-      "pos": [ "d-3", "d+22" ],
+      "pos": [ "d", "d+45" ],
       "metric": {
         "name": [ "msi", "Power limit" ],
         "target_value": 1,
@@ -254,7 +254,7 @@
     {
       "title": "GPU Clock",
       "type": "DynamicText",
-      "pos": [ "d+0", "d+55" ],
+      "pos": [ "d", "d+55" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
       "max_text_length": "9999MHz",
       "alignment": "top",
@@ -267,8 +267,9 @@
     {
       "title": "GPU Power",
       "type": "CornerProgressBar",
-      "pos": [ "d-138", "d-80" ],
+      "pos": [ "d", "d+16" ],
       "size": [ 280, 190 ],
+      "alignment": "center",
       "colors": [ "#e1ea0e", "#141414" ],
       "direction": [ "left", "up" ],
       "thickness": 14,
@@ -281,7 +282,7 @@
     {
       "title": "GPU Power Text",
       "type": "DynamicText",
-      "pos": [ "d-3", "d+95" ],
+      "pos": [ "d", "d+96" ],
       "stylesheet": "color:#ad2a1a;font-weight:bold;font:10pt;",
       "max_text_length": "999w",
       "alignment": "top",
@@ -294,14 +295,16 @@
     {
       "title": "Foreground Process Icon",
       "type": "ForegroundProcessIcon",
-      "pos": [ 352, 57 ],
+      "pos": [ 400, 100 ],
+      "alignment": "center",
       "size": 96
     },
     {
       "title": "Framerate",
       "type": "RoundProgressBar",
-      "pos": [ "d-5", "d-5" ],
+      "pos": [ "d", "d" ],
       "size": [ 108, 108 ],
+      "alignment": "center",
       "angle": [ 180, 90 ],
       "colors": [ "#2ecc71", "#141414" ],
       "thickness": 4,
@@ -313,8 +316,9 @@
     {
       "title": "Framerate",
       "type": "RoundProgressBar",
-      "pos": [ "d-5", "d-5" ],
+      "pos": [ "d", "d" ],
       "size": [ 108, 108 ],
+      "alignment": "center",
       "angle": [ 180, 270 ],
       "colors": [ "#2ecc71", "#141414" ],
       "thickness": 4,
@@ -326,8 +330,9 @@
     {
       "title": "Total System Power",
       "type": "RoundProgressBar",
-      "pos": [ "d-5", "d-5" ],
+      "pos": [ "d", "d" ],
       "size": [ 108, 108 ],
+      "alignment": "center",
       "angle": [ 0, 90 ],
       "colors": [ "#e1ea0e", "#141414" ],
       "thickness": 4,
@@ -339,8 +344,9 @@
     {
       "title": "Total System Power",
       "type": "RoundProgressBar",
-      "pos": [ "d-5", "d-5" ],
+      "pos": [ "d", "d" ],
       "size": [ 108, 108 ],
+      "alignment": "center",
       "angle": [ 0, -90 ],
       "colors": [ "#e1ea0e", "#141414" ],
       "thickness": 4,
@@ -352,10 +358,10 @@
     {
       "title": "Framerate Text",
       "type": "DynamicText",
-      "pos": [ "d-7", "d+38" ],
+      "pos": [ "d-56", "d" ],
       "stylesheet": "color:#2ecc71;font-weight:bold;font:11pt;",
       "max_text_length": "fps999",
-      "alignment": "top-right",
+      "alignment": "right",
       "metric": {
         "name": [ "msi", "Framerate" ],
         "bounds": [ 0, 999 ]
@@ -365,10 +371,10 @@
     {
       "title": "Total System Power Text",
       "type": "DynamicText",
-      "pos": [ "d+105", "d+38" ],
+      "pos": [ "d+56", "d" ],
       "stylesheet": "color:#e1ea0e;font-weight:bold;font:11pt;",
       "max_text_length": "999w",
-      "alignment": "top-left",
+      "alignment": "left",
       "metric": {
         "name": [ "*total_power" ],
         "bounds": [ 0, 999 ]
@@ -376,7 +382,7 @@
       "unit": "_w"
     },
     {
-      "title": "Ambient Temperature Bar",
+      "title": "Delta Temperature Bar",
       "type": "ProgressBar",
       "pos": [ 320, 223 ],
       "size": [ 80, 12 ],
@@ -386,12 +392,12 @@
         "background-color:#247ae4;border:0px;"
       ],
       "metric": {
-        "name": [ "fanController", "ambient" ],
-        "bounds": [ 10, 60 ]
+        "name": [ "*delta_t" ],
+        "bounds": [ 0, 10 ]
       }
     },
     {
-      "title": "Liquid Temperature Bar",
+      "title": "Delta Temperature Bar",
       "type": "ProgressBar",
       "pos": [ "d+80", "d+0" ],
       "size": [ 80, 12 ],
@@ -401,8 +407,8 @@
         "background-color:#247ae4;border:0px;"
       ],
       "metric": {
-        "name": [ "fanController", "liquid" ],
-        "bounds": [ 10, 60 ]
+        "name": [ "*delta_t" ],
+        "bounds": [ 0, 10 ]
       }
     },
     {
@@ -456,70 +462,128 @@
         "msg": "Storage",
         "alignment": "top"
       },
-      "pos": [ 135, 240 ],
+      "pos": [ 150, 240 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;"
     },
     {
-      "title": "C Drive",
-      "type": "StaticText",
-      "text": {
-        "msg": "C:",
-        "alignment": "top-left"
-      },
-      "pos": [ "-125", "+38" ],
-      "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
-    },
-    {
-      "title": "C Drive read",
+      "title": "C Drive activity right",
       "type": "ProgressBar",
-      "pos": [ "d+20", "d+2" ],
-      "size": [ 200, 12 ],
-      "direction": "top-right",
+      "pos": [ "+0", "+45" ],
+      "size": [ 75, 16 ],
+      "direction": "right",
+      "alignment": "left",
       "stylesheet": [
-        "background-color:#141414;border:0px;",
-        "background-color:#247ae4;border:0px;"
+        "background-color:#141414;border-bottom-right-radius:8px;border-top-right-radius:8px;",
+        "background-color:#099c9c;border-bottom-right-radius:8px;border-top-right-radius:8px;"
       ],
       "metric": {
-        "name": [ "storage", "C", "readSpeed" ],
+        "name": [ "storage", "C", "activity" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "C Drive activity left",
+      "type": "ProgressBar",
+      "pos": [ "d", "d" ],
+      "size": [ 75, 16 ],
+      "direction": "left",
+      "alignment": "right",
+      "stylesheet": [
+        "background-color:#141414;border-bottom-left-radius:8px;border-top-left-radius:8px;",
+        "background-color:#099c9c;border-bottom-left-radius:8px;border-top-left-radius:8px;"
+      ],
+      "metric": {
+        "name": [ "storage", "C", "activity" ],
         "bounds": [ 0, 100 ]
       }
     },
     {
       "title": "C Drive read text",
       "type": "DynamicText",
-      "pos": [ "d+225", "d-1" ],
+      "pos": [ "d+80", "d" ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "top-left",
+      "alignment": "left",
       "metric": {
         "name": [ "storage", "C", "readSpeed" ]
       },
       "unit": "*storage"
     },
     {
-      "title": "C Drive write",
+      "title": "C Drive write text",
+      "type": "DynamicText",
+      "pos": [ "d-80", "d" ],
+      "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
+      "max_text_length": "99.9MB/s",
+      "alignment": "right",
+      "metric": {
+        "name": [ "storage", "C", "writeSpeed" ]
+      },
+      "unit": "*storage"
+    },
+    {
+      "title": "C Drive",
+      "type": "StaticText",
+      "text": {
+        "msg": "C",
+        "alignment": "center"
+      },
+      "pos": [ "d", "d" ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
+    },
+    {
+      "title": "D Drive activity right",
       "type": "ProgressBar",
-      "pos": [ "d+20", "d+17" ],
-      "size": [ 200, 12 ],
-      "direction": "top-right",
+      "pos": [ "+0", "+30" ],
+      "size": [ 75, 16 ],
+      "direction": "right",
+      "alignment": "left",
       "stylesheet": [
-        "background-color:#141414;border:0px;",
-        "background-color:#24e49f;border:0px;"
+        "background-color:#141414;border-bottom-right-radius:8px;border-top-right-radius:8px;",
+        "background-color:#099c9c;border-bottom-right-radius:8px;border-top-right-radius:8px;"
       ],
       "metric": {
-        "name": [ "storage", "C", "writeSpeed" ],
+        "name": [ "storage", "D", "activity" ],
         "bounds": [ 0, 100 ]
       }
     },
     {
-      "title": "C Drive write text",
+      "title": "D Drive activity left",
+      "type": "ProgressBar",
+      "pos": [ "d", "d" ],
+      "size": [ 75, 16 ],
+      "direction": "left",
+      "alignment": "right",
+      "stylesheet": [
+        "background-color:#141414;border-bottom-left-radius:8px;border-top-left-radius:8px;",
+        "background-color:#099c9c;border-bottom-left-radius:8px;border-top-left-radius:8px;"
+      ],
+      "metric": {
+        "name": [ "storage", "D", "activity" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "D Drive read text",
       "type": "DynamicText",
-      "pos": [ "d+225", "d+14" ],
+      "pos": [ "d+80", "d" ],
+      "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
+      "max_text_length": "99.9MB/s",
+      "alignment": "left",
+      "metric": {
+        "name": [ "storage", "D", "readSpeed" ]
+      },
+      "unit": "*storage"
+    },
+    {
+      "title": "D Drive write text",
+      "type": "DynamicText",
+      "pos": [ "d-80", "d" ],
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "top-left",
+      "alignment": "right",
       "metric": {
-        "name": [ "storage", "C", "writeSpeed" ]
+        "name": [ "storage", "D", "writeSpeed" ]
       },
       "unit": "*storage"
     },
@@ -527,63 +591,65 @@
       "title": "D Drive",
       "type": "StaticText",
       "text": {
-        "msg": "D:",
-        "alignment": "top-left"
+        "msg": "D",
+        "alignment": "center"
       },
-      "pos": [ "d+0", "+37" ],
+      "pos": [ "d", "d" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
     },
     {
-      "title": "D Drive read",
+      "title": "E Drive activity right",
       "type": "ProgressBar",
-      "pos": [ "d+20", "d+2" ],
-      "size": [ 200, 12 ],
-      "direction": "top-right",
+      "pos": [ "+0", "+30" ],
+      "size": [ 75, 16 ],
+      "direction": "right",
+      "alignment": "left",
       "stylesheet": [
-        "background-color:#141414;border:0px;",
-        "background-color:#247ae4;border:0px;"
+        "background-color:#141414;border-bottom-right-radius:8px;border-top-right-radius:8px;",
+        "background-color:#099c9c;border-bottom-right-radius:8px;border-top-right-radius:8px;"
       ],
       "metric": {
-        "name": [ "storage", "D", "readSpeed" ],
+        "name": [ "storage", "E", "activity" ],
         "bounds": [ 0, 100 ]
       }
     },
     {
-      "title": "D Drive read text",
+      "title": "E Drive activity left",
+      "type": "ProgressBar",
+      "pos": [ "d", "d" ],
+      "size": [ 75, 16 ],
+      "direction": "left",
+      "alignment": "right",
+      "stylesheet": [
+        "background-color:#141414;border-bottom-left-radius:8px;border-top-left-radius:8px;",
+        "background-color:#099c9c;border-bottom-left-radius:8px;border-top-left-radius:8px;"
+      ],
+      "metric": {
+        "name": [ "storage", "E", "activity" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "E Drive read text",
       "type": "DynamicText",
-      "pos": [ "d+225", "d-1" ],
+      "pos": [ "d+80", "d" ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "top-left",
+      "alignment": "left",
       "metric": {
-        "name": [ "storage", "D", "readSpeed" ]
+        "name": [ "storage", "E", "readSpeed" ]
       },
       "unit": "*storage"
     },
     {
-      "title": "D Drive write",
-      "type": "ProgressBar",
-      "pos": [ "d+20", "d+17" ],
-      "size": [ 200, 12 ],
-      "direction": "right",
-      "stylesheet": [
-        "background-color:#141414;border:0px;",
-        "background-color:#24e49f;border:0px;"
-      ],
-      "metric": {
-        "name": [ "storage", "D", "writeSpeed" ],
-        "bounds": [ 0, 100 ]
-      }
-    },
-    {
-      "title": "D Drive write text",
+      "title": "E Drive write text",
       "type": "DynamicText",
-      "pos": [ "d+225", "d+14" ],
+      "pos": [ "d-80", "d" ],
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "top-left",
+      "alignment": "right",
       "metric": {
-        "name": [ "storage", "D", "writeSpeed" ]
+        "name": [ "storage", "E", "writeSpeed" ]
       },
       "unit": "*storage"
     },
@@ -591,78 +657,91 @@
       "title": "E Drive",
       "type": "StaticText",
       "text": {
-        "msg": "E:",
-        "alignment": "top-left"
+        "msg": "E",
+        "alignment": "center"
       },
-      "pos": [ "d+0", "+37" ],
+      "pos": [ "d", "d" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
     },
     {
-      "title": "E Drive read",
+      "title": "F Drive activity right",
       "type": "ProgressBar",
-      "pos": [ "d+20", "d+2" ],
-      "size": [ 200, 12 ],
+      "pos": [ "+0", "+30" ],
+      "size": [ 75, 16 ],
       "direction": "right",
+      "alignment": "left",
       "stylesheet": [
-        "background-color:#141414;border:0px;",
-        "background-color:#247ae4;border:0px;"
+        "background-color:#141414;border-bottom-right-radius:8px;border-top-right-radius:8px;",
+        "background-color:#099c9c;border-bottom-right-radius:8px;border-top-right-radius:8px;"
       ],
       "metric": {
-        "name": [ "storage", "E", "readSpeed" ],
+        "name": [ "storage", "F", "activity" ],
         "bounds": [ 0, 100 ]
       }
     },
     {
-      "title": "E Drive read text",
+      "title": "F Drive activity left",
+      "type": "ProgressBar",
+      "pos": [ "d", "d" ],
+      "size": [ 75, 16 ],
+      "direction": "left",
+      "alignment": "right",
+      "stylesheet": [
+        "background-color:#141414;border-bottom-left-radius:8px;border-top-left-radius:8px;",
+        "background-color:#099c9c;border-bottom-left-radius:8px;border-top-left-radius:8px;"
+      ],
+      "metric": {
+        "name": [ "storage", "F", "activity" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "F Drive read text",
       "type": "DynamicText",
-      "pos": [ "d+225", "d-1" ],
+      "pos": [ "d+80", "d" ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "top-left",
+      "alignment": "left",
       "metric": {
-        "name": [ "storage", "E", "readSpeed" ]
+        "name": [ "storage", "F", "readSpeed" ]
       },
       "unit": "*storage"
     },
     {
-      "title": "E Drive write",
-      "type": "ProgressBar",
-      "pos": [ "d+20", "d+17" ],
-      "size": [ 200, 12 ],
-      "direction": "top-right",
-      "stylesheet": [
-        "background-color:#141414;border:0px;",
-        "background-color:#24e49f;border:0px;"
-      ],
-      "metric": {
-        "name": [ "storage", "E", "writeSpeed" ],
-        "bounds": [ 0, 100 ]
-      }
-    },
-    {
-      "title": "E Drive write text",
+      "title": "F Drive write text",
       "type": "DynamicText",
-      "pos": [ "d+225", "d+14" ],
+      "pos": [ "d-80", "d" ],
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "top-left",
+      "alignment": "right",
       "metric": {
-        "name": [ "storage", "E", "writeSpeed" ]
+        "name": [ "storage", "F", "writeSpeed" ]
       },
       "unit": "*storage"
+    },
+    {
+      "title": "F Drive",
+      "type": "StaticText",
+      "text": {
+        "msg": "F",
+        "alignment": "center"
+      },
+      "pos": [ "d", "d" ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
     },
     {
       "title": "RAM image",
       "type": "Image",
-      "pos": [ 400, 340 ],
+      "pos": [ 400, 330 ],
       "size": [ 40, 40 ],
       "path": "RAM-Logo.svg"
     },
     {
       "title": "RAM Load",
       "type": "RoundProgressBar",
-      "pos": [ "d-40", "d-40" ],
+      "pos": [ "d", "d" ],
       "size": [ 80, 80 ],
+      "alignment": "center",
       "angle": [ 225, -45 ],
       "colors": [ "#9e24e4", "#141414" ],
       "thickness": 10,
@@ -674,10 +753,10 @@
     {
       "title": "RAM load text",
       "type": "DynamicText",
-      "pos": [ "d+0", "d+25" ],
+      "pos": [ "d", "d+35" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
       "max_text_length": "100%",
-      "alignment": "top",
+      "alignment": "center",
       "metric": {
         "name": [ "msi", "RAM usage" ]
       },
@@ -690,14 +769,15 @@
         "msg": "Network",
         "alignment": "top"
       },
-      "pos": [ 665, 240 ],
+      "pos": [ 650, 240 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;"
     },
     {
       "title": "Network Download",
       "type": "Graph",
-      "pos": [ "d-145", "d+40" ],
+      "pos": [ "d", "d+60" ],
       "size": [ 270, 48 ],
+      "alignment": "center",
       "thickness": 2,
       "color": "#24e49f",
       "stylesheet": [
@@ -712,8 +792,9 @@
     {
       "title": "Network Upload",
       "type": "Graph",
-      "pos": [ "d-145", "d+98" ],
+      "pos": [ "d", "d+120" ],
       "size": [ 270, 48 ],
+      "alignment": "center",
       "thickness": 2,
       "color": "#247ae4",
       "stylesheet": [
@@ -790,6 +871,14 @@
         [ "msi", "Power" ]
       ],
       "operator": "+"
+    },
+    {
+      "name": "*delta_t",
+      "metrics": [
+        [ "fanController", "liquid" ],
+        [ "fanController", "ambient" ]
+      ],
+      "operator": "d"
     },
     {
       "name": "*highest_thread_usage",

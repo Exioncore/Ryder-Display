@@ -8,6 +8,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtSvg import QSvgWidget
 from PyQt5.QtWidgets import QLabel
 
+from UIModules.Utils import *
 from Network.RyderClient import RyderClient
 
 class ForegroundProcess(object):
@@ -15,14 +16,19 @@ class ForegroundProcess(object):
     _currentProgram : str
     _iconsPath : str
 
-    def __init__(self, window, pos=[0, 0], size=25, path=""):
-        # Create cache folder if it doesn't exist
+    def __init__(self, window, settings, path=''):
+        # Retrieve settings
+        ### UI Related
+        alignment = settings['alignment'] if 'alignment' in settings else 'top-left'
+        pos = settings['pos'] if 'pos' in settings else [0, 0]
+        size = settings['size'] if 'size' in settings else 25
+        pos = getPosFromAlignment(pos, [size, size], alignment)
+        self._currentProgram = ""
+        ### Create cache folder if it doesn't exist
         self._iconsPath = path + '/cache/icons/'
         if not os.path.exists(self._iconsPath):
             os.makedirs(self._iconsPath)
-        # Store variables
-        self._currentProgram = ""
-        # UI
+        # Create components
         self._label = QLabel(window)
         self._label.setGeometry(pos[0], pos[1], size, size)
         self._label.setAttribute(Qt.WA_TranslucentBackground)

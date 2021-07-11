@@ -32,8 +32,8 @@ class QtRoundProgressBar(QWidget):
         self.setRoundOff(False)
 
         # Double buffering
-        self._buffer = QPixmap(self.width(), self.height())
-        self._buffer.fill(Qt.transparent)
+        self._background_buffer = QPixmap(self.width(), self.height())
+        self._background_buffer.fill(Qt.transparent)
 
     def setBounds(self, start, end):
         mul = (self._current_value - self._bounds[0]) / self._bounds_range
@@ -88,19 +88,26 @@ class QtRoundProgressBar(QWidget):
         self._rect = QRect(0, 0, self.width(), self.height())
         self._rect_arc= QRect(ofst_b, ofst_b, self.width() - ofst_b * 2.0, self.height() - ofst_b * 2.0)
 
-        self._buffer = QPixmap(self.width(), self.height())
-        self._buffer.fill(Qt.transparent)
+        self._background_buffer = QPixmap(self.width(), self.height())
+        self._background_buffer.fill(Qt.transparent)
+        self._foreground_buffer = QPixmap(self.width(), self.height())
+        self._foreground_buffer.fill(Qt.transparent)
 
     def paintEvent(self, e):
         """ Override Paint Function """
         paint = QPainter()
-        paint.begin(self._buffer)
-        paint.setRenderHint(QPainter.Antialiasing)
 
         if self._redraw:
-            self._buffer.fill(Qt.transparent)
+            paint.begin(self._background_buffer)
+            paint.setRenderHint(QPainter.Antialiasing)
+            self._background_buffer.fill(Qt.transparent)
             paint.setPen(self._pen_background) 
             paint.drawArc(self._rect_arc, (self._angle_bounds[0]) * 16.0, self._max_angle * 16.0)
+            paint.end()
+
+            paint.begin(self._foreground_buffer)
+            paint.setRenderHint(QPainter.Antialiasing)
+            self._foreground_buffer.fill(Qt.transparent)
             paint.setPen(self._pen_foreground)
             if self._fill_direction > 0:
                 paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._target_angle * 16.0)
@@ -109,41 +116,27 @@ class QtRoundProgressBar(QWidget):
                     self._rect_arc,
                     (self._angle_bounds[1] - self._target_angle) * 16.0, self._target_angle * 16.0
                 )
-
+            paint.end()
             self._redraw = False
         else:
-            start = self._angle_bounds[0] + self._target_angle if self._fill_direction > 0 else self._angle_bounds[1] - self._target_angle
-            delta = self._current_angle - self._target_angle if self._fill_direction > 0 else self._target_angle - self._current_angle
-            if self._current_angle < self._target_angle:
+            if self._current_angle != self._target_angle:
+                paint.begin(self._foreground_buffer)
+                paint.setRenderHint(QPainter.Antialiasing)
+                self._foreground_buffer.fill(Qt.transparent)
                 paint.setPen(self._pen_foreground)
                 if self._fill_direction > 0:
-                    delta -= self._overdraw
+                    paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._target_angle * 16.0)
                 else:
-                    delta += self._overdraw
-                if self._fill_direction < 0:
-                    if start + delta > self._angle_bounds[1]:
-                        delta = self._angle_bounds[1] - start
-                else:    
-                    if start + delta < self._angle_bounds[0]:
-                        delta = self._angle_bounds[0] - start
-            elif self._target_angle < self._current_angle:
-                paint.setPen(self._pen_background)
-                if self._fill_direction > 0:
-                    delta += self._overdraw
-                else:
-                    delta -= self._overdraw
-                if self._fill_direction < 0:
-                    if start + delta < self._angle_bounds[0] - 1.0:
-                        delta = self._angle_bounds[0] - start
-                else:
-                    if start + delta > self._angle_bounds[1] + 1.0:
-                        delta = self._angle_bounds[1] - start
-
-            paint.drawArc(self._rect_arc, start * 16.0, delta * 16.0)
-        paint.end()
+                    paint.drawArc(
+                        self._rect_arc,
+                        (self._angle_bounds[1] - self._target_angle) * 16.0, self._target_angle * 16.0
+                    )
+                paint.end()
+                self._current_angle = self._target_angle
 
         paint.begin(self)
-        paint.drawPixmap(self._rect, self._buffer)
+        paint.drawPixmap(self._rect, self._background_buffer)
+        paint.drawPixmap(self._rect, self._foreground_buffer)
         paint.end()
 
         self._current_angle = self._target_angle

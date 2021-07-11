@@ -115,30 +115,18 @@ class ConfigurationParser(object):
                 print(entry['title'])
             # Parse Element
             if entry['type'] == 'ForegroundProcessIcon':
-                elem = ForegroundProcess(window, entry['pos'], entry['size'], path)
+                elem = ForegroundProcess(window, entry, path)
             elif entry['type'] == 'Graph':
-                unit = entry['unit']
                 if len(entry['unit']) > 0:
                     if entry['unit'][0] == '*':
-                        unit = ui['unit_converters'][entry['unit'][1:]]
-                elem = Graph(
-                    window, entry['pos'], entry['size'], entry['color'], entry['thickness'],
-                    entry['max_text_length'], entry['stylesheet'], unit, entry['n_values'], entry['metric']
-                )
+                         entry['unit'] = ui['unit_converters'][entry['unit'][1:]]
+                elem = Graph(window, entry)
             elif entry['type'] == 'RoundProgressBar':
                 elem = RoundProgressBar(window, ts, entry)
             elif entry['type'] == 'CornerProgressBar':
-                elem = CornerProgressBar(
-                    window, ts,
-                    entry['pos'], entry['size'], entry['direction'], entry['colors'], entry['thickness'],
-                    entry['cornerRadius'], entry['metric']
-                )
+                elem = CornerProgressBar(window, ts, entry)
             elif entry['type'] == 'ProgressBar':
-                elem = ProgressBar(
-                    window, ts,
-                    entry['pos'], entry['size'], entry['direction'], entry['stylesheet'],
-                    entry['metric']
-                )
+                elem = ProgressBar(window, ts, entry)
             elif entry['type'] == 'StaticText':
                 elem = createLabel(window, entry)
                 is_dynamic = False
@@ -148,10 +136,7 @@ class ConfigurationParser(object):
                         entry['unit'] = ui['unit_converters'][entry['unit'][1:]]
                 elem = DynamicText(window, entry)
             elif entry['type'] == 'DynamicTextBool':
-                elem = DynamicTextBool(
-                    window,
-                    entry['stylesheet'], entry['text'], entry['alignment'], entry['pos'], entry['metric']
-                )
+                elem = DynamicTextBool(window, entry)
             elif entry['type'] == 'Image':
                 elem = createImage(window, entry)
                 is_dynamic = False

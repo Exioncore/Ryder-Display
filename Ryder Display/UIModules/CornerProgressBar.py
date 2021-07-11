@@ -2,17 +2,29 @@ from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
 
+from UIModules.Utils import *
 from Utils.Transitioner import Transitioner
 from QtComponents.QtCornerProgressBar import QtCornerProgressBar
 from QtComponents.QtStraightProgressBar import QtStraightProgressBar
 
 class CornerProgressBar(object):
-    def __init__(self, window, transition_frames, pos=[0,0], size=[50,50], direction=["left","up"], colors=["#2ecc71", "#141414"], thickness=4, radius=20, metric=[]):
+    def __init__(self, window, transition_frames, settings): 
+        # Retrieve settings
+        ### UI Related
         self._transition_frames = transition_frames
-        self._metric = metric['name']
-        self._elem_t = Transitioner(metric['bounds'][0])
-        self._elem_t.setMinMax(metric['bounds'][0], metric['bounds'][1])
-        # UI
+        alignment = settings['alignment'] if 'alignment' in settings else 'top-left'
+        direction = settings['direction'] if 'direction' in settings and len(settings['direction']) == 2 else ['left', 'up']
+        colors = settings['colors'] if 'colors' in settings and len(settings['colors']) == 2 else ['#2ecc71', '#141414']
+        thickness = settings['thickness'] if 'thickness' in settings else 4
+        radius = settings['cornerRadius'] if 'cornerRadius' in settings else 20
+        pos = settings['pos'] if 'pos' in settings else [0, 0]
+        size = settings['size'] if 'size' in settings else [50, 50]
+        pos = getPosFromAlignment(pos, size, alignment)
+        ### Metric related
+        self._metric = settings['metric']['name']
+        self._elem_t = Transitioner(settings['metric']['bounds'][0])
+        self._elem_t.setMinMax(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
+        # Create components
         self._elem = QtCornerProgressBar(window)
         self._elem.setGeometry(pos[0], pos[1], size[0], size[1])
         self._elem.setFillDirection(
@@ -23,7 +35,7 @@ class CornerProgressBar(object):
         self._elem.setBackgroundColor(QColor(colors[1]))
         self._elem.setThickness(thickness)
         self._elem.setRadius(radius)
-        self._elem.setBounds(metric['bounds'][0], metric['bounds'][1])
+        self._elem.setBounds(settings['metric']['bounds'][0],settings['metric']['bounds'][1])
         self._elem.redraw()
         self._elem.show()
 
