@@ -474,7 +474,7 @@
       "alignment": "left",
       "stylesheet": [
         "background-color:#141414;border-bottom-right-radius:8px;border-top-right-radius:8px;",
-        "background-color:#099c9c;border-bottom-right-radius:8px;border-top-right-radius:8px;"
+        "background-color:#691f94;border-bottom-right-radius:8px;border-top-right-radius:8px;"
       ],
       "metric": {
         "name": [ "storage", "C", "activity" ],
@@ -490,7 +490,7 @@
       "alignment": "right",
       "stylesheet": [
         "background-color:#141414;border-bottom-left-radius:8px;border-top-left-radius:8px;",
-        "background-color:#099c9c;border-bottom-left-radius:8px;border-top-left-radius:8px;"
+        "background-color:#691f94;border-bottom-left-radius:8px;border-top-left-radius:8px;"
       ],
       "metric": {
         "name": [ "storage", "C", "activity" ],
@@ -540,7 +540,7 @@
       "alignment": "left",
       "stylesheet": [
         "background-color:#141414;border-bottom-right-radius:8px;border-top-right-radius:8px;",
-        "background-color:#099c9c;border-bottom-right-radius:8px;border-top-right-radius:8px;"
+        "background-color:#691f94;border-bottom-right-radius:8px;border-top-right-radius:8px;"
       ],
       "metric": {
         "name": [ "storage", "D", "activity" ],
@@ -556,7 +556,7 @@
       "alignment": "right",
       "stylesheet": [
         "background-color:#141414;border-bottom-left-radius:8px;border-top-left-radius:8px;",
-        "background-color:#099c9c;border-bottom-left-radius:8px;border-top-left-radius:8px;"
+        "background-color:#691f94;border-bottom-left-radius:8px;border-top-left-radius:8px;"
       ],
       "metric": {
         "name": [ "storage", "D", "activity" ],
@@ -606,7 +606,7 @@
       "alignment": "left",
       "stylesheet": [
         "background-color:#141414;border-bottom-right-radius:8px;border-top-right-radius:8px;",
-        "background-color:#099c9c;border-bottom-right-radius:8px;border-top-right-radius:8px;"
+        "background-color:#691f94;border-bottom-right-radius:8px;border-top-right-radius:8px;"
       ],
       "metric": {
         "name": [ "storage", "E", "activity" ],
@@ -622,7 +622,7 @@
       "alignment": "right",
       "stylesheet": [
         "background-color:#141414;border-bottom-left-radius:8px;border-top-left-radius:8px;",
-        "background-color:#099c9c;border-bottom-left-radius:8px;border-top-left-radius:8px;"
+        "background-color:#691f94;border-bottom-left-radius:8px;border-top-left-radius:8px;"
       ],
       "metric": {
         "name": [ "storage", "E", "activity" ],
@@ -672,7 +672,7 @@
       "alignment": "left",
       "stylesheet": [
         "background-color:#141414;border-bottom-right-radius:8px;border-top-right-radius:8px;",
-        "background-color:#099c9c;border-bottom-right-radius:8px;border-top-right-radius:8px;"
+        "background-color:#691f94;border-bottom-right-radius:8px;border-top-right-radius:8px;"
       ],
       "metric": {
         "name": [ "storage", "F", "activity" ],
@@ -688,7 +688,7 @@
       "alignment": "right",
       "stylesheet": [
         "background-color:#141414;border-bottom-left-radius:8px;border-top-left-radius:8px;",
-        "background-color:#099c9c;border-bottom-left-radius:8px;border-top-left-radius:8px;"
+        "background-color:#691f94;border-bottom-left-radius:8px;border-top-left-radius:8px;"
       ],
       "metric": {
         "name": [ "storage", "F", "activity" ],
