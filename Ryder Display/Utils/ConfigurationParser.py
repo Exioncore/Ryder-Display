@@ -210,7 +210,6 @@ class ConfigurationParser(object):
                     # Retrieve variable value
                     if index in variables:
                         val *= variables[index]
-                        print("Index: " + index + ", val: " + str(val))
                 else:
                     # Convert value to int unless variable requires float type
                     val = ConfigurationParser._convertStrToIntOrFloat(elements[i])
