@@ -21,7 +21,10 @@ class RoundProgressBar(object):
         pos = getPosFromAlignment(pos, size, alignment)
         ### Metric related
         self._metric = settings['metric']['name']
-        self._elem_t = Transitioner(settings['metric']['bounds'][0])
+        self._elem_t = Transitioner(
+            settings['metric']['bounds'][0],
+            abs(settings['metric']['bounds'][1] - settings['metric']['bounds'][0]) / 100.0
+        )
         self._elem_t.setMinMax(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
         # Create components
         self._elem = QtRoundProgressBar(window)
