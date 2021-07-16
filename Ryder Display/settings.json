@@ -23,7 +23,8 @@
     "data_provider": {
       "type": "Ryder Engine",
       "ip": "192.168.1.218",
-      "port": 9519
+      "port": 9519,
+      "password": "1234"
     },
     "hyperion": {
       "ip": "192.168.1.131",
