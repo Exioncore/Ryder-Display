@@ -5,6 +5,7 @@ from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
 from UIModules.Utils import *
 from QtComponents.QtGraph import QtGraph
 from UIModules.DynamicText import DynamicText
+from Utils.InternalMetrics import InternalMetrics
 
 class Graph(object):
     def __init__(self, window, settings):
@@ -20,7 +21,7 @@ class Graph(object):
         self._size = settings['size'] if 'size' in settings else [50, 50]
         self._pos = getPosFromAlignment(self._pos, self._size, alignment)
         ### Metric related
-        self._metric = settings['metric'] if 'metric' in settings else None
+        self._metric = settings['metric']['name']
         unit = settings['unit'] if 'unit' in settings else ""
         # Create components
         ## MinMax labels
@@ -47,6 +48,7 @@ class Graph(object):
             self._size[0] - self._elem_max_label.width() - self._elem_label.width() - 2, self._size[1]
         )
         self._elem.setNumberOfValues(n_values)
+        self._elem.setBounds(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
         self._elem.show()
 
     def update(self, status):
@@ -72,7 +74,7 @@ class Graph(object):
             self._elem_label.updateDirect(value)
             self._elem_label.move(
                 self._elem_label.x(),
-                (self._pos[1] + self._size[1] - self._half_elem_label_height) - value * scalar
+                (self._pos[1] + self._size[1] - self._half_elem_label_height) - (value - self._elem._bounds[0]) * scalar
             )
             # Update Max and Min Labels
             self._elem_max_label.updateDirect(self._elem._bounds[1])

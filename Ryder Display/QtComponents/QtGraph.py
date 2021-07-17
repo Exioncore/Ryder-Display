@@ -7,6 +7,7 @@ class QtGraph(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self._bounds_dynamic = [False, False]
         self._bounds = [0, 1]
         self._bounds_range = self._bounds[1] - self._bounds[0]
         self._n_values = 30
@@ -34,13 +35,38 @@ class QtGraph(QWidget):
         for i in range(self._n_values):
             self._history.append(0)
 
+    def setBounds(self, min_val, max_val):
+        # Set bounds
+        if min_val != 'dynamic':
+            self._bounds_dynamic[0] = False
+            self._bounds[0] = min_val
+        else:
+            self._bounds_dynamic[0] = True
+        if max_val != 'dynamic':
+            self._bounds_dynamic[1] = False
+            self._bounds[1] = max_val
+        else:
+            self._bounds_dynamic[1] = True
+        # Compute bound related values
+        if self._bounds_dynamic[0] == False or self._bounds_dynamic[1] == False:
+            self._bounds_range = self._bounds[1] - self._bounds[0]
+            self._graph_scaling[1] = self.height() / self._bounds_range
+
     def setValue(self, val):
         self._history.append(val)
-        self._bounds[1] = 0.01
-        for v in self._history:
-            self._bounds[1] = max(self._bounds[1], v)
-        self._bounds_range = self._bounds[1] - self._bounds[0]
-        self._graph_scaling[1] = self.height() / self._bounds_range
+        # Bounds calculation
+        if self._bounds_dynamic[0] == True or self._bounds_dynamic[1] == True:
+            if self._bounds_dynamic[0] == True:
+                self._bounds[0] = self._history[0]
+            if self._bounds_dynamic[1] == True:
+                self._bounds[1] = self._history[0]
+            for v in self._history:
+                if self._bounds_dynamic[0] == True:
+                    self._bounds[0] = min(self._bounds[0], v)
+                if self._bounds_dynamic[1] == True:
+                    self._bounds[1] = max(self._bounds[1], v)
+            self._bounds_range = self._bounds[1] - self._bounds[0]
+            self._graph_scaling[1] = self.height() / self._bounds_range
 
     def setGeometry(self, x, y, w, h):
         """ Override setGeometry method """
@@ -58,10 +84,10 @@ class QtGraph(QWidget):
         x = 0
         for val in self._history:
             if first:
-                path.moveTo(x, self.height() - val * self._graph_scaling[1])
+                path.moveTo(x, self.height() - (val - self._bounds[0])  * self._graph_scaling[1])
                 first = False
             else:
-                path.lineTo(x, self.height() - val * self._graph_scaling[1])
+                path.lineTo(x, self.height() - (val - self._bounds[0]) * self._graph_scaling[1])
             x += self._graph_scaling[0]
         paint.setPen(self._graph_pen)
         paint.drawLine(0, self.height(), self.width(), self.height())

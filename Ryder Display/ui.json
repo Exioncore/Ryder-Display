@@ -752,7 +752,10 @@
       ],
       "n_values": 30,
       "max_text_length": "99.9MB/s",
-      "metric": [ "network", "downloadSpeed" ],
+      "metric": {
+        "name": [ "network", "downloadSpeed" ],
+        "bounds": [ 0, "dynamic" ]
+      },
       "unit": "*network"
     },
     {
@@ -769,7 +772,10 @@
       ],
       "n_values": 30,
       "max_text_length": "99.9MB/s",
-      "metric": [ "network", "uploadSpeed" ],
+      "metric": {
+        "name": [ "network", "uploadSpeed" ],
+        "bounds": [ 0, "dynamic" ]
+      },
       "unit": "*network"
     },
     {

@@ -70,11 +70,6 @@ class RyderClient(object, metaclass=Singleton):
                 buff_size = 9
                 step = 1
                 self.connected= True
-                ## Call functions that are meant to run when connection is established
-                #if 'on_connect' in self._endpoints:
-                #    print("Endpoint: on_connect")
-                #    for endpoint in self._endpoints['on_connect']:
-                #        endpoint()
             except:
                 pass
            
@@ -102,6 +97,7 @@ class RyderClient(object, metaclass=Singleton):
                                 if msg[0] == 'authenticated':
                                     print("Authenticated")
                                     self.authenticated = True
+                                    # Call functions that are meant to run when connection is established
                                     if 'on_connect' in self._endpoints:
                                         for endpoint in self._endpoints['on_connect']:
                                             endpoint()
