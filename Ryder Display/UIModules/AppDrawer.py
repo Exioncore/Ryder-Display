@@ -26,30 +26,27 @@ class AppDrawer(object):
         if not os.path.exists(self._iconsPath):
             os.makedirs(self._iconsPath)
         # Bind Server
+        RyderClient().addEndPoint('on_connect', self._onConnect)
         RyderClient().addEndPoint('appLauncherData', self._updateAppDrawer)
         RyderClient().addEndPoint('appLauncherUpdate', self._requestNewAppLauncherData)
-        RyderClient().addEndPoint('on_connect', self._onConnect)
-
-        print("DEBUG: Init Complete")
 
     def _onConnect(self):
+        print("PRE")
         RyderClient().send("[\"appLauncher\"]")
+        print("POST")
 
     def _updateAppDrawer(self, data):
-        print("DEBUG: Update 1")
+        print("RECEIVE")
         apps = data[1]
         # Clear cache folder
         files = glob.glob(self._iconsPath + "*");
-        print("DEBUG: Update 2")
         for f in files:
             os.remove(f)
-        print("DEBUG: Update 3")
         # Clear buttons
         for i in range(len(self._buttons)):
             self._buttons[i].setParent(None)
             self._buttons[i].deleteLater()
         self._buttons = []
-        print("DEBUG: Update 4")
         # Determine min max coordinates
         min_x = 999; max_x = 0;
         min_y = 999; max_y = 0;
@@ -72,7 +69,6 @@ class AppDrawer(object):
         # App Grid Data
         delta_x = max_x + 1 - min_x
         delta_y = max_y + 1 - min_y
-        print("DEBUG: Update 5")
         # Size Popup Appropriately
         w_size = [
             self._gap + delta_x * self._iconSize + delta_x * self._gap,
@@ -90,10 +86,8 @@ class AppDrawer(object):
             self._gap * scale_factor + delta_y * self._iconSize * scale_factor + 
             delta_y * self._gap * scale_factor
         ]
-        print("DEBUG: Update 6")
         if self._handleWindowSize:
             self._window.setGeometry(-self._size[0] / 2, -self._size[1] / 2, self._size[0], self._size[1])
-        print("DEBUG: Update 7")
         # Place buttons for each App
         iconSize = self._iconSize * scale_factor
         gap = self._gap * scale_factor
