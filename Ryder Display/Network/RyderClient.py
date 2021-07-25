@@ -87,7 +87,7 @@ class RyderClient(object, metaclass=Singleton):
                     else:
                         if step == 1:
                             # Retrieve size of upcoming message
-                            buff_size = int(data)
+                            buff_size = data
                             step = 2
                         else:
                             # Process Message
