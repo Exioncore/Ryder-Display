@@ -31,8 +31,7 @@ class AppDrawer(object):
         RyderClient().addEndPoint('appLauncherUpdate', self._requestNewAppLauncherData)
 
     def _onConnect(self):
-        #RyderClient().send("[\"appLauncher\"]")
-        return
+        RyderClient().send("[\"appLauncher\"]")
 
     def _updateAppDrawer(self, data):
         apps = data[1]

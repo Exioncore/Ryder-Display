@@ -88,31 +88,32 @@ class RyderClient(object, metaclass=Singleton):
                         if step == 1:
                             # Retrieve size of upcoming message
                             buff_size = int(data)
-                            print("msg_size: " + str(buff_size))
                             step = 2
                         else:
-                            print("processing")
                             # Process Message
-                            msg = json.loads(data)
-                            print("loaded json")
-                            # Authentication
-                            if not self.authenticated:
-                                if msg[0] == 'authenticated':
-                                    print("Authenticated")
-                                    self.authenticated = True
-                                    # Call functions that are meant to run when connection is established
-                                    if 'on_connect' in self._endpoints:
-                                        for endpoint in self._endpoints['on_connect']:
-                                            endpoint()
-                            else:
-                                # Call appropriate endpoints
-                                if msg[0] in self._endpoints:
-                                    print("Endpoint: " + msg[0])
-                                    for endpoint in self._endpoints[msg[0]]:
-                                        endpoint(msg)
+                            try:
+                                msg = json.loads(data)
+                            except json.decoder.JSONDecodeError:
+                                msg = None
+                                print("json.loads() error")
+                            if msg != None:
+                                # Authentication
+                                if not self.authenticated:
+                                    if msg[0] == 'authenticated':
+                                        print("Authenticated")
+                                        self.authenticated = True
+                                        # Call functions that are meant to run when connection is established
+                                        if 'on_connect' in self._endpoints:
+                                            for endpoint in self._endpoints['on_connect']:
+                                                endpoint()
+                                else:
+                                    # Call appropriate endpoints
+                                    if msg[0] in self._endpoints:
+                                        print("Endpoint: " + msg[0])
+                                        for endpoint in self._endpoints[msg[0]]:
+                                            endpoint(msg)
                             # Reset step
                             buff_size = 9
-                            print("processed")
                             step = 1
                         last_update = time.time()       
                 except:
