@@ -94,6 +94,7 @@ class RyderClient(object, metaclass=Singleton):
                             print("processing")
                             # Process Message
                             msg = json.loads(data)
+                            print("loaded json")
                             # Authentication
                             if not self.authenticated:
                                 if msg[0] == 'authenticated':
