@@ -37,13 +37,13 @@
       "max_n_notifications": 3,
       "steam": {
         "INFO": "Use at own risk. Logs in with the desired account as invisible and solely receives messages",
-        "enabled": true,
+        "enabled": false,
         "ui_notify": true,
         "hyperion_effect": "Notify Steam"
       },
       "discord": {
         "INFO": "Use at own risk. Discord TOS forbidden",
-        "enabled": true,
+        "enabled": false,
         "ui_notify": true,
         "hyperion_effect": "Notify Discord"
       }

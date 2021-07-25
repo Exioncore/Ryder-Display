@@ -797,6 +797,12 @@
       "size": [ 40, 40 ]
     },
     {
+      "title": "App Drawer",
+      "type": "AppDrawerMenu",
+      "pos": [ "d+350", "d+5" ],
+      "size": [ 40, 40 ]
+    },
+    {
       "title": "Notifications Handler",
       "top_margin": 8,
       "type": "NotificationsHandler",

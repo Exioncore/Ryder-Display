@@ -11,6 +11,7 @@ from Network.Hyperion import Hyperion
 from Pages.HyperionMenu import HyperionMenu
 from Network.RyderClient import RyderClient
 from UIModules.MenuButton import MenuButton
+from Pages.AppDrawerMenu import AppDrawerMenu
 from Pages.PowerPlanMenu import PowerPlanMenu
 from UIModules.ProgressBar import ProgressBar
 from UIModules.DynamicText import DynamicText
@@ -175,6 +176,11 @@ class ConfigurationParser(object):
                     is_dynamic = False
                 else:
                     continue
+            elif entry['type'] == 'AppDrawerMenu':
+                popup = AppDrawerMenu()
+                popup.createUI(path)
+                elem = MenuButton(window, entry['pos'], entry['size'], path, '/Resources/app-drawer.png', popup)
+                is_dynamic = False
 
             if is_dynamic:
                 ui_dynamic.append(elem)

@@ -38,6 +38,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Network\__init__.py" />
+    <Compile Include="Pages\AppDrawerMenu.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Pages\AudioMenu.py">
       <SubType>Code</SubType>
     </Compile>
