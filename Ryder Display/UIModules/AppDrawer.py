@@ -31,12 +31,10 @@ class AppDrawer(object):
         RyderClient().addEndPoint('appLauncherUpdate', self._requestNewAppLauncherData)
 
     def _onConnect(self):
-        print("PRE")
-        RyderClient().send("[\"appLauncher\"]")
-        print("POST")
+        #RyderClient().send("[\"appLauncher\"]")
+        return
 
     def _updateAppDrawer(self, data):
-        print("RECEIVE")
         apps = data[1]
         # Clear cache folder
         files = glob.glob(self._iconsPath + "*");
