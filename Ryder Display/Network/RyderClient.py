@@ -96,7 +96,7 @@ class RyderClient(object, metaclass=Singleton):
                             except json.decoder.JSONDecodeError:
                                 msg = None
                                 print("json.loads() error")
-                            if msg != None:
+                            if msg is not None:
                                 # Authentication
                                 if not self.authenticated:
                                     if msg[0] == 'authenticated':
