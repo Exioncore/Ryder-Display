@@ -13,6 +13,7 @@ class AppDrawer(object):
     _window: QMainWindow
 
     def __init__(self, window, settings, path = '', handleWindowSize = False):
+        self._buttons = []
         # Retrieve settings
         self._window = window
         self._handleWindowSize = handleWindowSize
@@ -20,8 +21,6 @@ class AppDrawer(object):
         self._max_size = settings['size'] if 'size' in settings else [100, 100]
         self._gap = settings['gap'] if 'gap' in settings else 25
         self._iconSize = settings['iconSize'] if 'iconSize' in settings else 60
-
-        self._buttons = []
         # Create cache folder if it doesn't exist
         self._iconsPath = path + '/cache/app_drawer/'
         if not os.path.exists(self._iconsPath):
@@ -37,9 +36,9 @@ class AppDrawer(object):
     def _updateAppDrawer(self, data):
         apps = data[1]
         # Clear cache folder
-        files = glob.glob(self._iconsPath + "*");
-        for f in files:
-            os.remove(f)
+        #files = glob.glob(self._iconsPath + "*");
+        #for f in files:
+        #    os.remove(f)
         # Clear buttons
         for i in range(len(self._buttons)):
             self._buttons[i].setParent(None)
