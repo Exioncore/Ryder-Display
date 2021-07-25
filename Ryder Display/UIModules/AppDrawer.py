@@ -26,15 +26,14 @@ class AppDrawer(object):
         if not os.path.exists(self._iconsPath):
             os.makedirs(self._iconsPath)
         # Bind Server
-        RyderClient().addEndPoint('on_connect', self._onConnect)
         RyderClient().addEndPoint('appLauncherData', self._updateAppDrawer)
         RyderClient().addEndPoint('appLauncherUpdate', self._requestNewAppLauncherData)
+        RyderClient().addEndPoint('on_connect', self._onConnect)
 
         print("DEBUG: Init Complete")
 
     def _onConnect(self):
-        #RyderClient().send("[\"appLauncher\"]")
-        return
+        RyderClient().send("[\"appLauncher\"]")
 
     def _updateAppDrawer(self, data):
         print("DEBUG: Update 1")
