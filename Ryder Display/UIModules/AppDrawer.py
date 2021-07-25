@@ -34,6 +34,7 @@ class AppDrawer(object):
 
     def _onConnect(self):
         #RyderClient().send("[\"appLauncher\"]")
+        return
 
     def _updateAppDrawer(self, data):
         print("DEBUG: Update 1")
