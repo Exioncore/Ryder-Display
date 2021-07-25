@@ -62,9 +62,9 @@ class RyderClient(object, metaclass=Singleton):
                 if self._s is not None:
                     self._s.close()
                 self._s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                self._s.settimeout(5)
+                self._s.settimeout(2.5)
                 self._s.connect((self._ip, self._port))
-                self._s.settimeout(5)
+                self._s.settimeout(2.5)
                 # Setup Variables
                 last_update = time.time()
                 buff_size = 9
@@ -79,7 +79,7 @@ class RyderClient(object, metaclass=Singleton):
             # Loop to receive messages
             while not self.stop and self.connected:
                 try:
-                    data = self._s.recv(buff_size).decode('utf-8')
+                    data = self._s.recv(buff_size, socket.MSG_WAITALL).decode('utf-8')
                     # Check if timeout occurred 
                     if len(data) == 0:
                         self.connected = False
