@@ -33,7 +33,7 @@ class AppDrawer(object):
         print("DEBUG: Init Complete")
 
     def _onConnect(self):
-        RyderClient().send("[\"appLauncher\"]")
+        #RyderClient().send("[\"appLauncher\"]")
 
     def _updateAppDrawer(self, data):
         print("DEBUG: Update 1")
