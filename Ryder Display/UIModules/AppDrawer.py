@@ -23,7 +23,7 @@ class AppDrawer(object):
 
         self._buttons = []
         # Create cache folder if it doesn't exist
-        self._iconsPath = path + '\\cache\\app_drawer\\'
+        self._iconsPath = path + '/cache/app_drawer/'
         if not os.path.exists(self._iconsPath):
             os.makedirs(self._iconsPath)
         # Bind Server
