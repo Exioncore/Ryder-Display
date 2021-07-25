@@ -79,17 +79,24 @@ class RyderClient(object, metaclass=Singleton):
             # Loop to receive messages
             while not self.stop and self.connected:
                 try:
-                    data = self._s.recv(buff_size, socket.MSG_WAITALL).decode('utf-8')
+                    newData = self._s.recv(buff_size).decode('utf-8')
                     # Check if timeout occurred 
-                    if len(data) == 0:
+                    if len(newData) == 0:
                         self.connected = False
                         break
                     else:
                         if step == 1:
+                            data = ""
                             # Retrieve size of upcoming message
-                            buff_size = int(data)
+                            buff_size = int(newData)
                             step = 2
                         else:
+                            data = data + newData
+                            # Check if data is complete
+                            if len(data) < buff_size:
+                                print("Incomplete")
+                                buff_size = buff_size - len(data)
+                                continue
                             # Process Message
                             try:
                                 print(len(data))
