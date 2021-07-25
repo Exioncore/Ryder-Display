@@ -3,24 +3,24 @@ import glob
 import base64
 
 from PyQt5.QtGui import QIcon, QPixmap
-from PyQt5.QtCore import QSize, pyqtSlot, Qt
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton
+from PyQt5.QtCore import QSize, pyqtSlot, Qt, QObject
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QLayout
 
 from Network.RyderClient import RyderClient
 
-class AppDrawerMenu(QMainWindow):
+class AppDrawer(object):
     apps = None
+    _window: QMainWindow
 
-    def __init__(self):
-        super().__init__()
-        # Initialize Popup
-        self.setWindowTitle("App Drawer")
-        self.setWindowFlag(Qt.Popup)
-        self.setStyleSheet(
-            'border: 1px solid rgba(237,174,28,100%);'
-        )
+    def __init__(self, window, settings, path = '', handleWindowSize = False):
+        # Retrieve settings
+        self._window = window
+        self._handleWindowSize = handleWindowSize
+        self._pos = settings['pos'] if 'pos' in settings else [0, 0]
+        self._max_size = settings['size'] if 'size' in settings else [100, 100]
+        self._gap = settings['gap'] if 'gap' in settings else 25
+        self._iconSize = settings['iconSize'] if 'iconSize' in settings else 60
 
-    def createUI(self, path):
         self._buttons = []
         # Create cache folder if it doesn't exist
         self._iconsPath = path + '\\cache\\app_drawer\\'
@@ -42,6 +42,7 @@ class AppDrawerMenu(QMainWindow):
             os.remove(f)
         # Clear buttons
         for i in range(len(self._buttons)):
+            self._buttons[i].setParent(None)
             self._buttons[i].deleteLater()
         self._buttons = []
         # Determine min max coordinates
@@ -66,26 +67,37 @@ class AppDrawerMenu(QMainWindow):
         # App Grid Data
         delta_x = max_x + 1 - min_x
         delta_y = max_y + 1 - min_y
-        gap = 25; iconSize = 60;
         # Size Popup Appropriately
         w_size = [
-            gap + delta_x * iconSize + delta_x * gap,
-            gap + delta_y * iconSize + delta_y * gap
+            self._gap + delta_x * self._iconSize + delta_x * self._gap,
+            self._gap + delta_y * self._iconSize + delta_y * self._gap
         ]
-        self.setGeometry(
-            -w_size[0] / 2, -w_size[1] / 2,
-            w_size[0], w_size[1]
-        )
+        scale_factor = 1
+        if w_size[0] > self._max_size[0]:
+            scale_factor = self._max_size[0] / w_size[0]
+        if w_size[1] > self._max_size[1]:
+            factor = self._max_size[1] / w_size[1]
+            scale_factor = factor if factor < scale_factor else scale_factor
+        self._size = [
+            self._gap * scale_factor + delta_x * self._iconSize * scale_factor + 
+            delta_x * self._gap * scale_factor,
+            self._gap * scale_factor + delta_y * self._iconSize * scale_factor + 
+            delta_y * self._gap * scale_factor
+        ]
+        if self._handleWindowSize:
+            self._window.setGeometry(-self._size[0] / 2, -self._size[1] / 2, self._size[0], self._size[1])
         # Place buttons for each App
+        iconSize = self._iconSize * scale_factor
+        gap = self._gap * scale_factor
         for i in range(len(apps)):
             x_loc = apps[i]['x'] - min_x
             y_loc = apps[i]['y'] - min_y
-            btn = QPushButton('', self)
+            btn = QPushButton('', self._window)
             btn.setIcon(QIcon(self._iconsPath + str(i)+'.png'))
             btn.setIconSize(QSize(iconSize, iconSize))
             btn.setGeometry(
-                gap + x_loc * iconSize + gap * x_loc,
-                gap + y_loc * iconSize + gap * y_loc,
+                gap + x_loc * iconSize + gap  * x_loc,
+                gap + y_loc * iconSize + gap  * y_loc,
                 iconSize, iconSize
             )
             btn.setStyleSheet('border: none;')

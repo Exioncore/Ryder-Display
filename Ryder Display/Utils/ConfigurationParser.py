@@ -4,14 +4,17 @@ import math
 import json
 import gevent
 
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
+
 from UIModules.Utils import *
 from UIModules.Graph import Graph
 from Pages.AudioMenu import AudioMenu
 from Network.Hyperion import Hyperion
+from UIModules.AppDrawer import AppDrawer
 from Pages.HyperionMenu import HyperionMenu
 from Network.RyderClient import RyderClient
 from UIModules.MenuButton import MenuButton
-from Pages.AppDrawerMenu import AppDrawerMenu
 from Pages.PowerPlanMenu import PowerPlanMenu
 from UIModules.ProgressBar import ProgressBar
 from UIModules.DynamicText import DynamicText
@@ -78,18 +81,19 @@ class ConfigurationParser(object):
                         entry['metric']['bounds'][i] = ConfigurationParser._fillFieldFormula(
                             entry['metric']['bounds'][i], settings['ui']['variables'])
         ## Unit converters section
-        for entry in ui['unit_converters']:
-            entry = ui['unit_converters'][entry]
-            if len(entry) == 2:
-                entry[0][0] = ConfigurationParser._fillFieldFormula(entry[0][0], settings['ui']['variables'])
-                if isinstance(entry[0][1], list):
-                    for index in range(len(entry[0][1])):
-                        entry[0][1][index] = ConfigurationParser._concatTextWithVariables(entry[0][1][index], settings['ui']['variables'])
-                else:
-                    entry[0][1] = ConfigurationParser._concatTextWithVariables(entry[0][1], settings['ui']['variables'])
-            elif len(entry) == 3:
-                entry[0] = ConfigurationParser._fillFieldFormula(entry[0], settings['ui']['variables'])
-                entry[2] = ConfigurationParser._concatTextWithVariables(entry[2], settings['ui']['variables'])
+        if 'unit_converters' in ui:
+            for entry in ui['unit_converters']:
+                entry = ui['unit_converters'][entry]
+                if len(entry) == 2:
+                    entry[0][0] = ConfigurationParser._fillFieldFormula(entry[0][0], settings['ui']['variables'])
+                    if isinstance(entry[0][1], list):
+                        for index in range(len(entry[0][1])):
+                            entry[0][1][index] = ConfigurationParser._concatTextWithVariables(entry[0][1][index], settings['ui']['variables'])
+                    else:
+                        entry[0][1] = ConfigurationParser._concatTextWithVariables(entry[0][1], settings['ui']['variables'])
+                elif len(entry) == 3:
+                    entry[0] = ConfigurationParser._fillFieldFormula(entry[0], settings['ui']['variables'])
+                    entry[2] = ConfigurationParser._concatTextWithVariables(entry[2], settings['ui']['variables'])
         
         # Initialization
         if preloadedSettings == None:
@@ -109,7 +113,8 @@ class ConfigurationParser(object):
         ui_static = []
 
         ts = math.ceil(settings['ui']['fps'] / 2)
-        InternalMetrics().setSettings(ui['computed_metrics'])
+        if 'computed_metrics' in ui:
+            InternalMetrics().setSettings(ui['computed_metrics'])
         for entry in ui['ui']:
             is_dynamic = True
             elem = None
@@ -176,10 +181,19 @@ class ConfigurationParser(object):
                     is_dynamic = False
                 else:
                     continue
-            elif entry['type'] == 'AppDrawerMenu':
-                popup = AppDrawerMenu()
-                popup.createUI(path)
+            elif entry['type'] == 'PopupAppDrawer':
+                # Popup
+                popup = QMainWindow()
+                popup.setWindowTitle("App Drawer")
+                popup.setWindowFlag(Qt.Popup)
+                popup.setStyleSheet('border: 1px solid rgba(237,174,28,100%);')
+                # App Drawer
+                appDrawer = AppDrawer(popup, entry['popup'], path, True)
+                # Button
                 elem = MenuButton(window, entry['pos'], entry['size'], path, '/Resources/app-drawer.png', popup)
+                is_dynamic = False
+            elif entry['type'] == 'AppDrawer':
+                elem = AppDrawer(window, entry, path)
                 is_dynamic = False
 
             if is_dynamic:
