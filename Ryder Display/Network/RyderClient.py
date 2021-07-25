@@ -62,9 +62,9 @@ class RyderClient(object, metaclass=Singleton):
                 if self._s is not None:
                     self._s.close()
                 self._s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                self._s.settimeout(2.5)
+                self._s.settimeout(5)
                 self._s.connect((self._ip, self._port))
-                self._s.settimeout(2.5)
+                self._s.settimeout(5)
                 # Setup Variables
                 last_update = time.time()
                 buff_size = 9
