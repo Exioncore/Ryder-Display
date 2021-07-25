@@ -36,9 +36,9 @@ class AppDrawer(object):
     def _updateAppDrawer(self, data):
         apps = data[1]
         # Clear cache folder
-        #files = glob.glob(self._iconsPath + "*");
-        #for f in files:
-        #    os.remove(f)
+        files = glob.glob(self._iconsPath + "*");
+        for f in files:
+            os.remove(f)
         # Clear buttons
         for i in range(len(self._buttons)):
             self._buttons[i].setParent(None)

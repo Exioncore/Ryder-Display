@@ -797,18 +797,6 @@
       "size": [ 40, 40 ]
     },
     {
-      "title": "App Drawer Button",
-      "type": "PopupAppDrawer",
-      "pos": [ "d+350", "d+5" ],
-      "size": [ 40, 40 ],
-      "popup": {
-        "type": "AppDrawer",
-        "size": [ 600, 400 ],
-        "gap": 25,
-        "iconSize": 60
-      }
-    },
-    {
       "title": "Notifications Handler",
       "top_margin": 8,
       "type": "NotificationsHandler",
