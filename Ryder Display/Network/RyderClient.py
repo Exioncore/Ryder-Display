@@ -93,10 +93,6 @@ class RyderClient(object, metaclass=Singleton):
                             # Process Message
                             try:
                                 msg = json.loads(data)
-                            except json.decoder.JSONDecodeError:
-                                msg = None
-                                print("json.loads() error")
-                            if msg is not None:
                                 # Authentication
                                 if not self.authenticated:
                                     if msg[0] == 'authenticated':
@@ -112,6 +108,9 @@ class RyderClient(object, metaclass=Singleton):
                                         print("Endpoint: " + msg[0])
                                         for endpoint in self._endpoints[msg[0]]:
                                             endpoint(msg)
+                            except json.decoder.JSONDecodeError as e:
+                                print("json.loads() error")
+                                print(e)
                             # Reset step
                             buff_size = 9
                             step = 1
