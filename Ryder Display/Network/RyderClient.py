@@ -87,13 +87,12 @@ class RyderClient(object, metaclass=Singleton):
                     else:
                         if step == 1:
                             # Retrieve size of upcoming message
-                            print(data)
                             buff_size = int(data)
-                            print(buff_size)
                             step = 2
                         else:
                             # Process Message
                             try:
+                                print(len(data))
                                 msg = json.loads(data)
                                 # Authentication
                                 if not self.authenticated:
