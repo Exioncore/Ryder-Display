@@ -91,6 +91,7 @@ class RyderClient(object, metaclass=Singleton):
                             print("msg_size: " + str(buff_size))
                             step = 2
                         else:
+                            print("processing")
                             # Process Message
                             msg = json.loads(data)
                             # Authentication
@@ -110,6 +111,7 @@ class RyderClient(object, metaclass=Singleton):
                                         endpoint(msg)
                             # Reset step
                             buff_size = 9
+                            print("processed")
                             step = 1
                         last_update = time.time()       
                 except:
