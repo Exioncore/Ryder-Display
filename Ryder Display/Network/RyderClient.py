@@ -95,12 +95,10 @@ class RyderClient(object, metaclass=Singleton):
                             data = data + newData
                             # Check if data is complete
                             if len(data) < msg_size:
-                                print("Incomplete (" + str(len(data)) + "/ " + str(msg_size) +")")
                                 buff_size = msg_size - len(data)
                                 continue
                             # Process Message
                             try:
-                                print(len(data))
                                 msg = json.loads(data)
                                 # Authentication
                                 if not self.authenticated:
