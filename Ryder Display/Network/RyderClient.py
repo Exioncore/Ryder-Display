@@ -96,7 +96,7 @@ class RyderClient(object, metaclass=Singleton):
                             # Check if data is complete
                             if len(data) < msg_size:
                                 print("Incomplete (" + str(len(data)) + "/ " + str(msg_size) +")")
-                                buff_size = buff_size - len(data)
+                                buff_size = msg_size - len(data)
                                 continue
                             # Process Message
                             try:
