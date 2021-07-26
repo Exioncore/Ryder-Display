@@ -1,5 +1,6 @@
 import os
 import glob
+import math
 import base64
 
 from PyQt5.QtGui import QIcon, QPixmap
@@ -84,8 +85,8 @@ class AppDrawer(object):
             delta_y * self._gap * scale_factor
         ]
         if self._handleWindowSize:
-            center_x = self._window.x() + self._window.width() / 2
-            center_y = self._window.y() + self._window.height() / 2
+            center_x = math.ceil(self._window.x() + self._window.width() / 2)
+            center_y = math.ceil(self._window.y() + self._window.height() / 2)
             self._window.setGeometry(center_x - self._size[0] / 2, center_y - self._size[1] / 2, self._size[0], self._size[1])
         # Place buttons for each App
         iconSize = self._iconSize * scale_factor
