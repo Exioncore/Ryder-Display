@@ -94,7 +94,7 @@ class RyderClient(object, metaclass=Singleton):
                         else:
                             data = data + newData
                             # Check if data is complete
-                            if len(data) < buff_size:
+                            if len(data) < msg_size:
                                 print("Incomplete (" + str(len(data)) + "/ " + str(msg_size) +")")
                                 buff_size = buff_size - len(data)
                                 continue
