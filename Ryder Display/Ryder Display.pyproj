@@ -31,9 +31,6 @@
     <Compile Include="Network\RyderClient.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Network\Server.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Network\SteamNotifier.py">
       <SubType>Code</SubType>
     </Compile>

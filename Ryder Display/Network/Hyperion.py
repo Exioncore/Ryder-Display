@@ -40,6 +40,12 @@ class Hyperion(object, metaclass=Singleton):
                 'priority': priority,
                 'duration': duration,
                 'origin':'Ryder Display'
+            }if duration > 0 else 
+            {
+                'command':'effect',
+                'effect': {'name': name},
+                'priority': priority,
+                'origin':'Ryder Display'
             }),
             timeout=self._timeout
         ).json()
