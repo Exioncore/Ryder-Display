@@ -16,6 +16,12 @@ class PowerPlanMenu(QMainWindow):
             'border: 1px solid rgba(237,174,28,100%);'
         )
 
+    def setParent(self, p):
+        return
+
+    def deleteLater(self):
+        return
+
     def createUI(self, path, plans, pos=[0,0]):
         self._path = path
         self._plans = plans

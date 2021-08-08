@@ -11,10 +11,10 @@ from Network.RyderClient import RyderClient
 
 class AppDrawer(object):
     apps = None
+    _buttons = []
     _window: QMainWindow
 
     def __init__(self, window, settings, path = '', handleWindowSize = False):
-        self._buttons = []
         # Retrieve settings
         self._window = window
         self._handleWindowSize = handleWindowSize
@@ -44,7 +44,7 @@ class AppDrawer(object):
         # Remove from layout
         for i in range(len(self._buttons)):
             self._buttons[i].deleteLater()
-        self._buttons = []
+        self._buttons.clear()
 
     def _onConnect(self):
         RyderClient().send("[\"appLauncher\"]")
@@ -59,7 +59,7 @@ class AppDrawer(object):
         for i in range(len(self._buttons)):
             self._buttons[i].setParent(None)
             self._buttons[i].deleteLater()
-        self._buttons = []
+        self._buttons.clear()
         # Determine min max coordinates
         min_x = 999; max_x = 0;
         min_y = 999; max_y = 0;

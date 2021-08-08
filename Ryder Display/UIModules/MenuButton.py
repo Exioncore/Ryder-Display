@@ -5,10 +5,12 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow
 
 class MenuButton(object):
     _menu : QMainWindow
+    _ui_elements = None
 
-    def __init__(self, window: QMainWindow, pos, size, path, icon, popup):
+    def __init__(self, window: QMainWindow, pos, size, path, icon, popup, ui_elements = None):
         self._window = window
         self._menu = popup
+        self._ui_elements = ui_elements
         self._path = path
         self._button = QPushButton('', window)
         self._button.setStyleSheet('QPushButton:focus{border: none;outline: none;}')
@@ -20,9 +22,17 @@ class MenuButton(object):
 
     def setParent(self, p):
         self._window = p
+        self._menu.setParent(p)
+        if self._ui_elements != None:
+            for i in range(len(self._ui_elements)):
+                self._ui_elements[i].setParent(p)
         self._button.setParent(p)
 
     def deleteLater(self):
+        self._menu.deleteLater()
+        if self._ui_elements != None:
+            for i in range(len(self._ui_elements)):
+                self._ui_elements[i].deleteLater()
         self._button.deleteLater()
 
     @pyqtSlot()

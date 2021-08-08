@@ -190,7 +190,7 @@ class ConfigurationParser(object):
                 # App Drawer
                 appDrawer = AppDrawer(popup, entry['popup'], path, True)
                 # Button
-                elem = MenuButton(window, entry['pos'], entry['size'], path, '/Resources/app-drawer.png', popup)
+                elem = MenuButton(window, entry['pos'], entry['size'], path, '/Resources/app-drawer.png', popup, [appDrawer])
                 is_dynamic = False
             elif entry['type'] == 'AppDrawer':
                 elem = AppDrawer(window, entry, path)

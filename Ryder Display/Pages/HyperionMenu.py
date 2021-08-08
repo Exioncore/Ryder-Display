@@ -15,6 +15,12 @@ class HyperionMenu(QMainWindow):
             'border: 1px solid rgba(237,174,28,100%);'
         )
 
+    def setParent(self, p):
+        return
+
+    def deleteLater(self):
+        return
+
     def createUI(self, path, pos=[0,0]):
         gap = 25
         size = [100, 100]
