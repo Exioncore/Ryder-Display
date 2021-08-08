@@ -1,9 +1,8 @@
-steam==1.2.0
-protobuf==3.17.3
-discord.py_self==1.8.1
-Flask==2.0.1
-gevent==21.1.2
-gevent-eventemitter==2.1
-requests==2.25.1
-PyQt5==5.15.4
-keyboard==0.13.5
+gevent
+gevent-eventemitter
+protobuf
+steam
+requests
+keyboard
+discord.py_self
+PyQt5
