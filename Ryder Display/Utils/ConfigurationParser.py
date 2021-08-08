@@ -26,17 +26,20 @@ from UIModules.ForegroundProcess import ForegroundProcess
 from UIModules.Notifications.NotificationsHandler import NotificationsHandler
 
 class ConfigurationParser(object):
-    def prepare(path: str, preloadedSettings = None):
-        # Open ui and settings files
-        file = open(path + '/ui.json', 'r')
-        ui = json.loads(file.read())
-        file.close()
+    def prepare(path: str, ui_file: str = None, preloadedSettings = None):
+        # Open settings and ui files
         if preloadedSettings == None:
             file = open(path + '/settings.json', 'r')
             settings = json.loads(file.read())
             file.close()
         else:
             settings = preloadedSettings
+        if ui_file == None:
+            ui_file = settings['ui']['initial_page']
+        print(path)
+        file = open(path + '/' + ui_file, 'r')
+        ui = json.loads(file.read())
+        file.close()
         # Fill in variables in ui file
         ## UI section
         pos = ui['ui'][0]['pos'].copy()
@@ -106,9 +109,9 @@ class ConfigurationParser(object):
                 Hyperion().setUrl(settings['services']['hyperion']['ip'], settings['services']['hyperion']['port'])
                 Hyperion().getState()
 
-        return ui, settings
+        return settings['ui']['fps'], ui, settings, ui_file
 
-    def createUI(window, path, ui, settings):
+    def createUI(window, path, ui, settings, loadPage):
         ui_dynamic = []
         ui_static = []
 
@@ -148,7 +151,7 @@ class ConfigurationParser(object):
             elif entry['type'] == 'DynamicTextBool':
                 elem = DynamicTextBool(window, entry)
             elif entry['type'] == 'Image':
-                elem = createImage(window, entry)
+                elem = createImage(window, entry, path)
                 is_dynamic = False
             elif entry['type'] == 'NotificationsHandler':
                 if 'notifications_handler' in settings['services']:
@@ -181,6 +184,9 @@ class ConfigurationParser(object):
                     is_dynamic = False
                 else:
                     continue
+            elif entry['type'] == 'PageLoader':
+                elem = createPageLoader(window, entry, path)
+                is_dynamic = False
             elif entry['type'] == 'PopupAppDrawer':
                 # Popup
                 popup = QMainWindow()
@@ -201,7 +207,7 @@ class ConfigurationParser(object):
             else:
                 ui_static.append(elem)
 
-        return settings['ui']['fps'], ui_dynamic, ui_static
+        return ui_dynamic, ui_static
 
     def _concatTextWithVariables(entry, variables):
         result = ""

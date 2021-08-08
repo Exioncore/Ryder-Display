@@ -809,6 +809,14 @@
       }
     },
     {
+      "title": "Advanced Monitor UI Button",
+      "type": "PageLoader",
+      "pos": [ "d-350", "d+5" ],
+      "size": [ 40, 40 ],
+      "icon": "advanced_monitor.png",
+      "ui_file": "ui_advanced.json"
+    },
+    {
       "title": "Notifications Handler",
       "top_margin": 8,
       "type": "NotificationsHandler",

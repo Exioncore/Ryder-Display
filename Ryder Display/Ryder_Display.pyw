@@ -5,45 +5,68 @@ gevent.monkey.patch_ssl()
 import os
 import gc
 import sys
+import time
 import gevent
+import _locale
 import keyboard
 import threading
-import _locale
 # PyQt5
-from PyQt5.QtCore import Qt, QThread
+from PyQt5.QtCore import Qt, QThread, QTimer
 from PyQt5.QtWidgets import QMainWindow, QApplication
 # Ryder Display Files
-from Pages.Home import Home
+from Utils.Singleton import Singleton
 from Network.RyderClient import RyderClient
+from Utils.InternalMetrics import InternalMetrics
 from Utils.ConfigurationParser import ConfigurationParser
 
-class RyderDisplay(QMainWindow): 
+class RyderDisplay(QMainWindow):
+    _ui_dynamic = []
+    _ui_static = []
+    _fps = 1
+    _timer : QTimer = None
+    _status = None
+    _last_update = 0
+
     def __init__(self):
         super().__init__()
+        # Initialization
         self._firstInit = True
-
+        self._path = os.path.dirname(os.path.abspath(sys.argv[0]))
         # Setting title
         self.setWindowTitle("Ryder Display")
-
         # Parse configuration files
-        self._ui, self._settings = ConfigurationParser.prepare(os.path.dirname(os.path.abspath(sys.argv[0])))
-
+        self._fps, self._ui, self._settings, self._ui_file = ConfigurationParser.prepare(self._path)
         # Set Geometry
         self.setGeometry(
             self._settings['ui']['x'], self._settings['ui']['y'],
             self._settings['ui']['width'], self._settings['ui']['height']
         )
-
+        # Hide title bar
         if self._settings['ui']['hide_title_bar']:
-            # Hide title bar
             self.setWindowFlag(Qt.FramelessWindowHint)
+        # Server EndPoint
+        RyderClient().addEndPoint('status', self._newStatus)
 
     def initialize(self):
-        if self._firstInit:
-            self.page = Home(self)
+        # Clear UI
+        for i in range(len(self._ui_dynamic)):
+            self._ui_dynamic[i].setParent(None)
+            self._ui_dynamic[i].deleteLater()
+        for i in range(len(self._ui_static)):
+            self._ui_static[i].setParent(None)
+            self._ui_static[i].deleteLater()
+        # Handle Timer
+        if self._timer != None:
+            self._timer.stop()
+        else:
+            self._timer = QTimer()
+            self._timer.timeout.connect(self.update)
 
-        self.page.create_ui(os.path.dirname(os.path.abspath(sys.argv[0])), self._ui, self._settings)
+        # Initialize UI
+        self._ui_dynamic, self._ui_static = ConfigurationParser.createUI(self, self._path, self._ui, self._settings, self.loadPage)
+        self._timer.start(1000 / self._fps)
 
+        # First initialization
         if self._firstInit:
             self._firstInit = False
             if self._settings['ui']['full_screen'] or 'full_screen' not in self._settings['ui']:
@@ -57,15 +80,29 @@ class RyderDisplay(QMainWindow):
 
     def reloadUI(self):
         # Reparse ui configuration file
-        self._ui, self._settings = ConfigurationParser.prepare(
-            os.path.dirname(os.path.abspath(sys.argv[0])),
-            self._settings
-        )
+        self._fps, self._ui, self._settings, self._ui_file = ConfigurationParser.prepare(self._path, self._ui_file, self._settings)
         self.initialize()
         # Call on_connect endpoint to initialize widgets properly when required
         if 'on_connect' in RyderClient()._endpoints:
             for endpoint in RyderClient()._endpoints['on_connect']:
                 endpoint()
+
+    def loadPage(self, ui_file: str):
+        self._ui_file = ui_file
+        self.reloadUI()
+
+    def update(self):
+        # Update UI
+        for elem in self._ui_dynamic:
+            elem.update(self._status)
+        # Reset
+        if self._status is not None:
+            self._last_update = time.time()
+            self._status = None
+
+    def _newStatus(self, data):
+        self._status = data[1]
+        InternalMetrics().update(self._status)
 
     def keyboardEvent(self, e):
         if e.key() == Qt.Key_Q:

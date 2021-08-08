@@ -4,10 +4,13 @@ from PyQt5.QtWidgets import QWidget, QLabel
 from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap, QPainterPath, QFont
 
 class QtGraph(QWidget):
+    _firstUpdate = True
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self._bounds_dynamic = [False, False]
+        self._dynamic_bounds = [None, None]
         self._bounds = [0, 1]
         self._bounds_range = self._bounds[1] - self._bounds[0]
         self._n_values = 30
@@ -35,7 +38,7 @@ class QtGraph(QWidget):
         for i in range(self._n_values):
             self._history.append(0)
 
-    def setBounds(self, min_val, max_val):
+    def setBounds(self, min_val, max_val, dynamic_min = None, dynamic_max = None):
         # Set bounds
         if min_val != 'dynamic':
             self._bounds_dynamic[0] = False
@@ -47,12 +50,37 @@ class QtGraph(QWidget):
             self._bounds[1] = max_val
         else:
             self._bounds_dynamic[1] = True
+        self._dynamic_bounds = [dynamic_min, dynamic_max]
         # Compute bound related values
         if self._bounds_dynamic[0] == False or self._bounds_dynamic[1] == False:
             self._bounds_range = self._bounds[1] - self._bounds[0]
             self._graph_scaling[1] = self.height() / self._bounds_range
 
     def setValue(self, val):
+        # Ensure value is within static bounds
+        if not self._bounds_dynamic[0]:
+            if val < self._bounds[0]:
+                val = self._bounds[0]
+        else:
+            if self._dynamic_bounds[0] != None:
+                if val < self._dynamic_bounds[0]:
+                    val = self._dynamic_bounds[0]
+        if not self._bounds_dynamic[1]:
+            if val > self._bounds[1]:
+                val = self._bounds[1]
+        else:
+            if self._dynamic_bounds[1] != None:
+                if val > self._dynamic_bounds[1]:
+                    val = self._dynamic_bounds[1]
+        # Check if this is the first update since the object creation
+        if self._firstUpdate:
+            self._firstUpdate = False
+            if self._bounds_dynamic[0]:
+                for i in range(self._n_values - 1):
+                    self._history.append(val)
+            else:
+                for i in range(self._n_values - 1):
+                    self._history.append(self._bounds[0])
         self._history.append(val)
         # Bounds calculation
         if self._bounds_dynamic[0] == True or self._bounds_dynamic[1] == True:
@@ -66,6 +94,9 @@ class QtGraph(QWidget):
                 if self._bounds_dynamic[1] == True:
                     self._bounds[1] = max(self._bounds[1], v)
             self._bounds_range = self._bounds[1] - self._bounds[0]
+            # Avoid bounds range being 0 (Divide by zero)
+            if self._bounds_range == 0:
+                self._bounds_range = 1
             self._graph_scaling[1] = self.height() / self._bounds_range
 
     def setGeometry(self, x, y, w, h):

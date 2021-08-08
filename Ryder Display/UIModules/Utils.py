@@ -1,8 +1,10 @@
 import os
 import sys
-from PyQt5.QtCore import Qt
+
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtSvg import QSvgWidget
-from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QLabel, QPushButton
 
 def getPosFromAlignment(pos, size, alignment):
     newPos = [pos[0], pos[1]]
@@ -47,14 +49,29 @@ def createLabel(window, settings):
     label.show()
     return label
 
-def createImage(window, settings):
+def createPageLoader(window, settings, path):
     # Retrieve settings
-    path = settings['path'] if 'path' in settings else ''
+    icon = settings['icon'] if 'icon' in settings else ''
+    pos = settings['pos'] if 'pos' in settings else [0, 0]
+    size = settings['size'] if 'size' in settings else [50, 50]
+    # Create component
+    elem = QPushButton('', window)
+    elem.setStyleSheet('QPushButton:focus{border: none;outline: none;}')
+    elem.setIcon(QIcon(path + '/Resources/' + icon))
+    elem.setIconSize(QSize(size[0], size[1]))
+    elem.setGeometry(pos[0], pos[1], size[0], size[1])
+    elem.clicked.connect(lambda:window.loadPage(settings['ui_file']))
+    elem.show()
+    return elem
+
+def createImage(window, settings, path):
+    # Retrieve settings
+    image = settings['path'] if 'path' in settings else ''
     pos = settings['pos'] if 'pos' in settings else [0, 0]
     size = settings['size'] if 'size' in settings else [50, 50]
     alignment = settings['alignment'] if 'alignment' in settings else 'center'
     # Create components
-    path = os.path.dirname(sys.argv[0])+'/Resources/'+path
+    path = path+'/Resources/'+image
     pos = getPosFromAlignment(pos, size, alignment)
     extension = path[(path.rfind('.')+1):]
     elem = None

@@ -48,7 +48,21 @@ class Graph(object):
             self._size[0] - self._elem_max_label.width() - self._elem_label.width() - 2, self._size[1]
         )
         self._elem.setNumberOfValues(n_values)
-        self._elem.setBounds(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
+        # Graph values bounds
+        if isinstance(settings['metric']['bounds'][0], list):
+            bound_min = settings['metric']['bounds'][0][0]
+            dynamic_min = settings['metric']['bounds'][0][1]
+        else:
+            bound_min = settings['metric']['bounds'][0]
+            dynamic_min = None
+        if isinstance(settings['metric']['bounds'][1], list):
+            bound_max = settings['metric']['bounds'][1][0]
+            dynamic_max = settings['metric']['bounds'][1][1]
+        else:
+            bound_max = settings['metric']['bounds'][1]
+            dynamic_max = None
+        self._elem.setBounds(bound_min, bound_max, dynamic_min, dynamic_max)
+
         self._elem.show()
 
     def setParent(self, p):
