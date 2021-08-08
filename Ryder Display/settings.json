@@ -1,6 +1,6 @@
 {
   "ui": {
-    "initial_page": "ui_advanced.json",
+    "initial_page": "ui.json",
     "x": 0,
     "y": 0,
     "width": 800,
