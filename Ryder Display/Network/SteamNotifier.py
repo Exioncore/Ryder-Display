@@ -45,7 +45,7 @@ class SteamNotifier(object, metaclass=Singleton):
                 f = open(self._cache + 'steam.txt', 'r')
                 data = f.readlines()
                 f.close()
-                self._steamClient.login(username=data[0].replace('\n',''), login_key=data[1])
+                gevent.spawn_later(2, SteamClient.login, self._steamClient, username=data[0].replace('\n',''), login_key=data[1])
             else:
                 self._notification('Steam', 'Login', 'Requesting Login Data')
                 RyderClient().send("[\"steamLogin\"]")

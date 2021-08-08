@@ -7,33 +7,38 @@ from Utils.Singleton import Singleton
 from Network.RyderClient import RyderClient
 
 class DiscordNotifier(discord.Client, metaclass=Singleton):
-    instantiated = False
+    _instantiated = False
+    _running = False
 
     def create(self, path):
-        self._cache = path + '/cache/'
-        if not os.path.exists(self._cache):
-            os.makedirs(self._cache)
-        # Discord Client
-        intents = discord.Intents.none()
-        discord.Client.__init__(self, intents=intents)
-        # Done
-        self.instantiated = True
+        if not self._instantiated:
+            self._instantiated = True
+            self._cache = path + '/cache/'
+            if not os.path.exists(self._cache):
+                os.makedirs(self._cache)
+            # Discord Client
+            intents = discord.Intents.none()
+            discord.Client.__init__(self, intents=intents)
        
     def setupHooks(self, notification):
         self._notification = notification
         # Bind EndPoints
+        RyderClient().addEndPoint('on_connect', self._run)
         RyderClient().addEndPoint('discordLogin', self._discordLoginData)
 
-    def run(self):
-        self.loop.create_task(self._loop())
-        if os.path.exists(self._cache + 'discord.txt'):
-            f = open(self._cache + 'discord.txt', 'r')
-            data = f.readlines()
-            f.close()
-            gevent.spawn(discord.Client.run, self, data[0])
-        else:
-            self._notification('Discord', 'Login', 'Requesting Login Data')
-            RyderClient().send("[\"discordLogin\"]")
+    def _run(self):
+        # Start Login Sequence
+        if not self._running:
+            self._running = True
+            self.loop.create_task(self._loop())
+            if os.path.exists(self._cache + 'discord.txt'):
+                f = open(self._cache + 'discord.txt', 'r')
+                data = f.readlines()
+                f.close()
+                gevent.spawn_later(2, discord.Client.run, self, data[0])
+            else:
+                self._notification('Discord', 'Login', 'Requesting Login Data')
+                RyderClient().send("[\"discordLogin\"]")
 
     async def _loop(self):
         try:

@@ -80,10 +80,8 @@ class NotificationsHandler(object, metaclass=Singleton):
                 self._discord_hyperion_effect = settings['discord']['hyperion_effect']
             else:
                 self._discord_hyperion_effect = False
+            DiscordNotifier().create(path)
             DiscordNotifier().setupHooks(self.newNotification)
-            if not DiscordNotifier().instantiated:
-                DiscordNotifier().create(path)
-                DiscordNotifier().run()
         else:
             self._discord_ui_notify = self._discord_hyperion_effect = False
 
