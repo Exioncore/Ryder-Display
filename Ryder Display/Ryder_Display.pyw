@@ -113,7 +113,7 @@ class RyderDisplay(QMainWindow):
 def pyqtLoop(app):
     while True:
         app.processEvents()
-        gevent.sleep(0.033)
+        gevent.sleep(0.005)
 
 if __name__ == "__main__":
     # Set locale
