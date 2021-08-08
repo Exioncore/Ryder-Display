@@ -31,6 +31,15 @@ class Hyperion(object, metaclass=Singleton):
             return True
         return False
 
+    def setBrightness(self, level):
+        return requests.post(
+            self._url,
+            data=json.dumps({
+                'command':'adjustment',
+                'adjustment': {'brightness': level}
+            })
+        ).json()
+
     def setEffect(self, name, priority, duration):
         return requests.post(
             self._url,
