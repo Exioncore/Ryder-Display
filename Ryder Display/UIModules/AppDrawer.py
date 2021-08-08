@@ -31,6 +31,21 @@ class AppDrawer(object):
         RyderClient().addEndPoint('appLauncherData', self._updateAppDrawer)
         RyderClient().addEndPoint('appLauncherUpdate', self._requestNewAppLauncherData)
 
+    def setParent(self, p):
+        self._window = p
+        for i in range(len(self._buttons)):
+            self._buttons[i].setParent(p)
+
+    def deleteLater(self):
+        # Remove Server Bindings
+        RyderClient().removeEndPoint('on_connect', self._onConnect)
+        RyderClient().removeEndPoint('appLauncherData', self._updateAppDrawer)
+        RyderClient().removeEndPoint('appLauncherUpdate', self._requestNewAppLauncherData)
+        # Remove from layout
+        for i in range(len(self._buttons)):
+            self._buttons[i].deleteLater()
+        self._buttons = []
+
     def _onConnect(self):
         RyderClient().send("[\"appLauncher\"]")
 

@@ -51,6 +51,18 @@ class Graph(object):
         self._elem.setBounds(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
         self._elem.show()
 
+    def setParent(self, p):
+        self._elem.setParent(p)
+        self._elem_label.setParent(p)
+        self._elem_max_label.setParent(p)
+        self._elem_min_label.setParent(p)
+
+    def deleteLater(self):
+        self._elem.deleteLater()
+        self._elem_label.deleteLater()
+        self._elem_max_label.deleteLater()
+        self._elem_min_label.deleteLater()
+
     def update(self, status):
         if status is not None:
             if self._metric[0][0] != "*":

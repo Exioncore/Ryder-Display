@@ -42,6 +42,12 @@ class ProgressBar(object):
         self._elem.setStyleSheet("QProgressBar{"+style[0]+"}QProgressBar::chunk{"+style[1]+"}")
         self._elem.show()
 
+    def setParent(self, p):
+        self._elem.setParent(p)
+
+    def deleteLater(self):
+        self._elem.deleteLater()
+
     def update(self, status):
         if status is not None:
             if self._metric[0][0] != "*":

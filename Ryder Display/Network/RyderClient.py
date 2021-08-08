@@ -32,6 +32,15 @@ class RyderClient(object, metaclass=Singleton):
             self._endpoints[cmd] = []
             self._endpoints[cmd].append(func)
 
+    # Remove endpoint
+    def removeEndPoint(self, cmd: str, func):
+        if cmd in self._endpoints:
+            if func in self._endpoints[cmd]:
+                if len(self._endpoints[cmd]) > 1:
+                    self._endpoints[cmd].remove(func)
+                else:
+                    del self._endpoints[cmd]
+
     # Send data to host (May fail if connection is not set)
     # Return True if transmission was succesfull, False otherwise
     def send(self, data:str, bypassAuth = False):
@@ -124,8 +133,8 @@ class RyderClient(object, metaclass=Singleton):
                         last_update = time.time()       
                 except:
                     self.connected = False
-                gevent.sleep(0.025)
-            gevent.sleep(0.025)
+                gevent.sleep(0.033)
+            gevent.sleep(0.033)
         # Close socket
         self._s.close()
         self.connected = False

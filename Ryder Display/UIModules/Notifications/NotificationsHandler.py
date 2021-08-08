@@ -67,7 +67,7 @@ class NotificationsHandler(object, metaclass=Singleton):
             else:
                 self._steam_hyperion_effect = False
             SteamNotifier().create(path)
-            SteamNotifier().setupHooks(self.newNotification)
+            SteamNotifier().setupNotificationHandlerHook(self.newNotification)
         else:
             self._steam_ui_notify = self._steam_hyperion_effect = False
         # Discord
@@ -81,7 +81,7 @@ class NotificationsHandler(object, metaclass=Singleton):
             else:
                 self._discord_hyperion_effect = False
             DiscordNotifier().create(path)
-            DiscordNotifier().setupHooks(self.newNotification)
+            DiscordNotifier().setupNotificationHandlerHook(self.newNotification)
         else:
             self._discord_ui_notify = self._discord_hyperion_effect = False
 
@@ -89,6 +89,23 @@ class NotificationsHandler(object, metaclass=Singleton):
         if self._mutex == None or self._mutexUpdate == None:
             self._mutexUpdate = Lock()
             self._mutex = Lock()
+
+    def setParent(self, p):
+        for i in range(len(self._free_notifications)):
+            self._free_notifications[i].setParent(p)
+        for i in range(len(self._live_queue)):
+            self._live_queue[i]['notification'].setParent(p)
+
+    def deleteLater(self):
+        # Removes the UI component only
+        SteamNotifier().setupNotificationHandlerHook(None)
+        DiscordNotifier().setupNotificationHandlerHook(None)
+        for i in range(len(self._free_notifications)):
+            self._free_notifications[i].deleteLater()
+        for i in range(len(self._live_queue)):
+            self._live_queue[i]['notification'].deleteLater()
+        self._live_queue = []
+        self._free_notifications = []
 
     def update(self, status=None):
         # Ensure updates are done only if component has been initialized

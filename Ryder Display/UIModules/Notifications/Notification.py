@@ -51,6 +51,12 @@ class Notification(object):
         )
         self._message.show()
 
+    def setParent(self, p):
+        self._background.setParent(p)
+
+    def deleteLater(self):
+        self._background.deleteLater()
+
     def setText(self, app, title, message):
         if self._currApp != app:
             logoPath, backgroundColor = self._styleFunction(app)

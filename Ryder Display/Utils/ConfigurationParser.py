@@ -152,11 +152,11 @@ class ConfigurationParser(object):
                 is_dynamic = False
             elif entry['type'] == 'NotificationsHandler':
                 if 'notifications_handler' in settings['services']:
+                    elem = NotificationsHandler()
                     NotificationsHandler().setup(
                         window, settings['ui']['fps'], settings['services']['notifications_handler'], 
-                        entry, path,
+                        entry, path
                     )
-                continue
             elif entry['type'] == 'PowerMenu':
                 if 'power_plans' in settings['services']:
                     popup = PowerPlanMenu()
@@ -201,7 +201,7 @@ class ConfigurationParser(object):
             else:
                 ui_static.append(elem)
 
-        return settings['ui']['fps'], ui_dynamic
+        return settings['ui']['fps'], ui_dynamic, ui_static
 
     def _concatTextWithVariables(entry, variables):
         result = ""

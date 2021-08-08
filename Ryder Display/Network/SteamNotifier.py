@@ -10,6 +10,7 @@ from Network.RyderClient import RyderClient
 class SteamNotifier(object, metaclass=Singleton):
     _instantiated = False
     _running = False
+    _notification = None
 
     def create(self, path):
         if not self._instantiated:
@@ -28,13 +29,13 @@ class SteamNotifier(object, metaclass=Singleton):
             self._steamClient.on(SteamClient.EVENT_CONNECTED, self.connected)
             self._steamClient.on(SteamClient.EVENT_DISCONNECTED, self.disconnected)
             self._steamClient.on(SteamClient.EVENT_NEW_LOGIN_KEY, self.new_login_key)
+            # Bind EndPoints
+            RyderClient().addEndPoint('on_connect', self._run)
+            RyderClient().addEndPoint('steamLogin', self._steamLoginData)
+            RyderClient().addEndPoint('steam2fa',self._steam2faData)
 
-    def setupHooks(self, notification):
+    def setupNotificationHandlerHook(self, notification):
         self._notification = notification
-        # Bind EndPoints
-        RyderClient().addEndPoint('on_connect', self._run)
-        RyderClient().addEndPoint('steamLogin', self._steamLoginData)
-        RyderClient().addEndPoint('steam2fa',self._steam2faData)
 
     def _run(self):
         # Start Login Sequence
@@ -47,7 +48,8 @@ class SteamNotifier(object, metaclass=Singleton):
                 f.close()
                 gevent.spawn_later(2, SteamClient.login, self._steamClient, username=data[0].replace('\n',''), login_key=data[1])
             else:
-                self._notification('Steam', 'Login', 'Requesting Login Data')
+                if self._notification != None:
+                    self._notification('Steam', 'Login', 'Requesting Login Data')
                 RyderClient().send("[\"steamLogin\"]")
 
     def _steamLoginData(self, data):
@@ -66,7 +68,8 @@ class SteamNotifier(object, metaclass=Singleton):
     def disconnected(self):
         print("Disconnected")
         if self._steamClient.relogin_available:
-            self._notification('Steam', self._steamClient.username, 'Connection lost! Re-trying...')
+            if self._notification != None:
+                self._notification('Steam', self._steamClient.username, 'Connection lost! Re-trying...')
             self._steamClient.reconnect(maxdelay=30)
 
     def login_secured(self):
@@ -78,24 +81,28 @@ class SteamNotifier(object, metaclass=Singleton):
         print("Login error")
         print(data)
         if data == EResult.InvalidPassword:
-            self._notification('Steam', 'Login', 'Requesting Login Data')
+            if self._notification != None:
+                self._notification('Steam', 'Login', 'Requesting Login Data')
             RyderClient().send("[\"steamLogin\"]")
 
     def auth_code_prompt(self, is2fa, code_mismatch):
         print("Steam2FA Required")
-        self._notification('Steam', 'Login', 'Requesting 2 Factor Authentication')
+        if self._notification != None:
+            self._notification('Steam', 'Login', 'Requesting 2 Factor Authentication')
         RyderClient().send("[\"steam2fa\"]")
 
     def handle_message(self, msg):
         if msg.body.chat_entry_type == EChatEntryType.ChatMsg and not msg.body.local_echo:
             user = self._steamClient.get_user(msg.body.steamid_friend)
             text = msg.body.message
-            self._notification('Steam', user.name, text)
+            if self._notification != None:
+                self._notification('Steam', user.name, text)
 
     def login_success(self):
         print("Login successfull")
         self._steamClient.change_status(persona_state = EPersonaState.Invisible)
-        self._notification('Steam', self._steamClient.username, 'Logged in!')
+        if self._notification != None:
+            self._notification('Steam', self._steamClient.username, 'Logged in!')
 
     def new_login_key(self):
         print("New login key")

@@ -35,6 +35,12 @@ class DynamicTextBool(object):
         self._label.move(self._pos[0], self._pos[1])
         self._label.show()
 
+    def setParent(self, p):
+        self._label.setParent(p)
+
+    def deleteLater(self):
+        self._label.deleteLater()
+
     def update(self, status):
         if status is not None:
             if self._metric['name'][0][0] != "*":

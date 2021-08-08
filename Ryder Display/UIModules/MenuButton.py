@@ -18,6 +18,13 @@ class MenuButton(object):
         self._button.clicked.connect(lambda:self.onClick())
         self._button.show()
 
+    def setParent(self, p):
+        self._window = p
+        self._button.setParent(p)
+
+    def deleteLater(self):
+        self._button.deleteLater()
+
     @pyqtSlot()
     def onClick(self):
         if not self._menu.isVisible():

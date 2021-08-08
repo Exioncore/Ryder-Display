@@ -42,6 +42,12 @@ class CornerProgressBar(object):
         self._elem.redraw()
         self._elem.show()
 
+    def setParent(self, p):
+        self._elem.setParent(p)
+
+    def deleteLater(self):
+        self._elem.deleteLater()
+
     def _get_direction_from_text(dir):
         if dir == 'left':
             return QtStraightProgressBar.Direction.LEFT

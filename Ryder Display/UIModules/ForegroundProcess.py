@@ -38,6 +38,17 @@ class ForegroundProcess(object):
         RyderClient().addEndPoint('foregroundProcessIcon', self._newProcessIcon)
         RyderClient().addEndPoint('on_connect', self._onConnect)
 
+    def setParent(self, p):
+        self._label.setParent(p)
+
+    def deleteLater(self):
+        # Remove Server Bindings
+        RyderClient().removeEndPoint('foregroundProcessName', self._newProcessName)
+        RyderClient().removeEndPoint('foregroundProcessIcon', self._newProcessIcon)
+        RyderClient().removeEndPoint('on_connect', self._onConnect)
+        # Remove from layout
+        self._label.deleteLater()
+
     def update(self, status):
         pass
     

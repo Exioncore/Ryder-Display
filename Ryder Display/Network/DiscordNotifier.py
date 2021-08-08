@@ -9,6 +9,7 @@ from Network.RyderClient import RyderClient
 class DiscordNotifier(discord.Client, metaclass=Singleton):
     _instantiated = False
     _running = False
+    _notification = None
 
     def create(self, path):
         if not self._instantiated:
@@ -19,12 +20,12 @@ class DiscordNotifier(discord.Client, metaclass=Singleton):
             # Discord Client
             intents = discord.Intents.none()
             discord.Client.__init__(self, intents=intents)
+            # Bind EndPoints
+            RyderClient().addEndPoint('on_connect', self._run)
+            RyderClient().addEndPoint('discordLogin', self._discordLoginData)
        
-    def setupHooks(self, notification):
+    def setupNotificationHandlerHook(self, notification):
         self._notification = notification
-        # Bind EndPoints
-        RyderClient().addEndPoint('on_connect', self._run)
-        RyderClient().addEndPoint('discordLogin', self._discordLoginData)
 
     def _run(self):
         # Start Login Sequence
@@ -37,7 +38,8 @@ class DiscordNotifier(discord.Client, metaclass=Singleton):
                 f.close()
                 gevent.spawn_later(2, discord.Client.run, self, data[0])
             else:
-                self._notification('Discord', 'Login', 'Requesting Login Data')
+                if self._notification != None:
+                    self._notification('Discord', 'Login', 'Requesting Login Data')
                 RyderClient().send("[\"discordLogin\"]")
 
     async def _loop(self):
@@ -57,9 +59,11 @@ class DiscordNotifier(discord.Client, metaclass=Singleton):
         gevent.spawn(discord.Client.run, self, data[1])
 
     async def on_ready(self):
-        self._notification('Discord', self.user.name, "Logged in")
+        if self._notification != None:
+            self._notification('Discord', self.user.name, "Logged in")
 
     async def on_message(self, message):
         if message.author == self.user:
             return
-        self._notification('Discord', message.author.name, message.content)
+        if self._notification != None:
+            self._notification('Discord', message.author.name, message.content)

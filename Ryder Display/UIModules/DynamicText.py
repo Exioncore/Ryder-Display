@@ -43,6 +43,12 @@ class DynamicText(object):
         self._label.move(pos[0], pos[1])
         self._label.show()
 
+    def setParent(self, p):
+        self._label.setParent(p)
+
+    def deleteLater(self):
+        self._label.deleteLater()
+
     def move(self, x, y):
         self._pos = getPosFromAlignment([x, y], self._size, self._alignment)
         self._label.move(self._pos[0], self._pos[1])

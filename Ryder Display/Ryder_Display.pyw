@@ -39,7 +39,9 @@ class RyderDisplay(QMainWindow):
             self.setWindowFlag(Qt.FramelessWindowHint)
 
     def initialize(self):
-        self.page = Home(self)
+        if self._firstInit:
+            self.page = Home(self)
+
         self.page.create_ui(os.path.dirname(os.path.abspath(sys.argv[0])), self._ui, self._settings)
 
         if self._firstInit:
@@ -54,13 +56,6 @@ class RyderDisplay(QMainWindow):
             gevent.spawn(RyderClient().run)
 
     def reloadUI(self):
-        # This ensure the window is empty and no endpoints by the ui exist
-        # Necessary to enable window reloading the UI
-        RyderClient().clearEndPoints()
-        self.page.dispose()
-        for i in reversed(range(len(self.children()))):
-            if i > 0:
-                self.children()[i].deleteLater()
         # Reparse ui configuration file
         self._ui, self._settings = ConfigurationParser.prepare(
             os.path.dirname(os.path.abspath(sys.argv[0])),
@@ -81,7 +76,7 @@ class RyderDisplay(QMainWindow):
 def pyqtLoop(app):
     while True:
         app.processEvents()
-        gevent.sleep(0.005)
+        gevent.sleep(0.033)
 
 if __name__ == "__main__":
     # Set locale
