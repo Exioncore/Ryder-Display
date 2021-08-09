@@ -126,7 +126,7 @@ if __name__ == "__main__":
     app.setStyleSheet(
         'QLabel{color: rgb(225, 225, 225);}'
         'QMainWindow{background-color:black;}'
-        'QPushButton{background-color:black;}'
+        'QPushButton{background-color:transparent;}'
     )
 
     # Create the instance of our Window

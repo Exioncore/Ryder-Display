@@ -13,7 +13,7 @@ class MenuButton(object):
         self._ui_elements = ui_elements
         self._path = path
         self._button = QPushButton('', window)
-        self._button.setStyleSheet('QPushButton:focus{border: none;outline: none;}')
+        self._button.setStyleSheet('border: none;')
         self._button.setIcon(QIcon(path + icon))
         self._button.setIconSize(QSize(size[0], size[1]))
         self._button.setGeometry(pos[0], pos[1], size[0], size[1])

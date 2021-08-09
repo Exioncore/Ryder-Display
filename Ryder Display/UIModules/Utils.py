@@ -56,7 +56,7 @@ def createPageLoader(window, settings, path):
     size = settings['size'] if 'size' in settings else [50, 50]
     # Create component
     elem = QPushButton('', window)
-    elem.setStyleSheet('QPushButton:focus{border: none;outline: none;}')
+    elem.setStyleSheet('border: none;')
     elem.setIcon(QIcon(path + '/Resources/' + icon))
     elem.setIconSize(QSize(size[0], size[1]))
     elem.setGeometry(pos[0], pos[1], size[0], size[1])

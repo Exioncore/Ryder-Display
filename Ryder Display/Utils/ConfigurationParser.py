@@ -35,8 +35,7 @@ class ConfigurationParser(object):
         else:
             settings = preloadedSettings
         if ui_file == None:
-            ui_file = settings['ui']['initial_page']
-        print(path)
+            ui_file = settings['ui']['initial_page'] if 'initial_page' in settings['ui'] else 'ui.json'
         file = open(path + '/' + ui_file, 'r')
         ui = json.loads(file.read())
         file.close()
