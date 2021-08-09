@@ -119,12 +119,12 @@ class Graph(object):
                 value = InternalMetrics().metrics[self._metric[0][1:]]
 
             # Update Graph
-            self._elem.setValue(value)
+            value = self._elem.setValue(value)
             self._elem.update()
             # Update Label
-            scalar = (self._size[1] - self._elem_label.height()) / (self._elem._bounds_range)
             self._elem_label.updateDirect(value)
             if self._layout == 0:
+                scalar = (self._size[1] - self._elem_label.height()) / (self._elem._bounds_range)
                 self._elem_label.move(
                     self._elem_label.x(),
                     (self._pos[1] + self._size[1] - self._half_elem_label_height) - (value - self._elem._bounds[0]) * scalar

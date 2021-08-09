@@ -98,6 +98,7 @@ class QtGraph(QWidget):
             if self._bounds_range == 0:
                 self._bounds_range = 1
             self._graph_scaling[1] = self.height() / self._bounds_range
+        return val
 
     def setGeometry(self, x, y, w, h):
         """ Override setGeometry method """
