@@ -36,7 +36,7 @@ class DynamicText(object):
         self._label.setText("")
         if 'left' in self._alignment:
             self._label.setAlignment(Qt.AlignLeft)
-        elif self._alignment == 'top' or self._alignment == 'center' or self._alignment == 'bottom':
+        elif (self._alignment == 'top' or self._alignment == 'center' or self._alignment == 'bottom') or 'hmid' in self._alignment:
             self._label.setAlignment(Qt.AlignHCenter)
         elif 'right' in self._alignment:
             self._label.setAlignment(Qt.AlignRight)

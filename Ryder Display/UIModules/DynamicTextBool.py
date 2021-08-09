@@ -26,11 +26,11 @@ class DynamicTextBool(object):
         self._label.adjustSize()
         size[0] = size[0] if self._label.size().width() < size[0] else self._label.size().width()
         self._pos = getPosFromAlignment(self._pos, size, alignment)
-        if 'left' in alignment:
+        if 'left' in self._alignment:
             self._label.setAlignment(Qt.AlignLeft)
-        elif alignment == 'top' or alignment == 'center' or alignment == 'bottom':
+        elif (self._alignment == 'top' or self._alignment == 'center' or self._alignment == 'bottom') or 'hmid' in self._alignment:
             self._label.setAlignment(Qt.AlignHCenter)
-        elif 'right' in alignment:
+        elif 'right' in self._alignment:
             self._label.setAlignment(Qt.AlignRight)
         self._label.move(self._pos[0], self._pos[1])
         self._label.show()

@@ -17,6 +17,7 @@ class Graph(object):
         longest_text = settings['max_text_length'] if 'max_text_length' in settings else ''
         n_values = settings['n_values'] if 'n_values' in settings else 30
         alignment = settings['alignment'] if 'alignment' in settings else 'top-left'
+        self._layout = settings['layout'] if 'layout' in settings else 0
         self._pos = settings['pos'] if 'pos' in settings else [0, 0]
         self._size = settings['size'] if 'size' in settings else [50, 50]
         self._pos = getPosFromAlignment(self._pos, self._size, alignment)
@@ -25,28 +26,53 @@ class Graph(object):
         unit = settings['unit'] if 'unit' in settings else ""
         # Create components
         ## MinMax labels
-        self._elem_max_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'top-right', 'pos':self._pos, 'metric:':None})
-        self._elem_min_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'bottom-right', 'pos':self._pos, 'metric:':None})
-        self._elem_max_label.move(
-            self._pos[0] + self._elem_max_label.width(), 
-            self._pos[1]
-        )
-        self._elem_min_label.move(
-            self._pos[0] + self._elem_min_label.width(),
-            self._pos[1] + self._size[1]
-        )
+        if self._layout == 0:
+            self._elem_max_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'top-right', 'pos':self._pos, 'metric:':None})
+            self._elem_min_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'bottom-right', 'pos':self._pos, 'metric:':None})
+            self._elem_max_label.move(
+                self._pos[0] + self._elem_max_label.width(), 
+                self._pos[1]
+            )
+            self._elem_min_label.move(
+                self._pos[0] + self._elem_min_label.width(),
+                self._pos[1] + self._size[1]
+            )
+        elif self._layout == 1:
+            self._elem_max_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'bottom-right', 'pos':self._pos, 'metric:':None})
+            self._elem_min_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'bottom-left', 'pos':self._pos, 'metric:':None})
+            self._elem_max_label.move(
+                self._pos[0] + self._size[0], 
+                self._pos[1] + self._size[1]
+            )
+            self._elem_min_label.move(
+                self._pos[0],
+                self._pos[1] + self._size[1]
+            )
         ## Current value label
-        self._elem_label = DynamicText(window, {'stylesheet': stylesheet[1], 'max_text_length':longest_text, 'unit': unit, 'alignment':'left', 'pos':self._pos, 'metric:':None})
-        self._elem_label.move((self._pos[0] + self._size[0]) - self._elem_label.width(), self._pos[1] + (self._elem_label.height() / 2))
+        if self._layout == 0:
+            self._elem_label = DynamicText(window, {'stylesheet': stylesheet[1], 'max_text_length':longest_text, 'unit': unit, 'alignment':'vmid-left', 'pos':self._pos, 'metric:':None})
+            self._elem_label.move((self._pos[0] + self._size[0]) - self._elem_label.width(), self._pos[1] + (self._elem_label.height() / 2))
+        elif self._layout == 1:
+            self._elem_label = DynamicText(window, {'stylesheet': stylesheet[1], 'max_text_length':longest_text, 'unit': unit, 'alignment':'bottom-hmid', 'pos':self._pos, 'metric:':None})
+            self._elem_label.move(
+                self._pos[0] + self._size[0] / 2, 
+                self._pos[1] + self._size[1]
+            )
         self._half_elem_label_height = self._elem_label.height() / 2
         ## Graph
         self._elem = QtGraph(window)
         self._elem.setForegroundColor(QColor(color))
         self._elem.setThickness(thickness)
-        self._elem.setGeometry(
-            self._pos[0] + self._elem_max_label.width() + 1, self._pos[1],
-            self._size[0] - self._elem_max_label.width() - self._elem_label.width() - 2, self._size[1]
-        )
+        if self._layout == 0:
+            self._elem.setGeometry(
+                self._pos[0] + self._elem_max_label.width() + 1, self._pos[1],
+                self._size[0] - self._elem_max_label.width() - self._elem_label.width() - 2, self._size[1]
+            )
+        elif self._layout == 1:
+            self._elem.setGeometry(
+                self._pos[0], self._pos[1],
+                self._size[0], self._size[1] - self._elem_label.height()
+            )
         self._elem.setNumberOfValues(n_values)
         # Graph values bounds
         if isinstance(settings['metric']['bounds'][0], list):
@@ -98,10 +124,11 @@ class Graph(object):
             # Update Label
             scalar = (self._size[1] - self._elem_label.height()) / (self._elem._bounds_range)
             self._elem_label.updateDirect(value)
-            self._elem_label.move(
-                self._elem_label.x(),
-                (self._pos[1] + self._size[1] - self._half_elem_label_height) - (value - self._elem._bounds[0]) * scalar
-            )
+            if self._layout == 0:
+                self._elem_label.move(
+                    self._elem_label.x(),
+                    (self._pos[1] + self._size[1] - self._half_elem_label_height) - (value - self._elem._bounds[0]) * scalar
+                )
             # Update Max and Min Labels
             self._elem_max_label.updateDirect(self._elem._bounds[1])
             self._elem_min_label.updateDirect(self._elem._bounds[0])

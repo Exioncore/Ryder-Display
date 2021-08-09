@@ -361,7 +361,7 @@
       "pos": [ "d-56", "d-25" ],
       "stylesheet": "color:#2ecc71;font-weight:bold;font:11pt;",
       "max_text_length": "fps999",
-      "alignment": "right",
+      "alignment": "vmid-right",
       "metric": {
         "name": [ "msi", "Framerate" ],
         "bounds": [ 0, 999 ]
@@ -374,7 +374,7 @@
       "pos": [ "d+56", "d-25" ],
       "stylesheet": "color:#e1ea0e;font-weight:bold;font:11pt;",
       "max_text_length": "999w",
-      "alignment": "left",
+      "alignment": "vmid-left",
       "metric": {
         "name": [ "*total_power" ],
         "bounds": [ 0, 999 ]
@@ -415,7 +415,7 @@
       "pos": [ "d+2", "d+56" ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:11pt;",
       "max_text_length": "99.9°C",
-      "alignment": "top",
+      "alignment": "top-hmid",
       "metric": {
         "name": [ "*delta_t" ]
       },
@@ -492,7 +492,7 @@
       "type": "StaticText",
       "text": {
         "msg": "C",
-        "alignment": "center"
+        "alignment": "top-hmid"
       },
       "pos": [ "d", "d" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
@@ -558,7 +558,7 @@
       "type": "StaticText",
       "text": {
         "msg": "D",
-        "alignment": "center"
+        "alignment": "top-hmid"
       },
       "pos": [ "d", "d" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
@@ -624,7 +624,7 @@
       "type": "StaticText",
       "text": {
         "msg": "E",
-        "alignment": "center"
+        "alignment": "top-hmid"
       },
       "pos": [ "d", "d" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
@@ -690,7 +690,7 @@
       "type": "StaticText",
       "text": {
         "msg": "F",
-        "alignment": "center"
+        "alignment": "top-hmid"
       },
       "pos": [ "d", "d" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
@@ -781,7 +781,7 @@
     {
       "title": "Hyperion",
       "type": "HyperionMenu",
-      "pos": [ 375, 410 ],
+      "pos": [ 375, 420 ],
       "size": [ 50, 50 ]
     },
     {

@@ -16,13 +16,13 @@ def getPosFromAlignment(pos, size, alignment):
             newPos[1] = pos[1]
         elif 'bottom' in alignment:
             newPos[1] -= size[1]
-        else:
+        elif 'vmid' in alignment:
             newPos[1] -= size[1] / 2
         if 'left' in alignment:
             newPos[0] = pos[0]
         elif 'right' in alignment:
             newPos[0] -= size[0]
-        else:
+        elif 'hmid':
             newPos[0] -= size[0] / 2
     return newPos
 
@@ -41,7 +41,7 @@ def createLabel(window, settings):
     pos = getPosFromAlignment(pos, [label.size().width(), label.size().height()], alignment)
     if 'left' in alignment:
         label.setAlignment(Qt.AlignLeft)
-    elif alignment == 'top' or alignment == 'center' or alignment == 'bottom':
+    elif (alignment == 'top' or alignment == 'center' or alignment == 'bottom') or 'hmid' in alignment:
         label.setAlignment(Qt.AlignHCenter)
     elif 'right' in alignment:
         label.setAlignment(Qt.AlignRight)

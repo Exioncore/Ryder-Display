@@ -153,6 +153,7 @@
     <Content Include="Resources\Steam-Logo.svg" />
     <Content Include="settings.json" />
     <Content Include="ui.json" />
+    <Content Include="ui_advanced.json" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="..\Environment\">
