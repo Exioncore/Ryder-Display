@@ -8,6 +8,7 @@ class Hyperion(object, metaclass=Singleton):
     def __init__(self):
         self._url = ''
         self._timeout = 2.0
+        self.brightness = 100
         self.notifications = True
         self.moodLamp = False
         self.usbState = False
@@ -30,6 +31,16 @@ class Hyperion(object, metaclass=Singleton):
                 self.effects.append(effect['name'])
             return True
         return False
+
+    def setBrightness(self, level):
+        self.brightness = level
+        return requests.post(
+            self._url,
+            data=json.dumps({
+                'command':'adjustment',
+                'adjustment': {'brightness': level}
+            })
+        ).json()
 
     def setEffect(self, name, priority, duration):
         return requests.post(
