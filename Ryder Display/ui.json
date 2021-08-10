@@ -437,7 +437,7 @@
       "pos": [ "+0", "+45" ],
       "size": [ 75, 16 ],
       "direction": "right",
-      "alignment": "left",
+      "alignment": "vmid-left",
       "stylesheet": [
         "background-color:#141414;border-bottom-right-radius:8px;border-top-right-radius:8px;",
         "background-color:#691f94;border-bottom-right-radius:8px;border-top-right-radius:8px;"
@@ -453,7 +453,7 @@
       "pos": [ "d", "d" ],
       "size": [ 75, 16 ],
       "direction": "left",
-      "alignment": "right",
+      "alignment": "vmid-right",
       "stylesheet": [
         "background-color:#141414;border-bottom-left-radius:8px;border-top-left-radius:8px;",
         "background-color:#691f94;border-bottom-left-radius:8px;border-top-left-radius:8px;"
@@ -469,7 +469,7 @@
       "pos": [ "d+80", "d" ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "left",
+      "alignment": "vmid-left",
       "metric": {
         "name": [ "storage", "C", "readSpeed" ]
       },
@@ -481,7 +481,7 @@
       "pos": [ "d-80", "d" ],
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "right",
+      "alignment": "vmid-right",
       "metric": {
         "name": [ "storage", "C", "writeSpeed" ]
       },
@@ -492,7 +492,7 @@
       "type": "StaticText",
       "text": {
         "msg": "C",
-        "alignment": "top-hmid"
+        "alignment": "center"
       },
       "pos": [ "d", "d" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
@@ -503,7 +503,7 @@
       "pos": [ "+0", "+30" ],
       "size": [ 75, 16 ],
       "direction": "right",
-      "alignment": "left",
+      "alignment": "vmid-left",
       "stylesheet": [
         "background-color:#141414;border-bottom-right-radius:8px;border-top-right-radius:8px;",
         "background-color:#691f94;border-bottom-right-radius:8px;border-top-right-radius:8px;"
@@ -519,7 +519,7 @@
       "pos": [ "d", "d" ],
       "size": [ 75, 16 ],
       "direction": "left",
-      "alignment": "right",
+      "alignment": "vmid-right",
       "stylesheet": [
         "background-color:#141414;border-bottom-left-radius:8px;border-top-left-radius:8px;",
         "background-color:#691f94;border-bottom-left-radius:8px;border-top-left-radius:8px;"
@@ -535,7 +535,7 @@
       "pos": [ "d+80", "d" ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "left",
+      "alignment": "vmid-left",
       "metric": {
         "name": [ "storage", "D", "readSpeed" ]
       },
@@ -547,7 +547,7 @@
       "pos": [ "d-80", "d" ],
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "right",
+      "alignment": "vmid-right",
       "metric": {
         "name": [ "storage", "D", "writeSpeed" ]
       },
@@ -558,7 +558,7 @@
       "type": "StaticText",
       "text": {
         "msg": "D",
-        "alignment": "top-hmid"
+        "alignment": "center"
       },
       "pos": [ "d", "d" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
@@ -569,7 +569,7 @@
       "pos": [ "+0", "+30" ],
       "size": [ 75, 16 ],
       "direction": "right",
-      "alignment": "left",
+      "alignment": "vmid-left",
       "stylesheet": [
         "background-color:#141414;border-bottom-right-radius:8px;border-top-right-radius:8px;",
         "background-color:#691f94;border-bottom-right-radius:8px;border-top-right-radius:8px;"
@@ -585,7 +585,7 @@
       "pos": [ "d", "d" ],
       "size": [ 75, 16 ],
       "direction": "left",
-      "alignment": "right",
+      "alignment": "vmid-right",
       "stylesheet": [
         "background-color:#141414;border-bottom-left-radius:8px;border-top-left-radius:8px;",
         "background-color:#691f94;border-bottom-left-radius:8px;border-top-left-radius:8px;"
@@ -601,7 +601,7 @@
       "pos": [ "d+80", "d" ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "left",
+      "alignment": "vmid-left",
       "metric": {
         "name": [ "storage", "E", "readSpeed" ]
       },
@@ -613,7 +613,7 @@
       "pos": [ "d-80", "d" ],
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "right",
+      "alignment": "vmid-right",
       "metric": {
         "name": [ "storage", "E", "writeSpeed" ]
       },
@@ -624,7 +624,7 @@
       "type": "StaticText",
       "text": {
         "msg": "E",
-        "alignment": "top-hmid"
+        "alignment": "center"
       },
       "pos": [ "d", "d" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
@@ -635,7 +635,7 @@
       "pos": [ "+0", "+30" ],
       "size": [ 75, 16 ],
       "direction": "right",
-      "alignment": "left",
+      "alignment": "vmid-left",
       "stylesheet": [
         "background-color:#141414;border-bottom-right-radius:8px;border-top-right-radius:8px;",
         "background-color:#691f94;border-bottom-right-radius:8px;border-top-right-radius:8px;"
@@ -651,7 +651,7 @@
       "pos": [ "d", "d" ],
       "size": [ 75, 16 ],
       "direction": "left",
-      "alignment": "right",
+      "alignment": "vmid-right",
       "stylesheet": [
         "background-color:#141414;border-bottom-left-radius:8px;border-top-left-radius:8px;",
         "background-color:#691f94;border-bottom-left-radius:8px;border-top-left-radius:8px;"
@@ -667,7 +667,7 @@
       "pos": [ "d+80", "d" ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "left",
+      "alignment": "vmid-left",
       "metric": {
         "name": [ "storage", "F", "readSpeed" ]
       },
@@ -679,7 +679,7 @@
       "pos": [ "d-80", "d" ],
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
       "max_text_length": "99.9MB/s",
-      "alignment": "right",
+      "alignment": "vmid-right",
       "metric": {
         "name": [ "storage", "F", "writeSpeed" ]
       },
@@ -690,7 +690,7 @@
       "type": "StaticText",
       "text": {
         "msg": "F",
-        "alignment": "top-hmid"
+        "alignment": "center"
       },
       "pos": [ "d", "d" ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;"
