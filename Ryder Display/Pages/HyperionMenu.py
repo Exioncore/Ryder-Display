@@ -37,7 +37,7 @@ class HyperionMenu(QMainWindow):
             w_size[0], w_size[1]
         )
 
-        # Brigthness Buttons
+        # Brightness Buttons
         self._btn_br = []
         self._btn_br_style = (
             'background-color:rgb(35, 35, 35); border-color:rgb(55, 55, 55);' +
@@ -93,7 +93,7 @@ class HyperionMenu(QMainWindow):
         super().show()
         # Highlight correct brightness button
         for i in range(len(self.br_vals)):
-            if Hyperion().brigthness == self.br_vals[i]:
+            if Hyperion().brightness == self.br_vals[i]:
                 if i == 0:
                     self._curr_i = i
                     self._btn_br[i].setStyleSheet(self._btn_br_style + self._off_br_color)
