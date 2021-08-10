@@ -8,6 +8,7 @@ class Hyperion(object, metaclass=Singleton):
     def __init__(self):
         self._url = ''
         self._timeout = 2.0
+        self.brigthness = 100
         self.notifications = True
         self.moodLamp = False
         self.usbState = False
@@ -32,6 +33,7 @@ class Hyperion(object, metaclass=Singleton):
         return False
 
     def setBrightness(self, level):
+        self.brigthness = level
         return requests.post(
             self._url,
             data=json.dumps({
