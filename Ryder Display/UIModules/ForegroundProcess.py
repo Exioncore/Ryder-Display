@@ -19,11 +19,12 @@ class ForegroundProcess(object):
     def __init__(self, window, settings, path=''):
         # Retrieve settings
         ### UI Related
-        alignment = settings['alignment'] if 'alignment' in settings else 'top-left'
         pos = settings['pos'] if 'pos' in settings else [0, 0]
+        alignment = settings['alignment'] if 'alignment' in settings else 7
         size = settings['size'] if 'size' in settings else 25
-        pos = getPosFromAlignment(pos, [size, size], alignment)
         self._currentProgram = ""
+        # Process alignment
+        pos, _ = getPosFromAlignment(pos, [size, size], alignment)
         ### Create cache folder if it doesn't exist
         self._iconsPath = path + '/cache/icons/'
         if not os.path.exists(self._iconsPath):

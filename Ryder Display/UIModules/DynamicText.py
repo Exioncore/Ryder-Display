@@ -9,8 +9,8 @@ class DynamicText(object):
         # Retrieve settings
         ### UI Related
         stylesheet = settings['stylesheet'] if 'stylesheet' in settings else ""
-        self._alignment = settings['alignment'] if 'alignment' in settings else 'top-left'
         self._pos = settings['pos'] if 'pos' in settings else [0, 0]
+        self._alignment = settings['alignment'] if 'alignment' in settings else 7
         max_text_length = settings['max_text_length'] if 'max_text_length' in settings else "AAAAAAAAAAAAAAAAAAAAAAA"
         ### Metric related
         self._metric = settings['metric'] if 'metric' in settings else None
@@ -29,18 +29,21 @@ class DynamicText(object):
         self._label = QLabel(window)
         self._label.setStyleSheet('QLabel{'+stylesheet+'}')
         self._label.setAttribute(Qt.WA_TranslucentBackground)
+        # Get size of longest text
         self._label.setText(max_text_length)
         self._label.adjustSize()
         self._size = [self._label.size().width(), self._label.fontMetrics().height()]
-        pos = getPosFromAlignment(self._pos, self._size, self._alignment)
         self._label.setText("")
-        if 'left' in self._alignment:
+        # Process alignment
+        self._pos, h_alignment = getPosFromAlignment(self._pos, self._size, self._alignment)
+        if h_alignment < 0:
             self._label.setAlignment(Qt.AlignLeft)
-        elif (self._alignment == 'top' or self._alignment == 'center' or self._alignment == 'bottom') or 'hmid' in self._alignment:
-            self._label.setAlignment(Qt.AlignHCenter)
-        elif 'right' in self._alignment:
+        elif h_alignment > 0:
             self._label.setAlignment(Qt.AlignRight)
-        self._label.move(pos[0], pos[1])
+        else:
+            self._label.setAlignment(Qt.AlignHCenter)
+        self._label.move(self._pos[0], self._pos[1])
+
         self._label.show()
 
     def setParent(self, p):
@@ -50,7 +53,7 @@ class DynamicText(object):
         self._label.deleteLater()
 
     def move(self, x, y):
-        self._pos = getPosFromAlignment([x, y], self._size, self._alignment)
+        self._pos, _ = getPosFromAlignment([x, y], self._size, self._alignment)
         self._label.move(self._pos[0], self._pos[1])
 
     def x(self):
@@ -60,10 +63,10 @@ class DynamicText(object):
         return self._pos[1]
 
     def width(self):
-        return self._label.size().width()
+        return self._size[0]
 
     def height(self):
-        return self._label.fontMetrics().height()
+        return self._size[1]
 
     def update(self, status):
         if status is not None:

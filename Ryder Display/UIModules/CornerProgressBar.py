@@ -12,14 +12,15 @@ class CornerProgressBar(object):
         # Retrieve settings
         ### UI Related
         self._transition_frames = transition_frames
-        alignment = settings['alignment'] if 'alignment' in settings else 'top-left'
-        direction = settings['direction'] if 'direction' in settings and len(settings['direction']) == 2 else ['left', 'up']
+        alignment = settings['alignment'] if 'alignment' in settings else 7
+        direction = settings['direction'] if 'direction' in settings and len(settings['direction']) == 2 else [4, 8]
         colors = settings['colors'] if 'colors' in settings and len(settings['colors']) == 2 else ['#2ecc71', '#141414']
         thickness = settings['thickness'] if 'thickness' in settings else 4
+        gap = settings['gap'] if 'gap' in settings else 2
         radius = settings['cornerRadius'] if 'cornerRadius' in settings else 20
         pos = settings['pos'] if 'pos' in settings else [0, 0]
         size = settings['size'] if 'size' in settings else [50, 50]
-        pos = getPosFromAlignment(pos, size, alignment)
+        pos, _ = getPosFromAlignment(pos, size, alignment)
         ### Metric related
         self._metric = settings['metric']['name']
         self._elem_t = Transitioner(
@@ -38,6 +39,7 @@ class CornerProgressBar(object):
         self._elem.setBackgroundColor(QColor(colors[1]))
         self._elem.setThickness(thickness)
         self._elem.setRadius(radius)
+        self._elem.setGap(gap)
         self._elem.setBounds(settings['metric']['bounds'][0],settings['metric']['bounds'][1])
         self._elem.redraw()
         self._elem.show()
@@ -49,13 +51,13 @@ class CornerProgressBar(object):
         self._elem.deleteLater()
 
     def _get_direction_from_text(dir):
-        if dir == 'left':
+        if dir == 4:
             return QtStraightProgressBar.Direction.LEFT
-        elif dir == 'right':
+        elif dir == 6:
             return QtStraightProgressBar.Direction.RIGHT
-        elif dir == 'up':
+        elif dir == 8:
             return QtStraightProgressBar.Direction.UP
-        elif dir == 'down':
+        elif dir == 2:
             return QtStraightProgressBar.Direction.DOWN
 
     def update(self, status):

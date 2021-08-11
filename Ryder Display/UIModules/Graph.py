@@ -16,19 +16,20 @@ class Graph(object):
         thickness = settings['thickness'] if 'thickness' in settings else 4
         longest_text = settings['max_text_length'] if 'max_text_length' in settings else ''
         n_values = settings['n_values'] if 'n_values' in settings else 30
-        alignment = settings['alignment'] if 'alignment' in settings else 'top-left'
+        alignment = settings['alignment'] if 'alignment' in settings else 7
         self._layout = settings['layout'] if 'layout' in settings else 0
         self._pos = settings['pos'] if 'pos' in settings else [0, 0]
         self._size = settings['size'] if 'size' in settings else [50, 50]
-        self._pos = getPosFromAlignment(self._pos, self._size, alignment)
+        # Process alignment
+        self._pos, _ = getPosFromAlignment(self._pos, self._size, alignment)
         ### Metric related
         self._metric = settings['metric']['name']
         unit = settings['unit'] if 'unit' in settings else ""
         # Create components
         ## MinMax labels
         if self._layout == 0:
-            self._elem_max_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'top-right', 'pos':self._pos, 'metric:':None})
-            self._elem_min_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'bottom-right', 'pos':self._pos, 'metric:':None})
+            self._elem_max_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':9, 'pos':self._pos, 'metric:':None})
+            self._elem_min_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':3, 'pos':self._pos, 'metric:':None})
             self._elem_max_label.move(
                 self._pos[0] + self._elem_max_label.width(), 
                 self._pos[1]
@@ -38,8 +39,8 @@ class Graph(object):
                 self._pos[1] + self._size[1]
             )
         elif self._layout == 1:
-            self._elem_max_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'bottom-right', 'pos':self._pos, 'metric:':None})
-            self._elem_min_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':'bottom-left', 'pos':self._pos, 'metric:':None})
+            self._elem_max_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':3, 'pos':self._pos, 'metric:':None})
+            self._elem_min_label = DynamicText(window, {'stylesheet': stylesheet[0], 'max_text_length':longest_text, 'unit': unit, 'alignment':1, 'pos':self._pos, 'metric:':None})
             self._elem_max_label.move(
                 self._pos[0] + self._size[0], 
                 self._pos[1] + self._size[1]
@@ -50,10 +51,10 @@ class Graph(object):
             )
         ## Current value label
         if self._layout == 0:
-            self._elem_label = DynamicText(window, {'stylesheet': stylesheet[1], 'max_text_length':longest_text, 'unit': unit, 'alignment':'vmid-left', 'pos':self._pos, 'metric:':None})
+            self._elem_label = DynamicText(window, {'stylesheet': stylesheet[1], 'max_text_length':longest_text, 'unit': unit, 'alignment':4, 'pos':self._pos, 'metric:':None})
             self._elem_label.move((self._pos[0] + self._size[0]) - self._elem_label.width(), self._pos[1] + (self._elem_label.height() / 2))
         elif self._layout == 1:
-            self._elem_label = DynamicText(window, {'stylesheet': stylesheet[1], 'max_text_length':longest_text, 'unit': unit, 'alignment':'bottom-hmid', 'pos':self._pos, 'metric:':None})
+            self._elem_label = DynamicText(window, {'stylesheet': stylesheet[1], 'max_text_length':longest_text, 'unit': unit, 'alignment':2, 'pos':self._pos, 'metric:':None})
             self._elem_label.move(
                 self._pos[0] + self._size[0] / 2, 
                 self._pos[1] + self._size[1]

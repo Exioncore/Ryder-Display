@@ -12,13 +12,14 @@ class RoundProgressBar(object):
         # Retrieve settings
         ### UI Related
         self._transition_frames = transition_frames
-        alignment = settings['alignment'] if 'alignment' in settings else 'top-left'
+        alignment = settings['alignment'] if 'alignment' in settings else 7
         pos = settings['pos'] if 'pos' in settings else [0, 0]
         size = settings['size'] if 'size' in settings else [50, 50]
         angle = settings['angle'] if 'angle' in settings else [0, 360]
         colors = settings['colors'] if 'colors' in settings else ["#2ecc71", "#141414"]
         thickness = settings['thickness'] if 'thickness' in settings else 4
-        pos = getPosFromAlignment(pos, size, alignment)
+        # Process alignment
+        pos, _ = getPosFromAlignment(pos, size, alignment)
         ### Metric related
         self._metric = settings['metric']['name']
         self._elem_t = Transitioner(

@@ -9,8 +9,8 @@ class DynamicTextBool(object):
         # Retrieve settings
         ### UI Related
         self._stylesheet = settings['stylesheet'] if 'stylesheet' in settings and len(settings['stylesheet']) == 2 else ["", ""]
-        alignment = settings['alignment'] if 'alignment' in settings else 'center'
-        self._pos = settings['pos'] if 'pos' in settings else [0, 0]
+        pos = settings['pos'] if 'pos' in settings else [0, 0]
+        alignment = settings['alignment'] if 'alignment' in settings else 7
         self._text = settings['text'] if 'text' in settings and len(settings['text']) == 2 else ["", ""]
         ### Metric related
         self._metric = settings['metric']
@@ -19,20 +19,24 @@ class DynamicTextBool(object):
         self._label = QLabel(window)
         self._label.setStyleSheet('QLabel{'+self._stylesheet[0]+'}')
         self._label.setAttribute(Qt.WA_TranslucentBackground)
+        # Get size of longest text
         self._label.setText(self._text[1])
         self._label.adjustSize()
         size = [self._label.size().width(), self._label.fontMetrics().height()]
         self._label.setText(self._text[0])
         self._label.adjustSize()
         size[0] = size[0] if self._label.size().width() < size[0] else self._label.size().width()
-        self._pos = getPosFromAlignment(self._pos, size, alignment)
-        if 'left' in alignment:
+        self._label.setText("")
+        # Process alignment
+        pos, h_alignment = getPosFromAlignment(pos, size, alignment)
+        if h_alignment < 0:
             self._label.setAlignment(Qt.AlignLeft)
-        elif (alignment == 'top' or alignment == 'center' or alignment == 'bottom') or 'hmid' in alignment:
-            self._label.setAlignment(Qt.AlignHCenter)
-        elif 'right' in alignment:
+        elif h_alignment > 0:
             self._label.setAlignment(Qt.AlignRight)
-        self._label.move(self._pos[0], self._pos[1])
+        else:
+            self._label.setAlignment(Qt.AlignHCenter)
+        self._label.move(pos[0], pos[1])
+
         self._label.show()
 
     def setParent(self, p):

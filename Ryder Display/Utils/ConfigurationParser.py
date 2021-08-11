@@ -68,13 +68,7 @@ class ConfigurationParser(object):
             # Fill in variables
             if entry['type'] == 'StaticText':
                 # Check if label message is tied to variable in settings
-                if entry['text']['msg'][0] == '*':
-                    # Check if variable exists
-                    if isinstance(entry['text']['msg'], list):
-                        entry['text']['msg'] = ConfigurationParser._concatTextWithVariables(entry['text']['msg'], settings['ui']['variables'])
-                    else:
-                        if entry['text']['msg'][1:] in settings['ui']['variables']:
-                            entry['text']['msg'] = settings['ui']['variables'][entry['text']['msg'][1:]]
+                entry['text'] = ConfigurationParser._concatTextWithVariables(entry['text'], settings['ui']['variables'])
             elif (entry['type'] == 'DynamicText' or entry['type'] == 'ProgressBar' or 
                   entry['type'] == 'RoundProgressBar' or entry['type'] == 'CornerProgressBar'):
                 # Ensure element has bounds entry (This is optional for DynamicText)
@@ -212,13 +206,13 @@ class ConfigurationParser(object):
         result = ""
         if isinstance(entry, list):
             for elem in entry:
-                if elem[0] == "*" and elem in variables:
+                if elem[0] == "*" and elem[1:] in variables:
                     result += str(variables[elem[1:]])
                 else:
                     result += elem
             return result
         else:
-            if entry[0] == "*" and entry in variables:
+            if entry[0] == "*" and entry[1:] in variables:
                 return str(variables[entry[1:]])
         return entry
 
@@ -251,7 +245,7 @@ class ConfigurationParser(object):
                         value += val
                     elif elements[i - 1] == "-":
                         value -= val
-                    if elements[i - 1] == "/":
+                    elif elements[i - 1] == "/":
                         value /= val
                 else:
                     value = val
