@@ -122,9 +122,9 @@ class ConfigurationParser(object):
             if entry['type'] == 'ForegroundProcessIcon':
                 elem = ForegroundProcess(window, entry, path)
             elif entry['type'] == 'Graph':
-                if len(entry['unit']) > 0:
+                if not isinstance(entry['unit'], dict):
                     if entry['unit'][0] == '*':
-                         entry['unit'] = ui['unit_converters'][entry['unit'][1:]]
+                        entry['unit'] = ui['unit_converters'][entry['unit'][1:]]
                 elem = Graph(window, entry)
             elif entry['type'] == 'RoundProgressBar':
                 elem = RoundProgressBar(window, ts, entry)

@@ -27,7 +27,7 @@
         "name": [ "msi", "CPU temperature" ],
         "bounds": [ "dynamic", "dynamic" ]
       },
-      "unit": "_°C"
+      "unit": "°C"
     },
     {
       "title": "CPU Clock Label",
@@ -56,7 +56,7 @@
         "name": [ "msi", "CPU clock" ],
         "bounds": [ "dynamic", "dynamic" ]
       },
-      "unit": "_MHz"
+      "unit": "MHz"
     },
     {
       "title": "CPU Usage Label",
@@ -85,7 +85,7 @@
         "name": [ "msi", "CPU usage" ],
         "bounds": [ "dynamic", "dynamic" ]
       },
-      "unit": "_%"
+      "unit": "%"
     },
     {
       "title": "CPU Highest Thread Usage Label",
@@ -114,7 +114,7 @@
         "name": [ "*highest_thread_usage" ],
         "bounds": [ "dynamic", "dynamic" ]
       },
-      "unit": "_%"
+      "unit": "%"
     },
     {
       "title": "GPU Temperature Label",
@@ -143,7 +143,7 @@
         "name": [ "msi", "GPU temperature" ],
         "bounds": [ "dynamic", "dynamic" ]
       },
-      "unit": "_°C"
+      "unit": "°C"
     },
     {
       "title": "GPU Clock Label",
@@ -172,7 +172,7 @@
         "name": [ "msi", "Core clock" ],
         "bounds": [ "dynamic", "dynamic" ]
       },
-      "unit": "_MHz"
+      "unit": "MHz"
     },
     {
       "title": "GPU Usage Label",
@@ -233,7 +233,7 @@
           [ "dynamic", 99 ]
         ]
       },
-      "unit": "_fps"
+      "unit": "fps"
     },
     {
       "title": "CPU Power Label",
@@ -262,7 +262,7 @@
         "name": [ "msi", "CPU power" ],
         "bounds": [ "dynamic", "dynamic" ]
       },
-      "unit": "_w"
+      "unit": "w"
     },
     {
       "title": "GPU Power Label",
@@ -291,7 +291,7 @@
         "name": [ "msi", "Power" ],
         "bounds": [ "dynamic", "dynamic" ]
       },
-      "unit": "_w"
+      "unit": "w"
     },
     {
       "title": "Total Power Label",
@@ -320,7 +320,7 @@
         "name": [ "*total_power" ],
         "bounds": [ "dynamic", "dynamic" ]
       },
-      "unit": "_w"
+      "unit": "w"
     },
     {
       "title": "Liquid Temperature Label",
@@ -349,7 +349,10 @@
         "name": [ "fanController", "liquid" ],
         "bounds": [ "dynamic", "dynamic" ]
       },
-      "unit": [ 1, 1, "_°C" ]
+      "unit": {
+        "unit": "°C",
+        "rounding": 1
+      }
     },
     {
       "title": "Hyperion",
