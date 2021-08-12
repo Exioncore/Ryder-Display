@@ -201,7 +201,7 @@
         "name": [ "msi", "GPU usage" ],
         "bounds": [ "dynamic", "dynamic" ]
       },
-      "unit": "_%"
+      "unit": "%"
     },
     {
       "title": "FPS Label",
