@@ -11,24 +11,33 @@ class DynamicTextBool(object):
         self._stylesheet = settings['stylesheet'] if 'stylesheet' in settings and len(settings['stylesheet']) == 2 else ["", ""]
         pos = settings['pos'] if 'pos' in settings else [0, 0]
         alignment = settings['alignment'] if 'alignment' in settings else 7
-        self._text = settings['text'] if 'text' in settings and len(settings['text']) == 2 else ["", ""]
+        self._evaluation = settings['evaluation']
+        if 'stylesheet' not in self._evaluation['true']:
+            self._evaluation['true']['stylesheet'] = ""
+        if 'stylesheet' not in self._evaluation['false']:
+            self._evaluation['false']['stylesheet'] = ""
+        if 'text' not in self._evaluation['true']:
+            self._evaluation['true']['text'] = ""
+        if 'text' not in self._evaluation['false']:
+            self._evaluation['false']['text'] = ""
         ### Metric related
         self._metric = settings['metric']
         self._is_true = False
         # Create components
         self._label = QLabel(window)
-        self._label.setStyleSheet('QLabel{'+self._stylesheet[0]+'}')
         self._label.setAttribute(Qt.WA_TranslucentBackground)
         # Get size of longest text
-        self._label.setText(self._text[1])
+        self._label.setStyleSheet('QLabel{'+self._evaluation['true']['stylesheet']+'}')
+        self._label.setText(self._evaluation['true']['text'])
         self._label.adjustSize()
         size = [self._label.size().width(), self._label.fontMetrics().height()]
-        self._label.setText(self._text[0])
+        self._label.setStyleSheet('QLabel{'+self._evaluation['false']['stylesheet']+'}')
+        self._label.setText(self._evaluation['false']['text'])
         self._label.adjustSize()
         size[0] = size[0] if self._label.size().width() < size[0] else self._label.size().width()
-        self._label.setText("")
         # Process alignment
         pos, h_alignment = getPosFromAlignment(pos, size, alignment)
+        print(pos)
         if h_alignment < 0:
             self._label.setAlignment(Qt.AlignLeft)
         elif h_alignment > 0:
@@ -64,10 +73,10 @@ class DynamicTextBool(object):
                         (value < self._metric['target_value'] if self._metric['operator'] == '<' else False)))
             if is_true != self._is_true:
                 if is_true:
-                    self._label.setText(self._text[1])
-                    self._label.setStyleSheet('QLabel{'+self._stylesheet[1]+'}')
+                    self._label.setText(self._evaluation['true']['text'])
+                    self._label.setStyleSheet('QLabel{'+self._evaluation['true']['stylesheet']+'}')
                 else:
-                    self._label.setText(self._text[0])
-                    self._label.setStyleSheet('QLabel{'+self._stylesheet[0]+'}')
+                    self._label.setText(self._evaluation['false']['text'])
+                    self._label.setStyleSheet('QLabel{'+self._evaluation['false']['stylesheet']+'}')
                 self._label.adjustSize()
                 self._is_true = is_true

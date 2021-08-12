@@ -184,13 +184,18 @@
     {
       "title": "GPU No Load Flag",
       "type": "DynamicTextBool",
-      "stylesheet": [
-        "font-weight:bold;color:#282828;",
-        "font-weight:bold;color:#d0310e;"
-      ],
-      "text": [ "NL", "NL" ],
-      "alignment": 6,
       "pos": [ "d-45", "d" ],
+      "alignment": 6,
+      "evaluation": {
+        "true": {
+          "text": "NL",
+          "stylesheet": "font-weight:bold;color:#d0310e;"
+        },
+        "false": {
+          "text": "NL",
+          "stylesheet": "font-weight:bold;color:#282828;"
+        }
+      },
       "metric": {
         "name": [ "msi", "No load limit" ],
         "target_value": 1,
@@ -200,13 +205,18 @@
     {
       "title": "GPU Voltage Limit flag",
       "type": "DynamicTextBool",
-      "stylesheet": [
-        "font-weight:bold;color:#282828;",
-        "font-weight:bold;color:#d0310e;"
-      ],
-      "text": [ "VL", "VL" ],
-      "alignment": 4,
       "pos": [ "d+45", "d" ],
+      "alignment": 4,
+      "evaluation": {
+        "true": {
+          "text": "VL",
+          "stylesheet": "font-weight:bold;color:#d0310e;"
+        },
+        "false": {
+          "text": "VL",
+          "stylesheet": "font-weight:bold;color:#282828;"
+        }
+      },
       "metric": {
         "name": [ "msi", "Voltage limit" ],
         "target_value": 1,
@@ -216,13 +226,18 @@
     {
       "title": "GPU Temperature Limit Flag",
       "type": "DynamicTextBool",
-      "stylesheet": [
-        "font-weight:bold;color:#282828;",
-        "font-weight:bold;color:#d0310e;"
-      ],
-      "text": [ "TMP", "TMP" ],
-      "alignment": 5,
       "pos": [ "d", "d-45" ],
+      "alignment": 5,
+      "evaluation": {
+        "true": {
+          "text": "TMP",
+          "stylesheet": "font-weight:bold;color:#d0310e;"
+        },
+        "false": {
+          "text": "TMP",
+          "stylesheet": "font-weight:bold;color:#282828;"
+        }
+      },
       "metric": {
         "name": [ "msi", "Temp limit" ],
         "target_value": 1,
@@ -232,13 +247,18 @@
     {
       "title": "GPU Power Limit Flag",
       "type": "DynamicTextBool",
-      "stylesheet": [
-        "font-weight:bold;color:#282828;",
-        "font-weight:bold;color:#d0310e;"
-      ],
-      "text": [ "PWR", "PWR" ],
-      "alignment": 5,
       "pos": [ "d", "d+45" ],
+      "alignment": 5,
+      "evaluation": {
+        "true": {
+          "text": "PWR",
+          "stylesheet": "font-weight:bold;color:#d0310e;"
+        },
+        "false": {
+          "text": "PWR",
+          "stylesheet": "font-weight:bold;color:#282828;"
+        }
+      },
       "metric": {
         "name": [ "msi", "Power limit" ],
         "target_value": 1,
