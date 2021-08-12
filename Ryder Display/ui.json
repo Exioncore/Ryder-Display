@@ -40,7 +40,7 @@
         "name": [ "msi", "CPU temperature" ],
         "bounds": [ 0, "*cpu_max_temp" ]
       },
-      "unit": "_°C"
+      "unit": "°C"
     },
     {
       "title": "CPU Max Thread Load",
@@ -81,7 +81,7 @@
         "name": [ "msi", "CPU clock" ],
         "bounds": [ 0, 9999 ]
       },
-      "unit": "_MHz"
+      "unit": "MHz"
     },
     {
       "title": "CPU Power",
@@ -109,7 +109,7 @@
         "name": [ "msi", "CPU power" ],
         "bounds": [ 0, 999 ]
       },
-      "unit": "_w"
+      "unit": "w"
     },
     {
       "title": "GPU Name",
@@ -151,7 +151,7 @@
         "name": [ "msi", "GPU temperature" ],
         "bounds": [ 0, "*gpu_max_temp" ]
       },
-      "unit": "_°C"
+      "unit": "°C"
     },
     {
       "title": "GPU VRAM Usage",
@@ -276,7 +276,7 @@
         "name": [ "msi", "Core clock" ],
         "bounds": [ 0, 9999 ]
       },
-      "unit": "_MHz"
+      "unit": "MHz"
     },
     {
       "title": "GPU Power",
@@ -304,7 +304,7 @@
         "name": [ "msi", "Power" ],
         "bounds": [ 0, 999 ]
       },
-      "unit": "_w"
+      "unit": "w"
     },
     {
       "title": "Foreground Process Icon",
@@ -380,7 +380,8 @@
         "name": [ "msi", "Framerate" ],
         "bounds": [ 0, 999 ]
       },
-      "unit": "fps_"
+      "unit": "fps",
+      "unit_after": false
     },
     {
       "title": "Total System Power Text",
@@ -393,7 +394,7 @@
         "name": [ "*total_power" ],
         "bounds": [ 0, 999 ]
       },
-      "unit": "_w"
+      "unit": "w"
     },
     {
       "title": "Delta Temperature Bar",
@@ -433,7 +434,10 @@
       "metric": {
         "name": [ "*delta_t" ]
       },
-      "unit": [ 1, 1, "_°C" ]
+      "unit": {
+        "unit": "°C",
+        "rounding": 1
+      }
     },
     {
       "title": "Storage",
@@ -818,29 +822,47 @@
     }
   ],
   "unit_converters": {
-    "storage": [
-      [
-        1024,
-        [ "_MB/s", "_GB/s", "_TB/s" ]
-      ],
-      [
-        [ 10, 2 ],
-        [ 100, 1 ],
-        [ 1000, 0 ]
+    "storage": {
+      "divisor": 1024,
+      "unit": [ "MB/s", "GB/s", "TB/s" ],
+      "rounding": [
+        {
+          "value": 10,
+          "decimal_points": 2
+        },
+        {
+          "value": 100,
+          "decimal_points": 1
+        },
+        {
+          "value": 1000,
+          "decimal_points": 0
+        }
       ]
-    ],
-    "network": [
-      [
-        1024,
-        [ "_KB/s", "_MB/s", "_GB/s", "_TB/s" ]
-      ],
-      [
-        [ 10, 2 ],
-        [ 100, 1 ],
-        [ 1000, 0 ]
+    },
+    "network": {
+      "divisor": 1024,
+      "unit": [ "KB/s", "MB/s", "GB/s", "TB/s" ],
+      "rounding": [
+        {
+          "value": 10,
+          "decimal_points": 2
+        },
+        {
+          "value": 100,
+          "decimal_points": 1
+        },
+        {
+          "value": 1000,
+          "decimal_points": 0
+        }
       ]
-    ],
-    "ram": [ "*ram_size_mb / 100", 0, "_%" ]
+    },
+    "ram": {
+      "divisor": "*ram_size_mb / 100",
+      "unit": "%",
+      "rounding": 0
+    }
   },
   "computed_metrics": [
     {

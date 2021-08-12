@@ -12,17 +12,11 @@ class DynamicText(object):
         self._pos = settings['pos'] if 'pos' in settings else [0, 0]
         self._alignment = settings['alignment'] if 'alignment' in settings else 7
         max_text_length = settings['max_text_length'] if 'max_text_length' in settings else "AAAAAAAAAAAAAAAAAAAAAAA"
+        self._unit_after = settings['unit_after'] if 'unit_after' in settings else True
         ### Metric related
         self._metric = settings['metric'] if 'metric' in settings else None
         if 'unit' in settings:
-            if not isinstance(settings['unit'], list):
-                if settings['unit'] == "" or settings['unit'][0] == "_":
-                    self._unit_after = True
-                else:
-                    self._unit_after = False
-                self._unit = settings['unit'].replace('_','')
-            else:
-                self._unit = settings['unit']
+            self._unit = settings['unit']
         else:
             self._unit = ""
         # Create components
@@ -87,18 +81,10 @@ class DynamicText(object):
             if 'bounds' in self._metric:
                 value = min(max(value, self._metric['bounds'][0]), self._metric['bounds'][1])
 
-            if isinstance(self._unit, list):
-                # Value needs to be further refined before adding unit
-                self._label.setText(self._refineValue(value))
-            else:
-                # Add metric unit either before or after value
-                if self._unit_after:
-                    self._label.setText(str(value)+self._unit)
-                else:
-                    self._label.setText(self._unit+str(value))
+            self.updateDirect(value)
 
     def updateDirect(self, value):
-        if isinstance(self._unit, list):
+        if isinstance(self._unit, dict):
             self._label.setText(self._refineValue(value))
         else:
             if self._unit_after:
@@ -107,30 +93,40 @@ class DynamicText(object):
                 self._label.setText(self._unit+str(value))
 
     def _refineValue(self, value):
-        if len(self._unit) == 2:
-            i = 0
-            decimalPoints = 0
-            # Determine unit
-            while value > self._unit[1][-1][0]:
-                value /= self._unit[0][0]
-                i += 1
-            # Determine number of decimal points
-            for form in self._unit[1]:
-                if value < form[0]:
-                    decimalPoints = form[1]
-                    break
-            # Compute the end result string
-            result = '{:.{prec}f}'.format(value, prec=decimalPoints)
-            if self._unit[0][1][i][-1] == "_":
-                result = self._unit[0][1][i][0:-1] + result
+        if isinstance(self._unit, dict):
+            if not isinstance(self._unit['unit'], list) or len(self._unit['unit']) == 1:
+                if 'divisor' in self._unit:
+                    value /= self._unit['divisor']
+                if isinstance(self._unit['unit'], list):
+                    unit_txt = self._unit['unit'][0]
+                else:
+                    unit_txt = self._unit['unit']
             else:
-                result += self._unit[0][1][i].replace('_','')
+                i = 0
+                # Determine unit
+                while value > self._unit['divisor']:
+                    value /= self._unit['divisor']
+                    i += 1
+                unit_txt = self._unit['unit'][i]
+            # Determine decimal points
+            if 'rounding' in self._unit:
+                if isinstance(self._unit['rounding'], list):
+                    for r in range(len(self._unit['rounding'])):
+                        if value < self._unit['rounding'][r]['value']:
+                            break;
+                    r = min(r, len(self._unit['rounding']) - 1)
+                    decimalPoints = self._unit['rounding'][r]['decimal_points']
+                else:
+                    decimalPoints = self._unit['rounding']
+                result = '{:.{prec}f}'.format(value, prec=decimalPoints)
+            else:
+                result = str(value)
         else:
-            value /= self._unit[0]
-            result = '{:.{prec}f}'.format(value, prec=self._unit[1])
-            if self._unit[2][-1] == "_":
-                result = self._unit[2][0:-1] + result
-            else:
-                result += self._unit[2].replace('_','')
+            result = str(value)
+        # Add unit to value
+        if self._unit_after:
+            result = result + unit_txt
+        else:
+            result = unit_txt + result
         return result
         

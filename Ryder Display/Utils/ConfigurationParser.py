@@ -80,17 +80,16 @@ class ConfigurationParser(object):
         if 'unit_converters' in ui:
             for entry in ui['unit_converters']:
                 entry = ui['unit_converters'][entry]
-                if len(entry) == 2:
-                    entry[0][0] = ConfigurationParser._fillFieldFormula(entry[0][0], settings['ui']['variables'])
-                    if isinstance(entry[0][1], list):
-                        for index in range(len(entry[0][1])):
-                            entry[0][1][index] = ConfigurationParser._concatTextWithVariables(entry[0][1][index], settings['ui']['variables'])
-                    else:
-                        entry[0][1] = ConfigurationParser._concatTextWithVariables(entry[0][1], settings['ui']['variables'])
-                elif len(entry) == 3:
-                    entry[0] = ConfigurationParser._fillFieldFormula(entry[0], settings['ui']['variables'])
-                    entry[2] = ConfigurationParser._concatTextWithVariables(entry[2], settings['ui']['variables'])
-        
+                entry['divisor'] = ConfigurationParser._fillFieldFormula(entry['divisor'], settings['ui']['variables'])
+                if isinstance(entry['unit'], list):
+                    for index in range(len(entry['unit'])):
+                        entry['unit'][index] = ConfigurationParser._concatTextWithVariables(
+                            entry['unit'][index], settings['ui']['variables']
+                        )
+                else:
+                    entry['unit'] = ConfigurationParser._concatTextWithVariables(
+                        entry['unit'], settings['ui']['variables']
+                    )        
         # Initialization
         if preloadedSettings == None:
             RyderClient().setup(
@@ -137,7 +136,7 @@ class ConfigurationParser(object):
                 elem = createLabel(window, entry)
                 is_dynamic = False
             elif entry['type'] == 'DynamicText':
-                if len(entry['unit']) > 0:
+                if not isinstance(entry['unit'], dict):
                     if entry['unit'][0] == '*':
                         entry['unit'] = ui['unit_converters'][entry['unit'][1:]]
                 elem = DynamicText(window, entry)
