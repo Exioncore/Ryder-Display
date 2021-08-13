@@ -76,6 +76,19 @@ class ConfigurationParser(object):
                     for i in range(2):
                         entry['metric']['bounds'][i] = ConfigurationParser._fillFieldFormula(
                             entry['metric']['bounds'][i], settings['ui']['variables'])
+            elif entry['type'] == 'Graph':
+                if 'bounds' in entry['metric']:
+                    for i in range(2):
+                        # Check if bound is a list (if it is it means we have a dynamic bound with a limit)
+                        if isinstance(entry['metric']['bounds'][i], list):
+                            entry['metric']['bounds'][i][1] = ConfigurationParser._fillFieldFormula(
+                                entry['metric']['bounds'][i][1], settings['ui']['variables'])
+                        # Check if bound is a formula
+                        elif isinstance(entry['metric']['bounds'][i], str):
+                            # Ensure we are looking at a formula and not dynamic bound without a limit
+                            if entry['metric']['bounds'][i] != 'dynamic':
+                                entry['metric']['bounds'][i] = ConfigurationParser._fillFieldFormula(
+                                    entry['metric']['bounds'][i], settings['ui']['variables'])
         ## Unit converters section
         if 'unit_converters' in ui:
             for entry in ui['unit_converters']:

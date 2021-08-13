@@ -735,14 +735,17 @@
       "pos": [ "d", "d+60" ],
       "size": [ 270, 48 ],
       "alignment": 5,
-      "thickness": 2,
-      "color": "#24e49f",
-      "stylesheet": [
-        "color:#24e49f;font-weight:bold;font:8pt;",
-        "color:#24e49f;font-weight:bold;font:10pt;"
-      ],
-      "n_values": 30,
-      "max_text_length": "99.9MB/s",
+      "graph": {
+        "n_values": 30,
+        "layout": 0,
+        "color": "#24e49f",
+        "thickness": 2
+      },
+      "labels": {
+        "max_text_length": "99.9MB/s",
+        "min_max_stylesheet": "color:#24e49f;font-weight:bold;font:8pt;",
+        "current_stylesheet": "color:#24e49f;font-weight:bold;font:10pt;"
+      },
       "metric": {
         "name": [ "network", "downloadSpeed" ],
         "bounds": [ 0, "dynamic" ]
@@ -755,14 +758,17 @@
       "pos": [ "d", "d+120" ],
       "size": [ 270, 48 ],
       "alignment": 5,
-      "thickness": 2,
-      "color": "#247ae4",
-      "stylesheet": [
-        "color:#247ae4;font-weight:bold;font:8pt;",
-        "color:#247ae4;font-weight:bold;font:10pt;"
-      ],
-      "n_values": 30,
-      "max_text_length": "99.9MB/s",
+      "graph": {
+        "n_values": 30,
+        "layout": 0,
+        "color": "#247ae4",
+        "thickness": 2
+      },
+      "labels": {
+        "max_text_length": "99.9MB/s",
+        "min_max_stylesheet": "color:#247ae4;font-weight:bold;font:8pt;",
+        "current_stylesheet": "color:#247ae4;font-weight:bold;font:10pt;"
+      },
       "metric": {
         "name": [ "network", "uploadSpeed" ],
         "bounds": [ 0, "dynamic" ]
