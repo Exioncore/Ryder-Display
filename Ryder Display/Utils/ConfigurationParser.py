@@ -148,6 +148,9 @@ class ConfigurationParser(object):
             elif entry['type'] == 'StaticText':
                 elem = createLabel(window, entry)
                 is_dynamic = False
+            elif entry['type'] == 'Shape':
+                elem = createShape(window, entry)
+                is_dynamic = False
             elif entry['type'] == 'DynamicText':
                 if not isinstance(entry['unit'], dict):
                     if entry['unit'][0] == '*':

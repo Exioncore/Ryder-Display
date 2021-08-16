@@ -1,7 +1,7 @@
 import os
 import sys
 
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtSvg import QSvgWidget
 from PyQt5.QtWidgets import QLabel, QPushButton
@@ -87,4 +87,25 @@ def createImage(window, settings, path):
         elem = QSvgWidget(path, window)
         elem.setGeometry(pos[0], pos[1], size[0], size[1])
         elem.show()
+    else:
+        elem = QLabel(window)
+        elem.setGeometry(pos[0], pos[1], size[0], size[1])
+        pixmap = QPixmap(path)
+        elem.setPixmap(pixmap)
+        elem.show()
     return elem
+
+def createShape(window, settings):
+    # Retrieve settings
+    pos = settings['pos'] if 'pos' in settings else [0, 0]
+    size = settings['size'] if 'size' in settings else [50, 50]
+    alignment = settings['alignment'] if 'alignment' in settings else 7
+    stylesheet = settings['stylesheet'] if 'stylesheet' in settings else ""
+    # Create components
+    label = QLabel(window)
+    label.setStyleSheet('QLabel{'+stylesheet+'}')
+    #Alignment
+    pos, _ = getPosFromAlignment(pos, size, alignment)
+    label.setGeometry(pos[0], pos[1], size[0], size[1])
+    label.show()
+    return label

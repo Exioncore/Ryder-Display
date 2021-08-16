@@ -1,6 +1,22 @@
 {
   "ui": [
     {
+      "title": "Background",
+      "type": "Image",
+      "alignment": 7,
+      "pos": [ 0, 0 ],
+      "size": [ 800, 480 ],
+      "path": "USS Discovery.png"
+    },
+    {
+      "title": "Background Fader",
+      "type": "Shape",
+      "pos": [ 0, 0 ],
+      "size": [ 800, 480 ],
+      "alignment": 7,
+      "stylesheet": "background:rgba(0, 0, 0, 0.9);"
+    },
+    {
       "title": "CPU Temperature Label",
       "type": "StaticText",
       "pos": [ 129, 0 ],
