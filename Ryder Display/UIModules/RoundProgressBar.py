@@ -48,10 +48,10 @@ class RoundProgressBar(object):
     def deleteLater(self):
         self._elem.deleteLater()
 
-    def update(self, status):
-        if status is not None:
+    def update(self, refresh = False):
+        if refresh:
             if self._metric[0][0] != "*":
-                value = status
+                value = InternalMetrics().metrics
                 # Navigate status json to desired metric
                 for i in range(0, len(self._metric)):
                     if self._metric[i] in value:
@@ -61,7 +61,8 @@ class RoundProgressBar(object):
                         return
             else:
                 # Get computed metric
-                value = InternalMetrics().metrics[self._metric[0][1:]]
+                value = InternalMetrics().metrics[self._metric[0]]
+            value = value[-1]
 
             self._elem_t.transition(value, self._transition_frames)
 

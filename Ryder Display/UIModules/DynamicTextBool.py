@@ -54,10 +54,10 @@ class DynamicTextBool(object):
     def deleteLater(self):
         self._label.deleteLater()
 
-    def update(self, status):
-        if status is not None:
+    def update(self, refresh = False):
+        if refresh:
             if self._metric['name'][0][0] != "*":
-                value = status
+                value = InternalMetrics().metrics
                 # Navigate status json to desired metric
                 for i in range(0, len(self._metric['name'])):
                     if self._metric['name'][i] in value:
@@ -67,7 +67,9 @@ class DynamicTextBool(object):
                         return
             else:
                 # Get computed metric
-                value = InternalMetrics().metrics[self._metric['name'][0][1:]]
+                value = InternalMetrics().metrics[self._metric['name'][0]]
+            value = value[-1]
+
             is_true = (value == self._metric['target_value'] if self._metric['operator'] == '=' else 
                        (value > self._metric['target_value'] if self._metric['operator'] == '>' else 
                         (value < self._metric['target_value'] if self._metric['operator'] == '<' else False)))

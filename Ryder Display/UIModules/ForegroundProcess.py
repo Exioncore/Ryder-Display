@@ -50,7 +50,7 @@ class ForegroundProcess(object):
         # Remove from layout
         self._label.deleteLater()
 
-    def update(self, status):
+    def update(self, refresh = False):
         pass
     
     def _onConnect(self):

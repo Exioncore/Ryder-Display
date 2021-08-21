@@ -62,10 +62,10 @@ class DynamicText(object):
     def height(self):
         return self._size[1]
 
-    def update(self, status):
-        if status is not None:
+    def update(self, refresh = False):
+        if refresh:
             if self._metric['name'][0][0] != "*":
-                value = status
+                value = InternalMetrics().metrics
                 # Navigate status json to desired metric
                 for i in range(0, len(self._metric['name'])):
                     if self._metric['name'][i] in value:
@@ -75,7 +75,8 @@ class DynamicText(object):
                         return
             else:
                 # Get computed metric
-                value = InternalMetrics().metrics[self._metric['name'][0][1:]]
+                value = InternalMetrics().metrics[self._metric['name'][0]]
+            value = value[-1]
             
             # Enforce value to be within bounds
             if 'bounds' in self._metric:

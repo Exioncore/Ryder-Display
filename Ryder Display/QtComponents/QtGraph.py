@@ -56,6 +56,12 @@ class QtGraph(QWidget):
             self._bounds_range = self._bounds[1] - self._bounds[0]
             self._graph_scaling[1] = self.height() / self._bounds_range
 
+    def setHistory(self, values):
+        n_items = min(len(values), self._n_values)
+        for i in range(n_items):
+            val = self.setValue(values[-(n_items - i)])
+        return val
+
     def setValue(self, val):
         # Ensure value is within static bounds
         if not self._bounds_dynamic[0]:

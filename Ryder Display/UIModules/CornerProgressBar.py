@@ -4,6 +4,7 @@ from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
 
 from UIModules.Utils import *
 from Utils.Transitioner import Transitioner
+from Utils.InternalMetrics import InternalMetrics
 from QtComponents.QtCornerProgressBar import QtCornerProgressBar
 from QtComponents.QtStraightProgressBar import QtStraightProgressBar
 
@@ -60,10 +61,10 @@ class CornerProgressBar(object):
         elif dir == 2:
             return QtStraightProgressBar.Direction.DOWN
 
-    def update(self, status):
-        if status is not None:
+    def update(self, refresh = False):
+        if refresh:
             if self._metric[0][0] != "*":
-                value = status
+                value = InternalMetrics().metrics
                 # Navigate status json to desired metric
                 for i in range(0, len(self._metric)):
                     if self._metric[i] in value:
@@ -73,7 +74,8 @@ class CornerProgressBar(object):
                         return
             else:
                 # Get computed metric
-                value = InternalMetrics().metrics[self._metric[0][1:]]
+                value = InternalMetrics().metrics[self._metric[0]]
+            value = value[-1]
 
             self._elem_t.transition(value, self._transition_frames)
 

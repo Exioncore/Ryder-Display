@@ -1,16 +1,31 @@
+from collections import deque
+
 from Utils.Singleton import Singleton
 
 class InternalMetrics(object, metaclass=Singleton):
-    metrics = {}
+    metrics = None
     _settings = []
 
-    def setSettings(self, settings):
-        self.metrics = {}
+    def setSettings(self, settings, log_n):
         self._settings = settings
-        for i in range(0, len(settings)):
-            self.metrics[self._settings[i]['name']] = 0
+        self._log_n = log_n
+
+    def _fillMetrics(self, status, metrics):
+        for key in status.keys():
+            if isinstance(status[key], dict):
+                if key not in metrics:
+                    metrics[key] = {}
+                self._fillMetrics(status[key], metrics[key])
+            else:
+                if key not in metrics:
+                    metrics[key] = deque(maxlen=self._log_n)
+                metrics[key].append(status[key])
 
     def update(self, status):
+        self.metrics = {} if self.metrics == None else self.metrics
+        # Process regular metrics
+        self._fillMetrics(status, self.metrics)
+        # Process custom metrics
         for i in range(0, len(self._settings)):
             # Set initial value
             if self._settings[i]['operator'] == "M":
@@ -54,4 +69,8 @@ class InternalMetrics(object, metaclass=Singleton):
                         value -= val
                         break
             # Store value
-            self.metrics[self._settings[i]['name']] = value
+            name = '*' + self._settings[i]['name']
+            if name not in self.metrics:
+                self.metrics[name] = deque(maxlen=self._log_n)
+            self.metrics[name].append(value)
+        return

@@ -9,6 +9,7 @@ from Utils.InternalMetrics import InternalMetrics
 
 class Graph(object):
     def __init__(self, window, settings):
+        self._first = True
         # Retrieve settings
         ### UI Related
         self._pos = settings['pos'] if 'pos' in settings else [0, 0]
@@ -17,12 +18,12 @@ class Graph(object):
 
         if 'graph' in settings:
             gs = settings['graph']
-            n_values = gs['n_values'] if 'n_values' in gs else 30
+            self._n_values = gs['n_values'] if 'n_values' in gs else 30
             self._layout = gs['layout'] if 'layout' in gs else 0
             color = gs['color'] if 'color' in gs else '#2ecc71'
             thickness = gs['thickness'] if 'thickness' in gs else 4
         else:
-            n_values = 30
+            self._n_values = 30
             self._layout = 0
             color = '#2ecc71'
             thickness = 4
@@ -108,7 +109,7 @@ class Graph(object):
                 self._pos[0], self._pos[1],
                 self._size[0], self._size[1] - label_max_height
             )
-        self._elem.setNumberOfValues(n_values)
+        self._elem.setNumberOfValues(self._n_values)
         # Graph values bounds
         if isinstance(settings['metric']['bounds'][0], list):
             bound_min = settings['metric']['bounds'][0][0]
@@ -138,10 +139,10 @@ class Graph(object):
         self._elem_max_label.deleteLater()
         self._elem_min_label.deleteLater()
 
-    def update(self, status):
-        if status is not None:
+    def update(self, refresh = False):
+        if refresh:
             if self._metric[0][0] != "*":
-                value = status
+                value = InternalMetrics().metrics
                 # Navigate status json to desired metric
                 for i in range(0, len(self._metric)):
                     if self._metric[i] in value:
@@ -151,10 +152,14 @@ class Graph(object):
                         return
             else:
                 # Get computed metric
-                value = InternalMetrics().metrics[self._metric[0][1:]]
+                value = InternalMetrics().metrics[self._metric[0]]
 
             # Update Graph
-            value = self._elem.setValue(value)
+            if self._first:
+                value = self._elem.setHistory(value)
+                self._first = False
+            else:
+                value = self._elem.setValue(value[-1])
             self._elem.update()
             # Update Label
             self._elem_label.updateDirect(value)

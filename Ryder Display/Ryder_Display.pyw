@@ -77,6 +77,7 @@ class RyderDisplay(QMainWindow):
                 self.show()
             # Run Client
             gevent.spawn(RyderClient().run)
+        self._updateRequired = True
 
     def reloadUI(self):
         # Reparse ui configuration file
@@ -92,17 +93,19 @@ class RyderDisplay(QMainWindow):
         self.reloadUI()
 
     def update(self):
+        refresh = self._updateRequired if InternalMetrics().metrics != None else False
         # Update UI
         for elem in self._ui_dynamic:
-            elem.update(self._status)
+            elem.update(refresh)
         # Reset
-        if self._status is not None:
+        if refresh:
             self._last_update = time.time()
-            self._status = None
+            self._updateRequired = False
 
     def _newStatus(self, data):
         self._status = data[1]
-        InternalMetrics().update(self._status)
+        InternalMetrics().update(data[1])
+        self._updateRequired = True
 
     def keyboardEvent(self, e):
         if e.key() == Qt.Key_Q:

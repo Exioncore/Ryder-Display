@@ -105,6 +105,11 @@ class ConfigurationParser(object):
                     )        
         # Initialization
         if preloadedSettings == None:
+            if 'additional_metrics' in settings['services']['data_provider']:
+                InternalMetrics().setSettings(
+                    settings['services']['data_provider']['additional_metrics'], 
+                    settings['services']['data_provider']['log_n_samples']
+                )
             RyderClient().setup(
                 settings['services']['data_provider']['ip'], 
                 settings['services']['data_provider']['port'],
@@ -121,8 +126,6 @@ class ConfigurationParser(object):
         ui_static = []
 
         ts = math.ceil(settings['ui']['fps'] / 2)
-        if 'computed_metrics' in ui:
-            InternalMetrics().setSettings(ui['computed_metrics'])
         for entry in ui['ui']:
             is_dynamic = True
             elem = None
