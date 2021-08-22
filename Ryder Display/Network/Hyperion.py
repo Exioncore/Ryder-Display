@@ -23,6 +23,7 @@ class Hyperion(object, metaclass=Singleton):
         if state is not None:
             self.usbState = state['info']['components'][6]['enabled']
             self.ledState = state['info']['components'][7]['enabled']
+            self.brightness = state['info']['adjustment'][0]['brightness']
             for effect in state['info']['activeEffects']:
                 if effect['name'] == 'Mood Lamp' and effect['priority'] == 50:
                     self.moodLamp = True

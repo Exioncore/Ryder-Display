@@ -55,11 +55,9 @@ class QtStraightProgressBar(QWidget):
     def setFillDirection(self, val):
         self._fill_direction = val
         if val == QtStraightProgressBar.Direction.RIGHT or val == QtStraightProgressBar.Direction.LEFT:
-            foreground_thickness = self.height() - 2
-            background_thickness = self.height()
+            thickness = self.height()
         else:
-            foreground_thickness = self.width() - 2
-            background_thickness = self.width()
+            thickness = self.width()
         if  val == QtStraightProgressBar.Direction.RIGHT:
             self._p1 = [0, self.height() / 2]
             self._p2 = [self.width(), self.height() / 2]
@@ -73,8 +71,8 @@ class QtStraightProgressBar(QWidget):
             self._p1 = [self.width() / 2, 0]
             self._p2 = [self.width() / 2, self.height()]
 
-        self._pen_foreground.setWidth(foreground_thickness)
-        self._pen_background.setWidth(background_thickness)
+        self._pen_foreground.setWidth(thickness)
+        self._pen_background.setWidth(thickness)
 
     def _drawSection(self, paint, start, end, pen):
         start_p = (start - self._bounds[0]) / self._bounds_range

@@ -65,6 +65,7 @@
       "size": [ 170, 170 ],
       "alignment": 5,
       "angle": [ 225, -45 ],
+      "rounded_corners": true,
       "colors": [ "#2ecc71", "#141414" ],
       "thickness": 4,
       "metric": {
@@ -79,6 +80,7 @@
       "size": [ 150, 150 ],
       "alignment": 5,
       "angle": [ 225, -45 ],
+      "rounded_corners": true,
       "colors": [ "#cd3413", "#141414" ],
       "thickness": 10,
       "metric": {
@@ -176,6 +178,7 @@
       "size": [ 170, 170 ],
       "alignment": 5,
       "angle": [ -45, 225 ],
+      "rounded_corners": true,
       "colors": [ "#2ecc71", "#141414" ],
       "thickness": 4,
       "metric": {
@@ -190,6 +193,7 @@
       "size": [ 150, 150 ],
       "alignment": 5,
       "angle": [ -45, 225 ],
+      "rounded_corners": true,
       "colors": [ "#cd3413", "#141414" ],
       "thickness": 10,
       "metric": {
@@ -335,54 +339,14 @@
       "pos": [ "d", "d" ],
       "size": [ 110, 110 ],
       "alignment": 5,
-      "angle": [ 157.6, 93 ],
+      "angle": [ 218, 97 ],
+      "center_out": true,
+      "rounded_corners": true,
       "colors": [ "#2ecc71", "#141414" ],
       "thickness": 6,
       "metric": {
         "name": [ "msi", "Framerate" ],
         "bounds": [ 30, "*fps_target + 20" ]
-      }
-    },
-    {
-      "title": "Framerate",
-      "type": "RoundProgressBar",
-      "pos": [ "d", "d" ],
-      "size": [ 110, 110 ],
-      "alignment": 5,
-      "angle": [ 157.4, 222 ],
-      "colors": [ "#2ecc71", "#141414" ],
-      "thickness": 6,
-      "metric": {
-        "name": [ "msi", "Framerate" ],
-        "bounds": [ 30, "*fps_target + 20" ]
-      }
-    },
-    {
-      "title": "Total System Power",
-      "type": "RoundProgressBar",
-      "pos": [ "d", "d" ],
-      "size": [ 110, 110 ],
-      "alignment": 5,
-      "angle": [ 22.4, 87 ],
-      "colors": [ "#e1ea0e", "#141414" ],
-      "thickness": 6,
-      "metric": {
-        "name": [ "*total_power" ],
-        "bounds": [ 0, "*cpu_max_power + *gpu_max_power" ]
-      }
-    },
-    {
-      "title": "Total System Power",
-      "type": "RoundProgressBar",
-      "pos": [ "d", "d" ],
-      "size": [ 110, 110 ],
-      "alignment": 5,
-      "angle": [ 22.6, -42 ],
-      "colors": [ "#e1ea0e", "#141414" ],
-      "thickness": 6,
-      "metric": {
-        "name": [ "*total_power" ],
-        "bounds": [ 0, "*cpu_max_power + *gpu_max_power" ]
       }
     },
     {
@@ -398,6 +362,22 @@
       },
       "unit": "fps",
       "unit_after": false
+    },
+    {
+      "title": "Total System Power",
+      "type": "RoundProgressBar",
+      "pos": [ "d", "d" ],
+      "size": [ 110, 110 ],
+      "alignment": 5,
+      "angle": [ -38, 83 ],
+      "center_out": true,
+      "rounded_corners": true,
+      "colors": [ "#e1ea0e", "#141414" ],
+      "thickness": 6,
+      "metric": {
+        "name": [ "*total_power" ],
+        "bounds": [ 0, "*cpu_max_power + *gpu_max_power" ]
+      }
     },
     {
       "title": "Total System Power Text",
@@ -418,21 +398,9 @@
       "pos": [ "d", "d" ],
       "size": [ 110, 110 ],
       "alignment": 5,
-      "angle": [ 270, 228 ],
-      "colors": [ "#247ae4", "#141414" ],
-      "thickness": 6,
-      "metric": {
-        "name": [ "*delta_t" ],
-        "bounds": [ 0, 10 ]
-      }
-    },
-    {
-      "title": "Delta Temperature Bar",
-      "type": "RoundProgressBar",
-      "pos": [ "d", "d" ],
-      "size": [ 110, 110 ],
-      "alignment": 5,
-      "angle": [ 270, 312 ],
+      "angle": [ 308, 232 ],
+      "center_out": true,
+      "rounded_corners": true,
       "colors": [ "#247ae4", "#141414" ],
       "thickness": 6,
       "metric": {
@@ -718,6 +686,7 @@
       "size": [ 80, 80 ],
       "alignment": 5,
       "angle": [ 225, -45 ],
+      "rounded_corners": true,
       "colors": [ "#9e24e4", "#141414" ],
       "thickness": 10,
       "metric": {

@@ -18,6 +18,8 @@ class RoundProgressBar(object):
         angle = settings['angle'] if 'angle' in settings else [0, 360]
         colors = settings['colors'] if 'colors' in settings else ["#2ecc71", "#141414"]
         thickness = settings['thickness'] if 'thickness' in settings else 4
+        center_out = settings['center_out'] if 'center_out' in settings else False
+        rounded_corners = settings['rounded_corners'] if 'rounded_corners' in settings else False
         # Process alignment
         pos, _ = getPosFromAlignment(pos, size, alignment)
         ### Metric related
@@ -37,7 +39,12 @@ class RoundProgressBar(object):
         self._elem.setForegroundColor(QColor(colors[0]))
         self._elem.setBackgroundColor(QColor(colors[1]))
         self._elem.setThickness(thickness)
-        self._elem.setFillDirection(dir)
+        if center_out:
+            self._elem.setFillDirection(0)
+        else:
+            self._elem.setFillDirection(dir)
+        if rounded_corners:
+            self._elem.setRoundOff(rounded_corners)
         self._elem.setBounds(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
         self._elem.redraw()
         self._elem.show()

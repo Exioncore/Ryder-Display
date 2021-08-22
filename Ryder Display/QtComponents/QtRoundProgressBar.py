@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
+from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap, QPainterPath
 
 class QtRoundProgressBar(QWidget):
     def __init__(self, *args, **kwargs):
@@ -23,7 +23,7 @@ class QtRoundProgressBar(QWidget):
         ofst_b = thickness / 2.0
 
         self._pen_background = QPen(QColor(40, 40, 40), thickness, Qt.SolidLine)
-        self._pen_foreground = QPen(QColor('red'), thickness - 2, Qt.SolidLine)
+        self._pen_foreground = QPen(QColor('red'), thickness, Qt.SolidLine)
         self._rect = QRect(0, 0, self.width(), self.height())
         self._rect_arc = QRect(
             ofst_b, ofst_b,
@@ -75,7 +75,7 @@ class QtRoundProgressBar(QWidget):
         ofst_b = val / 2.0
         self._rect_arc = QRect(ofst_b, ofst_b, self.width() - ofst_b * 2.0, self.height() - ofst_b * 2.0)
         self._pen_background.setWidth(val)
-        self._pen_foreground.setWidth(val - 2)
+        self._pen_foreground.setWidth(val)
 
     def redraw(self):
         self._redraw = True
@@ -97,49 +97,37 @@ class QtRoundProgressBar(QWidget):
         """ Override Paint Function """
         paint = QPainter()
 
+        # Draw background of the bar
         if self._redraw:
             paint.begin(self._background_buffer)
             paint.setRenderHint(QPainter.Antialiasing)
             self._background_buffer.fill(Qt.transparent)
             paint.setPen(self._pen_background) 
-            paint.drawArc(self._rect_arc, (self._angle_bounds[0]) * 16.0, self._max_angle * 16.0)
+            paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._max_angle * 16.0)
             paint.end()
-
+        # Draw filled portion of the bar
+        if self._current_angle != self._target_angle or self._redraw:
             paint.begin(self._foreground_buffer)
             paint.setRenderHint(QPainter.Antialiasing)
             self._foreground_buffer.fill(Qt.transparent)
             paint.setPen(self._pen_foreground)
             if self._fill_direction > 0:
                 paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._target_angle * 16.0)
-            else:
+            elif self._fill_direction < 0:
                 paint.drawArc(
                     self._rect_arc,
                     (self._angle_bounds[1] - self._target_angle) * 16.0, self._target_angle * 16.0
                 )
+            else:
+                mid = (self._angle_bounds[1] - self._angle_bounds[0]) / 2 + self._angle_bounds[0]
+                ofst = self._target_angle / 2
+                paint.drawArc(self._rect_arc, (mid - ofst) * 16.0, self._target_angle * 16.0)
             paint.end()
+            # Update flags
+            self._current_angle = self._target_angle
             self._redraw = False
-        else:
-            if self._current_angle != self._target_angle:
-                paint.begin(self._foreground_buffer)
-                paint.setRenderHint(QPainter.Antialiasing)
-                self._foreground_buffer.fill(Qt.transparent)
-                paint.setPen(self._pen_foreground)
-                if self._fill_direction > 0:
-                    paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._target_angle * 16.0)
-                else:
-                    paint.drawArc(
-                        self._rect_arc,
-                        (self._angle_bounds[1] - self._target_angle) * 16.0, self._target_angle * 16.0
-                    )
-                paint.end()
-                self._current_angle = self._target_angle
 
         paint.begin(self)
         paint.drawPixmap(self._rect, self._background_buffer)
         paint.drawPixmap(self._rect, self._foreground_buffer)
         paint.end()
-
-        self._current_angle = self._target_angle
-
-
-
