@@ -397,7 +397,7 @@
     {
       "title": "Delta Temperature Bar",
       "type": "RoundProgressBar",
-      "pos": [ "d", "d" ],
+      "pos": [ "d", "d+1" ],
       "size": [ 118, 118 ],
       "alignment": 5,
       "angle": [ 308, 232 ],
@@ -414,7 +414,7 @@
     {
       "title": "Delta Temperature Text",
       "type": "DynamicText",
-      "pos": [ "d+2", "d+56" ],
+      "pos": [ "d+5", "d+59" ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:11pt;",
       "max_text_length": "99.9°C",
       "alignment": 8,
