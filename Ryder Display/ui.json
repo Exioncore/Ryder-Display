@@ -65,9 +65,10 @@
       "size": [ 170, 170 ],
       "alignment": 5,
       "angle": [ 225, -45 ],
-      "rounded_corners": true,
-      "colors": [ "#2ecc71", "#141414" ],
+      "rounded-corners": true,
+      "colors": [ "#2ecc71", "#141414", "#545454" ],
       "thickness": 4,
+      "border-thickness": 0,
       "metric": {
         "name": [ "*highest_thread_usage" ],
         "bounds": [ 0, 100 ]
@@ -80,9 +81,10 @@
       "size": [ 150, 150 ],
       "alignment": 5,
       "angle": [ 225, -45 ],
-      "rounded_corners": true,
-      "colors": [ "#cd3413", "#141414" ],
+      "rounded-corners": true,
+      "colors": [ "#cd3413", "#141414", "#545454" ],
       "thickness": 10,
+      "border-thickness": 0,
       "metric": {
         "name": [ "msi", "CPU usage" ],
         "bounds": [ 0, 100 ]
@@ -178,7 +180,7 @@
       "size": [ 170, 170 ],
       "alignment": 5,
       "angle": [ -45, 225 ],
-      "rounded_corners": true,
+      "rounded-corners": true,
       "colors": [ "#2ecc71", "#141414" ],
       "thickness": 4,
       "metric": {
@@ -193,7 +195,7 @@
       "size": [ 150, 150 ],
       "alignment": 5,
       "angle": [ -45, 225 ],
-      "rounded_corners": true,
+      "rounded-corners": true,
       "colors": [ "#cd3413", "#141414" ],
       "thickness": 10,
       "metric": {
@@ -341,7 +343,7 @@
       "alignment": 5,
       "angle": [ 218, 97 ],
       "center_out": true,
-      "rounded_corners": true,
+      "rounded-corners": true,
       "colors": [ "#2ecc71", "#141414" ],
       "thickness": 6,
       "metric": {
@@ -371,7 +373,7 @@
       "alignment": 5,
       "angle": [ -38, 83 ],
       "center_out": true,
-      "rounded_corners": true,
+      "rounded-corners": true,
       "colors": [ "#e1ea0e", "#141414" ],
       "thickness": 6,
       "metric": {
@@ -400,7 +402,7 @@
       "alignment": 5,
       "angle": [ 308, 232 ],
       "center_out": true,
-      "rounded_corners": true,
+      "rounded-corners": true,
       "colors": [ "#247ae4", "#141414" ],
       "thickness": 6,
       "metric": {
@@ -686,7 +688,7 @@
       "size": [ 80, 80 ],
       "alignment": 5,
       "angle": [ 225, -45 ],
-      "rounded_corners": true,
+      "rounded-corners": true,
       "colors": [ "#9e24e4", "#141414" ],
       "thickness": 10,
       "metric": {

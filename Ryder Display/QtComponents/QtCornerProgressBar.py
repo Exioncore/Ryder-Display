@@ -21,7 +21,7 @@ class QtCornerProgressBar(QWidget):
         self._gap = 2
 
         self.bars = [QtStraightProgressBar(self), QtRoundProgressBar(self), QtStraightProgressBar(self)]
-        self.bars[1].setRefreshOverdraw(5.0)
+        self.bars[1].setRoundOff(None)
         self._setupBars()
 
     def _setupBars(self):
