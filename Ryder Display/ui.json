@@ -65,10 +65,8 @@
       "size": [ 170, 170 ],
       "alignment": 5,
       "angle": [ 225, -45 ],
-      "rounded-corners": true,
-      "colors": [ "#2ecc71", "#141414", "#545454" ],
+      "colors": [ "#2ecc71", "#141414" ],
       "thickness": 4,
-      "border-thickness": 0,
       "metric": {
         "name": [ "*highest_thread_usage" ],
         "bounds": [ 0, 100 ]
@@ -84,7 +82,7 @@
       "rounded-corners": true,
       "colors": [ "#cd3413", "#141414", "#545454" ],
       "thickness": 10,
-      "border-thickness": 0,
+      "border-thickness": 4,
       "metric": {
         "name": [ "msi", "CPU usage" ],
         "bounds": [ 0, 100 ]
@@ -180,7 +178,6 @@
       "size": [ 170, 170 ],
       "alignment": 5,
       "angle": [ -45, 225 ],
-      "rounded-corners": true,
       "colors": [ "#2ecc71", "#141414" ],
       "thickness": 4,
       "metric": {
@@ -196,8 +193,9 @@
       "alignment": 5,
       "angle": [ -45, 225 ],
       "rounded-corners": true,
-      "colors": [ "#cd3413", "#141414" ],
+      "colors": [ "#cd3413", "#141414", "#545454" ],
       "thickness": 10,
+      "border-thickness": 4,
       "metric": {
         "name": [ "msi", "GPU usage" ],
         "bounds": [ 0, 100 ]
@@ -689,8 +687,9 @@
       "alignment": 5,
       "angle": [ 225, -45 ],
       "rounded-corners": true,
-      "colors": [ "#9e24e4", "#141414" ],
+      "colors": [ "#9e24e4", "#141414", "#545454" ],
       "thickness": 10,
+      "border-thickness": 3,
       "metric": {
         "name": [ "msi", "RAM usage" ],
         "bounds": [ 0, "*ram_size_mb" ]

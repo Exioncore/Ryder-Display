@@ -25,11 +25,13 @@ class QtRoundProgressBar(QWidget):
 
         self._thickness = 10
         self._border_thickness = 0
+        self._cap = Qt.FlatCap
 
         # Cache commonly reused variables
         self._pen = QPen(self._foreground_color, self._thickness - self._border_thickness, Qt.SolidLine)
+        self._ofst2 = 0
 
-        arc_ofst = math.ceil(self._thickness / 2.0)
+        arc_ofst = math.ceil((self._thickness + self._border_thickness) / 2.0)
         self._rect = QRect(0, 0, self.width(), self.height())
         self._rect_arc = QRect(
             arc_ofst, arc_ofst,
@@ -63,11 +65,11 @@ class QtRoundProgressBar(QWidget):
 
     def setRoundOff(self, enable):
         if enable == None:
-            self._pen.setCapStyle(Qt.FlatCap)
+            self._cap = Qt.FlatCap
         elif enable:
-            self._pen.setCapStyle(Qt.RoundCap)
+            self._cap = Qt.RoundCap
         else:
-            self._pen.setCapStyle(Qt.SquareCap)
+           self._cap = Qt.SquareCap
 
     def setValue(self, val):
         self._current_value = max(self._bounds[0], min(val, self._bounds[1]))
@@ -75,16 +77,21 @@ class QtRoundProgressBar(QWidget):
 
     def setThickness(self, val):
         self._thickness = val
-        arc_ofst = math.ceil(self._thickness / 2.0)
+        arc_ofst = math.ceil((self._thickness + self._border_thickness) / 2.0)
         self._rect_arc = QRect(
             arc_ofst, arc_ofst,
             self.width() - arc_ofst * 2.0, self.height() - arc_ofst * 2.0
         )
-        self._pen.setWidth(self._thickness - self._border_thickness)
+        self._pen.setWidth(self._thickness)
 
     def setBorderThickness(self, val):
         self._border_thickness = val
-        self._pen.setWidth(self._thickness - self._border_thickness)
+        arc_ofst = math.ceil((self._thickness + self._border_thickness) / 2.0)
+        self._rect_arc = QRect(
+            arc_ofst, arc_ofst,
+            self.width() - arc_ofst * 2.0, self.height() - arc_ofst * 2.0
+        )
+        self._pen.setWidth(self._thickness)
 
     def redraw(self):
         self._redraw = True
@@ -93,7 +100,7 @@ class QtRoundProgressBar(QWidget):
         """ Override setGeometry method """
         super().setGeometry(x, y, w, h)
 
-        arc_ofst = math.ceil(self._thickness / 2.0)
+        arc_ofst = math.ceil((self._thickness + self._border_thickness) / 2.0)
         self._rect = QRect(0, 0, self.width(), self.height())
         self._rect_arc = QRect(
             arc_ofst, arc_ofst,
@@ -114,33 +121,65 @@ class QtRoundProgressBar(QWidget):
             self._background_buffer.fill(Qt.transparent)
             paint.begin(self._background_buffer)
             paint.setRenderHint(QPainter.Antialiasing)
+            if self._cap == Qt.SquareCap and self._border_thickness == 0:
+                self._pen.setCapStyle(Qt.FlatCap)
+                self._ofst2 = 0
+            else:
+                self._pen.setCapStyle(self._cap)
+                if self._cap == Qt.RoundCap:
+                    self._ofst2 = 180 / math.pi * (((self._thickness) / 2) / (self._rect_arc.width() / 2))
+                else:
+                    self._ofst2 = 0
             # Draw Border
             if self._border_thickness > 0:
-                self._pen.setWidth(self._thickness)
+                self._pen.setWidth(self._thickness + self._border_thickness)
+
+                if self._cap == Qt.SquareCap:
+                    ofst1 = 180 / math.pi * (((self._thickness) / 2) / (self._rect_arc.width() / 2))
+                elif self._cap == Qt.RoundCap:
+                    ofst1 = 180 / math.pi * (((self._thickness * 0.05) / 2) / (self._rect_arc.width() / 2))
+                else:
+                    ofst1 = 0
+
                 # Draw Border as a full bar
                 self._pen.setColor(self._border_color)
                 paint.setPen(self._pen) 
-                paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._max_angle * 16.0)
-                # Erase insides of the bar to create the border
+                paint.drawArc(self._rect_arc, (self._angle_bounds[0] + ofst1 + self._ofst2) * 16.0, (self._max_angle - ofst1 * 2 - self._ofst2 * 2) * 16.0)  
+                # Erase insides of the bar to create the border (Necessary if the background has an alpha value)
+                if self._cap == Qt.SquareCap:
+                    self._pen.setCapStyle(Qt.FlatCap)
                 paint.setCompositionMode(QPainter.CompositionMode_Clear)
-                self._pen.setWidth(self._thickness - self._border_thickness)
+                self._pen.setWidth(self._thickness)
                 paint.setPen(self._pen)
-                paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._max_angle * 16.0)
+                paint.drawArc(self._rect_arc, (self._angle_bounds[0] + self._ofst2) * 16.0, (self._max_angle - self._ofst2 * 2) * 16.0)
                 paint.setCompositionMode(QPainter.CompositionMode_SourceOver)
-                #paint.setCompositionMode(QPainter.CompositionMode_Source)
+            else:
+                if self._cap == Qt.SquareCap:
+                    self._pen.setCapStyle(Qt.FlatCap)
             # Draw Background
-            self._pen.setColor(self._background_color)
+            self._pen.setColor(self._background_color)          
             paint.setPen(self._pen) 
-            paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._max_angle * 16.0)
+            paint.drawArc(self._rect_arc, (self._angle_bounds[0] + self._ofst2) * 16.0, (self._max_angle - self._ofst2 * 2) * 16.0)
             paint.end()
-
-            paint.setCompositionMode(QPainter.CompositionMode_SourceOver)
+            # Set pen to foreground styling
+            self._pen.setCapStyle(Qt.FlatCap)
             self._pen.setColor(self._foreground_color)
         # Draw filled portion of the bar
         if self._current_angle != self._target_angle or self._redraw:
             paint.begin(self._foreground_buffer)
             paint.setRenderHint(QPainter.Antialiasing)
             self._foreground_buffer.fill(Qt.transparent)
+            # Draw guide for the filled portion of the bar
+            if self._cap == Qt.RoundCap:
+                self._pen.setCapStyle(self._cap)
+                self._pen.setWidth(self._thickness - 2)
+                paint.setPen(self._pen)
+                paint.drawArc(self._rect_arc, (self._angle_bounds[0] + self._ofst2) * 16.0, (self._max_angle - self._ofst2 * 2) * 16.0)
+                paint.setCompositionMode(QPainter.CompositionMode_SourceIn)
+                self._pen.setCapStyle(Qt.FlatCap)
+                self._pen.setWidth(self._thickness)
+                self._pen.setColor(self._foreground_color)
+            # Draw filled portion of the bar
             paint.setPen(self._pen)
             if self._fill_direction > 0:
                 paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, self._target_angle * 16.0)
@@ -153,12 +192,24 @@ class QtRoundProgressBar(QWidget):
                 mid = (self._angle_bounds[1] - self._angle_bounds[0]) / 2 + self._angle_bounds[0]
                 ofst = self._target_angle / 2
                 paint.drawArc(self._rect_arc, (mid - ofst) * 16.0, self._target_angle * 16.0)
+            # Erase excess guide in case of rounded bar corners
+            if self._cap == Qt.RoundCap:
+                paint.setCompositionMode(QPainter.CompositionMode_Clear)
+                if self._fill_direction > 0:
+                    paint.drawArc(self._rect_arc, self._angle_bounds[1] * 16.0, -(self._max_angle - self._target_angle) * 16.0)
+                elif self._fill_direction < 0:
+                    paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, (self._max_angle - self._target_angle) * 16.0)
+                else:
+                    paint.drawArc(self._rect_arc, self._angle_bounds[0] * 16.0, ((self._angle_bounds[1] - (mid + ofst))) * 16.0)
+                    paint.drawArc(self._rect_arc, (mid + ofst) * 16.0, ((self._max_angle - self._target_angle / 2)) * 16.0)
+
             paint.end()
             # Update flags
             self._current_angle = self._target_angle
             self._redraw = False
 
         paint.begin(self)
+        paint.setRenderHint(QPainter.SmoothPixmapTransform)
         paint.drawPixmap(self._rect, self._background_buffer)
         paint.drawPixmap(self._rect, self._foreground_buffer)
         paint.end()

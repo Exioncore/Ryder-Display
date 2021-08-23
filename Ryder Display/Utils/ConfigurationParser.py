@@ -221,8 +221,8 @@ class ConfigurationParser(object):
         return ui_dynamic, ui_static
 
     def _concatTextWithVariables(entry, variables):
-        result = ""
         if isinstance(entry, list):
+            result = ""
             for elem in entry:
                 if elem[0] == "*" and elem[1:] in variables:
                     result += str(variables[elem[1:]])
@@ -230,7 +230,7 @@ class ConfigurationParser(object):
                     result += elem
             return result
         else:
-            if entry[0] == "*" and entry[1:] in variables:
+            if len(entry) > 0 and entry[0] == "*" and entry[1:] in variables:
                 return str(variables[entry[1:]])
         return entry
 

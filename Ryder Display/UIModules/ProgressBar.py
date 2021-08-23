@@ -41,6 +41,9 @@ class ProgressBar(object):
         self._elem.setMinimum(settings['metric']['bounds'][0])
         self._elem.setMaximum(settings['metric']['bounds'][1])
         self._elem.setTextVisible(False)
+        # Glitch workaround for background color not applying
+        if style == "":
+            style = "border: 0;"
         self._elem.setStyleSheet("QProgressBar{"+style+"background:"+colors[1]+";}QProgressBar::chunk{"+style+"background:"+colors[0]+";}")
         self._elem.show()
 
