@@ -204,7 +204,7 @@
     {
       "title": "GPU No Load Flag",
       "type": "DynamicTextBool",
-      "pos": [ "d-45", "d" ],
+      "pos": [ "d-43", "d" ],
       "alignment": 6,
       "evaluation": {
         "true": {
@@ -225,7 +225,7 @@
     {
       "title": "GPU Voltage Limit flag",
       "type": "DynamicTextBool",
-      "pos": [ "d+45", "d" ],
+      "pos": [ "d+43", "d" ],
       "alignment": 4,
       "evaluation": {
         "true": {
@@ -246,7 +246,7 @@
     {
       "title": "GPU Temperature Limit Flag",
       "type": "DynamicTextBool",
-      "pos": [ "d", "d-45" ],
+      "pos": [ "d", "d-43" ],
       "alignment": 5,
       "evaluation": {
         "true": {
@@ -267,7 +267,7 @@
     {
       "title": "GPU Power Limit Flag",
       "type": "DynamicTextBool",
-      "pos": [ "d", "d+45" ],
+      "pos": [ "d", "d+43" ],
       "alignment": 5,
       "evaluation": {
         "true": {
@@ -336,14 +336,15 @@
     {
       "title": "Framerate",
       "type": "RoundProgressBar",
-      "pos": [ "d", "d" ],
-      "size": [ 110, 110 ],
+      "pos": [ "d", "d+1" ],
+      "size": [ 118, 118 ],
       "alignment": 5,
       "angle": [ 218, 97 ],
       "center_out": true,
       "rounded-corners": true,
-      "colors": [ "#2ecc71", "#141414" ],
+      "colors": [ "#2ecc71", "#141414", "#545454" ],
       "thickness": 6,
+      "border-thickness": 3,
       "metric": {
         "name": [ "msi", "Framerate" ],
         "bounds": [ 30, "*fps_target + 20" ]
@@ -366,14 +367,15 @@
     {
       "title": "Total System Power",
       "type": "RoundProgressBar",
-      "pos": [ "d", "d" ],
-      "size": [ 110, 110 ],
+      "pos": [ "d", "d+1" ],
+      "size": [ 118, 118 ],
       "alignment": 5,
       "angle": [ -38, 83 ],
       "center_out": true,
       "rounded-corners": true,
-      "colors": [ "#e1ea0e", "#141414" ],
+      "colors": [ "#e1ea0e", "#141414", "#545454" ],
       "thickness": 6,
+      "border-thickness": 3,
       "metric": {
         "name": [ "*total_power" ],
         "bounds": [ 0, "*cpu_max_power + *gpu_max_power" ]
@@ -396,13 +398,14 @@
       "title": "Delta Temperature Bar",
       "type": "RoundProgressBar",
       "pos": [ "d", "d" ],
-      "size": [ 110, 110 ],
+      "size": [ 118, 118 ],
       "alignment": 5,
       "angle": [ 308, 232 ],
       "center_out": true,
       "rounded-corners": true,
-      "colors": [ "#247ae4", "#141414" ],
+      "colors": [ "#247ae4", "#141414", "#545454" ],
       "thickness": 6,
+      "border-thickness": 3,
       "metric": {
         "name": [ "*delta_t" ],
         "bounds": [ 0, 10 ]
