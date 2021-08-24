@@ -17,7 +17,7 @@ from Network.RyderClient import RyderClient
 from UIModules.MenuButton import MenuButton
 from Pages.PowerPlanMenu import PowerPlanMenu
 from UIModules.ProgressBar import ProgressBar
-from UIModules.DynamicText import DynamicText
+from UIModules.DynamicLabel import DynamicLabel
 from Utils.InternalMetrics import InternalMetrics
 from UIModules.DynamicTextBool import DynamicTextBool
 from UIModules.RoundProgressBar import RoundProgressBar
@@ -41,18 +41,21 @@ class ConfigurationParser(object):
         file.close()
         # Fill in variables in ui file
         ## UI section
-        if ui['ui'][0]['type'] != 'RoundProgressBar':
-            attr_name = 'pos'
-            pos = ui['ui'][0][attr_name].copy()
+        if (ui['ui'][0]['type'] == 'RoundProgressBar' or ui['ui'][0]['type'] == 'Image' or ui['ui'][0]['type'] == 'Shape' or ui['ui'][0]['type'] == 'StaticLabel'
+            or ui['ui'][0]['type'] == 'DynamicLabel' or ui['ui'][0]['type'] == 'Graph' or ui['ui'][0]['type'] == 'ForegroundProcessIcon'
+            ):
+            pos = ui['ui'][0]['geometry'][0:2].copy()
         else:
-            attr_name = 'geometry'
-            pos = ui['ui'][0][attr_name][0:2].copy()
+            pos = ui['ui'][0]['pos'].copy()
+            
         new_pos = pos.copy()
         for entry in ui['ui']:
-            if entry['type'] != 'RoundProgressBar':
-                attr_name = 'pos'
-            else:
+            if (entry['type'] == 'RoundProgressBar' or entry['type'] == 'Image' or entry['type'] == 'Shape' or entry['type'] == 'StaticLabel' 
+                or entry['type'] == 'DynamicLabel' or entry['type'] == 'Graph' or entry['type'] == 'ForegroundProcessIcon'
+                ):
                 attr_name = 'geometry'
+            else:
+                attr_name = 'pos'
 
             # Positioning
             if attr_name in entry:
@@ -79,12 +82,12 @@ class ConfigurationParser(object):
                 if update_pos[1]:
                     pos[1] = new_pos[1]
             # Fill in variables
-            if entry['type'] == 'StaticText':
+            if entry['type'] == 'StaticLabel':
                 # Check if label message is tied to variable in settings
                 entry['text'] = ConfigurationParser._concatTextWithVariables(entry['text'], settings['ui']['variables'])
-            elif (entry['type'] == 'DynamicText' or entry['type'] == 'ProgressBar' or 
+            elif (entry['type'] == 'DynamicLabel' or entry['type'] == 'ProgressBar' or 
                   entry['type'] == 'RoundProgressBar' or entry['type'] == 'CornerProgressBar'):
-                # Ensure element has bounds entry (This is optional for DynamicText)
+                # Ensure element has bounds entry (This is optional for DynamicLabel)
                 if 'bounds' in entry['metric']:
                     for i in range(2):
                         entry['metric']['bounds'][i] = ConfigurationParser._fillFieldFormula(
@@ -163,17 +166,17 @@ class ConfigurationParser(object):
                 elem = CornerProgressBar(window, ts, entry)
             elif entry['type'] == 'ProgressBar':
                 elem = ProgressBar(window, ts, entry)
-            elif entry['type'] == 'StaticText':
+            elif entry['type'] == 'StaticLabel':
                 elem = createLabel(window, entry)
                 is_dynamic = False
             elif entry['type'] == 'Shape':
                 elem = createShape(window, entry)
                 is_dynamic = False
-            elif entry['type'] == 'DynamicText':
+            elif entry['type'] == 'DynamicLabel':
                 if not isinstance(entry['unit'], dict):
                     if entry['unit'][0] == '*':
                         entry['unit'] = ui['unit_converters'][entry['unit'][1:]]
-                elem = DynamicText(window, entry)
+                elem = DynamicLabel(window, entry)
             elif entry['type'] == 'DynamicTextBool':
                 elem = DynamicTextBool(window, entry)
             elif entry['type'] == 'Image':

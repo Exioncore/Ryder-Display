@@ -50,25 +50,27 @@ def getPosFromGeometry(geometry):
 
 def createLabel(window, settings):
     # Retrieve settings
-    stylesheet = settings['stylesheet'] if 'stylesheet' in settings else ""
+    geometry = settings['geometry'] if 'geometry' in settings else [0, 0, 7]
     text = settings['text'] if 'text' in settings else ""
-    pos = settings['pos'] if 'pos' in settings else [0, 0]
-    alignment = settings['alignment'] if 'alignment' in settings else 7
+    stylesheet = settings['stylesheet'] if 'stylesheet' in settings else ""
     # Create components
     label = QLabel(window)
     label.setText(text)
     label.setStyleSheet('QLabel{'+stylesheet+'}')
     label.setAttribute(Qt.WA_TranslucentBackground)
     label.adjustSize()
-    #Alignment
-    pos, h_alignment = getPosFromAlignment(pos, [label.size().width(), label.size().height()], alignment)
+    # Process alignment
+    if len(geometry) == 2: geometry.append(7)
+    geometry.insert(2, label.size().width())
+    geometry.insert(3, label.size().height())
+    geometry, h_alignment = getPosFromGeometry(geometry)
     if h_alignment < 0:
         label.setAlignment(Qt.AlignLeft)
     elif h_alignment > 0:
         label.setAlignment(Qt.AlignRight)
     else:
         label.setAlignment(Qt.AlignHCenter)
-    label.move(pos[0], pos[1])
+    label.move(geometry[0], geometry[1])
     label.show()
     return label
 
@@ -93,22 +95,22 @@ def createPageLoader(window, settings, path):
 def createImage(window, settings, path):
     # Retrieve settings
     image = settings['path'] if 'path' in settings else ''
-    pos = settings['pos'] if 'pos' in settings else [0, 0]
-    size = settings['size'] if 'size' in settings else [50, 50]
-    alignment = settings['alignment'] if 'alignment' in settings else 7
-    # Process Settings
+    geometry = settings['geometry'] if 'geometry' in settings else [0, 0, 50, 50, 7]
+    # Process alignment
+    if len(geometry) == 4: geometry.append(7)
+    geometry, _ = getPosFromGeometry(geometry)
+    # Process image path
     path = path+'/Resources/'+image
     extension = path[(path.rfind('.')+1):]
-    pos, _ = getPosFromAlignment(pos, size, alignment)
     # Create components
     elem = None
     if extension == 'svg':
         elem = QSvgWidget(path, window)
-        elem.setGeometry(pos[0], pos[1], size[0], size[1])
+        elem.setGeometry(geometry[0], geometry[1], geometry[2], geometry[3])
         elem.show()
     else:
         elem = QLabel(window)
-        elem.setGeometry(pos[0], pos[1], size[0], size[1])
+        elem.setGeometry(geometry[0], geometry[1], geometry[2], geometry[3])
         pixmap = QPixmap(path)
         elem.setPixmap(pixmap)
         elem.show()
@@ -116,15 +118,14 @@ def createImage(window, settings, path):
 
 def createShape(window, settings):
     # Retrieve settings
-    pos = settings['pos'] if 'pos' in settings else [0, 0]
-    size = settings['size'] if 'size' in settings else [50, 50]
-    alignment = settings['alignment'] if 'alignment' in settings else 7
+    geometry = settings['geometry'] if 'geometry' in settings else [0, 0, 50, 50, 7]
     stylesheet = settings['stylesheet'] if 'stylesheet' in settings else ""
+    # Process alignment
+    if len(geometry) == 4: geometry.append(7)
+    geometry, _ = getPosFromGeometry(geometry)
     # Create components
     label = QLabel(window)
     label.setStyleSheet('QLabel{'+stylesheet+'}')
-    #Alignment
-    pos, _ = getPosFromAlignment(pos, size, alignment)
-    label.setGeometry(pos[0], pos[1], size[0], size[1])
+    label.setGeometry(geometry[0], geometry[1], geometry[2], geometry[3])
     label.show()
     return label

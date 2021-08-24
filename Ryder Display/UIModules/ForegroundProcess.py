@@ -19,19 +19,19 @@ class ForegroundProcess(object):
     def __init__(self, window, settings, path=''):
         # Retrieve settings
         ### UI Related
-        pos = settings['pos'] if 'pos' in settings else [0, 0]
-        alignment = settings['alignment'] if 'alignment' in settings else 7
-        size = settings['size'] if 'size' in settings else 25
+        geometry = settings['geometry'] if 'geometry' in settings else [0, 0, 25, 7]
         self._currentProgram = ""
         # Process alignment
-        pos, _ = getPosFromAlignment(pos, [size, size], alignment)
+        if len(geometry) == 3: geometry.append(7)
+        geometry.insert(2, geometry[2])
+        geometry, _ = getPosFromGeometry(geometry)
         ### Create cache folder if it doesn't exist
         self._iconsPath = path + '/cache/icons/'
         if not os.path.exists(self._iconsPath):
             os.makedirs(self._iconsPath)
         # Create components
         self._label = QLabel(window)
-        self._label.setGeometry(pos[0], pos[1], size, size)
+        self._label.setGeometry(geometry[0], geometry[1], geometry[2], geometry[3])
         self._label.setAttribute(Qt.WA_TranslucentBackground)
         self._label.show()
         # Bind Server

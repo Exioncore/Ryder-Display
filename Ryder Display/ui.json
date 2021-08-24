@@ -3,33 +3,26 @@
     {
       "title": "Background",
       "type": "Image",
-      "alignment": 7,
-      "pos": [ 0, 0 ],
-      "size": [ 800, 480 ],
+      "geometry": [ 0, 0, 800, 480, 7 ],
       "path": "USS Discovery.png"
     },
     {
       "title": "Background Fader",
       "type": "Shape",
-      "pos": [ 0, 0 ],
-      "size": [ 800, 480 ],
-      "alignment": 7,
+      "geometry": [ 0, 0, 800, 480, 7 ],
       "stylesheet": "background:rgba(0, 0, 0, 0.9);"
     },
     {
       "title": "CPU Name",
-      "type": "StaticText",
-      "pos": [ 150, 0 ],
-      "alignment": 8,
+      "type": "StaticLabel",
+      "geometry": [ 150, 0, 8 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;",
       "text": "*cpu_name"
     },
     {
       "title": "CPU Image",
       "type": "Image",
-      "alignment": 5,
-      "pos": [ "+3", "+120" ],
-      "size": [ 100, 70 ],
+      "geometry": [ "+3", "+120", 100, 70, 5 ],
       "path": "CPU-Logo.svg"
     },
     {
@@ -47,11 +40,9 @@
     },
     {
       "title": "CPU Temperature Text",
-      "type": "DynamicText",
-      "pos": [ "d-122", "d-82" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d-122", "d-82", "99°C", 8 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
-      "max_text_length": "99°C",
-      "alignment": 8,
       "metric": {
         "name": [ "msi", "CPU temperature" ],
         "bounds": [ 0, "*cpu_max_temp" ]
@@ -85,11 +76,9 @@
     },
     {
       "title": "CPU Clock",
-      "type": "DynamicText",
-      "pos": [ "d+2", "d+55" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d+2", "d+55", "9999MHz", 8 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
-      "max_text_length": "9999MHz",
-      "alignment": 8,
       "metric": {
         "name": [ "msi", "CPU clock" ],
         "bounds": [ 0, 9999 ]
@@ -98,11 +87,9 @@
     },
     {
       "title": "CPU Power Text",
-      "type": "DynamicText",
-      "pos": [ "d", "d+96" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d", "d+96", "999w", 8 ],
       "stylesheet": "color:#ad2a1a;font-weight:bold;font:10pt;",
-      "max_text_length": "999w",
-      "alignment": 8,
       "metric": {
         "name": [ "msi", "CPU power" ],
         "bounds": [ 0, 999 ]
@@ -111,18 +98,15 @@
     },
     {
       "title": "GPU Name",
-      "type": "StaticText",
-      "pos": [ 650, 0 ],
-      "alignment": 8,
+      "type": "StaticLabel",
+      "geometry": [ 650, 0, 8 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;",
       "text": "*gpu_name"
     },
     {
       "title": "GPU Image",
       "type": "Image",
-      "alignment": 5,
-      "pos": [ "-3", "+120" ],
-      "size": [ 80, 55 ],
+      "geometry": [ "-3", "+120", 80, 55, 5 ],
       "path": "GPU-Logo.svg"
     },
     {
@@ -140,11 +124,9 @@
     },
     {
       "title": "GPU Temperature Text",
-      "type": "DynamicText",
-      "pos": [ "d+125", "d-82" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d+125", "d-82", "99°C", 8 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
-      "max_text_length": "99°C",
-      "alignment": 8,
       "metric": {
         "name": [ "msi", "GPU temperature" ],
         "bounds": [ 0, "*gpu_max_temp" ]
@@ -262,11 +244,9 @@
     },
     {
       "title": "GPU Clock",
-      "type": "DynamicText",
-      "pos": [ "d", "d+55" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d", "d+55", "9999MHz", 8 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
-      "max_text_length": "9999MHz",
-      "alignment": 8,
       "metric": {
         "name": [ "msi", "Core clock" ],
         "bounds": [ 0, 9999 ]
@@ -275,11 +255,9 @@
     },
     {
       "title": "GPU Power Text",
-      "type": "DynamicText",
-      "pos": [ "d", "d+96" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d", "d+96", "999w", 8 ],
       "stylesheet": "color:#ad2a1a;font-weight:bold;font:10pt;",
-      "max_text_length": "999w",
-      "alignment": 8,
       "metric": {
         "name": [ "msi", "Power" ],
         "bounds": [ 0, 999 ]
@@ -289,9 +267,7 @@
     {
       "title": "Foreground Process Icon",
       "type": "ForegroundProcessIcon",
-      "pos": [ 400, 120 ],
-      "alignment": 5,
-      "size": 96
+      "geometry": [ 400, 120, 96, 5 ]
     },
     {
       "title": "Framerate",
@@ -309,11 +285,9 @@
     },
     {
       "title": "Framerate Text",
-      "type": "DynamicText",
-      "pos": [ "d-56", "d-25" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d-56", "d-25", "fps999", 6 ],
       "stylesheet": "color:#2ecc71;font-weight:bold;font:11pt;",
-      "max_text_length": "fps999",
-      "alignment": 6,
       "metric": {
         "name": [ "msi", "Framerate" ],
         "bounds": [ 0, 999 ]
@@ -337,11 +311,9 @@
     },
     {
       "title": "Total System Power Text",
-      "type": "DynamicText",
-      "pos": [ "d+56", "d-25" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d+56", "d-25", "999w", 4 ],
       "stylesheet": "color:#e1ea0e;font-weight:bold;font:11pt;",
-      "max_text_length": "999w",
-      "alignment": 4,
       "metric": {
         "name": [ "*total_power" ],
         "bounds": [ 0, 999 ]
@@ -364,11 +336,9 @@
     },
     {
       "title": "Delta Temperature Text",
-      "type": "DynamicText",
-      "pos": [ "d+5", "d+59" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d+5", "d+59", "99.9°C", 8 ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:11pt;",
-      "max_text_length": "99.9°C",
-      "alignment": 8,
       "metric": {
         "name": [ "*delta_t" ]
       },
@@ -379,9 +349,8 @@
     },
     {
       "title": "Storage",
-      "type": "StaticText",
-      "pos": [ 150, 240 ],
-      "alignment": 8,
+      "type": "StaticLabel",
+      "geometry": [ 150, 240, 8 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;",
       "text": "Storage"
     },
@@ -415,11 +384,9 @@
     },
     {
       "title": "C Drive read text",
-      "type": "DynamicText",
-      "pos": [ "d+80", "d" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d+80", "d", "99.9MB/s", 4 ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
-      "max_text_length": "99.9MB/s",
-      "alignment": 4,
       "metric": {
         "name": [ "storage", "C", "readSpeed" ]
       },
@@ -427,11 +394,9 @@
     },
     {
       "title": "C Drive write text",
-      "type": "DynamicText",
-      "pos": [ "d-80", "d" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d-80", "d", "99.9MB/s", 6 ],
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
-      "max_text_length": "99.9MB/s",
-      "alignment": 6,
       "metric": {
         "name": [ "storage", "C", "writeSpeed" ]
       },
@@ -439,9 +404,8 @@
     },
     {
       "title": "C Drive",
-      "type": "StaticText",
-      "pos": [ "d", "d" ],
-      "alignment": 5,
+      "type": "StaticLabel",
+      "geometry": [ "d", "d", 5 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
       "text": "C"
     },
@@ -475,11 +439,9 @@
     },
     {
       "title": "D Drive read text",
-      "type": "DynamicText",
-      "pos": [ "d+80", "d" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d+80", "d", "99.9MB/s", 4 ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
-      "max_text_length": "99.9MB/s",
-      "alignment": 4,
       "metric": {
         "name": [ "storage", "D", "readSpeed" ]
       },
@@ -487,11 +449,9 @@
     },
     {
       "title": "D Drive write text",
-      "type": "DynamicText",
-      "pos": [ "d-80", "d" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d-80", "d", "99.9MB/s", 6 ],
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
-      "max_text_length": "99.9MB/s",
-      "alignment": 6,
       "metric": {
         "name": [ "storage", "D", "writeSpeed" ]
       },
@@ -499,9 +459,8 @@
     },
     {
       "title": "D Drive",
-      "type": "StaticText",
-      "pos": [ "d", "d" ],
-      "alignment": 5,
+      "type": "StaticLabel",
+      "geometry": [ "d", "d", 5 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
       "text": "D"
     },
@@ -535,11 +494,9 @@
     },
     {
       "title": "E Drive read text",
-      "type": "DynamicText",
-      "pos": [ "d+80", "d" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d+80", "d", "99.9MB/s", 4 ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
-      "max_text_length": "99.9MB/s",
-      "alignment": 4,
       "metric": {
         "name": [ "storage", "E", "readSpeed" ]
       },
@@ -547,11 +504,9 @@
     },
     {
       "title": "E Drive write text",
-      "type": "DynamicText",
-      "pos": [ "d-80", "d" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d-80", "d", "99.9MB/s", 6 ],
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
-      "max_text_length": "99.9MB/s",
-      "alignment": 6,
       "metric": {
         "name": [ "storage", "E", "writeSpeed" ]
       },
@@ -559,9 +514,8 @@
     },
     {
       "title": "E Drive",
-      "type": "StaticText",
-      "pos": [ "d", "d" ],
-      "alignment": 5,
+      "type": "StaticLabel",
+      "geometry": [ "d", "d", 5 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
       "text": "E"
     },
@@ -595,11 +549,9 @@
     },
     {
       "title": "F Drive read text",
-      "type": "DynamicText",
-      "pos": [ "d+80", "d" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d+80", "d", "99.9MB/s", 4 ],
       "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
-      "max_text_length": "99.9MB/s",
-      "alignment": 4,
       "metric": {
         "name": [ "storage", "F", "readSpeed" ]
       },
@@ -607,11 +559,9 @@
     },
     {
       "title": "F Drive write text",
-      "type": "DynamicText",
-      "pos": [ "d-80", "d" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d-80", "d", "99.9MB/s", 6 ],
       "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
-      "max_text_length": "99.9MB/s",
-      "alignment": 6,
       "metric": {
         "name": [ "storage", "F", "writeSpeed" ]
       },
@@ -619,18 +569,15 @@
     },
     {
       "title": "F Drive",
-      "type": "StaticText",
-      "pos": [ "d", "d" ],
-      "alignment": 5,
+      "type": "StaticLabel",
+      "geometry": [ "d", "d", 5 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
       "text": "F"
     },
     {
       "title": "RAM image",
       "type": "Image",
-      "alignment": 5,
-      "pos": [ 400, 310 ],
-      "size": [ 40, 40 ],
+      "geometry": [ 400, 310, 40, 40, 5 ],
       "path": "RAM-Logo.svg"
     },
     {
@@ -648,11 +595,9 @@
     },
     {
       "title": "RAM load text",
-      "type": "DynamicText",
-      "pos": [ "d", "d+35" ],
+      "type": "DynamicLabel",
+      "geometry": [ "d", "d+35", "100%", 5 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
-      "max_text_length": "100%",
-      "alignment": 5,
       "metric": {
         "name": [ "msi", "RAM usage" ]
       },
@@ -660,28 +605,25 @@
     },
     {
       "title": "Network",
-      "type": "StaticText",
-      "pos": [ 650, 240 ],
-      "alignment": 8,
+      "type": "StaticLabel",
+      "geometry": [ 650, 240, 8 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;",
       "text": "Network"
     },
     {
       "title": "Network Download",
       "type": "Graph",
-      "pos": [ "d", "d+60" ],
-      "size": [ 270, 48 ],
-      "alignment": 5,
+      "geometry": [ "d", "d+60", 270, 48, 5 ],
       "graph": {
-        "n_values": 30,
+        "n-values": 30,
         "layout": 0,
         "color": "#24e49f",
         "thickness": 2
       },
       "labels": {
-        "max_text_length": "99.9MB/s",
-        "min_max_stylesheet": "color:#24e49f;font-weight:bold;font:8pt;",
-        "current_stylesheet": "color:#24e49f;font-weight:bold;font:10pt;"
+        "max-text-length": "99.9MB/s",
+        "min-max-stylesheet": "color:#24e49f;font-weight:bold;font:8pt;",
+        "current-stylesheet": "color:#24e49f;font-weight:bold;font:10pt;"
       },
       "metric": {
         "name": [ "network", "downloadSpeed" ],
@@ -692,19 +634,17 @@
     {
       "title": "Network Upload",
       "type": "Graph",
-      "pos": [ "d", "d+120" ],
-      "size": [ 270, 48 ],
-      "alignment": 5,
+      "geometry": [ "d", "d+120", 270, 48, 5 ],
       "graph": {
-        "n_values": 30,
+        "n-values": 30,
         "layout": 0,
         "color": "#247ae4",
         "thickness": 2
       },
       "labels": {
-        "max_text_length": "99.9MB/s",
-        "min_max_stylesheet": "color:#247ae4;font-weight:bold;font:8pt;",
-        "current_stylesheet": "color:#247ae4;font-weight:bold;font:10pt;"
+        "max-text-length": "99.9MB/s",
+        "min-max-stylesheet": "color:#247ae4;font-weight:bold;font:8pt;",
+        "current-stylesheet": "color:#247ae4;font-weight:bold;font:10pt;"
       },
       "metric": {
         "name": [ "network", "uploadSpeed" ],

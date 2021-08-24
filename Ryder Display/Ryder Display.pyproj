@@ -68,7 +68,7 @@
     <Compile Include="UIModules\CornerProgressBar.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UIModules\DynamicText.py">
+    <Compile Include="UIModules\DynamicLabel.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UIModules\DynamicTextBool.py">

@@ -4,14 +4,12 @@ from PyQt5.QtWidgets import QLabel
 from UIModules.Utils import *
 from Utils.InternalMetrics import InternalMetrics
 
-class DynamicText(object):
+class DynamicLabel(object):
     def __init__(self, window, settings):
         # Retrieve settings
         ### UI Related
         stylesheet = settings['stylesheet'] if 'stylesheet' in settings else ""
-        self._pos = settings['pos'] if 'pos' in settings else [0, 0]
-        self._alignment = settings['alignment'] if 'alignment' in settings else 7
-        max_text_length = settings['max_text_length'] if 'max_text_length' in settings else "AAAAAAAAAAAAAAAAAAAAAAA"
+        self._geometry = settings['geometry'] if 'geometry' in settings else [0, 0, 23, 7]
         self._unit_after = settings['unit_after'] if 'unit_after' in settings else True
         ### Metric related
         self._metric = settings['metric'] if 'metric' in settings else None
@@ -23,20 +21,21 @@ class DynamicText(object):
         self._label = QLabel(window)
         self._label.setStyleSheet('QLabel{'+stylesheet+'}')
         self._label.setAttribute(Qt.WA_TranslucentBackground)
-        # Get size of longest text
-        self._label.setText(max_text_length)
+        self._label.setText(self._geometry[2])
         self._label.adjustSize()
-        self._size = [self._label.size().width(), self._label.fontMetrics().height()]
-        self._label.setText("")
         # Process alignment
-        self._pos, h_alignment = getPosFromAlignment(self._pos, self._size, self._alignment)
+        if len(self._geometry) == 3: self._geometry.append(7)
+        self._geometry[2] = self._label.size().width()
+        self._geometry.insert(3, self._label.size().height())
+        self._label.setText("")
+        self._geometry, h_alignment = getPosFromGeometry(self._geometry)
         if h_alignment < 0:
             self._label.setAlignment(Qt.AlignLeft)
         elif h_alignment > 0:
             self._label.setAlignment(Qt.AlignRight)
         else:
             self._label.setAlignment(Qt.AlignHCenter)
-        self._label.move(self._pos[0], self._pos[1])
+        self._label.move(self._geometry[0], self._geometry[1])
 
         self._label.show()
 
@@ -47,20 +46,21 @@ class DynamicText(object):
         self._label.deleteLater()
 
     def move(self, x, y):
-        self._pos, _ = getPosFromAlignment([x, y], self._size, self._alignment)
-        self._label.move(self._pos[0], self._pos[1])
+        self._geometry[0] = x; self._geometry[1] = y
+        self._geometry, _ = getPosFromGeometry(self._geometry)
+        self._label.move(self._geometry[0], self._geometry[1])
 
     def x(self):
-        return self._pos[0]
+        return self._geometry[0]
 
     def y(self):
-        return self._pos[1]
+        return self._geometry[1]
 
     def width(self):
-        return self._size[0]
+        return self._geometry[2]
 
     def height(self):
-        return self._size[1]
+        return self._geometry[3]
 
     def update(self, refresh = False):
         if refresh:
