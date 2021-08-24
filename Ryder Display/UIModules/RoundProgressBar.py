@@ -16,8 +16,14 @@ class RoundProgressBar(object):
         angle = settings['angle'] if 'angle' in settings else [0, 360]
         colors = settings['colors'] if 'colors' in settings else ["#2ecc71", "#141414", "white"]
         thickness = settings['thickness'] if 'thickness' in settings else [4, 0]
-        center_out = settings['center_out'] if 'center_out' in settings else False
-        edges_type = settings['edges-type'] if 'edges-type' in settings else 0
+        center_out = settings['center-out'] if 'center-out' in settings else False
+        edges_type = settings['edges-type'] if 'edges-type' in settings else [0, 0]
+        # Ensure edges_type is an array of 2 elements
+        if isinstance(edges_type, list):
+            if len(edges_type) < 2:
+                edges_type.append(edges_type[0])
+        else:
+            edges_type = [edges_type, edges_type]
         # Process alignment
         if len(geometry) == 4: geometry.append(7)
         geometry, _ = getPosFromGeometry(geometry)

@@ -276,7 +276,7 @@
       "colors": [ "#2ecc71", "#141414", "#545454" ],
       "angle": [ 218, 97 ],
       "thickness": [ 6, 3 ],
-      "center_out": true,
+      "center-out": true,
       "edges-type": 1,
       "metric": {
         "name": [ "msi", "Framerate" ],
@@ -302,7 +302,7 @@
       "colors": [ "#e1ea0e", "#141414", "#545454" ],
       "angle": [ -38, 83 ],
       "thickness": [ 6, 3 ],
-      "center_out": true,
+      "center-out": true,
       "edges-type": 1,
       "metric": {
         "name": [ "*total_power" ],
@@ -327,7 +327,7 @@
       "colors": [ "#247ae4", "#141414", "#545454" ],
       "angle": [ 308, 232 ],
       "thickness": [ 6, 3 ],
-      "center_out": true,
+      "center-out": true,
       "edges-type": 1,
       "metric": {
         "name": [ "*delta_t" ],
