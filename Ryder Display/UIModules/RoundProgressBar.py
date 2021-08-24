@@ -18,12 +18,18 @@ class RoundProgressBar(object):
         thickness = settings['thickness'] if 'thickness' in settings else [4, 0]
         center_out = settings['center-out'] if 'center-out' in settings else False
         edges_type = settings['edges-type'] if 'edges-type' in settings else [0, 0]
-        # Ensure edges_type is an array of 2 elements
+        edges_removal = settings['edges-removal'] if 'edges-removal' in settings else [0, 0]
+        # Ensure edges_type and edges_removal is an array of 2 elements
         if isinstance(edges_type, list):
             if len(edges_type) < 2:
                 edges_type.append(edges_type[0])
         else:
             edges_type = [edges_type, edges_type]
+        if isinstance(edges_removal, list):
+            if len(edges_removal) < 2:
+                edges_removal.append(edges_removal[0])
+        else:
+            edges_removal = [edges_removal, edges_removal]
         # Process alignment
         if len(geometry) == 4: geometry.append(7)
         geometry, _ = getPosFromGeometry(geometry)
@@ -51,7 +57,10 @@ class RoundProgressBar(object):
         # Create component
         self._elem = QtRoundProgressBar(window)
         self._elem.setGeometry(geometry[0], geometry[1], geometry[2], geometry[3])
-        self._elem.setup(settings['metric']['bounds'], newAngle, dir, colors, thickness, edges_type)
+        self._elem.setup(
+            settings['metric']['bounds'], newAngle, dir, colors, 
+            thickness, edges_type, edges_removal
+        )
         self._elem.redraw()
         self._elem.show()
 
