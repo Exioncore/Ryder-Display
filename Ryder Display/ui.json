@@ -61,11 +61,9 @@
     {
       "title": "CPU Max Thread Load",
       "type": "RoundProgressBar",
-      "pos": [ "d", "d+7" ],
-      "size": [ 170, 170 ],
-      "alignment": 5,
-      "angle": [ 225, -45 ],
+      "geometry": [ "d", "d+7", 170, 170, 5 ],
       "colors": [ "#2ecc71", "#141414" ],
+      "angle": [ 225, -45 ],
       "thickness": 4,
       "metric": {
         "name": [ "*highest_thread_usage" ],
@@ -75,14 +73,11 @@
     {
       "title": "CPU Load",
       "type": "RoundProgressBar",
-      "pos": [ "d", "d+7" ],
-      "size": [ 150, 150 ],
-      "alignment": 5,
-      "angle": [ 225, -45 ],
-      "rounded-corners": true,
+      "geometry": [ "d", "d+7", 150, 150, 5 ],
       "colors": [ "#cd3413", "#141414", "#545454" ],
-      "thickness": 10,
-      "border-thickness": 4,
+      "angle": [ 225, -45 ],
+      "thickness": [ 10, 4 ],
+      "edges-type": 1,
       "metric": {
         "name": [ "msi", "CPU usage" ],
         "bounds": [ 0, 100 ]
@@ -100,21 +95,6 @@
         "bounds": [ 0, 9999 ]
       },
       "unit": "MHz"
-    },
-    {
-      "title": "CPU Power",
-      "type": "CornerProgressBar",
-      "pos": [ "d-5", "d+16" ],
-      "size": [ 280, 190 ],
-      "alignment": 5,
-      "colors": [ "#e1ea0e", "#141414" ],
-      "direction": [ 6, 8 ],
-      "thickness": 14,
-      "cornerRadius": 50,
-      "metric": {
-        "name": [ "msi", "CPU power" ],
-        "bounds": [ 0, "*cpu_max_power" ]
-      }
     },
     {
       "title": "CPU Power Text",
@@ -174,11 +154,9 @@
     {
       "title": "GPU VRAM Usage",
       "type": "RoundProgressBar",
-      "pos": [ "d", "d+7" ],
-      "size": [ 170, 170 ],
-      "alignment": 5,
-      "angle": [ -45, 225 ],
+      "geometry": [ "d", "d+7", 170, 170, 5 ],
       "colors": [ "#2ecc71", "#141414" ],
+      "angle": [ -45, 225 ],
       "thickness": 4,
       "metric": {
         "name": [ "msi", "Memory usage" ],
@@ -188,14 +166,11 @@
     {
       "title": "GPU Load",
       "type": "RoundProgressBar",
-      "pos": [ "d", "d+7" ],
-      "size": [ 150, 150 ],
-      "alignment": 5,
-      "angle": [ -45, 225 ],
-      "rounded-corners": true,
+      "geometry": [ "d", "d+7", 150, 150, 5 ],
       "colors": [ "#cd3413", "#141414", "#545454" ],
-      "thickness": 10,
-      "border-thickness": 4,
+      "angle": [ -45, 225 ],
+      "thickness": [ 10, 4 ],
+      "edges-type": 1,
       "metric": {
         "name": [ "msi", "GPU usage" ],
         "bounds": [ 0, 100 ]
@@ -299,21 +274,6 @@
       "unit": "MHz"
     },
     {
-      "title": "GPU Power",
-      "type": "CornerProgressBar",
-      "pos": [ "d+5", "d+16" ],
-      "size": [ 280, 190 ],
-      "alignment": 5,
-      "colors": [ "#e1ea0e", "#141414" ],
-      "direction": [ 4, 8 ],
-      "thickness": 14,
-      "cornerRadius": 50,
-      "metric": {
-        "name": [ "msi", "Power" ],
-        "bounds": [ 0, "*gpu_max_power" ]
-      }
-    },
-    {
       "title": "GPU Power Text",
       "type": "DynamicText",
       "pos": [ "d", "d+96" ],
@@ -336,15 +296,12 @@
     {
       "title": "Framerate",
       "type": "RoundProgressBar",
-      "pos": [ "d", "d+1" ],
-      "size": [ 118, 118 ],
-      "alignment": 5,
-      "angle": [ 218, 97 ],
-      "center_out": true,
-      "rounded-corners": true,
+      "geometry": [ "d", "d+1", 118, 118, 5 ],
       "colors": [ "#2ecc71", "#141414", "#545454" ],
-      "thickness": 6,
-      "border-thickness": 3,
+      "angle": [ 218, 97 ],
+      "thickness": [ 6, 3 ],
+      "center_out": true,
+      "edges-type": 1,
       "metric": {
         "name": [ "msi", "Framerate" ],
         "bounds": [ 30, "*fps_target + 20" ]
@@ -367,15 +324,12 @@
     {
       "title": "Total System Power",
       "type": "RoundProgressBar",
-      "pos": [ "d", "d+1" ],
-      "size": [ 118, 118 ],
-      "alignment": 5,
-      "angle": [ -38, 83 ],
-      "center_out": true,
-      "rounded-corners": true,
+      "geometry": [ "d", "d+1", 118, 118, 5 ],
       "colors": [ "#e1ea0e", "#141414", "#545454" ],
-      "thickness": 6,
-      "border-thickness": 3,
+      "angle": [ -38, 83 ],
+      "thickness": [ 6, 3 ],
+      "center_out": true,
+      "edges-type": 1,
       "metric": {
         "name": [ "*total_power" ],
         "bounds": [ 0, "*cpu_max_power + *gpu_max_power" ]
@@ -397,15 +351,12 @@
     {
       "title": "Delta Temperature Bar",
       "type": "RoundProgressBar",
-      "pos": [ "d", "d+1" ],
-      "size": [ 118, 118 ],
-      "alignment": 5,
-      "angle": [ 308, 232 ],
-      "center_out": true,
-      "rounded-corners": true,
+      "geometry": [ "d", "d+1", 118, 118, 5 ],
       "colors": [ "#247ae4", "#141414", "#545454" ],
-      "thickness": 6,
-      "border-thickness": 3,
+      "angle": [ 308, 232 ],
+      "thickness": [ 6, 3 ],
+      "center_out": true,
+      "edges-type": 1,
       "metric": {
         "name": [ "*delta_t" ],
         "bounds": [ 0, 10 ]
@@ -685,14 +636,11 @@
     {
       "title": "RAM Load",
       "type": "RoundProgressBar",
-      "pos": [ "d", "d" ],
-      "size": [ 80, 80 ],
-      "alignment": 5,
-      "angle": [ 225, -45 ],
-      "rounded-corners": true,
+      "geometry": [ "d", "d", 80, 80, 5 ],
       "colors": [ "#9e24e4", "#141414", "#545454" ],
-      "thickness": 10,
-      "border-thickness": 3,
+      "angle": [ 225, -45 ],
+      "thickness": [ 10, 3 ],
+      "edges-type": 1,
       "metric": {
         "name": [ "msi", "RAM usage" ],
         "bounds": [ 0, "*ram_size_mb" ]

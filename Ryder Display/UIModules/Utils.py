@@ -29,6 +29,25 @@ def getPosFromAlignment(pos, size, alignment):
             newPos[0] -= size[0] / 2
     return newPos, h_alignment
 
+def getPosFromGeometry(geometry):
+    h_alignment = 0
+    if geometry[4] == 5:
+        geometry[0] -= geometry[2] / 2
+        geometry[1] -= geometry[3] / 2
+    else:
+        if geometry[4] >= 1 and geometry[4] <= 3:
+            geometry[1] -= geometry[3]
+        elif geometry[4] >= 4 and geometry[4] <= 6:
+            geometry[1] -= geometry[3] / 2
+        if geometry[4] == 1 or geometry[4] == 4 or geometry[4] == 7:
+            h_alignment = -1
+        elif geometry[4] == 3 or geometry[4] == 6 or geometry[4] == 9:
+            geometry[0] -= geometry[2]
+            h_alignment = 1
+        else:
+            geometry[0] -= geometry[2] / 2
+    return geometry, h_alignment
+
 def createLabel(window, settings):
     # Retrieve settings
     stylesheet = settings['stylesheet'] if 'stylesheet' in settings else ""

@@ -12,17 +12,15 @@ class RoundProgressBar(object):
         # Retrieve settings
         ### UI Related
         self._transition_frames = transition_frames
-        alignment = settings['alignment'] if 'alignment' in settings else 7
-        pos = settings['pos'] if 'pos' in settings else [0, 0]
-        size = settings['size'] if 'size' in settings else [50, 50]
+        geometry = settings['geometry'] if 'geometry' in settings else [0, 0, 50, 50, 7]
         angle = settings['angle'] if 'angle' in settings else [0, 360]
         colors = settings['colors'] if 'colors' in settings else ["#2ecc71", "#141414", "white"]
-        thickness = settings['thickness'] if 'thickness' in settings else 4
-        border_thickness = settings['border-thickness'] if 'border-thickness' in settings else 0
+        thickness = settings['thickness'] if 'thickness' in settings else [4, 0]
         center_out = settings['center_out'] if 'center_out' in settings else False
-        rounded_corners = settings['rounded-corners'] if 'rounded-corners' in settings else False
+        edges_type = settings['edges-type'] if 'edges-type' in settings else 0
         # Process alignment
-        pos, _ = getPosFromAlignment(pos, size, alignment)
+        if len(geometry) == 4: geometry.append(7)
+        geometry, _ = getPosFromGeometry(geometry)
         ### Metric related
         self._metric = settings['metric']['name']
         self._elem_t = Transitioner(
@@ -30,27 +28,24 @@ class RoundProgressBar(object):
             abs(settings['metric']['bounds'][1] - settings['metric']['bounds'][0]) / 100.0
         )
         self._elem_t.setMinMax(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
-        # Create components
-        self._elem = QtRoundProgressBar(window)
-        self._elem.setGeometry(pos[0], pos[1], size[0], size[1])
-        dir = 1 if angle[0] < angle[1] else -1
-        min_angle = angle[0] if angle[0] < angle[1] else angle[1]
-        max_angle = angle[0] if angle[0] >= angle[1] else angle[1]
-        self._elem.setAngleBounds(min_angle, max_angle)
-        self._elem.setForegroundColor(QColor(colors[0]))
-        print(colors[1])
-        self._elem.setBackgroundColor(QColor(colors[1]))
-        if len(colors) == 3:
-            self._elem.setBorderColor(QColor(colors[2]))
-        self._elem.setThickness(thickness)
-        self._elem.setBorderThickness(border_thickness)
-        if center_out:
-            self._elem.setFillDirection(0)
+        # Pre-process some parameters
+        if not center_out:
+            dir = 1 if angle[0] < angle[1] else -1
         else:
-            self._elem.setFillDirection(dir)
-        if rounded_corners:
-            self._elem.setRoundOff(rounded_corners)
-        self._elem.setBounds(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
+            dir = 0
+        newAngle = []
+        newAngle.append(angle[0] if angle[0] < angle[1] else angle[1])
+        newAngle.append(angle[0] if angle[0] >= angle[1] else angle[1])
+        for i in range(len(colors)): colors[i] = QColor(colors[i])
+        if len(colors) < 3: colors.append(QColor('white'))
+        if isinstance(thickness, list): 
+            if len(thickness) < 2: thickness.append(0)
+        else: 
+            thickness = [thickness, 0]
+        # Create component
+        self._elem = QtRoundProgressBar(window)
+        self._elem.setGeometry(geometry[0], geometry[1], geometry[2], geometry[3])
+        self._elem.setup(settings['metric']['bounds'], newAngle, dir, colors, thickness, edges_type)
         self._elem.redraw()
         self._elem.show()
 

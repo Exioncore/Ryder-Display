@@ -41,25 +41,38 @@ class ConfigurationParser(object):
         file.close()
         # Fill in variables in ui file
         ## UI section
-        pos = ui['ui'][0]['pos'].copy()
+        if ui['ui'][0]['type'] != 'RoundProgressBar':
+            attr_name = 'pos'
+            pos = ui['ui'][0][attr_name].copy()
+        else:
+            attr_name = 'geometry'
+            pos = ui['ui'][0][attr_name][0:2].copy()
         new_pos = pos.copy()
         for entry in ui['ui']:
+            if entry['type'] != 'RoundProgressBar':
+                attr_name = 'pos'
+            else:
+                attr_name = 'geometry'
+
             # Positioning
-            if 'pos' in entry:
+            if attr_name in entry:
                 update_pos = [True, True]
                 for i in range(2):
-                    if isinstance(entry['pos'][i], str):
-                        if entry['pos'][i][0] != "d":
-                            new_pos[i] = pos[i] + int(entry['pos'][i])
+                    if isinstance(entry[attr_name][i], str):
+                        if entry[attr_name][i][0] != "d":
+                            new_pos[i] = pos[i] + int(entry[attr_name][i])
                         else:
                             update_pos[i] = False
-                            if len(entry['pos'][i]) > 1:
-                                new_pos[i] = pos[i] + int(entry['pos'][i][1:])
+                            if len(entry[attr_name][i]) > 1:
+                                new_pos[i] = pos[i] + int(entry[attr_name][i][1:])
                             else:
                                 new_pos[i] = pos[i]
                     else:
-                        new_pos[i] = entry['pos'][i]
-                entry['pos'] = new_pos.copy()
+                        new_pos[i] = entry[attr_name][i]
+                if attr_name == 'pos':
+                    entry[attr_name] = new_pos.copy()
+                else:
+                    entry[attr_name][0:2] = new_pos.copy()
 
                 if update_pos[0]:
                     pos[0] = new_pos[0]
@@ -132,6 +145,8 @@ class ConfigurationParser(object):
             # DEBUG
             if 'pos' in entry:
                 print(entry['title'] + ", " + str(entry['pos'][0]) + ", " + str(entry['pos'][1]))
+            elif 'geometry' in entry:
+                print(entry['title'] + ", " + str(entry['geometry'][0]) + ", " + str(entry['geometry'][1]))
             else:
                 print(entry['title'])
             # Parse Element
