@@ -117,20 +117,18 @@ class QtRoundProgressBar(QWidget):
                     self._pen.setCapStyle(Qt.FlatCap)
                     paint.setPen(self._pen)
                     outerRadius = self.width() / 2
-                    innerRadius = outerRadius - self._thickness[0] - self._thickness[1]
+                    maxThickness = self._thickness[0] + self._thickness[1]
                     for i in range(2):
                         if self._cap[i] == 0:
                             rads = math.radians(self._angle_bounds[i])
                             p1 = [
-                                (self.width()  / 2) + innerRadius * math.cos(rads), 
-                                (self.height() / 2) - innerRadius * math.sin(rads)
+                                (self.width()  / 2) + (self.width() / 2 - maxThickness) * math.cos(rads), 
+                                (self.height() / 2) - (self.height() / 2 - maxThickness) * math.sin(rads)
                             ]
                             p2 = [
-                                (self.width()  / 2) + outerRadius * math.cos(rads), 
-                                (self.height() / 2) - outerRadius * math.sin(rads)
+                                (self.width()  / 2) + (self.width() / 2) * math.cos(rads), 
+                                (self.height() / 2) - (self.height() / 2) * math.sin(rads)
                             ]
-                            print(p1)
-                            print(p2)
                             paint.drawLine(p1[0], p1[1], p2[0], p2[1])
                     self._pen.setWidth(self._thickness[0])
                 # Draw Square Border End Caps
@@ -164,7 +162,10 @@ class QtRoundProgressBar(QWidget):
             # Draw Foreground
             paint.begin(self._foreground_t_buffer)
             paint.setRenderHint(QPainter.Antialiasing)
-            self._pen.setWidth(self._thickness[0])
+            if self._thickness[1] > 0:
+                self._pen.setWidth(self._thickness[0] - 2)
+            else:
+                self._pen.setWidth(self._thickness[0])
             self._pen.setColor(self._colors[0])
             startAngle = self._angle_bounds[0]
             angleStep = self._max_angle / 2 + self._max_angle / 4

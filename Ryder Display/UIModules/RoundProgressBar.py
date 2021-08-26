@@ -51,7 +51,7 @@ class RoundProgressBar(object):
             dir = 0
         newAngle = []
         newAngle.append(angle[0] if angle[0] < angle[1] else angle[1])
-        newAngle.append(angle[0] if angle[0] >= angle[1] else angle[1])
+        newAngle.append(angle[1] if angle[0] < angle[1] else angle[0])
         for i in range(len(colors)): colors[i] = QColor(colors[i])
         if len(colors) < 3: colors.append(QColor('white'))
         if isinstance(thickness, list): 

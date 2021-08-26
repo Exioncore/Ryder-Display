@@ -115,7 +115,10 @@ class QtStraightProgressBar(QWidget):
                 else:
                     paint.begin(self._foreground_t_buffer)
                     paint.setRenderHint(QPainter.Antialiasing)
-                    self._pen.setWidthF(self._thickness - 2)
+                    if self._border_thickness > 0:
+                        self._pen.setWidthF(self._thickness - 2)
+                        ofst[0] += 1
+                        ofst[1] += 1
                 # Draw Bar
                 self._drawLine(paint, ofst[0], ofst[1])
                 paint.end()

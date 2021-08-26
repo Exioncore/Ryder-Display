@@ -21,6 +21,13 @@ class CornerProgressBar(object):
         thickness = settings['thickness'] if 'thickness' in settings else [4, 0]
         gap = settings['gap'] if 'gap' in settings else 2
         radius = settings['corner-radius'] if 'corner-radius' in settings else 20
+        edges_type = settings['edges-type'] if 'edges-type' in settings else [0, 0]
+        # Ensure edges_type is an array of 2 elements
+        if isinstance(edges_type, list):
+            if len(edges_type) < 2:
+                edges_type.append(edges_type[0])
+        else:
+            edges_type = [edges_type, edges_type]
         # Process alignment
         if len(geometry) == 4: geometry.append(7)
         geometry, _ = getPosFromGeometry(geometry)
@@ -55,21 +62,29 @@ class CornerProgressBar(object):
                 geometry2 = [pos_x[9], pos_y[9], diameter, diameter, 9]
                 geometry3 = [pos_x[3], pos_y[3], geometry[3] - thickness[1] - gap - radius, 3]
                 angle = [90, 0]
+                edges_type1 = [edges_type[0], 0]
+                edges_type3 = [0, edges_type[1]]
             elif direction[0] == 6 and direction[1] == 8:
                 geometry1 = [pos_x[1], pos_y[1], geometry[2] - thickness[1] - gap - radius, 1]
                 geometry2 = [pos_x[3], pos_y[3], diameter, diameter, 3]
                 geometry3 = [pos_x[9], pos_y[9], geometry[3] - thickness[1] - gap - radius, 9]
                 angle = [-90, 0]
+                edges_type1 = [edges_type[0], 0] 
+                edges_type3 = [edges_type[1], 0]
             elif direction[0] == 4 and direction[1] == 8:
                 geometry1 = [pos_x[3], pos_y[3], geometry[2] - thickness[1] - gap - radius, 3]
                 geometry2 = [pos_x[1], pos_y[1], diameter, diameter, 1]
                 geometry3 = [pos_x[7], pos_y[7], geometry[3] - thickness[1] - gap - radius, 7]
                 angle = [270, 180]
+                edges_type1 = [0, edges_type[0]] 
+                edges_type3 = [edges_type[1], 0]
             elif direction[0] == 4 and direction[1] == 2:
                 geometry1 = [pos_x[9], pos_y[9], geometry[2] - thickness[1] - gap - radius, 9]
                 geometry2 = [pos_x[7], pos_y[7], diameter, diameter, 7]
                 geometry3 = [pos_x[1], pos_y[1], geometry[3] - thickness[1] - gap - radius, 1]
                 angle = [90, 180]
+                edges_type1 = [0, edges_type[0]] 
+                edges_type3 = [0, edges_type[1]]
         # Vertical to Horizontal
         elif direction[0] == 8 or direction[0] == 2:   
             segment_size[0] = geometry[3] - thickness[1] - gap - radius; segment_size[2] = geometry[2] - thickness[1] - gap - radius
@@ -80,21 +95,29 @@ class CornerProgressBar(object):
                 geometry2 = [pos_x[7], pos_y[7], diameter, diameter, 7]
                 geometry3 = [pos_x[9], pos_y[9], geometry[2] - thickness[1] - gap - radius, 9]
                 angle = [180, 90]
+                edges_type1 = [0, edges_type[0]] 
+                edges_type3 = [0, edges_type[1]]
             elif direction[0] == 8 and direction[1] == 4:
                 geometry1 = [pos_x[3], pos_y[3], geometry[3] - thickness[1] - gap - radius, 3]
                 geometry2 = [pos_x[9], pos_y[9], diameter, diameter, 9]
                 geometry3 = [pos_x[7], pos_y[7], geometry[2] - thickness[1] - gap - radius, 7]
                 angle = [0, 90]
+                edges_type1 = [0, edges_type[0]] 
+                edges_type3 = [edges_type[1], 0]
             elif direction[0] == 2 and direction[1] == 4:
                 geometry1 = [pos_x[9], pos_y[9], geometry[3] - thickness[1] - gap - radius, 9]
                 geometry2 = [pos_x[3], pos_y[3], diameter, diameter, 3]
                 geometry3 = [pos_x[1], pos_y[1], geometry[2] - thickness[1] - gap - radius, 1]
                 angle = [0, -90]
+                edges_type1 = [edges_type[0], 0] 
+                edges_type3 = [edges_type[1], 0]
             elif direction[0] == 2 and direction[1] == 6:
                 geometry1 = [pos_x[7], pos_y[7], geometry[3] - thickness[1] - gap - radius, 7]
                 geometry2 = [pos_x[1], pos_y[1], diameter, diameter, 1]
                 geometry3 = [pos_x[3], pos_y[3], geometry[2] - thickness[1] - gap - radius, 3]
                 angle = [180, 270]
+                edges_type1 = [edges_type[0], 0] 
+                edges_type3 = [0, edges_type[1]]
         bounds1 = [bounds[0], bounds[0] + mul * segment_size[0]]
         bounds2 = [bounds1[1], bounds1[1] + mul * segment_size[1]]
         bounds3 = [bounds2[1], bounds[1]]
@@ -105,6 +128,7 @@ class CornerProgressBar(object):
                 'colors': colors,
                 'thickness': thickness,
                 'direction': direction[0],
+                'edges-type': edges_type1,
                 'bounds': bounds1
             })
         )
@@ -124,6 +148,7 @@ class CornerProgressBar(object):
                 'colors': colors,
                 'thickness': thickness,
                 'direction': direction[1],
+                'edges-type': edges_type3,
                 'bounds': bounds3
             })
         )
