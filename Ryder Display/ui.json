@@ -122,7 +122,7 @@
     {
       "title": "GPU Image",
       "type": "Image",
-      "geometry": [ "-3", "+120", 80, 55, 5 ],
+      "geometry": [ "-3", "+120", 76, 52, 5 ],
       "path": "GPU-Logo.svg"
     },
     {
@@ -177,7 +177,7 @@
     {
       "title": "GPU No Load Flag",
       "type": "DynamicLabelBool",
-      "geometry": [ "d-43", "d", 6 ],
+      "geometry": [ "d-41", "d", 6 ],
       "evaluation": {
         "true": {
           "text": "NL",
@@ -197,7 +197,7 @@
     {
       "title": "GPU Voltage Limit flag",
       "type": "DynamicLabelBool",
-      "geometry": [ "d+43", "d", 4 ],
+      "geometry": [ "d+41", "d", 4 ],
       "evaluation": {
         "true": {
           "text": "VL",
@@ -217,7 +217,7 @@
     {
       "title": "GPU Temperature Limit Flag",
       "type": "DynamicLabelBool",
-      "geometry": [ "d", "d-43", 5 ],
+      "geometry": [ "d", "d-41", 5 ],
       "evaluation": {
         "true": {
           "text": "TMP",
@@ -237,7 +237,7 @@
     {
       "title": "GPU Power Limit Flag",
       "type": "DynamicLabelBool",
-      "geometry": [ "d", "d+43", 5 ],
+      "geometry": [ "d", "d+41", 5 ],
       "evaluation": {
         "true": {
           "text": "PWR",
