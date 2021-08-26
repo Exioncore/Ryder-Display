@@ -4,11 +4,12 @@ from PyQt5.QtWidgets import QLabel
 from UIModules.Utils import *
 from Utils.InternalMetrics import InternalMetrics
 
-class DynamicTextBool(object):
+class DynamicLabelBool(object):
     def __init__(self, window, settings):
         # Retrieve settings
         ### UI Related
         self._stylesheet = settings['stylesheet'] if 'stylesheet' in settings and len(settings['stylesheet']) == 2 else ["", ""]
+        geometry = settings['geometry'] if 'geometry' in settings else [0, 0, 7]
         pos = settings['pos'] if 'pos' in settings else [0, 0]
         alignment = settings['alignment'] if 'alignment' in settings else 7
         self._evaluation = settings['evaluation']
@@ -36,15 +37,17 @@ class DynamicTextBool(object):
         self._label.adjustSize()
         size[0] = size[0] if self._label.size().width() < size[0] else self._label.size().width()
         # Process alignment
-        pos, h_alignment = getPosFromAlignment(pos, size, alignment)
-        print(pos)
+        if len(geometry) == 2: geometry.append(7)
+        geometry.insert(2, size[0])
+        geometry.insert(3, size[1])
+        geometry, h_alignment = getPosFromGeometry(geometry)
         if h_alignment < 0:
             self._label.setAlignment(Qt.AlignLeft)
         elif h_alignment > 0:
             self._label.setAlignment(Qt.AlignRight)
         else:
             self._label.setAlignment(Qt.AlignHCenter)
-        self._label.move(pos[0], pos[1])
+        self._label.move(geometry[0], geometry[1])
 
         self._label.show()
 

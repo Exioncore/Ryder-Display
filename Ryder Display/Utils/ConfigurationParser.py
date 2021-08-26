@@ -19,7 +19,7 @@ from Pages.PowerPlanMenu import PowerPlanMenu
 from UIModules.ProgressBar import ProgressBar
 from UIModules.DynamicLabel import DynamicLabel
 from Utils.InternalMetrics import InternalMetrics
-from UIModules.DynamicTextBool import DynamicTextBool
+from UIModules.DynamicLabelBool import DynamicLabelBool
 from UIModules.RoundProgressBar import RoundProgressBar
 from UIModules.CornerProgressBar import CornerProgressBar
 from UIModules.ForegroundProcess import ForegroundProcess
@@ -41,41 +41,25 @@ class ConfigurationParser(object):
         file.close()
         # Fill in variables in ui file
         ## UI section
-        if (ui['ui'][0]['type'] == 'RoundProgressBar' or ui['ui'][0]['type'] == 'Image' or ui['ui'][0]['type'] == 'Shape' or ui['ui'][0]['type'] == 'StaticLabel'
-            or ui['ui'][0]['type'] == 'DynamicLabel' or ui['ui'][0]['type'] == 'Graph' or ui['ui'][0]['type'] == 'ForegroundProcessIcon'
-            ):
-            pos = ui['ui'][0]['geometry'][0:2].copy()
-        else:
-            pos = ui['ui'][0]['pos'].copy()
-            
+        pos = ui['ui'][0]['geometry'][0:2].copy()
         new_pos = pos.copy()
         for entry in ui['ui']:
-            if (entry['type'] == 'RoundProgressBar' or entry['type'] == 'Image' or entry['type'] == 'Shape' or entry['type'] == 'StaticLabel' 
-                or entry['type'] == 'DynamicLabel' or entry['type'] == 'Graph' or entry['type'] == 'ForegroundProcessIcon'
-                ):
-                attr_name = 'geometry'
-            else:
-                attr_name = 'pos'
-
             # Positioning
-            if attr_name in entry:
+            if 'geometry' in entry:
                 update_pos = [True, True]
                 for i in range(2):
-                    if isinstance(entry[attr_name][i], str):
-                        if entry[attr_name][i][0] != "d":
-                            new_pos[i] = pos[i] + int(entry[attr_name][i])
+                    if isinstance(entry['geometry'][i], str):
+                        if entry['geometry'][i][0] != "d":
+                            new_pos[i] = pos[i] + int(entry['geometry'][i])
                         else:
                             update_pos[i] = False
-                            if len(entry[attr_name][i]) > 1:
-                                new_pos[i] = pos[i] + int(entry[attr_name][i][1:])
+                            if len(entry['geometry'][i]) > 1:
+                                new_pos[i] = pos[i] + int(entry['geometry'][i][1:])
                             else:
                                 new_pos[i] = pos[i]
                     else:
-                        new_pos[i] = entry[attr_name][i]
-                if attr_name == 'pos':
-                    entry[attr_name] = new_pos.copy()
-                else:
-                    entry[attr_name][0:2] = new_pos.copy()
+                        new_pos[i] = entry['geometry'][i]
+                entry['geometry'][0:2] = new_pos.copy()
 
                 if update_pos[0]:
                     pos[0] = new_pos[0]
@@ -177,8 +161,8 @@ class ConfigurationParser(object):
                     if entry['unit'][0] == '*':
                         entry['unit'] = ui['unit_converters'][entry['unit'][1:]]
                 elem = DynamicLabel(window, entry)
-            elif entry['type'] == 'DynamicTextBool':
-                elem = DynamicTextBool(window, entry)
+            elif entry['type'] == 'DynamicLabelBool':
+                elem = DynamicLabelBool(window, entry)
             elif entry['type'] == 'Image':
                 elem = createImage(window, entry, path)
                 is_dynamic = False
@@ -193,7 +177,7 @@ class ConfigurationParser(object):
                 if 'power_plans' in settings['services']:
                     popup = PowerPlanMenu()
                     popup.createUI(path, settings['services']['power_plans'])
-                    elem = MenuButton(window, entry['pos'], entry['size'], path, '/Resources/Power/Power.png', popup)
+                    elem = MenuButton(window, entry['geometry'], path, '/Resources/Power/Power.png', popup)
                     is_dynamic = False
                 else:
                     continue
@@ -201,7 +185,7 @@ class ConfigurationParser(object):
                 if 'hyperion' in settings['services']:
                     popup = HyperionMenu()
                     popup.createUI(path)
-                    elem = MenuButton(window, entry['pos'], entry['size'], path, '/Resources/Hyperion/Logo.png', popup)
+                    elem = MenuButton(window, entry['geometry'], path, '/Resources/Hyperion/Logo.png', popup)
                     is_dynamic = False
                 else:
                     continue
@@ -209,7 +193,7 @@ class ConfigurationParser(object):
                 if 'audio_presets' in settings['services']:
                     popup = AudioMenu()
                     popup.createUI(path, settings['services']['audio_presets'])
-                    elem = MenuButton(window, entry['pos'], entry['size'], path, '/Resources/Audio/Audio.png', popup)
+                    elem = MenuButton(window, entry['geometry'], path, '/Resources/Audio/Audio.png', popup)
                     is_dynamic = False
                 else:
                     continue
@@ -225,7 +209,7 @@ class ConfigurationParser(object):
                 # App Drawer
                 appDrawer = AppDrawer(popup, entry['popup'], path, True)
                 # Button
-                elem = MenuButton(window, entry['pos'], entry['size'], path, '/Resources/app-drawer.png', popup, [appDrawer])
+                elem = MenuButton(window, entry['geometry'], path, '/Resources/app-drawer.png', popup, [appDrawer])
                 is_dynamic = False
             elif entry['type'] == 'AppDrawer':
                 elem = AppDrawer(window, entry, path)

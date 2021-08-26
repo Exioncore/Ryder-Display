@@ -77,17 +77,16 @@ def createLabel(window, settings):
 def createPageLoader(window, settings, path):
     # Retrieve settings
     icon = settings['icon'] if 'icon' in settings else ''
-    pos = settings['pos'] if 'pos' in settings else [0, 0]
-    size = settings['size'] if 'size' in settings else [50, 50]
-    alignment = settings['alignment'] if 'alignment' in settings else 7
+    geometry = settings['geometry'] if 'geometry' in settings else [0, 0, 50, 50, 7]
     # Process Settings
-    pos, _ = getPosFromAlignment(pos, size, alignment)
+    if len(geometry) == 4: geometry.append(7)
+    geometry, _ = getPosFromGeometry(geometry)
     # Create component
     elem = QPushButton('', window)
     elem.setStyleSheet('border: none;')
     elem.setIcon(QIcon(path + '/Resources/' + icon))
-    elem.setIconSize(QSize(size[0], size[1]))
-    elem.setGeometry(pos[0], pos[1], size[0], size[1])
+    elem.setIconSize(QSize(geometry[2], geometry[3]))
+    elem.setGeometry(geometry[0], geometry[1], geometry[2], geometry[3])
     elem.clicked.connect(lambda:window.loadPage(settings['ui_file']))
     elem.show()
     return elem

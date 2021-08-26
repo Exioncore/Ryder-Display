@@ -57,9 +57,6 @@
     <Compile Include="QtComponents\QtRoundProgressBar.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="QtComponents\QtCornerProgressBar.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="QtComponents\QtStraightProgressBar.py">
       <SubType>Code</SubType>
     </Compile>
@@ -71,7 +68,7 @@
     <Compile Include="UIModules\DynamicLabel.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UIModules\DynamicTextBool.py">
+    <Compile Include="UIModules\DynamicLabelBool.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UIModules\ForegroundProcess.py">

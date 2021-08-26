@@ -28,11 +28,11 @@
     {
       "title": "CPU Temperature",
       "type": "ProgressBar",
-      "pos": [ "d-133", "d-60" ],
-      "size": [ 18, 130 ],
+      "geometry": [ "d-124", "d-60", 130, 8 ],
+      "colors": [ "#1f6acc", "#141414", "#545454" ],
+      "thickness": [ 18, 4 ],
+      "edges-type": [ 0, 1 ],
       "direction": 8,
-      "stylesheet": "border-bottom-right-radius:8px;border-bottom-left-radius:8px;",
-      "colors": [ "#1f6acc", "#141414" ],
       "metric": {
         "name": [ "msi", "CPU temperature" ],
         "bounds": [ 0, "*cpu_max_temp" ]
@@ -87,6 +87,20 @@
       "unit": "MHz"
     },
     {
+      "title": "CPU Power",
+      "type": "CornerProgressBar",
+      "geometry": [ "d-5", "d+16", 280, 190, 5 ],
+      "colors": [ "#e1ea0e", "#141414", "#545454" ],
+      "direction": [ 6, 8 ],
+      "thickness": [ 14, 0 ],
+      "corner-radius": 50,
+      "gap": 2,
+      "metric": {
+        "name": [ "msi", "CPU power" ],
+        "bounds": [ 0, "*cpu_max_power" ]
+      }
+    },
+    {
       "title": "CPU Power Text",
       "type": "DynamicLabel",
       "geometry": [ "d", "d+96", "999w", 8 ],
@@ -113,11 +127,11 @@
     {
       "title": "GPU Temperature",
       "type": "ProgressBar",
-      "pos": [ "d+114", "d-60" ],
-      "size": [ 18, 130 ],
+      "geometry": [ "d+124", "d-60", 130, 8 ],
+      "colors": [ "#1f6acc", "#141414", "#545454" ],
+      "thickness": [ 18, 4 ],
+      "edges-type": [ 0, 1 ],
       "direction": 8,
-      "stylesheet": "border-bottom-right-radius:8px;border-bottom-left-radius:8px;",
-      "colors": [ "#1f6acc", "#141414" ],
       "metric": {
         "name": [ "msi", "GPU temperature" ],
         "bounds": [ 0, "*gpu_max_temp" ]
@@ -161,9 +175,8 @@
     },
     {
       "title": "GPU No Load Flag",
-      "type": "DynamicTextBool",
-      "pos": [ "d-43", "d" ],
-      "alignment": 6,
+      "type": "DynamicLabelBool",
+      "geometry": [ "d-43", "d", 6 ],
       "evaluation": {
         "true": {
           "text": "NL",
@@ -182,9 +195,8 @@
     },
     {
       "title": "GPU Voltage Limit flag",
-      "type": "DynamicTextBool",
-      "pos": [ "d+43", "d" ],
-      "alignment": 4,
+      "type": "DynamicLabelBool",
+      "geometry": [ "d+43", "d", 4 ],
       "evaluation": {
         "true": {
           "text": "VL",
@@ -203,9 +215,8 @@
     },
     {
       "title": "GPU Temperature Limit Flag",
-      "type": "DynamicTextBool",
-      "pos": [ "d", "d-43" ],
-      "alignment": 5,
+      "type": "DynamicLabelBool",
+      "geometry": [ "d", "d-43", 5 ],
       "evaluation": {
         "true": {
           "text": "TMP",
@@ -224,9 +235,8 @@
     },
     {
       "title": "GPU Power Limit Flag",
-      "type": "DynamicTextBool",
-      "pos": [ "d", "d+43" ],
-      "alignment": 5,
+      "type": "DynamicLabelBool",
+      "geometry": [ "d", "d+43", 5 ],
       "evaluation": {
         "true": {
           "text": "PWR",
@@ -253,6 +263,20 @@
         "bounds": [ 0, 9999 ]
       },
       "unit": "MHz"
+    },
+    {
+      "title": "GPU Power",
+      "type": "CornerProgressBar",
+      "geometry": [ "d+5", "d+16", 280, 190, 5 ],
+      "colors": [ "#e1ea0e", "#141414", "#545454" ],
+      "direction": [ 4, 8 ],
+      "thickness": [ 14, 0 ],
+      "corner-radius": 50,
+      "gap": 2,
+      "metric": {
+        "name": [ "msi", "Power" ],
+        "bounds": [ 0, "*gpu_max_power" ]
+      }
     },
     {
       "title": "GPU Power Text",
@@ -356,28 +380,13 @@
       "text": "Storage"
     },
     {
-      "title": "C Drive activity right",
+      "title": "C Drive activity",
       "type": "ProgressBar",
-      "pos": [ "+0", "+45" ],
-      "size": [ 75, 16 ],
-      "direction": 6,
-      "alignment": 4,
-      "stylesheet": "border-bottom-right-radius:8px;border-top-right-radius:8px;",
-      "colors": [ "#691f94", "#141414" ],
-      "metric": {
-        "name": [ "storage", "C", "activity" ],
-        "bounds": [ 0, 100 ]
-      }
-    },
-    {
-      "title": "C Drive activity left",
-      "type": "ProgressBar",
-      "pos": [ "d", "d" ],
-      "size": [ 75, 16 ],
-      "direction": 4,
-      "alignment": 6,
-      "stylesheet": "border-bottom-left-radius:8px;border-top-left-radius:8px;",
-      "colors": [ "#691f94", "#141414" ],
+      "geometry": [ "+0", "+45", 150, 5 ],
+      "colors": [ "#691f94", "#141414", "#545454" ],
+      "thickness": 16,
+      "edges-type": 1,
+      "direction": 46,
       "metric": {
         "name": [ "storage", "C", "activity" ],
         "bounds": [ 0, 100 ]
@@ -411,28 +420,13 @@
       "text": "C"
     },
     {
-      "title": "D Drive activity right",
+      "title": "D Drive activity",
       "type": "ProgressBar",
-      "pos": [ "+0", "+30" ],
-      "size": [ 75, 16 ],
-      "direction": 6,
-      "alignment": 4,
-      "stylesheet": "border-bottom-right-radius:8px;border-top-right-radius:8px;",
-      "colors": [ "#691f94", "#141414" ],
-      "metric": {
-        "name": [ "storage", "D", "activity" ],
-        "bounds": [ 0, 100 ]
-      }
-    },
-    {
-      "title": "D Drive activity left",
-      "type": "ProgressBar",
-      "pos": [ "d", "d" ],
-      "size": [ 75, 16 ],
-      "direction": 4,
-      "alignment": 6,
-      "stylesheet": "border-bottom-left-radius:8px;border-top-left-radius:8px;",
-      "colors": [ "#691f94", "#141414" ],
+      "geometry": [ "+0", "+30", 150, 5 ],
+      "colors": [ "#691f94", "#141414", "#545454" ],
+      "thickness": 16,
+      "edges-type": 1,
+      "direction": 46,
       "metric": {
         "name": [ "storage", "D", "activity" ],
         "bounds": [ 0, 100 ]
@@ -466,28 +460,13 @@
       "text": "D"
     },
     {
-      "title": "E Drive activity right",
+      "title": "E Drive activity",
       "type": "ProgressBar",
-      "pos": [ "+0", "+30" ],
-      "size": [ 75, 16 ],
-      "direction": 6,
-      "alignment": 4,
-      "stylesheet": "border-bottom-right-radius:8px;border-top-right-radius:8px;",
-      "colors": [ "#691f94", "#141414" ],
-      "metric": {
-        "name": [ "storage", "E", "activity" ],
-        "bounds": [ 0, 100 ]
-      }
-    },
-    {
-      "title": "E Drive activity left",
-      "type": "ProgressBar",
-      "pos": [ "d", "d" ],
-      "size": [ 75, 16 ],
-      "direction": 4,
-      "alignment": 6,
-      "stylesheet": "border-bottom-left-radius:8px;border-top-left-radius:8px;",
-      "colors": [ "#691f94", "#141414" ],
+      "geometry": [ "+0", "+30", 150, 5 ],
+      "colors": [ "#691f94", "#141414", "#545454" ],
+      "thickness": 16,
+      "edges-type": 1,
+      "direction": 46,
       "metric": {
         "name": [ "storage", "E", "activity" ],
         "bounds": [ 0, 100 ]
@@ -521,28 +500,13 @@
       "text": "E"
     },
     {
-      "title": "F Drive activity right",
+      "title": "F Drive activity",
       "type": "ProgressBar",
-      "pos": [ "+0", "+30" ],
-      "size": [ 75, 16 ],
-      "direction": 6,
-      "alignment": 4,
-      "stylesheet": "border-bottom-right-radius:8px;border-top-right-radius:8px;",
-      "colors": [ "#691f94", "#141414" ],
-      "metric": {
-        "name": [ "storage", "F", "activity" ],
-        "bounds": [ 0, 100 ]
-      }
-    },
-    {
-      "title": "F Drive activity left",
-      "type": "ProgressBar",
-      "pos": [ "d", "d" ],
-      "size": [ 75, 16 ],
-      "direction": 4,
-      "alignment": 6,
-      "stylesheet": "border-bottom-left-radius:8px;border-top-left-radius:8px;",
-      "colors": [ "#691f94", "#141414" ],
+      "geometry": [ "+0", "+30", 150, 5 ],
+      "colors": [ "#691f94", "#141414", "#545454" ],
+      "thickness": 16,
+      "edges-type": 1,
+      "direction": 46,
       "metric": {
         "name": [ "storage", "F", "activity" ],
         "bounds": [ 0, 100 ]
@@ -656,26 +620,22 @@
     {
       "title": "Hyperion",
       "type": "HyperionMenu",
-      "pos": [ 375, 420 ],
-      "size": [ 50, 50 ]
+      "geometry": [ 375, 420, 50, 50 ]
     },
     {
       "title": "Power",
       "type": "PowerMenu",
-      "pos": [ "d-70", "d+5" ],
-      "size": [ 40, 40 ]
+      "geometry": [ "d-70", "d+5", 40, 40 ]
     },
     {
       "title": "Audio",
       "type": "AudioMenu",
-      "pos": [ "d+80", "d+5" ],
-      "size": [ 40, 40 ]
+      "geometry": [ "d+80", "d+5", 40, 40 ]
     },
     {
       "title": "App Drawer Button",
       "type": "PopupAppDrawer",
-      "pos": [ "d+350", "d+5" ],
-      "size": [ 40, 40 ],
+      "geometry": [ "d+350", "d+5", 40, 40 ],
       "popup": {
         "type": "AppDrawer",
         "size": [ 600, 400 ],
@@ -686,8 +646,7 @@
     {
       "title": "Advanced Monitor UI Button",
       "type": "PageLoader",
-      "pos": [ "d-350", "d+5" ],
-      "size": [ 40, 40 ],
+      "geometry": [ "d-350", "d+5", 40, 40 ],
       "icon": "advanced_monitor.png",
       "ui_file": "ui_advanced.json"
     },

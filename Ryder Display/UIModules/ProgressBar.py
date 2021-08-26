@@ -1,50 +1,63 @@
-from PyQt5.QtWidgets import QProgressBar
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QColor
 
 from UIModules.Utils import *
 from Utils.Transitioner import Transitioner
 from Utils.InternalMetrics import InternalMetrics
+from QtComponents.QtStraightProgressBar import QtStraightProgressBar
 
 class ProgressBar(object):
     def __init__(self, window, transition_frames, settings):
         # Retrieve settings
         ### UI Related
         self._transition_frames = transition_frames
-        alignment = settings['alignment'] if 'alignment' in settings else 7
+        geometry = settings['geometry'] if 'geometry' in settings else [0, 0, 50, 7]
+        colors = settings['colors'] if 'colors' in settings else ["#2ecc71", "#141414", "white"]
+        edges_type = settings['edges-type'] if 'edges-type' in settings else [0, 0]
+        thickness = settings['thickness'] if 'thickness' in settings else [4, 0]
         direction = settings['direction'] if 'direction' in settings else 6
-        pos = settings['pos'] if 'pos' in settings else [0, 0]
-        size = settings['size'] if 'size' in settings else [50, 50]
-        style = settings['stylesheet'] if 'stylesheet' in settings else ""
-        colors = settings['colors'] if 'colors' in settings and len(settings['colors']) == 2 else ['#2ecc71', '#141414']
+        # Ensure edges_type is an array of 2 elements
+        if isinstance(edges_type, list):
+            if len(edges_type) < 2:
+                edges_type.append(edges_type[0])
+        else:
+            edges_type = [edges_type, edges_type]
+        # Ensure thickness is an array of 2 elements
+        if isinstance(thickness, list):
+            if len(thickness) < 2:
+                thickness.append(0)
+        else:
+            thickness = [thickness, 0]
+        # Colors
+        for i in range(len(colors)): colors[i] = QColor(colors[i])
+        if len(colors) < 3: colors.append(QColor('white'))
         # Process alignment
-        pos, _ = getPosFromAlignment(pos, size, alignment)
+        if len(geometry) == 3: geometry.append(7)
+        if direction == 4 or direction == 6 or direction == 46 or direction == 64:
+            w = geometry[2] + thickness[1]
+            h = thickness[0] + thickness[1]
+        elif direction == 2 or direction == 8 or direction == 82 or direction == 28:
+            w = thickness[0] + thickness[1]
+            h = geometry[2] + thickness[1]
+        geometry[2] = w
+        geometry.insert(3, h)
+        geometry, _ = getPosFromGeometry(geometry)
         ### Metric related
-        self._metric = settings['metric']['name']
-        self._elem_t = Transitioner(
-            settings['metric']['bounds'][0],
-            abs(settings['metric']['bounds'][1] - settings['metric']['bounds'][0]) / 100.0
-        )
-        self._elem_t.setMinMax(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
+        if transition_frames > 0:
+            self._metric = settings['metric']['name']
+            bounds = settings['metric']['bounds']
+            self._elem_t = Transitioner(
+                bounds[0],
+                abs(bounds[1] - bounds[0]) / 100.0
+            )
+            self._elem_t.setMinMax(bounds[0], bounds[1])
+        else:
+            bounds = settings['bounds'] if 'bounds' in settings else [0, 100]
         # Create components
-        self._elem = QProgressBar(window)
-        self._elem.setGeometry(pos[0], pos[1], size[0], size[1])
-        if direction == 4:
-            self._elem.setOrientation(Qt.Horizontal)
-            self._elem.setInvertedAppearance(True)
-        elif direction == 6:
-            self._elem.setOrientation(Qt.Horizontal)
-        elif direction == 2:
-            self._elem.setOrientation(Qt.Vertical)
-            self._elem.setInvertedAppearance(True)
-        elif direction == 8:
-            self._elem.setOrientation(Qt.Vertical)
-        self._elem.setMinimum(settings['metric']['bounds'][0])
-        self._elem.setMaximum(settings['metric']['bounds'][1])
-        self._elem.setTextVisible(False)
-        # Glitch workaround for background color not applying
-        if style == "":
-            style = "border: 0;"
-        self._elem.setStyleSheet("QProgressBar{"+style+"background:"+colors[1]+";}QProgressBar::chunk{"+style+"background:"+colors[0]+";}")
+        self._elem = QtStraightProgressBar(window)
+        self._elem.setup(bounds, direction, thickness[1], colors, edges_type)
+        self._elem.setGeometry(geometry[0], geometry[1], geometry[2], geometry[3])
+        self._elem.redraw()
         self._elem.show()
 
     def setParent(self, p):
@@ -52,6 +65,10 @@ class ProgressBar(object):
 
     def deleteLater(self):
         self._elem.deleteLater()
+
+    def updateDirect(self, val):
+        self._elem.setValue(val)
+        self._elem.update()
 
     def update(self, refresh = False):
         if refresh:

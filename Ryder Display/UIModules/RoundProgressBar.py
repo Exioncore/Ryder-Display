@@ -1,6 +1,6 @@
-from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
 from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtWidgets import QWidget
+from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
 
 from UIModules.Utils import *
 from Utils.Transitioner import Transitioner
@@ -34,12 +34,16 @@ class RoundProgressBar(object):
         if len(geometry) == 4: geometry.append(7)
         geometry, _ = getPosFromGeometry(geometry)
         ### Metric related
-        self._metric = settings['metric']['name']
-        self._elem_t = Transitioner(
-            settings['metric']['bounds'][0],
-            abs(settings['metric']['bounds'][1] - settings['metric']['bounds'][0]) / 100.0
-        )
-        self._elem_t.setMinMax(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
+        if transition_frames > 0:
+            self._metric = settings['metric']['name']
+            self._bounds = settings['metric']['bounds']
+            self._elem_t = Transitioner(
+                self._bounds[0],
+                abs(self._bounds[1] - self._bounds[0]) / 100.0
+            )
+            self._elem_t.setMinMax(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
+        else:
+            self._bounds = settings['bounds'] if 'bounds' in settings else [0, 100]
         # Pre-process some parameters
         if not center_out:
             dir = 1 if angle[0] < angle[1] else -1
@@ -58,7 +62,7 @@ class RoundProgressBar(object):
         self._elem = QtRoundProgressBar(window)
         self._elem.setGeometry(geometry[0], geometry[1], geometry[2], geometry[3])
         self._elem.setup(
-            settings['metric']['bounds'], newAngle, dir, colors, 
+            self._bounds, newAngle, dir, colors, 
             thickness, edges_type, edges_removal
         )
         self._elem.redraw()
@@ -69,6 +73,10 @@ class RoundProgressBar(object):
 
     def deleteLater(self):
         self._elem.deleteLater()
+
+    def updateDirect(self, val):
+        self._elem.setValue(val)
+        self._elem.update()
 
     def update(self, refresh = False):
         if refresh:
