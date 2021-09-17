@@ -2,7 +2,6 @@
 Ryder Display<br><br>
 To-Do list(subject to change):
 <ul>
-  <li>Fix Round Progress Bars visual glitch when fully filled</li>
   <li>Create wiki</li>
   <li>Raspberry Pi guide to set the app to run in a Kiosk setup</li>
   <li>Automatic UI resizing based on screen size</li>
