@@ -28,6 +28,9 @@
     <Compile Include="Network\Hyperion.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Network\Monitor.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Network\RyderClient.py">
       <SubType>Code</SubType>
     </Compile>

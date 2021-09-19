@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 
 from UIModules.Utils import *
 from UIModules.Graph import Graph
+from Network.Monitor import Monitor
 from Pages.AudioMenu import AudioMenu
 from Network.Hyperion import Hyperion
 from UIModules.AppDrawer import AppDrawer
@@ -118,6 +119,7 @@ class ConfigurationParser(object):
             if 'hyperion' in settings['services']:
                 Hyperion().setUrl(settings['services']['hyperion']['ip'], settings['services']['hyperion']['port'])
                 Hyperion().getState()
+        Monitor()
 
         return settings['ui']['fps'], ui, settings, ui_file
 
