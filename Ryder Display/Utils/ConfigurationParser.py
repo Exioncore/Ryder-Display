@@ -11,6 +11,7 @@ from UIModules.Utils import *
 from UIModules.Graph import Graph
 from Network.Monitor import Monitor
 from Pages.AudioMenu import AudioMenu
+from Pages.PopupMenu import PopupMenu
 from Network.Hyperion import Hyperion
 from UIModules.AppDrawer import AppDrawer
 from Pages.HyperionMenu import HyperionMenu
@@ -204,10 +205,7 @@ class ConfigurationParser(object):
                 is_dynamic = False
             elif entry['type'] == 'PopupAppDrawer':
                 # Popup
-                popup = QMainWindow()
-                popup.setWindowTitle("App Drawer")
-                popup.setWindowFlag(Qt.Popup)
-                popup.setStyleSheet('border: 1px solid rgba(237,174,28,100%);')
+                popup = PopupMenu("App Drawer")
                 # App Drawer
                 appDrawer = AppDrawer(popup, entry['popup'], path, True)
                 # Button

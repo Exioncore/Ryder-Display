@@ -2,7 +2,7 @@ import sys
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QSize, pyqtSlot, Qt
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QSlider, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QSlider, QLabel, QFrame
 
 from Network.Monitor import Monitor
 from Network.Hyperion import Hyperion
@@ -13,14 +13,20 @@ class HyperionMenu(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Hyperion")
-        self.setWindowFlag(Qt.Popup)
-        self.setStyleSheet(
-            'border: 1px solid rgba(237,174,28,100%);'
-        )
+        self.setWindowFlags(Qt.Popup | Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground, True)
+
+        self.frame = QFrame(self)
+        self.frame.setGeometry(0, 0, self.width(), self.height())
+        self.frame.setStyleSheet('border:4px solid #333333;border-radius:30px;background:black;')
+        self.frame.show()
 
         self._br_color = 'color:rgb(200, 200, 200);'
         self._active_br_color = 'color:rgb(36, 138, 179);'
         self._off_br_color = 'color:rgb(179, 36, 36);'
+
+    def resizeEvent(self, event):
+        self.frame.setGeometry(0, 0, self.width(), self.height())
 
     def setParent(self, p):
         return
@@ -35,7 +41,7 @@ class HyperionMenu(QMainWindow):
         title_h = 25
         img_size = [100, 100]
         img_gap = [25, 25]
-        slider_h = 10
+        slider_h = 20
         w_size = [
             img_size[0] * 3 + window_gap * 2 + img_gap[0] * 2, 
             img_size[1] + window_gap * 3 + v_gap * 5 + slider_h * 2 + title_h * 2
@@ -89,20 +95,20 @@ class HyperionMenu(QMainWindow):
             "QSlider{"
                 "background-color: transparent;"
 	            "border-style: outset;"
-	            "border-radius: 10px;"
+	            "border-radius: 15px;"
                 "border: transparent;"
             "}"
             "QSlider::groove:horizontal{"
-	            "height: 12px;"
+	            "height: 24px;"
 	            "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);"
 	            "margin: 2px 0;"
-                "border-radius:6px;"
+                "border-radius:10px;"
             "}"
             "QSlider::handle:horizontal {"
-                "width: 16px;"
-	            "height: 16px;"
+                "width: 32px;"
+	            "height: 32px;"
 	            "margin: -5px 0px -5px 0px;"
-	            "border-radius:11px;"
+	            "border-radius:15px;"
                 "background-color:#0043a1;"
 	            "border: 3px solid #0043a1;"
             "}"
@@ -155,7 +161,7 @@ class HyperionMenu(QMainWindow):
     @pyqtSlot()
     def onClickSetMonitorBrightness(self):
         print("Set monitor brightness: " + str(self.monitor_brightness_slider.value()))
-        RyderClient().send("[\"setMonitorBrightness\","+str(self.monitor_brightness_slider.value())+"]")
+        Monitor().setBrightness(self.monitor_brightness_slider.value())
 
     @pyqtSlot()
     def onClickMonitor(self):
