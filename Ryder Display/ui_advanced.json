@@ -388,6 +388,13 @@
       "ui_file": "ui.json"
     },
     {
+      "title": "CPU Focused Monitor UI Button",
+      "type": "PageLoader",
+      "geometry": [ "d-280", "d+5", 40, 40 ],
+      "icon": "Default/CPU-Logo.svg",
+      "ui_file": "ui_cpu.json"
+    },
+    {
       "title": "Notifications Handler",
       "top_margin": 8,
       "type": "NotificationsHandler",

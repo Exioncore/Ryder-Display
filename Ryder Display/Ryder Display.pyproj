@@ -157,6 +157,7 @@
     <Content Include="settings.json" />
     <Content Include="ui.json" />
     <Content Include="ui_advanced.json" />
+    <Content Include="ui_cpu.json" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="..\Environment\">

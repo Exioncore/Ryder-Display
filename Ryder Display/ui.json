@@ -377,7 +377,7 @@
     {
       "title": "Storage",
       "type": "StaticLabel",
-      "geometry": [ 150, 240, 8 ],
+      "geometry": [ 650, 240, 8 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;",
       "text": "Storage"
     },
@@ -573,7 +573,7 @@
     {
       "title": "Network",
       "type": "StaticLabel",
-      "geometry": [ 650, 240, 8 ],
+      "geometry": [ 150, 240, 8 ],
       "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;",
       "text": "Network"
     },
@@ -646,9 +646,16 @@
       }
     },
     {
-      "title": "Advanced Monitor UI Button",
+      "title": "CPU Focused Monitor UI Button",
       "type": "PageLoader",
       "geometry": [ "d-350", "d+5", 40, 40 ],
+      "icon": "Default/CPU-Logo.svg",
+      "ui_file": "ui_cpu.json"
+    },
+    {
+      "title": "Advanced Monitor UI Button",
+      "type": "PageLoader",
+      "geometry": [ "d-280", "d+5", 40, 40 ],
       "icon": "advanced_monitor.png",
       "ui_file": "ui_advanced.json"
     },
