@@ -390,7 +390,7 @@
     {
       "title": "CPU Focused Monitor UI Button",
       "type": "PageLoader",
-      "geometry": [ "d-280", "d+5", 40, 40 ],
+      "geometry": [ "d-270", "d+5", 40, 40 ],
       "icon": "Default/CPU-Logo.svg",
       "ui_file": "ui_cpu.json"
     },

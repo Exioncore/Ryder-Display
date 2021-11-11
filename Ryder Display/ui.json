@@ -655,7 +655,7 @@
     {
       "title": "Advanced Monitor UI Button",
       "type": "PageLoader",
-      "geometry": [ "d-280", "d+5", 40, 40 ],
+      "geometry": [ "d-270", "d+5", 40, 40 ],
       "icon": "advanced_monitor.png",
       "ui_file": "ui_advanced.json"
     },
