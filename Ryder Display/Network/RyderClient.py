@@ -111,7 +111,7 @@ class RyderClient(object, metaclass=Singleton):
                                 msg = json.loads(data)
                                 # Authentication
                                 if not self.authenticated:
-                                    if msg[0] == 'authenticated':
+                                    if msg[1] == 'allow':
                                         print("Authenticated")
                                         self.authenticated = True
                                         # Call functions that are meant to run when connection is established

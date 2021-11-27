@@ -20,12 +20,8 @@ class Notification(object):
         self._background.setGeometry(pos[0], pos[1], size[0], size[1])
         self._background.hide()
         ### Notification Logo
-        self._logo = QSvgWidget('', self._background)
-        self._logo.setGeometry(
-            img_margin, img_margin,
-            size[1] - img_margin*2, size[1] - img_margin*2
-        )
-        self._logo.show()
+        self._logo = None
+        self._logo_geometry = [img_margin, img_margin, size[1] - img_margin*2, size[1] - img_margin*2]
         ### Notification Title
         self._title = QLabel(self._background)
         self._title.setAttribute(Qt.WA_TranslucentBackground)
@@ -34,8 +30,8 @@ class Notification(object):
         self._title.setText('Title')
         self._title.adjustSize()
         self._title.setGeometry(
-            img_margin + self._logo.width() + 4, top_margin,
-            size[0] - img_margin - self._logo.width() - 4, self._title.height()
+            img_margin + self._logo_geometry[2] + 4, top_margin,
+            size[0] - img_margin - self._logo_geometry[2] - 4, self._title.height()
         )
         self._title.show()
         ### Notification Message
@@ -46,8 +42,8 @@ class Notification(object):
         self._message.setText('Message')
         self._message.adjustSize()
         self._message.setGeometry(
-            img_margin + self._logo.width() + 8, top_margin + self._title.height() + 2,
-            size[0] - img_margin - self._logo.width() - 8, self._message.height() * 2
+            img_margin + self._logo_geometry[2] + 8, top_margin + self._title.height() + 2,
+            size[0] - img_margin - self._logo_geometry[2] - 8, self._message.height() * 2
         )
         self._message.show()
 
@@ -60,7 +56,12 @@ class Notification(object):
     def setText(self, app, title, message):
         if self._currApp != app:
             logoPath, backgroundColor = self._styleFunction(app)
-            self._logo.load(logoPath)
+            if self._logo == None:
+                self._logo = QSvgWidget(logoPath, self._background)
+                self._logo.setGeometry(self._logo_geometry[0], self._logo_geometry[1], self._logo_geometry[2], self._logo_geometry[3])
+                self._logo.show()
+            else:
+                self._logo.load(logoPath)
             self._background.setStyleSheet('QLabel {background-color:'+backgroundColor+';'+self._background_main_stylesheet+'}')
             self._logo.setStyleSheet('background-color:'+backgroundColor+';')
             self._currApp = app

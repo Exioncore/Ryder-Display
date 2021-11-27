@@ -1,0 +1,411 @@
+{
+  "ui": [
+    {
+      "title": "Background",
+      "type": "Image",
+      "geometry": [ 0, 0, 800, 480, 7 ],
+      "path": "USS Discovery.png"
+    },
+    {
+      "title": "Background Fader",
+      "type": "Shape",
+      "geometry": [ 0, 0, 800, 480, 7 ],
+      "stylesheet": "background:rgba(0, 0, 0, 0.9);"
+    },
+    {
+      "title": "CPU Temperature Label",
+      "type": "StaticLabel",
+      "geometry": [ 129, 0, 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:12pt;",
+      "text": "CPU Temperature"
+    },
+    {
+      "title": "CPU Temperature Graph",
+      "type": "Graph",
+      "geometry": [ "d", "+20", 250, 85, 8 ],
+      "graph": {
+        "n-values": 120,
+        "layout": 1,
+        "color": "#b01313",
+        "thickness": 2
+      },
+      "labels": {
+        "max-text-length": "99°C",
+        "min-max-stylesheet": "color:#b01313;font-weight:bold;font:10pt;",
+        "current-stylesheet": "color:#b01313;font-weight:bold;font:12pt;"
+      },
+      "metric": {
+        "name": [ "msi", "CPU temperature" ],
+        "bounds": [ "dynamic", "dynamic" ]
+      },
+      "unit": "°C"
+    },
+    {
+      "title": "CPU Clock Label",
+      "type": "StaticLabel",
+      "geometry": [ "d", "+83", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:12pt;",
+      "text": "CPU Clock"
+    },
+    {
+      "title": "CPU Clock Graph",
+      "type": "Graph",
+      "geometry": [ "d", "+20", 250, 85, 8 ],
+      "graph": {
+        "n-values": 120,
+        "layout": 1,
+        "color": "#b01313",
+        "thickness": 2
+      },
+      "labels": {
+        "max-text-length": "9999MHz",
+        "min-max-stylesheet": "color:#b01313;font-weight:bold;font:10pt;",
+        "current-stylesheet": "color:#b01313;font-weight:bold;font:12pt;"
+      },
+      "metric": {
+        "name": [ "msi", "CPU clock" ],
+        "bounds": [ "dynamic", "dynamic" ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "CPU Usage Label",
+      "type": "StaticLabel",
+      "geometry": [ "d", "+83", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:12pt;",
+      "text": "CPU Usage"
+    },
+    {
+      "title": "CPU Usage Graph",
+      "type": "Graph",
+      "geometry": [ "d", "+20", 250, 85, 8 ],
+      "graph": {
+        "n-values": 120,
+        "layout": 1,
+        "color": "#b01313",
+        "thickness": 2
+      },
+      "labels": {
+        "max-text-length": "100%",
+        "min-max-stylesheet": "color:#b01313;font-weight:bold;font:10pt;",
+        "current-stylesheet": "color:#b01313;font-weight:bold;font:12pt;"
+      },
+      "metric": {
+        "name": [ "msi", "CPU usage" ],
+        "bounds": [ "dynamic", "dynamic" ]
+      },
+      "unit": "%"
+    },
+    {
+      "title": "CPU Highest Thread Usage Label",
+      "type": "StaticLabel",
+      "geometry": [ "d", "+83", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:12pt;",
+      "text": "CPU Highest Thread Usage"
+    },
+    {
+      "title": "CPU Highest Thread Usage Graph",
+      "type": "Graph",
+      "geometry": [ "d", "+20", 250, 85, 8 ],
+      "graph": {
+        "n-values": 120,
+        "layout": 1,
+        "color": "#b01313",
+        "thickness": 2
+      },
+      "labels": {
+        "max-text-length": "100%",
+        "min-max-stylesheet": "color:#b01313;font-weight:bold;font:10pt;",
+        "current-stylesheet": "color:#b01313;font-weight:bold;font:12pt;"
+      },
+      "metric": {
+        "name": [ "*highest_thread_usage" ],
+        "bounds": [ "dynamic", "dynamic" ]
+      },
+      "unit": "%"
+    },
+    {
+      "title": "GPU Temperature Label",
+      "type": "StaticLabel",
+      "geometry": [ 400, 0, 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:12pt;",
+      "text": "GPU Temperature"
+    },
+    {
+      "title": "GPU Temperature Graph",
+      "type": "Graph",
+      "geometry": [ "d", "+20", 250, 85, 8 ],
+      "graph": {
+        "n-values": 120,
+        "layout": 1,
+        "color": "#03992b",
+        "thickness": 2
+      },
+      "labels": {
+        "max-text-length": "99°C",
+        "min-max-stylesheet": "color:#03992b;font-weight:bold;font:10pt;",
+        "current-stylesheet": "color:#03992b;font-weight:bold;font:12pt;"
+      },
+      "metric": {
+        "name": [ "msi", "GPU temperature" ],
+        "bounds": [ "dynamic", "dynamic" ]
+      },
+      "unit": "°C"
+    },
+    {
+      "title": "GPU Clock Label",
+      "type": "StaticLabel",
+      "geometry": [ "d", "+83", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:12pt;",
+      "text": "GPU Clock"
+    },
+    {
+      "title": "GPU Clock Graph",
+      "type": "Graph",
+      "geometry": [ "d", "+20", 250, 85, 8 ],
+      "graph": {
+        "n-values": 120,
+        "layout": 1,
+        "color": "#03992b",
+        "thickness": 2
+      },
+      "labels": {
+        "max-text-length": "9999MHz",
+        "min-max-stylesheet": "color:#03992b;font-weight:bold;font:10pt;",
+        "current-stylesheet": "color:#03992b;font-weight:bold;font:12pt;"
+      },
+      "metric": {
+        "name": [ "msi", "Core clock" ],
+        "bounds": [ "dynamic", "dynamic" ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "GPU Usage Label",
+      "type": "StaticLabel",
+      "geometry": [ "d", "+83", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:12pt;",
+      "text": "GPU Usage"
+    },
+    {
+      "title": "GPU Usage Graph",
+      "type": "Graph",
+      "geometry": [ "d", "+20", 250, 85, 8 ],
+      "graph": {
+        "n-values": 120,
+        "layout": 1,
+        "color": "#03992b",
+        "thickness": 2
+      },
+      "labels": {
+        "max-text-length": "100%",
+        "min-max-stylesheet": "color:#03992b;font-weight:bold;font:10pt;",
+        "current-stylesheet": "color:#03992b;font-weight:bold;font:12pt;"
+      },
+      "metric": {
+        "name": [ "msi", "GPU usage" ],
+        "bounds": [ "dynamic", "dynamic" ]
+      },
+      "unit": "%"
+    },
+    {
+      "title": "FPS Label",
+      "type": "StaticLabel",
+      "geometry": [ "d", "+83", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:12pt;",
+      "text": "FPS"
+    },
+    {
+      "title": "FPS Graph",
+      "type": "Graph",
+      "geometry": [ "d", "+20", 250, 85, 8 ],
+      "graph": {
+        "n-values": 120,
+        "layout": 1,
+        "color": "#24e49f",
+        "thickness": 2
+      },
+      "labels": {
+        "max-text-length": "999fps",
+        "min-max-stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
+        "current-stylesheet": "color:#24e49f;font-weight:bold;font:12pt;"
+      },
+      "metric": {
+        "name": [ "msi", "Framerate" ],
+        "bounds": [
+          [ "dynamic", 0 ],
+          [ "dynamic", "*fps_target + 20" ]
+        ]
+      },
+      "unit": "fps"
+    },
+    {
+      "title": "CPU Power Label",
+      "type": "StaticLabel",
+      "geometry": [ 671, 0, 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:12pt;",
+      "text": "CPU Power"
+    },
+    {
+      "title": "CPU Power Graph",
+      "type": "Graph",
+      "geometry": [ "d", "+20", 250, 85, 8 ],
+      "graph": {
+        "n-values": 120,
+        "layout": 1,
+        "color": "#e1ea0e",
+        "thickness": 2
+      },
+      "labels": {
+        "max-text-length": "999w",
+        "min-max-stylesheet": "color:#e1ea0e;font-weight:bold;font:10pt;",
+        "current-stylesheet": "color:#e1ea0e;font-weight:bold;font:12pt;"
+      },
+      "metric": {
+        "name": [ "msi", "CPU power" ],
+        "bounds": [ "dynamic", "dynamic" ]
+      },
+      "unit": "w"
+    },
+    {
+      "title": "GPU Power Label",
+      "type": "StaticLabel",
+      "geometry": [ "d", "+83", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:12pt;",
+      "text": "GPU Power"
+    },
+    {
+      "title": "GPU Power Graph",
+      "type": "Graph",
+      "geometry": [ "d", "+20", 250, 85, 8 ],
+      "graph": {
+        "n-values": 120,
+        "layout": 1,
+        "color": "#e1ea0e",
+        "thickness": 2
+      },
+      "labels": {
+        "max-text-length": "999w",
+        "min-max-stylesheet": "color:#e1ea0e;font-weight:bold;font:10pt;",
+        "current-stylesheet": "color:#e1ea0e;font-weight:bold;font:12pt;"
+      },
+      "metric": {
+        "name": [ "msi", "Power" ],
+        "bounds": [ "dynamic", "dynamic" ]
+      },
+      "unit": "w"
+    },
+    {
+      "title": "Total Power Label",
+      "type": "StaticLabel",
+      "geometry": [ "d", "+83", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:12pt;",
+      "text": "CPU + GPU Power"
+    },
+    {
+      "title": "Total Power Graph",
+      "type": "Graph",
+      "geometry": [ "d", "+20", 250, 85, 8 ],
+      "graph": {
+        "n-values": 120,
+        "layout": 1,
+        "color": "#e1ea0e",
+        "thickness": 2
+      },
+      "labels": {
+        "max-text-length": "999w",
+        "min-max-stylesheet": "color:#e1ea0e;font-weight:bold;font:10pt;",
+        "current-stylesheet": "color:#e1ea0e;font-weight:bold;font:12pt;"
+      },
+      "metric": {
+        "name": [ "*total_power" ],
+        "bounds": [ "dynamic", "dynamic" ]
+      },
+      "unit": "w"
+    },
+    {
+      "title": "Liquid Temperature Label",
+      "type": "StaticLabel",
+      "geometry": [ "d", "+83", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:12pt;",
+      "text": "Liquid Temperature"
+    },
+    {
+      "title": "Liquid Temperature Graph",
+      "type": "Graph",
+      "geometry": [ "d", "+20", 250, 85, 8 ],
+      "graph": {
+        "n-values": 120,
+        "layout": 1,
+        "color": "#247ae4",
+        "thickness": 2
+      },
+      "labels": {
+        "max-text-length": "99.0°C",
+        "min-max-stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
+        "current-stylesheet": "color:#247ae4;font-weight:bold;font:12pt;"
+      },
+      "metric": {
+        "name": [ "fanController", "liquid" ],
+        "bounds": [ "dynamic", "dynamic" ]
+      },
+      "unit": {
+        "unit": "°C",
+        "rounding": 1
+      }
+    },
+    {
+      "title": "Hyperion",
+      "type": "HyperionMenu",
+      "geometry": [ 375, 420, 50, 50 ]
+    },
+    {
+      "title": "Power",
+      "type": "PowerMenu",
+      "geometry": [ "d-70", "d+5", 40, 40 ]
+    },
+    {
+      "title": "Audio",
+      "type": "AudioMenu",
+      "geometry": [ "d+80", "d+5", 40, 40 ]
+    },
+    {
+      "title": "App Drawer Button",
+      "type": "PopupAppDrawer",
+      "geometry": [ "d+350", "d+5", 40, 40 ],
+      "popup": {
+        "type": "AppDrawer",
+        "size": [ 600, 400 ],
+        "gap": 25,
+        "iconSize": 60
+      }
+    },
+    {
+      "title": "Main UI Button",
+      "type": "PageLoader",
+      "geometry": [ "d-350", "d+5", 40, 40 ],
+      "icon": "back_button.png",
+      "ui_file": "ui.json"
+    },
+    {
+      "title": "CPU Focused Monitor UI Button",
+      "type": "PageLoader",
+      "geometry": [ "d-270", "d+5", 40, 40 ],
+      "icon": "Default/CPU-Logo.svg",
+      "ui_file": "ui_cpu.json"
+    },
+    {
+      "title": "Notifications Handler",
+      "top_margin": 8,
+      "type": "NotificationsHandler",
+      "location": "top",
+      "height": 85,
+      "img_margin": 10,
+      "stylesheet": [
+        "border-radius:15px;border:2px solid rgb(18,191,230);margin:0;padding:0",
+        "color:rgb(225,225,225);font-weight:bold;font:15pt;border:0",
+        "color:rgb(225,225,225);font-weight:bold;font:13pt;border:0"
+      ]
+    }
+  ]
+}

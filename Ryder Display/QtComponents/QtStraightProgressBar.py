@@ -4,135 +4,163 @@ from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
 
 class QtStraightProgressBar(QWidget):
-    class Direction(Enum):
-        LEFT = 1
-        RIGHT = 2
-        UP = 3
-        DOWN = 4
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self._initialized = self._redraw = False
 
-        self._redraw = True
-
-        self._bounds = [0, 100]
+    def setup(self,
+              bounds = [0, 100], fillDirection = 6, border_thickness = 0,
+              colors = [QColor('red'), QColor('black'), QColor('white')], capType = [0, 0]
+        ):
+        # Bounds
+        self._bounds = bounds
         self._bounds_range = self._bounds[1] - self._bounds[0]
-        self._old_value = self._current_value = 0
-
-        self._pen_background = QPen(QColor(40, 40, 40), self.width(), Qt.SolidLine)
-        self._pen_foreground = QPen(QColor('red'), self.width() - 2, Qt.SolidLine)
-        self.setFillDirection(QtStraightProgressBar.Direction.RIGHT)
-
-        # Cache commonly reused variables
-        self._rect = QRect(0, 0, self.width(), self.height())
-        self.setRoundOff(False)
-
-        # Double buffering
-        self._buffer = QPixmap(self.width(), self.height())
-        self._buffer.fill(Qt.transparent)
-
-    def setBounds(self, start, end):
-        self._bounds = [start, end]
-        self._bounds_range = self._bounds[1] - self._bounds[0]
-
-    def setForegroundColor(self, color):
-        self._pen_foreground.setColor(color)
-
-    def setBackgroundColor(self, color):
-        self._pen_background.setColor(color)
-
-    def setRoundOff(self, enable):
-        if enable:
-            self._pen_background.setCapStyle(Qt.RoundCap)
-            self._pen_foreground.setCapStyle(Qt.RoundCap)
-        else:
-            self._pen_background.setCapStyle(Qt.FlatCap)
-            self._pen_foreground.setCapStyle(Qt.FlatCap)
+        self._old_value = self._current_value = self._bounds[0]
+        # Fill Direction
+        self._fill_direction = fillDirection
+        if self._fill_direction == 4 or self._fill_direction == 6 or self._fill_direction == 46 or self._fill_direction == 64:
+            self._horizontal = True
+        elif self._fill_direction == 8 or self._fill_direction == 2 or self._fill_direction == 82 or self._fill_direction == 28:
+            self._horizontal = False
+        # Colors [0 = foreground color, 1 = background color, 2 = border color]
+        self._colors = colors
+        # Border Thickness
+        self._border_thickness = border_thickness
+        # Cap 0 = SquareCap, 1 = RoundCap, 2 = FlatCap
+        self._cap = capType
+        # Internal variables
+        self._pen = QPen(self._colors[0], 0, Qt.SolidLine)
+        self._pen.setCapStyle(Qt.FlatCap)
+        # Ready Flag
+        self._initialized = True
 
     def setValue(self, val):
         self._current_value = max(self._bounds[0], min(val, self._bounds[1]))
 
-    def setFillDirection(self, val):
-        self._fill_direction = val
-        if val == QtStraightProgressBar.Direction.RIGHT or val == QtStraightProgressBar.Direction.LEFT:
-            foreground_thickness = self.height() - 2
-            background_thickness = self.height()
-        else:
-            foreground_thickness = self.width() - 2
-            background_thickness = self.width()
-        if  val == QtStraightProgressBar.Direction.RIGHT:
-            self._p1 = [0, self.height() / 2]
-            self._p2 = [self.width(), self.height() / 2]
-        elif  val == QtStraightProgressBar.Direction.LEFT:
-            self._p1 = [self.width(), self.height() / 2]
-            self._p2 = [0, self.height() / 2]
-        elif val == QtStraightProgressBar.Direction.UP:
-            self._p1 = [self.width() / 2, self.height()]
-            self._p2 = [self.width() / 2, 0]
-        elif  val == QtStraightProgressBar.Direction.DOWN:
-            self._p1 = [self.width() / 2, 0]
-            self._p2 = [self.width() / 2, self.height()]
-
-        self._pen_foreground.setWidth(foreground_thickness)
-        self._pen_background.setWidth(background_thickness)
-
-    def _drawSection(self, paint, start, end, pen):
-        start_p = (start - self._bounds[0]) / self._bounds_range
-        end_p = (end - self._bounds[0]) / self._bounds_range
-        paint.setPen(pen)
-        if self._fill_direction == QtStraightProgressBar.Direction.RIGHT:
-            paint.drawLine(
-                self.width() * start_p, self._p1[1],
-                self.width() * end_p, self._p2[1]
-            )
-        elif self._fill_direction == QtStraightProgressBar.Direction.LEFT:
-            paint.drawLine(
-                self.width() - self.width() * start_p, self._p1[1],
-                self.width() - self.width() * end_p, self._p2[1]
-            )
-        elif self._fill_direction == QtStraightProgressBar.Direction.UP:
-            paint.drawLine(
-                self._p1[0], self.height() - self.height() * start_p,
-                self._p2[0], self.height() - self.height() * end_p
-            )
-        elif self._fill_direction == QtStraightProgressBar.Direction.DOWN:
-            paint.drawLine(
-                self._p1[0], self.height() * start_p,
-                self._p2[0], self.height() * end_p
-            )
-
     def setGeometry(self, x, y, w, h):
         """ Override setGeometry method """
         super().setGeometry(x, y, w, h)
-
-        self._rect = QRect(0, 0, self.width(), self.height())
-        self.setFillDirection(self._fill_direction)
-
-        self._buffer = QPixmap(self.width(), self.height())
-        self._buffer.fill(Qt.transparent)
+        if self._initialized:
+            s = [self.width() - self._border_thickness, self.height() - self._border_thickness]
+            self._length = s[0] if self._horizontal else s[1]
+            self._thickness = s[1] if self._horizontal else s[0]
+            self._mul = self._length / self._bounds_range
+            if self._fill_direction == 46 or self._fill_direction == 64:
+                self._mid = self.width() / 2
+                self._mul /= 2
+            elif self._fill_direction == 82 or self._fill_direction == 28:
+                self._mid = self.height() / 2
+                self._mul /= 2
+        # Reset PixMaps
+        self._background_buffer = QPixmap(self.width(), self.height())
+        self._background_buffer.fill(Qt.transparent)
+        self._foreground_t_buffer = QPixmap(self.width(), self.height())
+        self._foreground_t_buffer.fill(Qt.transparent)
+        self._foreground_buffer = QPixmap(self.width(), self.height())
+        self._foreground_buffer.fill(Qt.transparent)
 
     def redraw(self):
         self._redraw = True
 
+    def _drawLine(self, paint, ofst_start, ofst_end):
+        self._pen.setCapStyle(Qt.FlatCap)
+        paint.setPen(self._pen)
+        # Draw Main Bar
+        if self._horizontal == True:
+            paint.drawLine(ofst_start, self.height() / 2, self.width() - ofst_end, self.height() / 2)
+        else:
+            paint.drawLine(self.width() / 2, ofst_start, self.width() / 2, self.height() - ofst_end)
+        # Draw Round Caps
+        if self._cap[0] == 1 or self._cap[1] == 1:
+            self._pen.setCapStyle(Qt.RoundCap)
+            paint.setPen(self._pen)
+            if self._horizontal == True:
+                if self._cap[0] == 1: paint.drawLine(ofst_start, self.height() / 2, self.width() / 2, self.height() / 2)
+                if self._cap[1] == 1: paint.drawLine(self.width() / 2, self.height() / 2, self.width() - ofst_end, self.height() / 2)
+            else:
+                if self._cap[0] == 1: paint.drawLine(self.width() / 2, ofst_start, self.width() / 2, self.height() / 2)
+                if self._cap[1] == 1: paint.drawLine(self.width() / 2, self.height() / 2, self.width() / 2, self.height() - ofst_end)
+
     def paintEvent(self, e):
         """ Override Paint Function """
+        if not self._initialized: return
         paint = QPainter()
-        paint.begin(self._buffer)
-        paint.setRenderHint(QPainter.Antialiasing)
-
+        # Draw the bar components
         if self._redraw:
-            self._drawSection(paint, self._bounds[0], self._bounds[1], self._pen_background)
-            self._drawSection(paint, self._bounds[0], self._current_value, self._pen_foreground)
+            self._background_buffer.fill(Qt.transparent)
+            self._foreground_t_buffer.fill(Qt.transparent)
+            self._foreground_buffer.fill(Qt.transparent)
+            ofst = [0, 0]
+            for i in range(2): ofst[i] = 0 if self._cap[i] != 1 else (self.height() / 2 if self._horizontal else (self.width() / 2))
+            # Draw Border
+            paint.begin(self._background_buffer)
+            paint.setRenderHint(QPainter.Antialiasing)
+            if self._border_thickness > 0:
+                self._pen.setColor(self._colors[2])
+                self._pen.setWidthF(self._thickness + self._border_thickness)
+                paint.setPen(self._pen)
+                # Draw Bar
+                self._drawLine(paint, ofst[0], ofst[1])
+            # Draw Background and Foreground
+            for i in range(2):
+                self._pen.setColor(self._colors[1 - i])
+                self._pen.setCapStyle(Qt.FlatCap)
+                if i == 0:
+                    self._pen.setWidthF(self._thickness)
+                    for i in range(2): ofst[i] += self._border_thickness / 2 if self._cap[i] == 0 else 0
+                    if self._fill_direction == 4 or self._fill_direction == 8:
+                        self._ofst = 0 if self._cap[1] == 2 else self._border_thickness / 2
+                    elif self._fill_direction == 6 or self._fill_direction == 2:
+                        self._ofst = 0 if self._cap[0] == 2 else self._border_thickness / 2
+                else:
+                    paint.begin(self._foreground_t_buffer)
+                    paint.setRenderHint(QPainter.Antialiasing)
+                    if self._border_thickness > 0:
+                        self._pen.setWidthF(self._thickness - 2)
+                        ofst[0] += 1
+                        ofst[1] += 1
+                # Draw Bar
+                self._drawLine(paint, ofst[0], ofst[1])
+                paint.end()
+                # Setup pen for updates
+                self._pen.setWidth(self.height() if self._horizontal else self.width())
+                self._pen.setCapStyle(Qt.FlatCap)
+            # Update Flags
             self._redraw = False
-        else:
-            if self._current_value > self._old_value:
-                self._drawSection(paint, self._old_value, self._current_value, self._pen_foreground)
-            else:
-                self._drawSection(paint, self._old_value, self._current_value, self._pen_background)
-        paint.end()
+        # Cut foreground to appropriate length
+        if self._current_value != self._old_value:
+            paint.begin(self._foreground_buffer)
+            paint.setPen(self._pen)
+            paint.setCompositionMode(QPainter.CompositionMode_SourceOver)
+            paint.drawPixmap(0, 0, self.width(), self.height(), self._foreground_t_buffer)
+            paint.setRenderHint(QPainter.Antialiasing)
+            paint.setCompositionMode(QPainter.CompositionMode_Clear)
+            delta = self._current_value - self._bounds[0]
+            if self._fill_direction == 4:
+                paint.drawLine(0, self.height() / 2, self.width() - self._ofst - self._mul * delta, self.height() / 2)
+            elif self._fill_direction == 6:
+                paint.drawLine(self._ofst + self._mul * delta, self.height() / 2, self.width(), self.height() / 2)
+            elif self._fill_direction == 46 or self._fill_direction == 64:
+                paint.drawLine(0, self.height() / 2, self._mid - self._mul * delta, self.height() / 2)
+                paint.drawLine(self._mid + self._mul * delta, self.height() / 2, self.width(), self.height() / 2)
+            elif self._fill_direction == 8:
+                paint.drawLine(self.width() / 2, 0, self.width() / 2, self.height() - self._ofst - self._mul * delta)
+            elif self._fill_direction == 2:
+                paint.drawLine(self.width() / 2, self._ofst + self._mul * delta, self.width() / 2, self.height())
+            elif self._fill_direction == 82 or self._fill_direction == 28:
+                paint.drawLine(self.width() / 2, 0, self.width() / 2, self._mid - self._mul * delta)
+                paint.drawLine(self.width() / 2, self._mid + self._mul * delta, self.width() / 2, self.height())
+            paint.setCompositionMode(QPainter.CompositionMode_SourceOver)
+            paint.setPen(self._pen)
+            paint.end()
+            # Update Flags
+            self._old_value = self._current_value
 
         paint.begin(self)
-        paint.drawPixmap(self._rect, self._buffer)
+        paint.setRenderHint(QPainter.SmoothPixmapTransform)
+        paint.drawPixmap(0, 0, self.width(), self.height(), self._background_buffer)
+        if self._current_value > self._bounds[0]:
+            paint.drawPixmap(0, 0, self.width(), self.height(), self._foreground_buffer)
         paint.end()
 
-        self._old_value = self._current_value
+        

@@ -7,6 +7,7 @@ from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import QSize, pyqtSlot, Qt, QObject
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QLayout
 
+from UIModules.Utils import *
 from Network.RyderClient import RyderClient
 
 class AppDrawer(object):
@@ -18,10 +19,13 @@ class AppDrawer(object):
         # Retrieve settings
         self._window = window
         self._handleWindowSize = handleWindowSize
-        self._pos = settings['pos'] if 'pos' in settings else [0, 0]
+        pos = settings['pos'] if 'pos' in settings else [0, 0]
+        alignment = settings['alignment'] if 'alignment' in settings else 7
         self._max_size = settings['size'] if 'size' in settings else [100, 100]
         self._gap = settings['gap'] if 'gap' in settings else 25
         self._iconSize = settings['iconSize'] if 'iconSize' in settings else 60
+        # Process alignment
+        pos, _ = getPosFromAlignment(pos, self._max_size, alignment)
         # Create cache folder if it doesn't exist
         self._iconsPath = path + '/cache/app_drawer/'
         if not os.path.exists(self._iconsPath):
@@ -93,7 +97,7 @@ class AppDrawer(object):
         if w_size[1] > self._max_size[1]:
             factor = self._max_size[1] / w_size[1]
             scale_factor = factor if factor < scale_factor else scale_factor
-        self._size = [
+        size = [
             self._gap * scale_factor + delta_x * self._iconSize * scale_factor + 
             delta_x * self._gap * scale_factor,
             self._gap * scale_factor + delta_y * self._iconSize * scale_factor + 
@@ -102,7 +106,7 @@ class AppDrawer(object):
         if self._handleWindowSize:
             center_x = math.ceil(self._window.x() + self._window.width() / 2)
             center_y = math.ceil(self._window.y() + self._window.height() / 2)
-            self._window.setGeometry(center_x - self._size[0] / 2, center_y - self._size[1] / 2, self._size[0], self._size[1])
+            self._window.setGeometry(center_x - size[0] / 2, center_y - size[1] / 2, size[0], size[1])
         # Place buttons for each App
         iconSize = self._iconSize * scale_factor
         gap = self._gap * scale_factor

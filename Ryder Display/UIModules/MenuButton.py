@@ -7,16 +7,16 @@ class MenuButton(object):
     _menu : QMainWindow
     _ui_elements = None
 
-    def __init__(self, window: QMainWindow, pos, size, path, icon, popup, ui_elements = None):
+    def __init__(self, window: QMainWindow, geometry, path, icon, popup, ui_elements = None):
         self._window = window
         self._menu = popup
         self._ui_elements = ui_elements
         self._path = path
         self._button = QPushButton('', window)
-        self._button.setStyleSheet('QPushButton:focus{border: none;outline: none;}')
+        self._button.setStyleSheet('border: none;')
         self._button.setIcon(QIcon(path + icon))
-        self._button.setIconSize(QSize(size[0], size[1]))
-        self._button.setGeometry(pos[0], pos[1], size[0], size[1])
+        self._button.setIconSize(QSize(geometry[2], geometry[3]))
+        self._button.setGeometry(geometry[0], geometry[1], geometry[2], geometry[3])
         self._button.clicked.connect(lambda:self.onClick())
         self._button.show()
 

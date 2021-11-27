@@ -2,23 +2,31 @@ import sys
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QSize, pyqtSlot, Qt
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QSlider, QLabel, QFrame
 
+from Network.Monitor import Monitor
 from Network.Hyperion import Hyperion
+from Network.RyderClient import RyderClient
 
 class HyperionMenu(QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.setWindowTitle("Hyperion")
-        self.setWindowFlag(Qt.Popup)
-        self.setStyleSheet(
-            'border: 1px solid rgba(237,174,28,100%);'
-        )
+        self.setWindowFlags(Qt.Popup | Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground, True)
+
+        self.frame = QFrame(self)
+        self.frame.setGeometry(0, 0, self.width(), self.height())
+        self.frame.setStyleSheet('border:4px solid #333333;border-radius:30px;background:black;')
+        self.frame.show()
 
         self._br_color = 'color:rgb(200, 200, 200);'
         self._active_br_color = 'color:rgb(36, 138, 179);'
         self._off_br_color = 'color:rgb(179, 36, 36);'
+
+    def resizeEvent(self, event):
+        self.frame.setGeometry(0, 0, self.width(), self.height())
 
     def setParent(self, p):
         return
@@ -27,112 +35,140 @@ class HyperionMenu(QMainWindow):
         return
 
     def createUI(self, path, pos=[0,0]):
-        gap = 25
-        size = [100, 100]
-        w_size = [size[0] * 3 + gap * 4, size[1] + int(size[1] * (278 / 512)) + gap * 3]
+        # Settings
+        window_gap = 25
+        v_gap = 10
+        title_h = 25
+        img_size = [100, 100]
+        img_gap = [25, 25]
+        slider_h = 20
+        w_size = [
+            img_size[0] * 3 + window_gap * 2 + img_gap[0] * 2, 
+            img_size[1] + window_gap * 3 + v_gap * 5 + slider_h * 2 + title_h * 2
+        ]
+        # General setup
         self._path = path
-
         self.setGeometry(
             pos[0] - w_size[0] / 2, pos[1] - w_size[1] / 2,
             w_size[0], w_size[1]
         )
-
-        # Brightness Buttons
-        self._btn_br = []
-        self._btn_br_style = (
-            'background-color:rgb(35, 35, 35); border-color:rgb(55, 55, 55);' +
-            'font: bold 14px; text-align: center;'
-        )
-        self.br_vals = [0, 25, 50, 75, 100]
-        btn_br_width = (w_size[0] - gap * 2) / len(self.br_vals)
-        btn_br_x = gap
-        for i in range(len(self.br_vals)):
-            btn = QPushButton('', self)
-            # Set Text
-            if i == 0:
-                btn.setText('Off')
-            else:
-                btn.setText(str(self.br_vals[i]) + '%')
-            # Set the button position, sizing and hook click/tap method
-            btn.setGeometry(btn_br_x, gap * 2 + size[1], btn_br_width, size[1] / 2)
-            btn.clicked.connect(lambda x, i=i: self.onClickSetBrightness(i))
-            btn.show()
-            btn_br_x = btn_br_x + btn_br_width
-
-            self._btn_br.append(btn)
+        y = window_gap
+        # Hyperion Control Title
+        title_stylesheet = "font-size: 18pt;border: 0;"
+        title = QLabel("Hyperion", self)
+        title.setGeometry(window_gap, y, w_size[0] - window_gap * 2, title_h)
+        title.setAlignment(Qt.AlignCenter)
+        title.setStyleSheet(title_stylesheet)
+        title.show()
+        y += title_h + v_gap
         # Screen Capture Button
         self._monitor = QPushButton('', self)
         self._monitor.setIcon(QIcon(path + '/Resources/Hyperion/Monitor.png'))
-        self._monitor.setIconSize(QSize(size[0], size[1]))
-        self._monitor.setGeometry(gap, gap, size[0], size[1])
+        self._monitor.setIconSize(QSize(img_size[0], img_size[1]))
+        self._monitor.setGeometry(window_gap, y, img_size[0], img_size[1])
         self._monitor.setStyleSheet('border: none;')
         self._monitor.clicked.connect(lambda:self.onClickMonitor()) 
+        self._monitor.show()
         # Notifcations Button
         self._notifications = QPushButton('', self)
-        self._notifications.setIconSize(QSize(size[0], size[1]))
-        self._notifications.setGeometry(size[0] + gap * 2, gap, size[0], size[1])
+        self._notifications.setIconSize(QSize(img_size[0], img_size[1]))
+        self._notifications.setGeometry(img_size[0] + window_gap + img_gap[0], y, img_size[0], img_size[1])
         self._notifications.setStyleSheet('border: none;')
         self._notifications.clicked.connect(lambda:self.onClickNotifications())
         if Hyperion().notifications:
             self._notifications.setIcon(QIcon(self._path + '/Resources/Hyperion/Bell.png'))
         else:
             self._notifications.setIcon(QIcon(self._path + '/Resources/Hyperion/Bell-crossed.png'))
+        self._notifications.show()
         # Mood Lamp Button
         self._lamp = QPushButton('', self)
         self._lamp.setIcon(QIcon(path + '/Resources/Hyperion/Lamp.png'))
-        self._lamp.setIconSize(QSize(size[0], size[1]))
-        self._lamp.setGeometry(size[0] * 2 + gap * 3, gap, size[0], size[1])
+        self._lamp.setIconSize(QSize(img_size[0], img_size[1]))
+        self._lamp.setGeometry(img_size[0] * 2 + window_gap + img_gap[0] * 2, y, img_size[0], img_size[1])
         self._lamp.setStyleSheet('border: none;')
         self._lamp.clicked.connect(lambda:self.onClickLamp())
-
-        self._monitor.show()
-        self._notifications.show()
         self._lamp.show()
+
+        y+= img_size[1] + v_gap
+        # Hyperion Brightness Control
+        sliderStylesheet = (
+            "QSlider{"
+                "background-color: transparent;"
+	            "border-style: outset;"
+	            "border-radius: 15px;"
+                "border: transparent;"
+            "}"
+            "QSlider::groove:horizontal{"
+	            "height: 24px;"
+	            "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);"
+	            "margin: 2px 0;"
+                "border-radius:10px;"
+            "}"
+            "QSlider::handle:horizontal {"
+                "width: 32px;"
+	            "height: 32px;"
+	            "margin: -5px 0px -5px 0px;"
+	            "border-radius:15px;"
+                "background-color:#0043a1;"
+	            "border: 3px solid #0043a1;"
+            "}"
+        )
+        self.lights_brightness_slider = QSlider(Qt.Horizontal, self)
+        self.lights_brightness_slider.setFocusPolicy(Qt.NoFocus)
+        self.lights_brightness_slider.setTickPosition(QSlider.NoTicks)
+        self.lights_brightness_slider.setGeometry(
+            window_gap, y,
+            w_size[0] - window_gap * 2, window_gap
+        )
+        self.lights_brightness_slider.setStyleSheet(sliderStylesheet)
+        self.lights_brightness_slider.setMinimum(0); self.lights_brightness_slider.setMaximum(100);
+        self.lights_brightness_slider.valueChanged.connect(self.onClickSetLightsBrightness)
+        self.lights_brightness_slider.setTracking(False)
+        self.lights_brightness_slider.show()
+        y += slider_h + window_gap
+        # Monitor Control Title
+        title_stylesheet = "font-size: 18pt;border: 0;"
+        title = QLabel("Monitor", self)
+        title.setGeometry(window_gap, y, w_size[0] - window_gap * 2, title_h)
+        title.setAlignment(Qt.AlignCenter)
+        title.setStyleSheet(title_stylesheet)
+        title.show()
+        y += title_h + v_gap
+        # Monitor Brightness Control
+        self.monitor_brightness_slider = QSlider(Qt.Horizontal, self)
+        self.monitor_brightness_slider.setFocusPolicy(Qt.NoFocus)
+        self.monitor_brightness_slider.setTickPosition(QSlider.NoTicks)
+        self.monitor_brightness_slider.setGeometry(
+            window_gap, y,
+            w_size[0] - window_gap * 2, window_gap
+        )
+        self.monitor_brightness_slider.setStyleSheet(sliderStylesheet)
+        self.monitor_brightness_slider.setMinimum(0); self.monitor_brightness_slider.setMaximum(100);
+        self.monitor_brightness_slider.valueChanged.connect(self.onClickSetMonitorBrightness)
+        self.monitor_brightness_slider.setTracking(False)
+        self.monitor_brightness_slider.show()
 
     def show(self):
         super().show()
-        # Highlight correct brightness button
-        for i in range(len(self.br_vals)):
-            if Hyperion().brightness == self.br_vals[i]:
-                if i == 0:
-                    self._curr_i = i
-                    self._btn_br[i].setStyleSheet(self._btn_br_style + self._off_br_color)
-                else:
-                    self._curr_i = i
-                    if Hyperion().ledState:
-                        self._btn_br[i].setStyleSheet(self._btn_br_style + self._active_br_color)
-                    else:
-                        self._btn_br[i].setStyleSheet(self._btn_br_style + self._off_br_color)
-            else:
-                self._btn_br[i].setStyleSheet(self._btn_br_style + self._br_color)
+        self.lights_brightness_slider.setValue(Hyperion().brightness)
+        self.monitor_brightness_slider.setValue(Monitor().brightness)
 
     @pyqtSlot()
-    def onClickSetBrightness(self, i):
-        # Reset button styling
-        self._btn_br[self._curr_i].setStyleSheet(self._btn_br_style + self._br_color)
-        # Apply birghtness value
-        if i > 0:
-            if not Hyperion().ledState:
-                Hyperion().setLedState(True)
-            Hyperion().setBrightness(self.br_vals[i])
-            self._curr_i = i
-        else:
-            Hyperion().setUsbCaptureState(False)
-            Hyperion().setLedState(False)
-            Hyperion().clear(50)
-            Hyperion().moodLamp = False
-        # Set button styling
-        if i == 0:
-            self._btn_br[self._curr_i].setStyleSheet(self._btn_br_style + self._off_br_color)
-        else:
-            self._btn_br[self._curr_i].setStyleSheet(self._btn_br_style + self._active_br_color)
+    def onClickSetLightsBrightness(self):
+        print("Set lights brightness: " + str(self.lights_brightness_slider.value()))
+        Hyperion().setBrightness(self.lights_brightness_slider.value())
+
+    @pyqtSlot()
+    def onClickSetMonitorBrightness(self):
+        print("Set monitor brightness: " + str(self.monitor_brightness_slider.value()))
+        Monitor().setBrightness(self.monitor_brightness_slider.value())
 
     @pyqtSlot()
     def onClickMonitor(self):
         # Ensure leds are enabled
         if not Hyperion().ledState:
             Hyperion().setLedState(True)
-            self._btn_br[self._curr_i].setStyleSheet(self._btn_br_style + self._active_br_color)
+            self._btn_br[self._curr_i].setStyleSheet(self._btn_style + self._active_br_color)
         # Enable or disable screen capture
         if not Hyperion().usbState:
             Hyperion().clear(50)
@@ -154,7 +190,7 @@ class HyperionMenu(QMainWindow):
         # Ensure leds are enabled
         if not Hyperion().ledState:
             Hyperion().setLedState(True)
-            self._btn_br[self._curr_i].setStyleSheet(self._btn_br_style + self._active_br_color)
+            self._btn_br[self._curr_i].setStyleSheet(self._btn_style + self._active_br_color)
         # Ensure screen capture is off
         Hyperion().setUsbCaptureState(False)
         # Toggle mood lamp effect

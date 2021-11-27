@@ -15,6 +15,10 @@ Power on
 https://www.flaticon.com/free-icon/switch-on_889754?term=on&page=1&position=3&page=1&position=3&related_id=889754&origin=search
 Power off
 https://www.flaticon.com/free-icon/switch-off_889758?related_id=889758&origin=pack
+Back Button
+https://www.flaticon.com/free-icon/previous_2879564?term=back&page=1&position=18&page=1&position=18&related_id=2879564&origin=search
+Advanced Monitor
+https://www.flaticon.com/free-icon/web-analytics_1055679?term=monitor&page=1&position=11&page=1&position=11&related_id=1055679&origin=search
 
 - Hyperion
 Logo

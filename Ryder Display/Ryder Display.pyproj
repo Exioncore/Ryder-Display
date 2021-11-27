@@ -28,6 +28,9 @@
     <Compile Include="Network\Hyperion.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Network\Monitor.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Network\RyderClient.py">
       <SubType>Code</SubType>
     </Compile>
@@ -35,6 +38,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Network\__init__.py" />
+    <Compile Include="Pages\PopupMenu.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="UIModules\AppDrawer.py">
       <SubType>Code</SubType>
     </Compile>
@@ -57,9 +63,6 @@
     <Compile Include="QtComponents\QtRoundProgressBar.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="QtComponents\QtCornerProgressBar.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="QtComponents\QtStraightProgressBar.py">
       <SubType>Code</SubType>
     </Compile>
@@ -68,10 +71,10 @@
     <Compile Include="UIModules\CornerProgressBar.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UIModules\DynamicText.py">
+    <Compile Include="UIModules\DynamicLabel.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UIModules\DynamicTextBool.py">
+    <Compile Include="UIModules\DynamicLabelBool.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UIModules\ForegroundProcess.py">
@@ -153,6 +156,8 @@
     <Content Include="Resources\Steam-Logo.svg" />
     <Content Include="settings.json" />
     <Content Include="ui.json" />
+    <Content Include="ui_advanced.json" />
+    <Content Include="ui_cpu.json" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="..\Environment\">

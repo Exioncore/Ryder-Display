@@ -1,0 +1,1225 @@
+{
+  "ui": [
+    {
+      "title": "Background",
+      "type": "Image",
+      "geometry": [ 0, 0, 800, 480, 7 ],
+      "path": "USS Discovery.png"
+    },
+    {
+      "title": "Background Fader",
+      "type": "Shape",
+      "geometry": [ 0, 0, 800, 480, 7 ],
+      "stylesheet": "background:rgba(0, 0, 0, 0.9);"
+    },
+    {
+      "title": "CPU Name",
+      "type": "StaticLabel",
+      "geometry": [ 150, 0, 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;",
+      "text": "*cpu_name"
+    },
+    {
+      "title": "CPU0",
+      "type": "Shape",
+      "geometry": [ 42, 40, 224, 20, 7 ],
+      "stylesheet": "background:rgba(120, 0, 115, 1);"
+    },
+    {
+      "title": "CPU0 Name",
+      "type": "StaticLabel",
+      "geometry": [ "d-4", "d+1", 9 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "text": "0#"
+    },
+    {
+      "title": "CPU0 #0",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+2", 220, 7 ],
+      "colors": [ "#c22402", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU1 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU0 #1",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+10", 220, 7 ],
+      "colors": [ "#26821f", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU2 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU0 Clock",
+      "type": "DynamicLabel",
+      "geometry": [ "d+112", "d+2", "9999MHz", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:9pt;",
+      "metric": {
+        "name": [ "msi", "CPU1 clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "CPU1",
+      "type": "Shape",
+      "geometry": [ "d", "+28", 224, 20, 7 ],
+      "stylesheet": "background:rgba(120, 0, 115, 1);"
+    },
+    {
+      "title": "CPU1 Name",
+      "type": "StaticLabel",
+      "geometry": [ "d-4", "d+1", 9 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "text": "1#"
+    },
+    {
+      "title": "CPU1 #0",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+2", 220, 7 ],
+      "colors": [ "#c22402", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU3 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU1 #1",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+10", 220, 7 ],
+      "colors": [ "#26821f", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU4 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU1 Clock",
+      "type": "DynamicLabel",
+      "geometry": [ "d+112", "d+2", "9999MHz", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:9pt;",
+      "metric": {
+        "name": [ "msi", "CPU3 clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "CPU2",
+      "type": "Shape",
+      "geometry": [ "d", "+28", 224, 20, 7 ],
+      "stylesheet": "background:rgba(120, 0, 115, 1);"
+    },
+    {
+      "title": "CPU2 Name",
+      "type": "StaticLabel",
+      "geometry": [ "d-4", "d+1", 9 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "text": "2#"
+    },
+    {
+      "title": "CPU2 #0",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+2", 220, 7 ],
+      "colors": [ "#c22402", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU5 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU2 #1",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+10", 220, 7 ],
+      "colors": [ "#26821f", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU6 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU2 Clock",
+      "type": "DynamicLabel",
+      "geometry": [ "d+112", "d+2", "9999MHz", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:9pt;",
+      "metric": {
+        "name": [ "msi", "CPU5 clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "CPU3",
+      "type": "Shape",
+      "geometry": [ "d", "+28", 224, 20, 7 ],
+      "stylesheet": "background:rgba(120, 0, 115, 1);"
+    },
+    {
+      "title": "CPU3 Name",
+      "type": "StaticLabel",
+      "geometry": [ "d-4", "d+1", 9 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "text": "3#"
+    },
+    {
+      "title": "CPU3 #0",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+2", 220, 7 ],
+      "colors": [ "#c22402", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU7 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU3 #1",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+10", 220, 7 ],
+      "colors": [ "#26821f", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU8 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU3 Clock",
+      "type": "DynamicLabel",
+      "geometry": [ "d+112", "d+2", "9999MHz", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:9pt;",
+      "metric": {
+        "name": [ "msi", "CPU7 clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "CPU4",
+      "type": "Shape",
+      "geometry": [ "d", "+28", 224, 20, 7 ],
+      "stylesheet": "background:rgba(120, 0, 115, 1);"
+    },
+    {
+      "title": "CPU4 Name",
+      "type": "StaticLabel",
+      "geometry": [ "d-4", "d+1", 9 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "text": "4#"
+    },
+    {
+      "title": "CPU4 #0",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+2", 220, 7 ],
+      "colors": [ "#c22402", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU9 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU4 #1",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+10", 220, 7 ],
+      "colors": [ "#26821f", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU10 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU4 Clock",
+      "type": "DynamicLabel",
+      "geometry": [ "d+112", "d+2", "9999MHz", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:9pt;",
+      "metric": {
+        "name": [ "msi", "CPU9 clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "CPU5",
+      "type": "Shape",
+      "geometry": [ "d", "+28", 224, 20, 7 ],
+      "stylesheet": "background:rgba(120, 0, 115, 1);"
+    },
+    {
+      "title": "CPU5 Name",
+      "type": "StaticLabel",
+      "geometry": [ "d-4", "d+1", 9 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "text": "5#"
+    },
+    {
+      "title": "CPU5 #0",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+2", 220, 7 ],
+      "colors": [ "#c22402", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU11 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU5 #1",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+10", 220, 7 ],
+      "colors": [ "#26821f", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU12 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU5 Clock",
+      "type": "DynamicLabel",
+      "geometry": [ "d+112", "d+2", "9999MHz", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:9pt;",
+      "metric": {
+        "name": [ "msi", "CPU11 clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "CPU6",
+      "type": "Shape",
+      "geometry": [ "d", "+28", 224, 20, 7 ],
+      "stylesheet": "background:rgba(120, 0, 115, 1);"
+    },
+    {
+      "title": "CPU6 Name",
+      "type": "StaticLabel",
+      "geometry": [ "d-4", "d+1", 9 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "text": "6#"
+    },
+    {
+      "title": "CPU6 #0",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+2", 220, 7 ],
+      "colors": [ "#c22402", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU13 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU6 #1",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+10", 220, 7 ],
+      "colors": [ "#26821f", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU14 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU6 Clock",
+      "type": "DynamicLabel",
+      "geometry": [ "d+112", "d+2", "9999MHz", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:9pt;",
+      "metric": {
+        "name": [ "msi", "CPU13 clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "CPU7",
+      "type": "Shape",
+      "geometry": [ "d", "+28", 224, 20, 7 ],
+      "stylesheet": "background:rgba(120, 0, 115, 1);"
+    },
+    {
+      "title": "CPU7 Name",
+      "type": "StaticLabel",
+      "geometry": [ "d-4", "d+1", 9 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "text": "7#"
+    },
+    {
+      "title": "CPU7 #0",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+2", 220, 7 ],
+      "colors": [ "#c22402", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU15 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU7 #1",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+10", 220, 7 ],
+      "colors": [ "#26821f", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU16 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU7 Clock",
+      "type": "DynamicLabel",
+      "geometry": [ "d+112", "d+2", "9999MHz", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:9pt;",
+      "metric": {
+        "name": [ "msi", "CPU15 clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "CPU8",
+      "type": "Shape",
+      "geometry": [ "d", "+28", 224, 20, 7 ],
+      "stylesheet": "background:rgba(120, 0, 115, 1);"
+    },
+    {
+      "title": "CPU8 Name",
+      "type": "StaticLabel",
+      "geometry": [ "d-4", "d+1", 9 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "text": "8#"
+    },
+    {
+      "title": "CPU8 #0",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+2", 220, 7 ],
+      "colors": [ "#c22402", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU17 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU8 #1",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+10", 220, 7 ],
+      "colors": [ "#26821f", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU18 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU8 Clock",
+      "type": "DynamicLabel",
+      "geometry": [ "d+112", "d+2", "9999MHz", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:9pt;",
+      "metric": {
+        "name": [ "msi", "CPU17 clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "CPU9",
+      "type": "Shape",
+      "geometry": [ "d", "+28", 224, 20, 7 ],
+      "stylesheet": "background:rgba(120, 0, 115, 1);"
+    },
+    {
+      "title": "CPU9 Name",
+      "type": "StaticLabel",
+      "geometry": [ "d-4", "d+1", 9 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "text": "9#"
+    },
+    {
+      "title": "CPU9 #0",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+2", 220, 7 ],
+      "colors": [ "#c22402", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU19 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU9 #1",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+10", 220, 7 ],
+      "colors": [ "#26821f", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU20 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU9 Clock",
+      "type": "DynamicLabel",
+      "geometry": [ "d+112", "d+2", "9999MHz", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:9pt;",
+      "metric": {
+        "name": [ "msi", "CPU19 clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "CPU10",
+      "type": "Shape",
+      "geometry": [ "d", "+28", 224, 20, 7 ],
+      "stylesheet": "background:rgba(120, 0, 115, 1);"
+    },
+    {
+      "title": "CPU10 Name",
+      "type": "StaticLabel",
+      "geometry": [ "d-4", "d+1", 9 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "text": "10#"
+    },
+    {
+      "title": "CPU10 #0",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+2", 220, 7 ],
+      "colors": [ "#c22402", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU21 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU10 #1",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+10", 220, 7 ],
+      "colors": [ "#26821f", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU22 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU10 Clock",
+      "type": "DynamicLabel",
+      "geometry": [ "d+112", "d+2", "9999MHz", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:9pt;",
+      "metric": {
+        "name": [ "msi", "CPU21 clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "CPU11",
+      "type": "Shape",
+      "geometry": [ "d", "+28", 224, 20, 7 ],
+      "stylesheet": "background:rgba(120, 0, 115, 1);"
+    },
+    {
+      "title": "CPU11 Name",
+      "type": "StaticLabel",
+      "geometry": [ "d-4", "d+1", 9 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "text": "11#"
+    },
+    {
+      "title": "CPU11 #0",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+2", 220, 7 ],
+      "colors": [ "#c22402", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU23 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU11 #1",
+      "type": "ProgressBar",
+      "geometry": [ "d+2", "d+10", 220, 7 ],
+      "colors": [ "#26821f", "#141414", "#4d0e39" ],
+      "thickness": [ 8, 0 ],
+      "edges-type": 0,
+      "direction": 6,
+      "metric": {
+        "name": [ "msi", "CPU24 usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "CPU11 Clock",
+      "type": "DynamicLabel",
+      "geometry": [ "d+112", "d+2", "9999MHz", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:9pt;",
+      "metric": {
+        "name": [ "msi", "CPU23 clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "CPU Power",
+      "type": "ProgressBar",
+      "geometry": [ 400, "-102", 180, 5 ],
+      "colors": [ "#e1ea0e", "#141414", "#888c0d" ],
+      "thickness": [ 14, 4 ],
+      "edges-type": 1,
+      "direction": 46,
+      "metric": {
+        "name": [ "msi", "CPU power" ],
+        "bounds": [ 0, "*cpu_max_power" ]
+      }
+    },
+    {
+      "title": "CPU Power Text",
+      "type": "DynamicLabel",
+      "geometry": [ "d", "d", "999w", 5 ],
+      "stylesheet": "color:#ad2a1a;font-weight:bold;font:10pt;",
+      "metric": {
+        "name": [ "msi", "CPU power" ],
+        "bounds": [ 0, 999 ]
+      },
+      "unit": "w"
+    },
+    {
+      "title": "CPU Temperature",
+      "type": "ProgressBar",
+      "geometry": [ "d", "-26", 180, 5 ],
+      "colors": [ "#1f6acc", "#141414", "#1f6acc" ],
+      "thickness": [ 14, 4 ],
+      "edges-type": 1,
+      "direction": 46,
+      "metric": {
+        "name": [ "msi", "CPU temperature" ],
+        "bounds": [ 0, "*cpu_max_temp" ]
+      }
+    },
+    {
+      "title": "CPU Temperature Text",
+      "type": "DynamicLabel",
+      "geometry": [ "d", "d", "999w", 5 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
+      "metric": {
+        "name": [ "msi", "CPU temperature" ],
+        "bounds": [ 0, "*cpu_max_temp" ]
+      },
+      "unit": "°C"
+    },
+    {
+      "title": "RAM image",
+      "type": "Image",
+      "geometry": [ 400, 310, 40, 40, 5 ],
+      "path": "RAM-Logo.svg"
+    },
+    {
+      "title": "RAM Load",
+      "type": "RoundProgressBar",
+      "geometry": [ "d", "d", 80, 80, 5 ],
+      "colors": [ "#9e24e4", "#141414", "#9e24e4" ],
+      "angle": [ 225, -45 ],
+      "thickness": [ 10, 4 ],
+      "edges-type": 1,
+      "metric": {
+        "name": [ "msi", "RAM usage" ],
+        "bounds": [ 0, "*ram_size_mb" ]
+      }
+    },
+    {
+      "title": "RAM load text",
+      "type": "DynamicLabel",
+      "geometry": [ "d", "d+35", "100%", 5 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
+      "metric": {
+        "name": [ "msi", "RAM usage" ]
+      },
+      "unit": "*ram"
+    },
+    {
+      "title": "Foreground Process Icon",
+      "type": "ForegroundProcessIcon",
+      "geometry": [ 400, 120, 96, 5 ]
+    },
+    {
+      "title": "Framerate",
+      "type": "RoundProgressBar",
+      "geometry": [ "d", "d+1", 118, 118, 5 ],
+      "colors": [ "#2ecc71", "#141414", "#8c8c8c" ],
+      "angle": [ 218, 97 ],
+      "thickness": [ 7, 3 ],
+      "center-out": true,
+      "edges-type": 1,
+      "metric": {
+        "name": [ "msi", "Framerate" ],
+        "bounds": [ 30, "*fps_target + 20" ]
+      }
+    },
+    {
+      "title": "Framerate Text",
+      "type": "DynamicLabel",
+      "geometry": [ "d-56", "d-25", "fps999", 6 ],
+      "stylesheet": "color:#2ecc71;font-weight:bold;font:11pt;",
+      "metric": {
+        "name": [ "msi", "Framerate" ],
+        "bounds": [ 0, 999 ]
+      },
+      "unit": "fps",
+      "unit_after": false
+    },
+    {
+      "title": "Total System Power",
+      "type": "RoundProgressBar",
+      "geometry": [ "d", "d+1", 118, 118, 5 ],
+      "colors": [ "#e1ea0e", "#141414", "#8c8c8c" ],
+      "angle": [ -38, 83 ],
+      "thickness": [ 7, 3 ],
+      "center-out": true,
+      "edges-type": 1,
+      "metric": {
+        "name": [ "*total_power" ],
+        "bounds": [ 0, "*cpu_max_power + *gpu_max_power" ]
+      }
+    },
+    {
+      "title": "Total System Power Text",
+      "type": "DynamicLabel",
+      "geometry": [ "d+56", "d-25", "999w", 4 ],
+      "stylesheet": "color:#e1ea0e;font-weight:bold;font:11pt;",
+      "metric": {
+        "name": [ "*total_power" ],
+        "bounds": [ 0, 999 ]
+      },
+      "unit": "w"
+    },
+    {
+      "title": "Delta Temperature Bar",
+      "type": "RoundProgressBar",
+      "geometry": [ "d", "d+1", 118, 118, 5 ],
+      "colors": [ "#247ae4", "#141414", "#8c8c8c" ],
+      "angle": [ 308, 232 ],
+      "thickness": [ 7, 3 ],
+      "center-out": true,
+      "edges-type": 1,
+      "metric": {
+        "name": [ "*delta_t" ],
+        "bounds": [ 0, 10 ]
+      }
+    },
+    {
+      "title": "Delta Temperature Text",
+      "type": "DynamicLabel",
+      "geometry": [ "d+5", "d+59", "99.9°C", 8 ],
+      "stylesheet": "color:#247ae4;font-weight:bold;font:11pt;",
+      "metric": {
+        "name": [ "*delta_t" ]
+      },
+      "unit": {
+        "unit": "°C",
+        "rounding": 1
+      }
+    },
+    {
+      "title": "GPU Name",
+      "type": "StaticLabel",
+      "geometry": [ 650, 0, 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;",
+      "text": "*gpu_name"
+    },
+    {
+      "title": "GPU Image",
+      "type": "Image",
+      "geometry": [ "-3", "+120", 76, 52, 5 ],
+      "path": "GPU-Logo.svg"
+    },
+    {
+      "title": "GPU Temperature",
+      "type": "ProgressBar",
+      "geometry": [ "d+124", "d-60", 130, 8 ],
+      "colors": [ "#1f6acc", "#141414", "#1f6acc" ],
+      "thickness": [ 18, 4 ],
+      "edges-type": [ 0, 1 ],
+      "direction": 8,
+      "metric": {
+        "name": [ "msi", "GPU temperature" ],
+        "bounds": [ 0, "*gpu_max_temp" ]
+      }
+    },
+    {
+      "title": "GPU Temperature Text",
+      "type": "DynamicLabel",
+      "geometry": [ "d+125", "d-82", "99°C", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "metric": {
+        "name": [ "msi", "GPU temperature" ],
+        "bounds": [ 0, "*gpu_max_temp" ]
+      },
+      "unit": "°C"
+    },
+    {
+      "title": "GPU VRAM Usage",
+      "type": "RoundProgressBar",
+      "geometry": [ "d", "d+7", 180, 180, 5 ],
+      "colors": [ "#2ecc71", "#061a0e" ],
+      "angle": [ -45, 225 ],
+      "thickness": 4,
+      "metric": {
+        "name": [ "msi", "Memory usage" ],
+        "bounds": [ 0, "*gpu_vram_size_mb" ]
+      }
+    },
+    {
+      "title": "GPU Load",
+      "type": "RoundProgressBar",
+      "geometry": [ "d", "d+7", 150, 150, 5 ],
+      "colors": [ "#cd3413", "#141414", "#cd3413" ],
+      "angle": [ -45, 225 ],
+      "thickness": [ 10, 4 ],
+      "edges-type": 1,
+      "metric": {
+        "name": [ "msi", "GPU usage" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "GPU No Load Flag",
+      "type": "DynamicLabelBool",
+      "geometry": [ "d-41", "d", 6 ],
+      "evaluation": {
+        "true": {
+          "text": "NL",
+          "stylesheet": "font-weight:bold;color:#d0310e;"
+        },
+        "false": {
+          "text": "NL",
+          "stylesheet": "font-weight:bold;color:#282828;"
+        }
+      },
+      "metric": {
+        "name": [ "msi", "No load limit" ],
+        "target_value": 1,
+        "operator": "="
+      }
+    },
+    {
+      "title": "GPU Voltage Limit flag",
+      "type": "DynamicLabelBool",
+      "geometry": [ "d+41", "d", 4 ],
+      "evaluation": {
+        "true": {
+          "text": "VL",
+          "stylesheet": "font-weight:bold;color:#d0310e;"
+        },
+        "false": {
+          "text": "VL",
+          "stylesheet": "font-weight:bold;color:#282828;"
+        }
+      },
+      "metric": {
+        "name": [ "msi", "Voltage limit" ],
+        "target_value": 1,
+        "operator": "="
+      }
+    },
+    {
+      "title": "GPU Temperature Limit Flag",
+      "type": "DynamicLabelBool",
+      "geometry": [ "d", "d-41", 5 ],
+      "evaluation": {
+        "true": {
+          "text": "TMP",
+          "stylesheet": "font-weight:bold;color:#d0310e;"
+        },
+        "false": {
+          "text": "TMP",
+          "stylesheet": "font-weight:bold;color:#282828;"
+        }
+      },
+      "metric": {
+        "name": [ "msi", "Temp limit" ],
+        "target_value": 1,
+        "operator": "="
+      }
+    },
+    {
+      "title": "GPU Power Limit Flag",
+      "type": "DynamicLabelBool",
+      "geometry": [ "d", "d+41", 5 ],
+      "evaluation": {
+        "true": {
+          "text": "PWR",
+          "stylesheet": "font-weight:bold;color:#d0310e;"
+        },
+        "false": {
+          "text": "PWR",
+          "stylesheet": "font-weight:bold;color:#282828;"
+        }
+      },
+      "metric": {
+        "name": [ "msi", "Power limit" ],
+        "target_value": 1,
+        "operator": "="
+      }
+    },
+    {
+      "title": "GPU Clock",
+      "type": "DynamicLabel",
+      "geometry": [ "d", "d+55", "9999MHz", 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:11pt;",
+      "metric": {
+        "name": [ "msi", "Core clock" ],
+        "bounds": [ 0, 9999 ]
+      },
+      "unit": "MHz"
+    },
+    {
+      "title": "GPU Power",
+      "type": "CornerProgressBar",
+      "geometry": [ "d+5", "d+16", 280, 190, 5 ],
+      "colors": [ "#e1ea0e", "#141414", "#888c0d" ],
+      "direction": [ 4, 8 ],
+      "thickness": [ 14, 4 ],
+      "edges-type": 1,
+      "corner-radius": 50,
+      "gap": 6,
+      "metric": {
+        "name": [ "msi", "Power" ],
+        "bounds": [ 0, "*gpu_max_power" ]
+      }
+    },
+    {
+      "title": "GPU Power Text",
+      "type": "DynamicLabel",
+      "geometry": [ "d", "d+94", "999w", 8 ],
+      "stylesheet": "color:#ad2a1a;font-weight:bold;font:10pt;",
+      "metric": {
+        "name": [ "msi", "Power" ],
+        "bounds": [ 0, 999 ]
+      },
+      "unit": "w"
+    },
+    {
+      "title": "Storage",
+      "type": "StaticLabel",
+      "geometry": [ 650, 240, 8 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:16pt;",
+      "text": "Storage"
+    },
+    {
+      "title": "C Drive activity",
+      "type": "ProgressBar",
+      "geometry": [ "+0", "+45", 150, 5 ],
+      "colors": [ "#8a1a66", "#141414", "#4d0e39" ],
+      "thickness": [ 16, 4 ],
+      "edges-type": 1,
+      "direction": 46,
+      "metric": {
+        "name": [ "storage", "C", "activity" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "C Drive read text",
+      "type": "DynamicLabel",
+      "geometry": [ "d+80", "d", "99.9MB/s", 4 ],
+      "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
+      "metric": {
+        "name": [ "storage", "C", "readSpeed" ]
+      },
+      "unit": "*storage"
+    },
+    {
+      "title": "C Drive write text",
+      "type": "DynamicLabel",
+      "geometry": [ "d-80", "d", "99.9MB/s", 6 ],
+      "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
+      "metric": {
+        "name": [ "storage", "C", "writeSpeed" ]
+      },
+      "unit": "*storage"
+    },
+    {
+      "title": "C Drive",
+      "type": "StaticLabel",
+      "geometry": [ "d", "d", 5 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
+      "text": "C"
+    },
+    {
+      "title": "D Drive activity",
+      "type": "ProgressBar",
+      "geometry": [ "+0", "+30", 150, 5 ],
+      "colors": [ "#8a1a66", "#141414", "#4d0e39" ],
+      "thickness": [ 16, 4 ],
+      "edges-type": 1,
+      "direction": 46,
+      "metric": {
+        "name": [ "storage", "D", "activity" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "D Drive read text",
+      "type": "DynamicLabel",
+      "geometry": [ "d+80", "d", "99.9MB/s", 4 ],
+      "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
+      "metric": {
+        "name": [ "storage", "D", "readSpeed" ]
+      },
+      "unit": "*storage"
+    },
+    {
+      "title": "D Drive write text",
+      "type": "DynamicLabel",
+      "geometry": [ "d-80", "d", "99.9MB/s", 6 ],
+      "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
+      "metric": {
+        "name": [ "storage", "D", "writeSpeed" ]
+      },
+      "unit": "*storage"
+    },
+    {
+      "title": "D Drive",
+      "type": "StaticLabel",
+      "geometry": [ "d", "d", 5 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
+      "text": "D"
+    },
+    {
+      "title": "E Drive activity",
+      "type": "ProgressBar",
+      "geometry": [ "+0", "+30", 150, 5 ],
+      "colors": [ "#8a1a66", "#141414", "#4d0e39" ],
+      "thickness": [ 16, 4 ],
+      "edges-type": 1,
+      "direction": 46,
+      "metric": {
+        "name": [ "storage", "E", "activity" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "E Drive read text",
+      "type": "DynamicLabel",
+      "geometry": [ "d+80", "d", "99.9MB/s", 4 ],
+      "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
+      "metric": {
+        "name": [ "storage", "E", "readSpeed" ]
+      },
+      "unit": "*storage"
+    },
+    {
+      "title": "E Drive write text",
+      "type": "DynamicLabel",
+      "geometry": [ "d-80", "d", "99.9MB/s", 6 ],
+      "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
+      "metric": {
+        "name": [ "storage", "E", "writeSpeed" ]
+      },
+      "unit": "*storage"
+    },
+    {
+      "title": "E Drive",
+      "type": "StaticLabel",
+      "geometry": [ "d", "d", 5 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
+      "text": "E"
+    },
+    {
+      "title": "F Drive activity",
+      "type": "ProgressBar",
+      "geometry": [ "+0", "+30", 150, 5 ],
+      "colors": [ "#8a1a66", "#141414", "#4d0e39" ],
+      "thickness": [ 16, 4 ],
+      "edges-type": 1,
+      "direction": 46,
+      "metric": {
+        "name": [ "storage", "F", "activity" ],
+        "bounds": [ 0, 100 ]
+      }
+    },
+    {
+      "title": "F Drive read text",
+      "type": "DynamicLabel",
+      "geometry": [ "d+80", "d", "99.9MB/s", 4 ],
+      "stylesheet": "color:#247ae4;font-weight:bold;font:10pt;",
+      "metric": {
+        "name": [ "storage", "F", "readSpeed" ]
+      },
+      "unit": "*storage"
+    },
+    {
+      "title": "F Drive write text",
+      "type": "DynamicLabel",
+      "geometry": [ "d-80", "d", "99.9MB/s", 6 ],
+      "stylesheet": "color:#24e49f;font-weight:bold;font:10pt;",
+      "metric": {
+        "name": [ "storage", "F", "writeSpeed" ]
+      },
+      "unit": "*storage"
+    },
+    {
+      "title": "F Drive",
+      "type": "StaticLabel",
+      "geometry": [ "d", "d", 5 ],
+      "stylesheet": "color:#e1e1e1;font-weight:bold;font:10pt;",
+      "text": "F"
+    },
+    {
+      "title": "Hyperion",
+      "type": "HyperionMenu",
+      "geometry": [ 375, 420, 50, 50 ]
+    },
+    {
+      "title": "Power",
+      "type": "PowerMenu",
+      "geometry": [ "d-70", "d+5", 40, 40 ]
+    },
+    {
+      "title": "Audio",
+      "type": "AudioMenu",
+      "geometry": [ "d+80", "d+5", 40, 40 ]
+    },
+    {
+      "title": "App Drawer Button",
+      "type": "PopupAppDrawer",
+      "geometry": [ "d+350", "d+5", 40, 40 ],
+      "popup": {
+        "type": "AppDrawer",
+        "size": [ 600, 400 ],
+        "gap": 25,
+        "iconSize": 60
+      }
+    },
+    {
+      "title": "Main UI Button",
+      "type": "PageLoader",
+      "geometry": [ "d-350", "d+5", 40, 40 ],
+      "icon": "back_button.png",
+      "ui_file": "ui.json"
+    },
+    {
+      "title": "Advanced Monitor UI Button",
+      "type": "PageLoader",
+      "geometry": [ "d-270", "d+5", 40, 40 ],
+      "icon": "advanced_monitor.png",
+      "ui_file": "ui_advanced.json"
+    },
+    {
+      "title": "Notifications Handler",
+      "top_margin": 8,
+      "type": "NotificationsHandler",
+      "location": "top",
+      "height": 85,
+      "img_margin": 10,
+      "stylesheet": [
+        "border-radius:15px;border:2px solid rgb(18,191,230);margin:0;padding:0",
+        "color:rgb(225,225,225);font-weight:bold;font:15pt;border:0",
+        "color:rgb(225,225,225);font-weight:bold;font:13pt;border:0"
+      ]
+    }
+  ],
+  "unit_converters": {
+    "storage": {
+      "divisor": 1024,
+      "unit": [ "MB/s", "GB/s", "TB/s" ],
+      "rounding": [
+        {
+          "value": 10,
+          "decimal_points": 2
+        },
+        {
+          "value": 100,
+          "decimal_points": 1
+        },
+        {
+          "value": 1000,
+          "decimal_points": 0
+        }
+      ]
+    },
+    "network": {
+      "divisor": 1024,
+      "unit": [ "KB/s", "MB/s", "GB/s", "TB/s" ],
+      "rounding": [
+        {
+          "value": 10,
+          "decimal_points": 2
+        },
+        {
+          "value": 100,
+          "decimal_points": 1
+        },
+        {
+          "value": 1000,
+          "decimal_points": 0
+        }
+      ]
+    },
+    "ram": {
+      "divisor": "*ram_size_mb / 100",
+      "unit": "%",
+      "rounding": 0
+    }
+  }
+}

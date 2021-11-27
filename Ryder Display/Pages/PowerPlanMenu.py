@@ -2,7 +2,7 @@ import sys
 import copy
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QSize, pyqtSlot, Qt
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QFrame
 
 from Network.RyderClient import RyderClient
 
@@ -11,10 +11,16 @@ class PowerPlanMenu(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Power Plan")
-        self.setWindowFlag(Qt.Popup)
-        self.setStyleSheet(
-            'border: 1px solid rgba(237,174,28,100%);'
-        )
+        self.setWindowFlags(Qt.Popup | Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground, True)
+
+        self.frame = QFrame(self)
+        self.frame.setGeometry(0, 0, self.width(), self.height())
+        self.frame.setStyleSheet('border:4px solid #333333;border-radius:30px;background:black;')
+        self.frame.show()
+
+    def resizeEvent(self, event):
+        self.frame.setGeometry(0, 0, self.width(), self.height())
 
     def setParent(self, p):
         return

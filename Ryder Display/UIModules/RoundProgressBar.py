@@ -1,6 +1,6 @@
-from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
 from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtWidgets import QWidget
+from PyQt5.QtGui import QColor, QPainter, QPen, QPixmap
 
 from UIModules.Utils import *
 from Utils.Transitioner import Transitioner
@@ -12,32 +12,59 @@ class RoundProgressBar(object):
         # Retrieve settings
         ### UI Related
         self._transition_frames = transition_frames
-        alignment = settings['alignment'] if 'alignment' in settings else 'top-left'
-        pos = settings['pos'] if 'pos' in settings else [0, 0]
-        size = settings['size'] if 'size' in settings else [50, 50]
+        geometry = settings['geometry'] if 'geometry' in settings else [0, 0, 50, 50, 7]
         angle = settings['angle'] if 'angle' in settings else [0, 360]
-        colors = settings['colors'] if 'colors' in settings else ["#2ecc71", "#141414"]
-        thickness = settings['thickness'] if 'thickness' in settings else 4
-        pos = getPosFromAlignment(pos, size, alignment)
+        colors = settings['colors'] if 'colors' in settings else ["#2ecc71", "#141414", "white"]
+        thickness = settings['thickness'] if 'thickness' in settings else [4, 0]
+        center_out = settings['center-out'] if 'center-out' in settings else False
+        edges_type = settings['edges-type'] if 'edges-type' in settings else [0, 0]
+        edges_removal = settings['edges-removal'] if 'edges-removal' in settings else [0, 0]
+        # Ensure edges_type and edges_removal is an array of 2 elements
+        if isinstance(edges_type, list):
+            if len(edges_type) < 2:
+                edges_type.append(edges_type[0])
+        else:
+            edges_type = [edges_type, edges_type]
+        if isinstance(edges_removal, list):
+            if len(edges_removal) < 2:
+                edges_removal.append(edges_removal[0])
+        else:
+            edges_removal = [edges_removal, edges_removal]
+        # Process alignment
+        if len(geometry) == 4: geometry.append(7)
+        geometry, _ = getPosFromGeometry(geometry)
         ### Metric related
-        self._metric = settings['metric']['name']
-        self._elem_t = Transitioner(
-            settings['metric']['bounds'][0],
-            abs(settings['metric']['bounds'][1] - settings['metric']['bounds'][0]) / 100.0
-        )
-        self._elem_t.setMinMax(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
-        # Create components
+        if transition_frames > 0:
+            self._metric = settings['metric']['name']
+            self._bounds = settings['metric']['bounds']
+            self._elem_t = Transitioner(
+                self._bounds[0],
+                abs(self._bounds[1] - self._bounds[0]) / 100.0
+            )
+            self._elem_t.setMinMax(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
+        else:
+            self._bounds = settings['bounds'] if 'bounds' in settings else [0, 100]
+        # Pre-process some parameters
+        if not center_out:
+            dir = 1 if angle[0] < angle[1] else -1
+        else:
+            dir = 0
+        newAngle = []
+        newAngle.append(angle[0] if angle[0] < angle[1] else angle[1])
+        newAngle.append(angle[1] if angle[0] < angle[1] else angle[0])
+        for i in range(len(colors)): colors[i] = QColor(colors[i])
+        if len(colors) < 3: colors.append(QColor('white'))
+        if isinstance(thickness, list): 
+            if len(thickness) < 2: thickness.append(0)
+        else: 
+            thickness = [thickness, 0]
+        # Create component
         self._elem = QtRoundProgressBar(window)
-        self._elem.setGeometry(pos[0], pos[1], size[0], size[1])
-        dir = 1 if angle[0] < angle[1] else -1
-        min_angle = angle[0] if angle[0] < angle[1] else angle[1]
-        max_angle = angle[0] if angle[0] >= angle[1] else angle[1]
-        self._elem.setAngleBounds(min_angle, max_angle)
-        self._elem.setForegroundColor(QColor(colors[0]))
-        self._elem.setBackgroundColor(QColor(colors[1]))
-        self._elem.setThickness(thickness)
-        self._elem.setFillDirection(dir)
-        self._elem.setBounds(settings['metric']['bounds'][0], settings['metric']['bounds'][1])
+        self._elem.setGeometry(geometry[0], geometry[1], geometry[2], geometry[3])
+        self._elem.setup(
+            self._bounds, newAngle, dir, colors, 
+            thickness, edges_type, edges_removal
+        )
         self._elem.redraw()
         self._elem.show()
 
@@ -47,10 +74,14 @@ class RoundProgressBar(object):
     def deleteLater(self):
         self._elem.deleteLater()
 
-    def update(self, status):
-        if status is not None:
+    def updateDirect(self, val):
+        self._elem.setValue(val)
+        self._elem.update()
+
+    def update(self, refresh = False):
+        if refresh:
             if self._metric[0][0] != "*":
-                value = status
+                value = InternalMetrics().metrics
                 # Navigate status json to desired metric
                 for i in range(0, len(self._metric)):
                     if self._metric[i] in value:
@@ -60,7 +91,8 @@ class RoundProgressBar(object):
                         return
             else:
                 # Get computed metric
-                value = InternalMetrics().metrics[self._metric[0][1:]]
+                value = InternalMetrics().metrics[self._metric[0]]
+            value = value[-1]
 
             self._elem_t.transition(value, self._transition_frames)
 
