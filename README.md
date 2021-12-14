@@ -7,6 +7,20 @@
   <li>Allow choosing the ForegroundProcessIcon icon rounding (square or circle) </li>
 </ul>
 
+<h2>Current Default Interface</h2>
+Main Page
+<img src="https://i.imgur.com/6iJZneB.png"/>
+CPU focused page
+<img src="https://i.imgur.com/5bqqRCa.png"/>
+Historical data page
+<img src="https://i.imgur.com/fUSkzpI.png"/>
+Hyperion and Monitor quick settings
+<img src="https://i.imgur.com/fHFRJD3.png"/>
+Power Plan switcher
+<img src="https://i.imgur.com/QOi4ky5.png"/>
+Audio switcher
+<img src="https://i.imgur.com/4eHUTOn.png"/>
+
 <h2>Donations</h2>
 <ul>
   <li>Ethereum: 0xAa8e014548353F563535c34D8394e9583D24d993</li>
